@@ -1,0 +1,27 @@
+http://vaksys.com/invento/user
+
+https://codecanyon.net/item/mstore-multistore-inventory-management-system-with-full-accounts-and-installment-sale/22891251
+
+https://apexcharts.com/
+
+upload excel file
+https://www.itsolutionstuff.com/post/laravel-6-import-export-excel-csv-file-tutorialexample.html
+https://laracasts.com/discuss/channels/laravel/pathinfo
+https://github.com/shuchkin/simplexlsx
+https://www.itsolutionstuff.com/post/laravel-53-import-export-csv-and-excel-file-into-databaseexample.html
+https://docs.laravel-excel.com/3.1/getting-started/upgrade.html
+https://stackoverflow.com/questions/52560193/maatwebsite-excel-load-function-not-working
+https://docs.laravel-excel.com/3.1/imports/chunk-reading.html
+
+/### Enable Mysql connect remotely
+https://stackoverflow.com/questions/15663001/remote-connections-mysql-ubuntu
+/### How to install and configure Virtual Host
+https://www.digitalocean.com/community/tutorials/how-to-set-up-apache-virtual-hosts-on-ubuntu-18-04-quickstart
+/#### multiple Model
+https://jsbin.com/bomavadune/1/edit?html,console,output
+
+##### apexcharts
+https://apexcharts.com/vue-chart-demos/
+
+******Push Notification*****
+https://github.com/savanihd/Laravel-Firebase-Push-Notification

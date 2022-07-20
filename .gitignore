@@ -1,0 +1,13 @@
+
+node_modules/*
+_node_modules/*
+public/js/*
+.env
+config/database.php
+.DS_Store
+public/js.zip
+public/css.zip
+resources.zip
+public/css.zip
+public/css.zip
+vendor/*

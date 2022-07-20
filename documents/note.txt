@@ -1,0 +1,54 @@
+ALTER TABLE tbl_incentive ADD `khmer_date` VARCHAR(255) AFTER issue_date;
+ALTER TABLE tbl_entity ADD `limit_officer` INT(2) AFTER name;
+ALTER TABLE tbl_incentive ADD `khmer_day` VARCHAR(120) AFTER khmer_date;
+*2020 Aug 06*
+ALTER TABLE tbl_entity ADD `is_active` INT(1) DEFAULT 1 AFTER order_level;
+ALTER TABLE tbl_bank ADD `order_level` INT(1) DEFAULT 1 AFTER code;
+
+//#################################
+SELECT e.`name` AS entity, SUM(amount) AS total_income_entity FROM tbl_income AS i 
+JOIN tbl_entity AS e ON e.id = i.`entity_id`
+GROUP BY e.`id`
+ORDER BY e.`sector_id`
+
+SELECT e.`name` AS entity, SUM(amount) AS total_expense_entity FROM tbl_expense AS `exp`
+JOIN tbl_entity AS e ON e.id = exp.`entity_id`
+GROUP BY e.`id`
+ORDER BY e.`sector_id`
+
+SELECT e.`id` AS entity_id, e.`name` AS entity, SUM(i.amount) AS total_income FROM tbl_income AS i
+JOIN tbl_entity AS e ON e.id = i.`entity_id` GROUP BY e.`id` ORDER BY e.`id`
+UNION ALL
+SELECT e2.`id` AS entity_id, e2.`name` AS entity, SUM(i2o.incentive) AS total_income FROM `tbl_incentive_to_officer` AS i2o
+JOIN tbl_entity AS e2 ON e2.id = i2o.`entity_id` GROUP BY e2.`id` ORDER BY e2.`id`
+
+DROP TEMPORARY TABLE tmp
+CREATE TEMPORARY TABLE tmp(
+`entity_id` INT(11),
+`entity_code` VARCHAR(50),
+`entity` VARCHAR(50),
+`total_income` VARCHAR (50),
+`total_expense` VARCHAR (50),
+`issue_from_date` DATETIME,
+`issue_to_date` DATETIME
+);
+SELECT * FROM tmp
+
+INSERT INTO tmp(entity_id, entity_code, entity, total_income, issue_from_date, issue_to_date)
+SELECT e.`id` AS entity_id, e.`code` AS entity_code, e.`name` AS entity, SUM(i.amount) AS total_income, i.issue_date AS issue_from_date, i.issue_date AS issue_to_date FROM tbl_income AS i
+JOIN tbl_entity AS e ON e.id = i.`entity_id` GROUP BY e.`id` ORDER BY e.`id`
+
+INSERT INTO tmp(entity_id,entity_code, entity, total_expense, issue_from_date, issue_to_date)
+SELECT e2.`id` AS entity_id, 
+	e2.`code` AS entity_code, 
+	e2.`name` AS entity, 
+	(SUM(i2o.incentive) + SUM(i2o.reminder_amount)) AS total_expense,
+	i2o.issue_from_date,
+	i2o.issue_to_date
+FROM `tbl_incentive_to_officer` AS i2o
+JOIN tbl_entity AS e2 ON e2.id = i2o.`entity_id` GROUP BY e2.`id` ORDER BY e2.`id`
+
+SELECT entity_id, entity_code, entity, SUM(total_income) AS total_income, SUM(total_expense) total_expense, issue_from_date, issue_to_date FROM tmp GROUP BY entity_id;
+
+SELECT ROUND(SUM(total_income) / 1000000) FROM tmp;
+SELECT ROUND(SUM(total_expense) / 1000000) FROM tmp;
