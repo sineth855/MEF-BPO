@@ -8,15 +8,20 @@ export default [
     url: '/dashboard',
     slug: "dashboard",
   },
+
+  // =============================================================================
+  // Program Management
+  // =============================================================================
   {
     url: null,
     name: "ProgramManagement",
     tagColor: "warning",
     icon: "AirplayIcon",
     i18n: "ProgramManagement",
-    url: '/program-management',
-    slug: "program-management",
+    url: '/module/program-arragement',
+    slug: "module-program-arragement",
   },
+  
   {
     url: null,
     name: 'BudgetArrangement',
@@ -90,7 +95,12 @@ export default [
         i18n: "CreditMovement",
       },
     ]
-  },
+},
+
+  // =============================================================================
+  // Budget Arrangement
+  // =============================================================================
+
   // {
   //   url: null,
   //   name: 'Setup',

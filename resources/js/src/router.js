@@ -187,13 +187,59 @@ const router = new Router({
                     meta: {
                         breadcrumb: [
                             { title: 'Home', url: '/' },
-                            { title: 'សិទ្ធិ', url: '/role/list'},
+                            { title: 'សិទ្ធិ', url: '/role/list' },
                             { title: 'រាយឈ្មោះសិទ្ធិ', active: true },
                         ],
                         pageTitle: 'សិទ្ធិ',
                         rule: 'editor'
                     },
                 },
+                // =============================================================================
+                // Program Management
+                // =============================================================================
+                {
+                    path: 'module/program-arragement',
+                    name: 'ProgramManagement',
+                    component: () => import('./views/modules/program-management/Index.vue'),
+                    meta: {
+                        rule: 'editor',
+                    }
+                },
+
+                // =============================================================================
+                // Budget Arrangement
+                // =============================================================================
+                {
+                    path: 'modules/budget-arrangement',
+                    component: () => import('@/layouts/full-page/FullPage.vue'),
+                    children: [
+                        {
+                            path: '/bsp',
+                            name: 'bsp',
+                            component: () => import('@/views/Modules/budget-arrangement/bsp/Index.vue'),
+                            meta: {
+                                rule: 'editor'
+                            }
+                        },
+                        {
+                            path: '/budget-ceiling',
+                            name: 'budget-ceiling',
+                            component: () => import('@/views/Modules/budget-arrangement/budget-ceiling/Index.vue'),
+                            meta: {
+                                rule: 'editor'
+                            }
+                        },
+                    ]
+                },
+                // =============================================================================
+                // Budget Implementing Monitoring
+                // =============================================================================
+
+                // =============================================================================
+                // Report
+                // =============================================================================
+
+
                 // =============================================================================
                 // Incentives
                 // =============================================================================
@@ -611,8 +657,6 @@ const router = new Router({
                         rule: 'editor'
                     },
                 },
-
-
                 {
                     path: '/account/taxable-salary',
                     name: 'account-taxable-salary-list',
