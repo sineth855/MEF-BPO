@@ -8,10 +8,10 @@
 ========================================================================================== -->
 <template>
     <div class="main-dashboard">
-        <div style="float: left">
+        <!-- <div style="float: left">
             <b>អត្រាប្តូរប្រាក់ៈ 1$ = 4,000 រៀល</b>
-        </div>
-        <div style="float: right">
+        </div> -->
+        <!-- <div style="float: right">
             <vs-dropdown vs-trigger-click class="dd-actions cursor-pointer mr-6 mb-6" style="width: 150px">
 
                 <div class="p-1 shadow-drop rounded-lg d-theme-dark-bg cursor-pointer flex items-center justify-center text-lg font-medium w-32 w-full">
@@ -24,262 +24,130 @@
                     <vs-dropdown-item @click="onSelectFilter(2021, 'This Year')">
                         <span class="flex items-center">
                             <feather-icon icon="ClockIcon" svgClasses="h-4 w-4" class="mr-2" />
-                            <span>This Year</span>
+                            <span>ឆ្នាំនេះ</span>
                         </span>
                     </vs-dropdown-item>
 
                     <vs-dropdown-item @click="onSelectFilter(2020, 'Last Year')">
                         <span class="flex items-center">
                             <feather-icon icon="ClockIcon" svgClasses="h-4 w-4" class="mr-2" />
-                            <span>Last Year</span>
+                            <span>ឆ្នាំមុន</span>
                         </span>
                     </vs-dropdown-item>
 
                 </vs-dropdown-menu>
             </vs-dropdown>
         </div>
-        <div class="clearfix"></div>
+        <div class="clearfix"></div> -->
+
+        <!-- ROW 1-->
+        <div class="vx-row">
+            <div class="vx-col w-1/2 md:w-1/3 xl:w-1/4 mb-6" style="line-height: 40px;font-size: 14px;">
+                <vx-card class="overflow-hidden">
+                    <div class="main-dashboard" slot="no-body">
+                        <div class="p-6" :class="{
+                        'flex justify-between flex-row-reverse items-center': iconRight,
+                        'text-center': !iconRight && hideChart,
+                        'pb-0': !hideChart
+                        }">
+                            <div class="truncate">
+                                <h3 class="mb-1 font-bold"><feather-icon icon="DollarSignIcon" class="p-3 inline-flex rounded-full" :class="[`text-${color}`, {'mb-4': !iconRight}]" :style="{background: `rgba(var(--vs-${color}),.15)`}"></feather-icon> {{statistic}}</h3>
+                                <h5>ថវិកាសរុប</h5>
+                                <div v-if="totalDollar != ''" class="mb-1"><b>323</b> លានដុល្លា</div>
+                                <div v-else class="mb-1"><b>323<br/></b></div>
+                            </div>
+                        </div>
+                    </div>
+                </vx-card>
+            </div>
+
+            <div class="vx-col w-1/2 md:w-1/3 xl:w-1/4 mb-6" style="line-height: 40px;font-size: 14px;">
+                <vx-card class="overflow-hidden">
+                    <div class="main-dashboard" slot="no-body">
+                        <div class="p-6" :class="{
+                        'flex justify-between flex-row-reverse items-center': iconRight,
+                        'text-center': !iconRight && hideChart,
+                        'pb-0': !hideChart
+                        }">
+                            <div class="truncate">
+                                <h3 class="mb-1 font-bold"><feather-icon icon="UsersIcon" class="p-3 inline-flex rounded-full" :class="[`text-${color}`, {'mb-4': !iconRight}]" :style="{background: `rgba(var(--vs-${color}),.15)`}"></feather-icon> {{statistic}}</h3>
+                                <h5>អង្គភាពសរុប</h5>
+                                <div v-if="totalDollar != ''" class="mb-1"><b>323</b></div>
+                                <div v-else class="mb-1"><b>323<br/></b></div>
+                            </div>
+                        </div>
+                    </div>
+                </vx-card>
+            </div>
+
+            <div class="vx-col w-1/2 md:w-1/3 xl:w-1/4 mb-6" style="line-height: 40px;font-size: 14px;">
+                <vx-card class="overflow-hidden">
+                    <div class="main-dashboard" slot="no-body">
+                        <div class="p-6" :class="{
+                        'flex justify-between flex-row-reverse items-center': iconRight,
+                        'text-center': !iconRight && hideChart,
+                        'pb-0': !hideChart
+                        }">
+                            <div class="truncate">
+                                <h3 class="mb-1 font-bold"><feather-icon icon="FileIcon" class="p-3 inline-flex rounded-full" :class="[`text-${color}`, {'mb-4': !iconRight}]" :style="{background: `rgba(var(--vs-${color}),.15)`}"></feather-icon> {{statistic}}</h3>
+                                <h5>ឯកសារសរុប</h5>
+                                <div v-if="totalDollar != ''" class="mb-1"><b>1,323</b></div>
+                                <div v-else class="mb-1"><b>323<br/></b></div>
+                            </div>
+                        </div>
+                    </div>
+                </vx-card>
+            </div>
+
+            <div class="vx-col w-1/2 md:w-1/3 xl:w-1/4 mb-6" style="line-height: 40px;font-size: 14px;">
+                <vx-card class="overflow-hidden">
+                    <div class="main-dashboard" slot="no-body">
+                        <div class="p-6" :class="{
+                        'flex justify-between flex-row-reverse items-center': iconRight,
+                        'text-center': !iconRight && hideChart,
+                        'pb-0': !hideChart
+                        }">
+                            <div class="truncate">
+                                <h3 class="mb-1 font-bold"><feather-icon icon="FileIcon" class="p-3 inline-flex rounded-full" :class="[`text-${color}`, {'mb-4': !iconRight}]" :style="{background: `rgba(var(--vs-${color}),.15)`}"></feather-icon> {{statistic}}</h3>
+                                <h5>មាតិការកម្មវិធី</h5>
+                                <div v-if="totalDollar != ''" class="mb-1"><b>កម្មវិធីសរុប</b> 3</div>
+                                <div v-else class="mb-1"><b>323<br/></b></div>
+                            </div>
+                        </div>
+                    </div>
+                </vx-card>
+            </div>
+        </div>
+
         <!-- SLOT = ACTIONS -->
         <div class="vx-row">
             
             <div class="vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4 mb-base">
                 <summary-data color="success" :flag="1" :chartOptions="chartOptionOfficers" :chartData="serieOfficers" :totalDollar="''" :statistic="summaryInfo.totalOfficer" statisticTitle="ចំនួនមន្ត្រីជាមធ្យមប្រចាំឆ្នាំ" :resultTitle="summaryInfo.currentDateOfficer" icon="UsersIcon" type='line'></summary-data>
-                <!-- <statistics-card-line
-                  v-if="subscribersGained.analyticsData"
-                  icon="UsersIcon"
-                  :statistic="subscribersGained.analyticsData.subscribers | k_formatter"
-                  statisticTitle="ចំនួនសរុបមន្ត្រីបើកប្រាក់ឧបត្ថម្ភ"
-                  :chartData="subscribersGained.series"
-                  type='area' /> -->
             </div>
 
             <div class="vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4 mb-base">
                 <summary-data color="primary" :flag="2" :chartOptions="chartOptionIncomes" :chartData="incomeCompareSeries" :totalDollar="summaryInfo.totalIncomeDollar" :statistic="summaryInfo.totalIncome" statisticTitle="ចំណូលសរុប(គិតជាលានរៀល)" :resultTitle="summaryInfo.lastUpdatedDateIncome" icon="ArrowDownIcon" type='area'></summary-data>
-                <!-- <statistics-card-line
-                  v-if="revenueGenerated.analyticsData"
-                  icon="DollarSignIcon"
-                  :statistic="revenueGenerated.analyticsData.revenue | k_formatter"
-                  statisticTitle="ចំនូលសរុប(គិតជាលានរៀល)"
-                  :chartData="revenueGenerated.series"
-                  color='success'
-                  type='area' /> -->
             </div>
 
             <div class="vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4 mb-base">
                 <summary-data color="danger" :flag="3" :chartOptions="chartOptionExpenses" :chartData="expenseCompareSeries" :totalDollar="summaryInfo.totalExpenseDollar" :statistic="summaryInfo.totalExpense" statisticTitle="ចំណាយសរុប(គិតជាលានរៀល)" :resultTitle="summaryInfo.lastUpdatedDateExp" icon="ArrowUpIcon" type='area'></summary-data>
-                <!-- <statistics-card-line
-                  v-if="ordersRecevied.analyticsData"
-                  icon="ShoppingBagIcon"
-                  :statistic="ordersRecevied.analyticsData.orders | k_formatter"
-                  statisticTitle="ចំណាយសរុប(គិតជាលានរៀល)"
-                  :chartData="ordersRecevied.series"
-                  color='danger'
-                  type='area' /> -->
             </div>
 
             <div class="vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4 mb-base">
                 <summary-data color="warning" :flag="4" :chartOptions="chartOptionRemains" :chartData="remainCompareSeries" :totalDollar="summaryInfo.totalRemainDollar" :statistic="summaryInfo.totalRemain" statisticTitle="សន្និធិសាច់ប្រាក់សរុប(គិតជាលានរៀល)" :resultTitle="issueDateOfficer" icon="BarChart2Icon" type='area'></summary-data>
-                <!-- <statistics-card-line
-                  v-if="ordersRecevied.analyticsData"
-                  icon="ShoppingBagIcon"
-                  :statistic="ordersRecevied.analyticsData.orders | k_formatter"
-                  statisticTitle="សន្និធិសាច់ប្រាក់សរុប(គិតជាលានរៀល)"
-                  :chartData="ordersRecevied.series"
-                  color='warning'
-                  type='area' /> -->
-            </div>
-        </div>
-
-        <!-- <div class="vx-row">
-            <div class="vx-col w-full md:w-1/1 mb-base">
-                <income-entity></income-entity>
-            </div>
-        </div> -->
-
-        <div class="vx-row">
-
-            <!-- LINE CHART -->
-            <!-- <div class="vx-col w-full md:w-1/2 mb-base">
-                <income-quarter></income-quarter>
-            </div> -->
-
-            <!-- LINE CHART -->
-            <!-- <div class="vx-col w-full md:w-1/2 mb-base">
-                <outcome-quarter></outcome-quarter>
-            </div> -->
-
-            <!-- LINE CHART -->
-            <div class="vx-col w-full md:w-2/3 mb-base">
-                <total-income-outcome-quarter :summaryInfo="summaryInOutQuarter" :series="serieInOutQuarters"></total-income-outcome-quarter>
-            </div>
-
-            <!-- RADIAL CHART -->
-            <div class="vx-col w-full md:w-1/3 mb-base" style="_display: none;">
-                <vx-card title="សមិទ្ធិកម្ម​">
-                    
-                    <!-- <template slot="actions">
-                        <feather-icon icon="HelpCircleIcon" svgClasses="w-6 h-6 text-grey"></feather-icon>
-                    </template> -->
-                    <!-- SLOT = ACTIONS -->
-                    <!-- <template slot="actions">
-                        <change-time-duration-dropdown />
-                    </template> -->
-
-                    <!-- CHART -->
-                    <template slot="no-body">
-                        <div class="mt-10">
-                            <vue-apex-charts type=radialBar height=240 :options="analyticsData.goalOverviewRadialBar.chartOptions" :series="goalOverview.series" />
-                        </div>
-                    </template>
-
-                    <!-- DATA -->
-                    <div><center>ផែនការសកម្មភាពលម្អិត (MAP3)</center></div>
-                    <div class="flex justify-between text-center mt-6" slot="no-body-bottom">
-                        <div class="w-1/2 border border-solid d-theme-border-grey-light border-r-0 border-b-0 border-l-0">
-                            <p class="mt-4">បានបញ្ចប់</p>
-                            <p class="mb-4 text-3xl font-semibold">១០០</p>
-                        </div>
-                        <div class="w-1/2 border border-solid d-theme-border-grey-light border-r-0 border-b-0">
-                            <p class="mt-4">វឌ្ឍនភាព</p>
-                            <p class="mb-4 text-3xl font-semibold">៣០</p>
-                        </div>
-                    </div>
-                </vx-card>
             </div>
         </div>
         
-        <!-- <div class="vx-row">
-            <summary-quarter></summary-quarter>
-        </div><br/><br/> -->
-
-        <div class="vx-row" style="_display: none;">
-            <div class="vx-col w-full md:w-1/2 mb-base">
-                <income-sector :year="currentYear"></income-sector>
-                <!-- <vx-card title="ចំណូលតាមវិស័យធៀបជា%"> -->
-                    <!-- <template slot="actions">
-                        <change-time-duration-dropdown />
-                    </template>
-                    <div v-for="(browser, index) in browserStatistics" :key="browser.id" :class="{'mt-4': index}">
-                        <div class="flex justify-between">
-                            <div class="flex flex-col">
-                                <span class="mb-1">{{ browser.name }}</span>
-                                <h4>{{ browser.ratio }}%</h4>
-                            </div>
-                            <div class="flex flex-col text-right">
-                                <span class="flex -mr-1">
-                                    <span class="mr-1">{{ browser.comparedResult }}</span>
-                                    <feather-icon :icon=" browser.comparedResult < 0 ? 'ArrowDownIcon' : 'ArrowUpIcon'" :svgClasses="[browser.comparedResult < 0 ? 'text-danger' : 'text-success'  ,'stroke-current h-4 w-4 mb-1 mr-1']"></feather-icon>
-                                </span>
-                                <span class="text-grey">{{ browser.time | time(true) }}</span>
-                            </div>
-                        </div>
-                        <vs-progress :percent="browser.ratio"></vs-progress>
-                    </div> -->
-                    <!-- <div id="chart">
-                        <apexchart type="bar" height="380" :options="chartOptions" :series="series"></apexchart>
-                    </div> -->
-                <!-- </vx-card> -->
+        <div class="vx-col w-full sm:w-1/1 md:w-1/1 lg:w-1/1 xl:w-1/1 mb-base">
+            <div class="vx-col w-full">
+                <echarts-bar-chart></echarts-bar-chart>
             </div>
-
-            <div class="vx-col w-full md:w-1/2">
-                <expense-sector></expense-sector>
-                <!-- <incentive-tax-monthly></incentive-tax-monthly> -->
-                <!-- <vx-card title="% ប្រាក់បើកផ្តល់ និងប្រាក់ពន្ធប្រចាំខែ">
-                    <template slot="actions">
-                        <change-time-duration-dropdown />
-                    </template>
-                    <div class="flex">
-                        <span class="flex items-center"><div class="h-3 w-3 rounded-full mr-1 bg-primary"></div><span>ប្រាក់បើកផ្តល់</span></span>
-                        <span class="flex items-center ml-4"><div class="h-3 w-3 rounded-full mr-1 bg-danger"></div><span>ប្រាក់ពន្ធ</span></span>
-                    </div>
-                    <vue-apex-charts type=bar height=277 :options="analyticsData.clientRetentionBar.chartOptions" :series="clientRetentionBar.series" />
-                </vx-card> -->
-            </div>
-
         </div>
-        <br>
-        <div class="vx-row">
-            <!-- CUSTOMERS CHART -->
-            <!-- <div class="vx-col w-full lg:w-1/2 lg:mt-0 mt-base">
-                <top-entity></top-entity>
-            </div> -->
-            <!-- Sessions By Device -->
-           
-
-            <!-- CUSTOMERS CHART -->
-            <div class="vx-col w-full lg:w-1/2 lg:mt-0 mt-base">
-                <top-rank-income-entity></top-rank-income-entity>
-                <!-- <vx-card title="ចំណាត់ថ្នាក់អង្គភាពទាំង១០">
-                    <template slot="actions">
-                        <change-time-duration-dropdown />
-                    </template>
-
-                    <div slot="no-body">
-                        <vue-apex-charts type=pie height=345 class="mt-10 mb-10" :options="analyticsData.customersPie.chartOptions" :series="customersData.series" />
-                        <ul class="mb-1">
-                            <li v-for="customerData in customersData.analyticsData" :key="customerData.customerType" class="flex justify-between py-3 px-6 border d-theme-border-grey-light border-solid border-r-0 border-l-0 border-b-0">
-                                <span class="flex items-center">
-                                    <span class="inline-block h-3 w-3 rounded-full mr-2" :class="`bg-${customerData.color}`"></span>
-                                    <span class="font-semibold">{{ customerData.customerType }}</span>
-                                </span>
-                                <span>{{ customerData.counts }}</span>
-                            </li>
-                        </ul>
-                    </div>
-
-                </vx-card> -->
-            </div>
-
-             <div class="vx-col w-full lg:w-1/2 lg:mt-0 mt-base">
-                <top-rank-expense-entity></top-rank-expense-entity>
-                <!-- <vx-card title="ស្ថិតិការចំណាយធៀបជា%">
-                    <template slot="actions">
-                        <change-time-duration-dropdown />
-                    </template>
-
-                    <div slot="no-body">
-                        <vue-apex-charts class="mt-6 mb-8" type=donut height=325 :options="analyticsData.sessionsByDeviceDonut.chartOptions" :series="sessionsData.series" />
-                    </div>
-
-                    <ul class="mt-6">
-                        <li v-for="deviceData in sessionsData.analyticsData" :key="deviceData.device" class="flex mb-3">
-                            <feather-icon :icon="deviceData.icon" :svgClasses="[`h-5 w-5 stroke-current text-${deviceData.color}`]"></feather-icon>
-                            <span class="ml-2 inline-block font-semibold">{{ deviceData.device }}</span>
-                            <span class="mx-2">-</span>
-                            <span class="mr-4">{{ deviceData.sessionsPercentage }}%</span>
-                            <div class="ml-auto flex -mr-1">
-                            <span class="mr-1">{{ deviceData.comparedResultPercentage }}%</span>
-                            <feather-icon :icon=" deviceData.comparedResultPercentage < 0 ? 'ArrowDownIcon' : 'ArrowUpIcon'" :svgClasses="[deviceData.comparedResultPercentage < 0 ? 'text-danger' : 'text-success'  ,'stroke-current h-4 w-4 mb-1 mr-1']"></feather-icon>
-                            </div>
-                        </li>
-                    </ul>
-                </vx-card> -->
-            </div>
-
-            <!-- CHAT CARD -->
-            <!-- <div class="vx-col w-full lg:w-1/3 lg:mt-0 mt-base">
-                <vx-card title="ពិភាក្សា" class="overflow-hidden">
-                    <template slot="no-body">
-                        <div class="chat-card-log">
-                            <VuePerfectScrollbar ref="chatLogPS" class="scroll-area pt-6 px-6" :settings="settings" :key="$vs.rtl">
-                                <ul ref="chatLog">
-                                    <li class="flex items-start" :class="{'flex-row-reverse': msg.isSent, 'mt-4': index}" v-for="(msg, index) in chatLog" :key="index">
-                                        <vs-avatar size="40px" class="m-0 flex-shrink-0" :class="msg.isSent ? 'ml-5' : 'mr-5'" :src="msg.senderImg"></vs-avatar>
-                                        <div class="msg relative bg-white shadow-md py-3 px-4 mb-2 rounded-lg max-w-md" :class="{'chat-sent-msg bg-primary-gradient text-white': msg.isSent, 'border border-solid d-theme-border-grey-light': !msg.isSent}">
-                                            <span>{{ msg.msg }}</span>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </VuePerfectScrollbar>
-                        </div>
-                        <div class="flex bg-white chat-input-container p-6">
-                            <vs-input class="mr-3 w-full" v-model="chatMsgInput" @keyup.enter="chatMsgInput = ''" placeholder="Type Your Message" ></vs-input>
-                            <vs-button icon-pack="feather" icon="icon-send" @click="chatMsgInput = ''"></vs-button>
-                        </div>
-                    </template>
-                </vx-card>
-            </div> -->
+        <div class="vx-col w-full">
+            <echarts-line-chart></echarts-line-chart>
         </div>
+        
     </div>
 </template>
 
@@ -301,6 +169,14 @@ import TotalIncomeOutcomeQuarter from '@/views/charts-and-maps/charts/TotalIncom
 import IncentiveTaxMonthly from '@/views/charts-and-maps/charts/IncentiveTaxMonthly.vue'
 import TopRankIncomeEntity from '@/views/charts-and-maps/charts/TopRankIncomeEntity.vue'
 import TopRankExpenseEntity from '@/views/charts-and-maps/charts/TopRankExpenseEntity.vue'
+
+import EchartsBarChart from './EchartsBarChart.vue'
+import EchartsLineChart from './EchartsLineChart.vue'
+import EchartsPieChart from './EchartsPieChart.vue'
+import EchartsPolarChart from './EchartsPolarChart.vue'
+import EchartsScatterChart from './EchartsScatterChart.vue'
+import EchartsRadarChart from './EchartsRadarChart.vue'
+
 import router from '@/router'
 import axios from "@/axios.js"
 export default{
@@ -726,6 +602,14 @@ export default{
         IncentiveTaxMonthly,
         TopRankIncomeEntity,
         TopRankExpenseEntity,
+        StatisticsCardLine,
+        
+        EchartsBarChart,
+        EchartsLineChart,
+        EchartsPieChart,
+        EchartsPolarChart,
+        EchartsScatterChart,
+        EchartsRadarChart,
     },
     watch:{
         

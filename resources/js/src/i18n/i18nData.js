@@ -1,6 +1,8 @@
 // kh, en, de, fr, pt
 export default {
 	kh: {
+		AddNew: "បង្កើតថ្មី",
+		Action: "សកម្មភាព",
 		Incentive: 'ប្រាក់ឧបត្ថម្ភ',
 		IncentiveMgr: 'គ្រប់គ្រងប្រាក់ឧបត្ថម្ភ',
 		IncentiveList: 'បញ្ជីបើកផ្តល់ប្រាក់ឧបត្ថម្ភ',
@@ -92,10 +94,12 @@ export default {
 		PolicyRequest: 'សំណើរសុំគោលការណ៍',
 		PolicyRequestList: 'បញ្ជីសំណើរ',
 		PolicyRequestForm: 'បង្កើតសំណើរ',
+		Print: 'បោះពុម្ភ',
 		BudgetTemplate: 'ពុម្ភថវិកា',
 		User: 'អ្នកប្រើប្រាស់',
 		List: 'រាយនាមអ្នកប្រើប្រាស់',
-		View: 'ពិនិត្យអ្នកប្រើប្រាស់',
+		View: 'ពិនិត្យមើលលម្អិត',
+		Download: 'ទាញុយក',
 		Edit: 'កែប្រែពត៌មានអ្នកប្រើប្រាស់',
 		UserSettings: 'ការកំណត់អ្នកប្រើប្រាស់',
 			Invoice: 'វិក័យប័ត្រ',
@@ -197,6 +201,23 @@ export default {
 		CreditMovement: 'ចលនាឥណទាន',
 		FileManager: 'ឃ្លាំងឯកសារ',
 		// ##### Setting #####
+
+		// Copy Right
+		CopyRight: "",
+		// Status: "",
+		inprogress: "កំពុងដំណើរការ",
+		completed: "បានបញ្ចប់",
+		//******* */ Budget Arrangement - រៀបចំថវិកា********/
+		//PIP
+		pip_program_title: "ឈ្មោះកម្មវិធី/ឈ្មោះអនុកម្មវិធី/ឈ្មោះគម្រោង",
+		pip_no: "លេខPIP",
+		pip_project_status: "ស្ថានភាពគម្រោង",
+		pip_project_type: "ប្រភេទគម្រោង",
+		pip_estimate_expense: "ចំណាយប៉ាន់ស្មាន",
+		pip_promise: "ហិរញ្ញប្បទានសន្យាផ្តល់",
+		pip_adjustment_budget: "តម្រូវការហិរញ្ញប្បទានបំពេញបន្ថែម",
+		pip_financail_resource: "ប្រភពហិរញ្ញប្បទាន",
+
 				 
 	},
 	en: {

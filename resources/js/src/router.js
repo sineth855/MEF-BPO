@@ -202,6 +202,12 @@ const router = new Router({
                     name: 'ProgramManagement',
                     component: () => import('./views/modules/program-management/Index.vue'),
                     meta: {
+                        pageTitle: 'គ្រប់គ្រងកម្មវិធី',
+                        breadcrumb: [
+                            { title: 'ផ្ទាំងគ្រប់គ្រង', url: '/' },
+                            { title: 'ផ្ទាំងគ្រប់គ្រង' },
+                            { title: 'គ្រប់គ្រងកម្មវិធី', active: true },
+                        ],
                         rule: 'editor',
                     }
                 },
@@ -209,36 +215,152 @@ const router = new Router({
                 // =============================================================================
                 // Budget Arrangement
                 // =============================================================================
-                {
-                    path: 'modules/budget-arrangement',
-                    component: () => import('@/layouts/full-page/FullPage.vue'),
-                    children: [
-                        {
-                            path: '/bsp',
-                            name: 'bsp',
-                            component: () => import('@/views/Modules/budget-arrangement/bsp/Index.vue'),
-                            meta: {
-                                rule: 'editor'
-                            }
-                        },
-                        {
-                            path: '/budget-ceiling',
-                            name: 'budget-ceiling',
-                            component: () => import('@/views/Modules/budget-arrangement/budget-ceiling/Index.vue'),
-                            meta: {
-                                rule: 'editor'
-                            }
-                        },
-                    ]
+                {           
+                    path: 'module/budget-arrangement/budget-ceiling',
+                    name: 'BudgetCeiling',
+                    component: () => import('@/views/Modules/budget-arrangement/budget-ceiling/Index.vue'),
+                    meta: {
+                        pageTitle: 'ពិដានថវិកា',
+                        breadcrumb: [
+                            { title: 'ផ្ទាំងគ្រប់គ្រង', url: '/' },
+                            { title: 'រៀបចំថវិកា', url: '/' },
+                            { title: 'ពិដានថវិកា', active: true },
+                        ],
+                        rule: 'editor'
+                    }
+                },
+                {           
+                    path: 'module/budget-arrangement/budget-ceiling/list',
+                    name: 'BudgetCeilingList',
+                    component: () => import('@/views/Modules/budget-arrangement/budget-ceiling/List.vue'),
+                    meta: {
+                        pageTitle: 'ពិដានថវិកា',
+                        breadcrumb: [
+                            { title: 'ផ្ទាំងគ្រប់គ្រង', url: '/' },
+                            { title: 'កំណត់ពិដានថវិកា', url: '/module/budget-arrangement/budget-ceiling' },
+                            { title: 'ពិដានថវិកា', active: true },
+                        ],
+                        rule: 'editor'
+                    }
+                },
+                {           
+                    path: 'module/budget-arrangement/pip',
+                    name: 'PIP',
+                    component: () => import('@/views/Modules/budget-arrangement/pip/Index.vue'),
+                    meta: {
+                        pageTitle: 'រៀបចំគម្រោងវិនិយោគសាធារណៈ',
+                        breadcrumb: [
+                            { title: 'ផ្ទាំងគ្រប់គ្រង', url: '/' },
+                            { title: 'រៀបចំថវិកា', url: '/' },
+                            { title: 'រៀបចំគម្រោងវិនិយោគសាធារណៈ', active: true },
+                        ],
+                        rule: 'editor'
+                    }
+                },
+                {           
+                    path: 'module/budget-arrangement/bsp',
+                    name: 'BPS',
+                    component: () => import('@/views/Modules/budget-arrangement/bsp/Index.vue'),
+                    meta: {
+                        pageTitle: 'រៀបចំយុទ្ធសាស្ត្រថវិកា',
+                        breadcrumb: [
+                            { title: 'ផ្ទាំងគ្រប់គ្រង', url: '/' },
+                            { title: 'រៀបចំថវិកា', url: '/' },
+                            { title: 'រៀបចំយុទ្ធសាស្ត្រថវិកា', active: true },
+                        ],
+                        rule: 'editor'
+                    }
+                },
+                {           
+                    path: 'module/budget-arrangement/pb',
+                    name: 'PB',
+                    component: () => import('@/views/Modules/budget-arrangement/pb/Index.vue'),
+                    meta: {
+                        pageTitle: 'រៀបចំថវិកា',
+                        breadcrumb: [
+                            { title: 'ផ្ទាំងគ្រប់គ្រង', url: '/' },
+                            { title: 'រៀបចំថវិកា', url: '/' },
+                            { title: 'គម្រោងវិនិយោគថវិកា', active: true },
+                        ],
+                        rule: 'editor'
+                    }
                 },
                 // =============================================================================
                 // Budget Implementing Monitoring
                 // =============================================================================
-
+                {           
+                    path: 'module/budget-monitoring/income-expense-arrangement',
+                    name: 'IncomeExpenseArrangement',
+                    component: () => import('@/views/Modules/budget-monitoring/income-expense-arrangement/Index.vue'),
+                    meta: {
+                        pageTitle: 'រៀបចំកម្មវិធីចំណូល/ចំណាយត្រីមាស',
+                        breadcrumb: [
+                            { title: 'ផ្ទាំងគ្រប់គ្រង', url: '/' },
+                            { title: 'តាមដានអនុវត្តថវិកា', url: '/' },
+                            { title: 'រៀបចំកម្មវិធីចំណូល/ចំណាយត្រីមាស', active: true },
+                        ],
+                        rule: 'editor'
+                    }
+                },
+                {           
+                    path: 'module/budget-monitoring/income-implementing-result',
+                    name: 'IncomeExpenseResult',
+                    component: () => import('@/views/Modules/budget-monitoring/income-implementing-result/Index.vue'),
+                    meta: {
+                        pageTitle: 'ចុះលទ្ធផលអនុវត្តចំណូល',
+                        breadcrumb: [
+                            { title: 'ផ្ទាំងគ្រប់គ្រង', url: '/' },
+                            { title: 'តាមដានអនុវត្តថវិកា', url: '/' },
+                            { title: 'ចុះលទ្ធផលអនុវត្តចំណូល', active: true },
+                        ],
+                        rule: 'editor'
+                    }
+                },
+                {           
+                    path: 'module/budget-monitoring/expenditure-certificate',
+                    name: 'ExpenditureCertificate',
+                    component: () => import('@/views/Modules/budget-monitoring/expenditure-certificate/Index.vue'),
+                    meta: {
+                        pageTitle: 'ចុះសលាកបត្រចំណាយ',
+                        breadcrumb: [
+                            { title: 'ផ្ទាំងគ្រប់គ្រង', url: '/' },
+                            { title: 'តាមដានអនុវត្តថវិកា', url: '/' },
+                            { title: 'ចុះសលាកបត្រចំណាយ', active: true },
+                        ],
+                        rule: 'editor'
+                    }
+                },
+                {           
+                    path: 'module/budget-monitoring/credit-movement',
+                    name: 'CreditMovement',
+                    component: () => import('@/views/Modules/budget-monitoring/credit-movement/Index.vue'),
+                    meta: {
+                        pageTitle: 'ចលនាឥណទាន',
+                        breadcrumb: [
+                            { title: 'ផ្ទាំងគ្រប់គ្រង', url: '/' },
+                            { title: 'តាមដានអនុវត្តថវិកា', url: '/' },
+                            { title: 'ចលនាឥណទាន', active: true },
+                        ],
+                        rule: 'editor'
+                    }
+                },
                 // =============================================================================
                 // Report
                 // =============================================================================
-
+                {           
+                    path: 'report',
+                    name: 'Report',
+                    component: () => import('@/views/reports/Index.vue'),
+                    meta: {
+                        pageTitle: 'របាយការណ៍',
+                        breadcrumb: [
+                            { title: 'Home', url: '/' },
+                            { title: 'គ្រប់គ្រងរបាយការណ៍', url: '/' },
+                            { title: 'របាយការណ៍', active: true },
+                        ],
+                        rule: 'editor'
+                    }
+                },
 
                 // =============================================================================
                 // Incentives
@@ -248,12 +370,12 @@ const router = new Router({
                     name: 'data-officer-list',
                     component: () => import('@/views/officers/data-list/list-view/DataListListView.vue'),
                     meta: {
+                        pageTitle: 'List View',
                         breadcrumb: [
                             { title: 'Home', url: '/' },
                             { title: 'បញ្ជីមន្ត្រីបើកប្រាក់ឧបត្ថម្ភ', url: '/officer/list' },
                             { title: 'List View', active: true },
                         ],
-                        pageTitle: 'List View',
                         rule: 'editor'
                     },
                 },
@@ -1221,9 +1343,179 @@ const router = new Router({
                         name: 'file-manager',
                         component: () => import('./views/file-managers/FileManager.vue'),
                         meta: {
+                            pageTitle: 'ឃាំ្លងឯកសារ',
+                            breadcrumb: [
+                                { title: 'Dashboard', url: '/' },
+                                { title: 'ឃាំ្លងឯកសារ', url: '/' },
+                                { title: 'ឃាំ្លងឯកសារ', active: true },
+                            ],
                             rule: 'editor',
                         }
                     },
+
+
+                // =============================================================================
+        // Application Routes
+        // =============================================================================
+        {
+            path: '/apps/todo',
+            redirect: '/apps/todo/all',
+            name: 'todo',
+        },
+        {
+            path: '/apps/todo/:filter',
+            component: () => import('./views/apps/todo/Todo.vue'),
+            meta: {
+                rule: 'editor',
+                parent: "todo",
+                no_scroll: true,
+            }
+        },
+        {
+            path: '/apps/chat',
+            name: 'chat',
+            component: () => import('./views/apps/chat/Chat.vue'),
+            meta: {
+                rule: 'editor',
+                no_scroll: true,
+            }
+        },
+        {
+            path: '/apps/email',
+            redirect: '/apps/email/inbox',
+            name: 'email',
+        },
+        {
+            path: '/apps/email/:filter',
+            component: () => import('./views/apps/email/Email.vue'),
+            meta: {
+                rule: 'editor',
+                parent: 'email',
+                no_scroll: true,
+            }
+        },
+        {
+            path: '/apps/calendar/vue-simple-calendar',
+            name: 'calendar-simple-calendar',
+            component: () => import('./views/apps/calendar/SimpleCalendar.vue'),
+            meta: {
+                rule: 'editor',
+                no_scroll: true,
+            }
+        },
+        {
+            path: '/apps/eCommerce/shop',
+            name: 'ecommerce-shop',
+            component: () => import('./views/apps/eCommerce/ECommerceShop.vue'),
+            meta: {
+                breadcrumb: [
+                    { title: 'Home', url: '/' },
+                    { title: 'eCommerce'},
+                    { title: 'Shop', active: true },
+                ],
+                pageTitle: 'Shop',
+                rule: 'editor'
+            }
+        },
+        {
+            path: '/apps/eCommerce/wish-list',
+            name: 'ecommerce-wish-list',
+            component: () => import('./views/apps/eCommerce/ECommerceWishList.vue'),
+            meta: {
+                breadcrumb: [
+                    { title: 'Home', url: '/' },
+                    { title: 'eCommerce', url:'/apps/eCommerce/shop'},
+                    { title: 'Wish List', active: true },
+                ],
+                pageTitle: 'Wish List',
+                rule: 'editor'
+            }
+        },
+        {
+            path: '/apps/eCommerce/checkout',
+            name: 'ecommerce-checkout',
+            component: () => import('./views/apps/eCommerce/ECommerceCheckout.vue'),
+            meta: {
+                breadcrumb: [
+                    { title: 'Home', url: '/' },
+                    { title: 'eCommerce', url:'/apps/eCommerce/shop'},
+                    { title: 'Checkout', active: true },
+                ],
+                pageTitle: 'Checkout',
+                rule: 'editor'
+            }
+        },
+        /*
+          Below route is for demo purpose
+          You can use this route in your app
+            {
+                path: '/apps/eCommerce/item/',
+                name: 'ecommerce-item-detail-view',
+                redirect: '/apps/eCommerce/shop',
+            }
+        */
+        {
+            path: '/apps/eCommerce/item/',
+            redirect: '/apps/eCommerce/item/5546604',
+        },
+        {
+            path: '/apps/eCommerce/item/:item_id',
+            name: 'ecommerce-item-detail-view',
+            component: () => import('./views/apps/eCommerce/ECommerceItemDetailView.vue'),
+            meta: {
+                breadcrumb: [
+                    { title: 'Home', url: '/' },
+                    { title: 'eCommerce'},
+                    { title: 'Shop', url: {name: 'ecommerce-shop'} },
+                    { title: 'Item Details', active: true },
+                ],
+                parent: "ecommerce-item-detail-view",
+                pageTitle: 'Item Details',
+                rule: 'editor'
+            }
+        },
+        {
+            path: '/apps/user/user-list',
+            name: 'app-user-list',
+            component: () => import('@/views/apps/user/user-list/UserList.vue'),
+            meta: {
+                breadcrumb: [
+                    { title: 'Home', url: '/' },
+                    { title: 'User' },
+                    { title: 'List', active: true },
+                ],
+                pageTitle: 'User List',
+                rule: 'editor'
+            },
+        },
+        {
+            path: '/apps/user/user-view/:userId',
+            name: 'app-user-view',
+            component: () => import('@/views/apps/user/UserView.vue'),
+            meta: {
+                breadcrumb: [
+                    { title: 'Home', url: '/' },
+                    { title: 'User' },
+                    { title: 'View', active: true },
+                ],
+                pageTitle: 'User View',
+                rule: 'editor'
+            },
+        },
+        {
+            path: '/apps/user/user-edit/:userId',
+            name: 'app-user-edit',
+            component: () => import('@/views/apps/user/user-edit/UserEdit.vue'),
+            meta: {
+                breadcrumb: [
+                    { title: 'Home', url: '/' },
+                    { title: 'User' },
+                    { title: 'Edit', active: true },
+                ],
+                pageTitle: 'User Edit',
+                rule: 'editor'
+            },
+        },
         
             ],
         },

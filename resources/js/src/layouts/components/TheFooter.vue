@@ -1,8 +1,8 @@
 <template functional>
     <footer class="the-footer flex-wrap justify-between" :class="classes">
-        <span>COPYRIGHT &copy; {{ new Date().getFullYear() }} <a href="#" target="_blank" rel="nofollow">Budget Planning System</a>, All rights Reserved</span>
+        <span>បានចម្លងតាមច្បាប់ដើម. {{ new Date().getFullYear() }} <a href="#" target="_blank" rel="nofollow">ប្រព័ន្ធគ្រប់គ្រងផែនការថវិកា</a>, រក្សាសិទ្ធគ្រប់យ៉ាង</span>
         <span class="md:flex hidden items-center">
-            <span>Ministry of Economic & Finance</span>
+            <span>ក្រសួងសេដ្ឋកិច្ច និងហិរញ្ញវត្ថុ</span>
             <!-- <feather-icon icon="HeartIcon" svgClasses="stroke-current text-danger w-6 h-6" class="ml-2" /> -->
         </span>
 

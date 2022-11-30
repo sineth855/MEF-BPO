@@ -109,8 +109,25 @@ INPUT[type=password] {
   font-family: Arial !important;
 }
 
-input {
+input,
+footer,
+button,
+span.vs-button-text.vs-button--text {
   font-family: "Khmer MEF1";
+}
+
+.vs-table--thead th {
+  font-size: 1.1rem;
+}
+
+[dir] .vs-table--thead th {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.vs-table--thead th .vs-table-text {
+  text-transform: uppercase;
+  font-weight: 600;
 }
 
 #app {

@@ -1,6 +1,6 @@
 <!-- =========================================================================================
-    File Name: TodoItem.vue
-    Description: Single todo item component
+    File Name: Todo.vue
+    Description: Todo Application to keep you ahead of time
     ----------------------------------------------------------------------------------------
     Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
       Author: Pixinvent
@@ -9,115 +9,146 @@
 
 
 <template>
-    <div @click="displayPrompt" class="px-4 py-4 list-item-component">
-        <div class="vx-row">
-            <div class="vx-col w-full sm:w-5/6 flex sm:items-center sm:flex-row flex-col">
-                <div class="flex items-center">
-                    <vs-checkbox v-model="isCompleted" class="w-8 m-0 vs-checkbox-small" @click.stop />
-                    <h6 class="todo-title" :class="{'line-through': taskLocal.isCompleted}">{{ taskLocal.title }}</h6>
-                </div>
-                <div class="todo-tags sm:ml-2 sm:my-0 my-2 flex">
-                    <vs-chip v-for="(tag, index) in taskLocal.tags" :key="index">
-                        <div class="h-2 w-2 rounded-full mr-1" :class="'bg-' + todoLabelColor(tag)"></div>
-                        <span>{{ tag | capitalize }}</span>
-                    </vs-chip>
-                </div>
-            </div>
+    <div id="todo-app" class="border border-solid d-theme-border-grey-light rounded relative overflow-hidden">
 
-            <div class="vx-col w-full sm:w-1/6 ml-auto flex sm:justify-end">
-                <feather-icon
-                  icon="InfoIcon"
-                  class="cursor-pointer"
-                  :svgClasses="[{'text-success stroke-current': taskLocal.isImportant}, 'w-5', 'h-5 mr-4']"
-                  @click.stop="toggleIsImportant" />
+                <vs-sidebar class="items-no-padding" parent="#todo-app" :click-not-close="clickNotClose" :hidden-background="clickNotClose" v-model="isSidebarActive">
+                    <todo-add-new />
+                    <VuePerfectScrollbar class="todo-scroll-area" :settings="settings" :key="$vs.rtl">
+                    <todo-filters @closeSidebar="toggleTodoSidebar"></todo-filters>
+                    </VuePerfectScrollbar>
+                </vs-sidebar>
 
-                <feather-icon
-                  icon="StarIcon"
-                  class="cursor-pointer"
-                  :svgClasses="[{'text-warning stroke-current': taskLocal.isStarred}, 'w-5', 'h-5 mr-4']"
-                  @click.stop="toggleIsStarred" />
-                <feather-icon
-                  v-if="!taskLocal.isTrashed"
-                  icon="TrashIcon"
-                  class="cursor-pointer"
-                  svgClasses="w-5 h-5"
-                  @click.stop="moveToTrash" />
-            </div>
-        </div>
-        <div class="vx-row" v-if="taskLocal.desc">
-            <div class="vx-col w-full">
-                <p class="mt-2 truncate" :class="{'line-through': taskLocal.isCompleted}">{{ taskLocal.desc }}</p>
-            </div>
-        </div>
+                <div :class="{'sidebar-spacer': clickNotClose}" class="no-scroll-content border border-r-0 border-b-0 border-t-0 border-solid d-theme-border-grey-light no-scroll-content">
+                    <div class="flex d-theme-dark-bg items-center border border-l-0 border-r-0 border-t-0 border-solid d-theme-border-grey-light">
+
+                        <!-- TOGGLE SIDEBAR BUTTON -->
+                        <feather-icon class="md:inline-flex lg:hidden ml-4 mr-4 cursor-pointer" icon="MenuIcon" @click.stop="toggleTodoSidebar(true)" />
+
+                        <!-- SEARCH BAR -->
+                        <vs-input icon-no-border size="large" icon-pack="feather" icon="icon-search" placeholder="Search..." v-model="searchQuery" class="vs-input-no-border vs-input-no-shdow-focus w-full" />
+                    </div>
+
+                    <!-- TODO LIST -->
+                    <VuePerfectScrollbar class="todo-content-scroll-area" :settings="settings" ref="taskListPS" :key="$vs.rtl">
+                        <transition-group class="todo-list" name="list-enter-up" tag="ul" appear>
+                            <li class="cursor-pointer todo_todo-item" v-for="(task, index) in taskList" :key="String(currFilter) + String(task.id)" :style="[{transitionDelay: (index * 0.1) + 's'}]">
+
+                                <todo-task :taskId="task.id" @showDisplayPrompt="showDisplayPrompt($event)" :key="String(task.title) + String(task.desc)" />
+                                <!--
+                                  Note: Remove "todo-task" component's key just concat lastUpdated field in li key list.
+                                  e.g. <li class="..." v-for="..." :key="String(currFilter) + String(task.id) + String(task.lastUpdated)" .. >
+                                -->
+                            </li>
+                        </transition-group>
+                    </VuePerfectScrollbar>
+                    <!-- /TODO LIST -->
+                </div>
+
+                <!-- EDIT TODO DIALOG -->
+                <todo-edit :displayPrompt="displayPrompt" :taskId="taskIdToEdit" @hideDisplayPrompt="hidePrompt" v-if="displayPrompt"></todo-edit>
     </div>
 </template>
 
 <script>
-export default{
-    props: {
-        taskId: {
-            type: Number,
-            required: true,
-        }
-    },
-    data() {
-        return {
-          taskLocal: this.$store.getters["todo/getTask"](this.taskId)
-        }
-    },
-    computed: {
-        isCompleted: {
-          get () {
-              return this.taskLocal.isCompleted
-          },
-          set (value) {
-            this.$store.dispatch("todo/updateTask", Object.assign({}, this.taskLocal, {isCompleted: value}))
-              .then((response) => {
-                this.taskLocal.isCompleted = response.data.isCompleted
-              })
-              .catch((error) => { console.error(error) })
-          }
-        },
-        todoLabelColor() {
-          return (label) => {
-            const tags = this.$store.state.todo.taskTags
-            return tags.find((tag) => {
-              return tag.value == label
-            }).color
-          }
-        }
-    },
-    methods: {
-        toggleIsImportant() {
-          this.$store.dispatch("todo/updateTask", Object.assign({}, this.taskLocal, {isImportant: !this.taskLocal.isImportant}))
-            .then((response) => {
-              this.taskLocal.isImportant = response.data.isImportant
-            })
-            .catch((error) => { console.error(error) })
-        },
-        toggleIsStarred() {
-          this.$store.dispatch("todo/updateTask", Object.assign({}, this.taskLocal, {isStarred: !this.taskLocal.isStarred}))
-            .then((response) => {
-              this.taskLocal.isStarred = response.data.isStarred
-            })
-            .catch((error) => { console.error(error) })
-        },
-        moveToTrash() {
+import moduleTodo          from '@/store/todo/moduleTodo.js'
+import TodoAddNew          from "./TodoAddNew.vue"
+import TodoTask            from "./TodoTask.vue"
+import TodoFilters         from "./TodoFilters.vue"
+import TodoEdit            from "./TodoEdit.vue"
+import VuePerfectScrollbar from 'vue-perfect-scrollbar'
 
-          this.$store.dispatch("todo/updateTask", Object.assign({}, this.taskLocal, {isTrashed: true}))
-            .then((response) => {
-              // console.log(response.data);
-              this.taskLocal.isTrashed = response.data.isTrashed
-              this.$el.style.display = "none"   // Hides element from DOM
-            })
-            .catch((error) => { console.error(error) })
+export default {
+  data() {
+    return {
+      currFilter           : "",
+      clickNotClose        : true,
+      displayPrompt        : false,
+      taskIdToEdit         : 0,
+      isSidebarActive      : true,
+      settings : {
+        maxScrollbarLength : 60,
+        wheelSpeed         : 0.30,
+      },
+    }
+  },
+  watch: {
+    todoFilter() {
+      this.$refs.taskListPS.$el.scrollTop = 0
+      this.toggleTodoSidebar()
 
-          // Un-comment below line if you want to fetch task after task is deleted
-          // this.$store.dispatch("todo/fetchTasks", {filter: this.$route.params.filter})
-        },
-        displayPrompt() {
-          this.$emit('showDisplayPrompt', this.taskId)
-        }
+      // Fetch Tasks
+      let filter = this.$route.params.filter
+      this.$store.dispatch("todo/fetchTasks", { filter: filter })
+      this.$store.commit("todo/UPDATE_TODO_FILTER", filter)
     },
+    windowWidth() {
+      this.setSidebarWidth()
+    },
+  },
+  computed: {
+    todo()        { return this.$store.state.todo.todoArray              },
+    todoFilter()  { return this.$route.params.filter                     },
+    taskList()    { return this.$store.getters["todo/queriedTasks"]      },
+    searchQuery:  {
+      get()       { return this.$store.state.todo.todoSearchQuery        },
+      set(val)    { this.$store.dispatch('todo/setTodoSearchQuery', val) }
+    },
+    windowWidth() { return this.$store.state.windowWidth }
+  },
+  methods: {
+    showDisplayPrompt(itemId) {
+      this.taskIdToEdit  = itemId
+      this.displayPrompt = true
+    },
+    hidePrompt() {
+      this.displayPrompt = false
+    },
+    setSidebarWidth() {
+      if (this.windowWidth < 992) {
+        this.isSidebarActive = this.clickNotClose = false
+      } else {
+        this.isSidebarActive = this.clickNotClose = true
+      }
+    },
+    toggleTodoSidebar(value = false) {
+      if (!value && this.clickNotClose) return
+      this.isSidebarActive = value
+    },
+  },
+  components: {
+    TodoAddNew,
+    TodoTask,
+    TodoFilters,
+    TodoEdit,
+    VuePerfectScrollbar
+  },
+  created() {
+    this.$store.registerModule('todo', moduleTodo)
+    this.setSidebarWidth()
+
+    let filter = this.$route.params.filter
+
+    // Fetch Tasks
+    this.$store.dispatch("todo/fetchTasks", { filter: filter })
+    this.$store.commit("todo/UPDATE_TODO_FILTER", filter)
+
+    // Fetch Tags
+    this.$store.dispatch("todo/fetchTags")
+  },
+  beforeUpdate() {
+    this.currFilter = this.$route.params.filter
+  },
+  beforeDestroy: function() {
+    this.$store.unregisterModule('todo')
+  },
+  mounted() {
+    this.$store.dispatch("todo/setTodoSearchQuery", "")
+  }
 }
+
 </script>
+
+
+<style lang="scss">
+@import "@sass/vuexy/apps/todo.scss";
+</style>

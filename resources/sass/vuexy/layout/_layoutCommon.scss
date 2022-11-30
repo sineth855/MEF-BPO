@@ -52,8 +52,20 @@ body {
 div.login-font input, INPUT[type="password"]{
   font-family: Arial !important;
 }
-input{
+input, footer, button, span.vs-button-text.vs-button--text{
   font-family: 'Khmer MEF1';
+}
+.vs-table--thead {
+  th {
+    padding-top: 0;
+    padding-bottom: 0;
+    font-size: 1.1rem;
+
+    .vs-table-text {
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+  }
 }
 #app {
   min-height: 100%;
