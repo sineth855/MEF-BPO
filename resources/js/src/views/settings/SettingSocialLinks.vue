@@ -10,7 +10,7 @@
 
     <!-- Save & Reset Button -->
     <div class="flex flex-wrap items-center justify-end">
-      <vs-button class="ml-auto mt-2">រក្សាទុក</vs-button>
+      <vs-button class="ml-auto mt-2">Save Changes</vs-button>
       <vs-button class="ml-4 mt-2" type="border" color="warning">Reset</vs-button>
     </div>
   </vx-card>
@@ -20,12 +20,12 @@
 export default {
   data() {
     return {
-      twitter: "",
-      facebook: "",
-      instagram: "",
-      github: "",
-      linkedin: "",
-      slack: "",
+      twitter: "https://twitter.com/adoptionism744",
+      facebook: "https://www.facebook.com/adoptionism664",
+      instagram: "https://www.instagram.com/adopt-ionism744/",
+      github: "https://github.com/madop818",
+      linkedin: "https://codepen.io/adoptism243",
+      slack: "@adoptionism744",
     }
   },
   computed: {

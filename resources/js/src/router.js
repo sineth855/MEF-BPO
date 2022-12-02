@@ -362,6 +362,117 @@ const router = new Router({
                     }
                 },
 
+                    {           
+                        path: 'report/program',
+                        name: 'ReportProgram',
+                        component: () => import('@/views/reports/program/Index.vue'),
+                        meta: {
+                            pageTitle: 'របាយការណ៍កម្មវិធី',
+                            breadcrumb: [
+                                { title: 'Home', url: '/' },
+                                { title: 'គ្រប់គ្រងរបាយការណ៍', url: '/report' },
+                                { title: 'របាយការណ៍កម្មវិធី', active: true },
+                            ],
+                            rule: 'editor'
+                        }
+                    },
+                    {           
+                        path: 'report/pip',
+                        name: 'ReportPIP',
+                        component: () => import('@/views/reports/pip/Index.vue'),
+                        meta: {
+                            pageTitle: 'របាយការណ៍គម្រោងវិនិយោគ',
+                            breadcrumb: [
+                                { title: 'Home', url: '/' },
+                                { title: 'គ្រប់គ្រងរបាយការណ៍', url: '/report' },
+                                { title: 'របាយការណ៍គម្រោងវិនិយោគ', active: true },
+                            ],
+                            rule: 'editor'
+                        }
+                },
+                    {           
+                        path: 'report/bsp',
+                        name: 'ReportBSP',
+                        component: () => import('@/views/reports/bsp/Index.vue'),
+                        meta: {
+                            pageTitle: 'របាយការណ៍ផែនការថវិកា',
+                            breadcrumb: [
+                                { title: 'Home', url: '/' },
+                                { title: 'គ្រប់គ្រងរបាយការណ៍', url: '/report' },
+                                { title: 'របាយការណ៍ផែនការថវិកា', active: true },
+                            ],
+                            rule: 'editor'
+                        }
+                },
+                    {           
+                        path: 'report/pb',
+                        name: 'ReportPB',
+                        component: () => import('@/views/reports/pb/Index.vue'),
+                        meta: {
+                            pageTitle: 'របាយការណ៍គម្រោងថវិកាប្រចាំឆ្នាំ',
+                            breadcrumb: [
+                                { title: 'Home', url: '/' },
+                                { title: 'គ្រប់គ្រងរបាយការណ៍', url: '/report' },
+                                { title: 'របាយការណ៍គម្រោងថវិកាប្រចាំឆ្នាំ', active: true },
+                            ],
+                            rule: 'editor'
+                        }
+                },
+                    {           
+                        path: 'report/quarterly',
+                        name: 'ReportQuarterly',
+                        component: () => import('@/views/reports/quarterly/Index.vue'),
+                        meta: {
+                            pageTitle: 'របាយការណ៍ចំណូល/ចំណាយត្រីមាស',
+                            breadcrumb: [
+                                { title: 'Home', url: '/' },
+                                { title: 'គ្រប់គ្រងរបាយការណ៍', url: '/report' },
+                                { title: 'របាយការណ៍ចំណូល/ចំណាយត្រីមាស', active: true },
+                            ],
+                            rule: 'editor'
+                        }
+                },
+                    {           
+                        path: 'report/income',
+                        name: 'ReportIncome',
+                        component: () => import('@/views/reports/income/Index.vue'),
+                        meta: {
+                            pageTitle: 'របាយការណ៍ចំណូល',
+                            breadcrumb: [
+                                { title: 'Home', url: '/' },
+                                { title: 'គ្រប់គ្រងរបាយការណ៍', url: '/report' },
+                                { title: 'របាយការណ៍ចំណូល', active: true },
+                            ],
+                            rule: 'editor'
+                        }
+                    },{           
+                        path: 'report/pip',
+                        name: 'ReportPIP',
+                        component: () => import('@/views/reports/pip/Index.vue'),
+                        meta: {
+                            pageTitle: 'របាយការណ៍គម្រោងវិនិយោគ',
+                            breadcrumb: [
+                                { title: 'Home', url: '/' },
+                                { title: 'គ្រប់គ្រងរបាយការណ៍', url: '/report' },
+                                { title: 'របាយការណ៍គម្រោងវិនិយោគ', active: true },
+                            ],
+                            rule: 'editor'
+                        }
+                    },
+                    ,{           
+                        path: 'report/credit-movement',
+                        name: 'ReportCreditMovement',
+                        component: () => import('@/views/reports/credit-movement/Index.vue'),
+                        meta: {
+                            pageTitle: 'របាយការណ៍ចលនាឥណទាន',
+                            breadcrumb: [
+                                { title: 'Home', url: '/' },
+                                { title: 'គ្រប់គ្រងរបាយការណ៍', url: '/report' },
+                                { title: 'របាយការណ៍ចលនាឥណទាន', active: true },
+                            ],
+                            rule: 'editor'
+                        }
+                    },
                 // =============================================================================
                 // Incentives
                 // =============================================================================

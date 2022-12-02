@@ -15,8 +15,8 @@
                 <vx-card>
                     <h5 class="mb-2">របាយការណ៍តាមកម្មវិធី</h5>
                     <div class="flex justify-between flex-wrap">
-                        <vs-button class="mt-4 mr-2 shadow-lg" type="gradient" color="#7367F0" gradient-color-secondary="#CE9FFC">{{$t("Download")}}</vs-button>
-                        <vs-button class="mt-4" type="border" color="#30c974">{{$t("View")}}</vs-button>
+                        <vs-button class="mt-4 default mr-2 shadow-lg" type="gradient" @click="viewReportProgram()" color="#7367F0" gradient-color-secondary="#CE9FFC">{{$t("Download")}}</vs-button>
+                        <vs-button class="mt-4 default" type="border" color="#30c974" @click="viewReportProgram()">{{$t("View")}}</vs-button>
                     </div>
                 </vx-card>
             </div>
@@ -25,8 +25,8 @@
                 <vx-card>
                     <h5 class="mb-2">របាយការណ៍គម្រោងវិនិយោគ(PIP)</h5>
                     <div class="flex justify-between flex-wrap">
-                        <vs-button class="mt-4 mr-2 shadow-lg" type="gradient" color="#7367F0" gradient-color-secondary="#CE9FFC">{{$t("Download")}}</vs-button>
-                        <vs-button class="mt-4" type="border" color="#30c974">{{$t("View")}}</vs-button>
+                        <vs-button class="mt-4 mr-2 shadow-lg" type="gradient" @click="viewReportPIP()" color="#7367F0" gradient-color-secondary="#CE9FFC">{{$t("Download")}}</vs-button>
+                        <vs-button class="mt-4" type="border" color="#30c974" @click="viewReportPIP()">{{$t("View")}}</vs-button>
                     </div>
                 </vx-card>
             </div>
@@ -35,8 +35,8 @@
                 <vx-card>
                     <h5 class="mb-2">របាយការណ៍ផែនការថវិកា(BSP)</h5>
                     <div class="flex justify-between flex-wrap">
-                        <vs-button class="mt-4 mr-2 shadow-lg" type="gradient" color="#7367F0" gradient-color-secondary="#CE9FFC">{{$t("Download")}}</vs-button>
-                        <vs-button class="mt-4" type="border" color="#30c974">{{$t("View")}}</vs-button>
+                        <vs-button class="mt-4 mr-2 shadow-lg" type="gradient" @click="viewReportBSP()" color="#7367F0" gradient-color-secondary="#CE9FFC">{{$t("Download")}}</vs-button>
+                        <vs-button class="mt-4" type="border" color="#30c974" @click="viewReportBSP()">{{$t("View")}}</vs-button>
                     </div>
                 </vx-card>
             </div>
@@ -45,8 +45,8 @@
                 <vx-card>
                     <h5 class="mb-2">របាយការណ៍គម្រោងថវិកាប្រចាំឆ្នាំ(PB)</h5>
                     <div class="flex justify-between flex-wrap">
-                        <vs-button class="mt-4 mr-2 shadow-lg" type="gradient" color="#7367F0" gradient-color-secondary="#CE9FFC">{{$t("Download")}}</vs-button>
-                        <vs-button class="mt-4" type="border" color="#30c974">{{$t("View")}}</vs-button>
+                        <vs-button class="mt-4 mr-2 shadow-lg" type="gradient" @click="viewReportPB()" color="#7367F0" gradient-color-secondary="#CE9FFC">{{$t("Download")}}</vs-button>
+                        <vs-button class="mt-4" type="border" color="#30c974" @click="viewReportPB()">{{$t("View")}}</vs-button>
                     </div>
                 </vx-card>
             </div>
@@ -55,8 +55,8 @@
                 <vx-card>
                     <h5 class="mb-2">របាយការណ៍កម្មវិធីចំណូល/ចំណាយ ប្រចាំត្រីមាស/ឆ្នាំ</h5>
                     <div class="flex justify-between flex-wrap">
-                        <vs-button class="mt-4 mr-2 shadow-lg" type="gradient" color="#7367F0" gradient-color-secondary="#CE9FFC">{{$t("Download")}}</vs-button>
-                        <vs-button class="mt-4" type="border" color="#30c974">{{$t("View")}}</vs-button>
+                        <vs-button class="mt-4 mr-2 shadow-lg" type="gradient" @click="viewReportQuarterly()" color="#7367F0" gradient-color-secondary="#CE9FFC">{{$t("Download")}}</vs-button>
+                        <vs-button class="mt-4" type="border" color="#30c974" @click="viewReportQuarterly()">{{$t("View")}}</vs-button>
                     </div>
                 </vx-card>
             </div>
@@ -65,8 +65,8 @@
                 <vx-card>
                     <h5 class="mb-2">លទ្ធផលអនុវត្តចំណូល</h5>
                     <div class="flex justify-between flex-wrap">
-                        <vs-button class="mt-4 mr-2 shadow-lg" type="gradient" color="#7367F0" gradient-color-secondary="#CE9FFC">{{$t("Download")}}</vs-button>
-                        <vs-button class="mt-4" type="border" color="#30c974">{{$t("View")}}</vs-button>
+                        <vs-button class="mt-4 default mr-2 shadow-lg" type="gradient" @click="viewReportIncome()" color="#7367F0" gradient-color-secondary="#CE9FFC">{{$t("Download")}}</vs-button>
+                        <vs-button class="mt-4 default" type="border" color="#30c974" @click="viewReportIncome()">{{$t("View")}}</vs-button>
                     </div>
                 </vx-card>
             </div>
@@ -75,8 +75,8 @@
                 <vx-card>
                     <h5 class="mb-2">របាយការណ៍ចលនាតណទាន</h5>
                     <div class="flex justify-between flex-wrap">
-                        <vs-button class="mt-4 mr-2 shadow-lg" type="gradient" color="#7367F0" gradient-color-secondary="#CE9FFC">{{$t("Download")}}</vs-button>
-                        <vs-button class="mt-4" type="border" color="#30c974">{{$t("View")}}</vs-button>
+                        <vs-button class="mt-4 default mr-2 shadow-lg" type="gradient" @click="viewReportCreditMovement()" color="#7367F0" gradient-color-secondary="#CE9FFC">{{$t("Download")}}</vs-button>
+                        <vs-button class="mt-4 default" type="border" color="#30c974" @click="viewReportCreditMovement()">{{$t("View")}}</vs-button>
                     </div>
                 </vx-card>
             </div>
@@ -151,6 +151,29 @@ export default{
         VuePerfectScrollbar,
         videoPlayer,
         VxTimeline
+    },
+    methods: {
+        viewReportProgram(){
+            this.$router.push('/report/program').catch(() => {});
+        },
+        viewReportPIP(){
+            this.$router.push('/report/pip').catch(() => {});
+        },
+        viewReportPB(){
+            this.$router.push('/report/pb').catch(() => {});
+        },
+        viewReportBSP(){
+            this.$router.push('/report/bsp').catch(() => {});
+        },
+        viewReportQuarterly(){
+            this.$router.push('/report/quarterly').catch(() => {});
+        },
+        viewReportIncome(){
+            this.$router.push('/report/income').catch(() => {});
+        },
+        viewReportCreditMovement(){
+            this.$router.push('/report/credit-movement').catch(() => {});
+        },
     },
     mounted() {
         this.$refs.chatLogPS.$el.scrollTop = this.$refs.chatLog.scrollHeight;

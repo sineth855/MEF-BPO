@@ -37,33 +37,19 @@
         </template>
 
         <!-- NAME -->
-        <vs-input label="Name" v-model="dataName" class="mt-5 w-full" name="item-name" v-validate="'required'" />
+        <vs-input label="ឈ្មោះពិដានប្រចាំឆ្នាំ" v-model="dataName" class="mt-5 w-full" name="item-name" v-validate="'required'" />
         <span class="text-danger text-sm" v-show="errors.has('item-name')">{{ errors.first('item-name') }}</span>
 
         <!-- CATEGORY -->
-        <vs-select v-model="dataCategory" label="Category" class="mt-5 w-full" name="item-category" v-validate="'required'">
+        <vs-select v-model="dataCategory" label="ជ្រើសរើសឆ្នាំ" class="mt-5 w-full" name="item-category" v-validate="'required'">
           <vs-select-item :key="item.value" :value="item.value" :text="item.text" v-for="item in category_choices" />
         </vs-select>
         <span class="text-danger text-sm" v-show="errors.has('item-category')">{{ errors.first('item-category') }}</span>
 
         <!-- ORDER STATUS -->
-        <vs-select v-model="dataOrder_status" label="Order Status" class="mt-5 w-full">
+        <vs-select v-model="dataOrder_status" label="ស្ថានភាព" class="mt-5 w-full">
           <vs-select-item :key="item.value" :value="item.value" :text="item.text" v-for="item in order_status_choices" />
         </vs-select>
-
-        <!-- PRICE -->
-        <vs-input
-          icon-pack="feather"
-          icon="icon-dollar-sign"
-          label="Price"
-          v-model="dataPrice"
-          class="mt-5 w-full"
-          v-validate="{ required: true, regex: /\d+(\.\d+)?$/ }"
-          name="item-price" />
-        <span class="text-danger text-sm" v-show="errors.has('item-price')">{{ errors.first('item-price') }}</span>
-
-        <!-- Upload -->
-        <!-- <vs-upload text="Upload Image" class="img-upload" ref="fileUpload" /> -->
 
         <div class="upload-img mt-5" v-if="!dataImg">
           <input type="file" class="hidden" ref="uploadImgInput" @change="updateCurrImg" accept="image/*">
@@ -155,7 +141,7 @@ export default {
       }
     },
     isFormValid() {
-      return !this.errors.any() && this.dataName && this.dataCategory && (this.dataPrice > 0)
+      return !this.errors.any() && this.dataName && this.dataCategory
     }
   },
   methods: {

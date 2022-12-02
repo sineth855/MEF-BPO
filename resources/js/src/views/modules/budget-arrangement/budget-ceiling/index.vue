@@ -195,7 +195,6 @@ export default {
   methods: {
     viewBudgetList(){
       this.$router.push('/module/budget-arrangement/budget-ceiling/list').catch(() => {});
-
     },
     addNewData() {
       this.sidebarData = {}
