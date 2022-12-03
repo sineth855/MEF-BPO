@@ -34,10 +34,10 @@
                 Data Under Controll
               </vs-collapse-item>
 
-              <vs-collapse-item>
-                  <div slot="header" style="color: #fff; background-color:#C0C9C4; padding: 10px;">តារាងសម្រន់ព័ត៌មានបច្ចុប្បន្នភាពរបស់មន្ត្រីរាជការ និងមន្ត្រីជាប់កិច្ចសន្យា</div>
+              <!-- <vs-collapse-item>
+                  <div slot="header" style="color: #fff; background-color:#C0C9C4; padding: 10px;">តារាងសម្រង់ព័ត៌មានបច្ចុប្បន្នភាពរបស់មន្ត្រីរាជការ និងមន្ត្រីជាប់កិច្ចសន្យា</div>
                   Data Under Controll
-              </vs-collapse-item>
+              </vs-collapse-item> -->
 
               <vs-collapse-item>
                 <div slot="header" style="color: #fff; background-color:#C0C9C4; padding: 10px;">តារាងគណនាគម្រោងចំណាយបន្ទុកបុគ្គលិក</div>
