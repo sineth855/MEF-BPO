@@ -140,13 +140,11 @@ span.vs-button-text.vs-button--text {
 }
 
 [dir=ltr] .vx-logo .vx-logo-text {
-  -webkit-animation: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0s normal forwards 1 fadein;
   animation: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0s normal forwards 1 fadein;
 }
 
 [dir=rtl] .vx-logo .vx-logo-text {
-  -webkit-animation: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0s normal forwards 1 fadein;
-          animation: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0s normal forwards 1 fadein;
+  animation: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0s normal forwards 1 fadein;
 }
 
 .router-view {
@@ -1062,16 +1060,6 @@ ol {
   background-size: cover !important;
 }
 
-@-webkit-keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 @keyframes spin {
   from {
     transform: rotate(0deg);
@@ -1277,6 +1265,17 @@ i.wizard-icon {
   color: #c2c6dc;
 }
 
+/**
+    Support for SASS is deprecated as of v3.18.
+
+    The files remain here if your build is dependent on them
+    but they will not receive updates in future releases. All
+    SASS variables have been translated into CSS variables, so
+    migration should be quite simple if you'd like to move over.
+
+    In v4, these files will be removed.
+ */
+
 .v-select {
   position: relative;
   font-family: inherit;
@@ -1288,26 +1287,6 @@ i.wizard-icon {
 }
 
 /* KeyFrames */
-
-@-webkit-keyframes vSelectSpinner-ltr {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-@-webkit-keyframes vSelectSpinner-rtl {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(-360deg);
-  }
-}
 
 @keyframes vSelectSpinner-ltr {
   0% {
@@ -1355,7 +1334,7 @@ i.wizard-icon {
 
 [dir] .vs--disabled .vs__dropdown-toggle, [dir] .vs--disabled .vs__clear, [dir] .vs--disabled .vs__search, [dir] .vs--disabled .vs__selected, [dir] .vs--disabled .vs__open-indicator {
   cursor: not-allowed;
-  background-color: #f8f8f8;
+  background-color: rgb(248, 248, 248);
 }
 
 /*
@@ -1507,6 +1486,7 @@ i.wizard-icon {
 
 .vs__dropdown-menu {
   display: block;
+  box-sizing: border-box;
   position: absolute;
   top: calc(100% - 1px);
   z-index: 1000;
@@ -1555,9 +1535,6 @@ i.wizard-icon {
 [dir] .vs__dropdown-option {
   padding: 3px 20px;
   clear: both;
-}
-
-[dir] .vs__dropdown-option:hover {
   cursor: pointer;
 }
 
@@ -1569,15 +1546,20 @@ i.wizard-icon {
   background: #3c60c5;
 }
 
+.vs__dropdown-option--deselect {
+  color: #fff;
+}
+
+[dir] .vs__dropdown-option--deselect {
+  background: #fb5858;
+}
+
 .vs__dropdown-option--disabled {
   color: rgba(60, 60, 60, 0.5);
 }
 
 [dir] .vs__dropdown-option--disabled {
   background: inherit;
-}
-
-[dir] .vs__dropdown-option--disabled:hover {
   cursor: inherit;
 }
 
@@ -1588,6 +1570,7 @@ i.wizard-icon {
   align-items: center;
   color: #333;
   line-height: 1.8;
+  z-index: 0;
 }
 
 [dir] .vs__selected {
@@ -1629,7 +1612,8 @@ i.wizard-icon {
   border-color: transparent;
 }
 
-.vs--single.vs--open .vs__selected {
+.vs--single.vs--open .vs__selected,
+.vs--single.vs--loading .vs__selected {
   position: absolute;
   opacity: 0.4;
 }
@@ -1668,6 +1652,7 @@ i.wizard-icon {
   width: 0;
   max-width: 100%;
   flex-grow: 1;
+  z-index: 1;
 }
 
 [dir] .vs__search, [dir] .vs__search:focus {
@@ -1686,19 +1671,7 @@ i.wizard-icon {
   border-right: none;
 }
 
-.vs__search::-webkit-input-placeholder {
-  color: inherit;
-}
-
 .vs__search::-moz-placeholder {
-  color: inherit;
-}
-
-.vs__search:-ms-input-placeholder {
-  color: inherit;
-}
-
-.vs__search::-ms-input-placeholder {
   color: inherit;
 }
 
@@ -1714,7 +1687,7 @@ i.wizard-icon {
   opacity: 1;
 }
 
-[dir] .vs--unsearchable .vs__search:hover {
+[dir] .vs--unsearchable:not(.vs--disabled) .vs__search {
   cursor: pointer;
 }
 
@@ -1742,15 +1715,13 @@ i.wizard-icon {
 [dir=ltr] .vs__spinner {
   border-right: 0.9em solid rgba(100, 100, 100, 0.1);
   border-left: 0.9em solid rgba(60, 60, 60, 0.45);
-  -webkit-animation:  vSelectSpinner-ltr 1.1s infinite linear;
   animation:  vSelectSpinner-ltr 1.1s infinite linear;
 }
 
 [dir=rtl] .vs__spinner {
   border-left: 0.9em solid rgba(100, 100, 100, 0.1);
   border-right: 0.9em solid rgba(60, 60, 60, 0.45);
-  -webkit-animation:  vSelectSpinner-rtl 1.1s infinite linear;
-          animation:  vSelectSpinner-rtl 1.1s infinite linear;
+  animation:  vSelectSpinner-rtl 1.1s infinite linear;
 }
 
 .vs__spinner,
@@ -2530,7 +2501,7 @@ i.wizard-icon {
 }
 
 [dir] .theme-dark .v-nav-menu .shadow-bottom {
-  background: linear-gradient(to bottom, #0f1642 44%, rgba(15, 22, 66, 0.51) 73%, rgba(44, 48, 60, 0) 100%);
+  background: linear-gradient(to bottom, rgb(15, 22, 66) 44%, rgba(15, 22, 66, 0.51) 73%, rgba(44, 48, 60, 0) 100%);
 }
 
 .theme-dark .v-nav-menu .scroll-area-v-nav-menu .feather-icon,
@@ -2980,19 +2951,7 @@ i.wizard-icon {
   color: #c2c6dc;
 }
 
-.theme-dark ::-webkit-input-placeholder {
-  color: #c2c6dc !important;
-}
-
 .theme-dark ::-moz-placeholder {
-  color: #c2c6dc !important;
-}
-
-.theme-dark :-ms-input-placeholder {
-  color: #c2c6dc !important;
-}
-
-.theme-dark ::-ms-input-placeholder {
   color: #c2c6dc !important;
 }
 
@@ -3551,7 +3510,7 @@ i.wizard-icon {
 }
 
 [dir] .theme-semi-dark .v-nav-menu .shadow-bottom {
-  background: linear-gradient(to bottom, #0f1642 44%, rgba(15, 22, 66, 0.51) 73%, rgba(44, 48, 60, 0) 100%);
+  background: linear-gradient(to bottom, rgb(15, 22, 66) 44%, rgba(15, 22, 66, 0.51) 73%, rgba(44, 48, 60, 0) 100%);
 }
 
 .theme-semi-dark .v-nav-menu .scroll-area-v-nav-menu .feather-icon,
@@ -3840,18 +3799,15 @@ i.wizard-icon {
 }
 
 .blur-1 {
-  -webkit-filter: blur(1px);
-          filter: blur(1px);
+  filter: blur(1px);
 }
 
 .blur-2 {
-  -webkit-filter: blur(2px);
-          filter: blur(2px);
+  filter: blur(2px);
 }
 
 .blur-3 {
-  -webkit-filter: blur(3px);
-          filter: blur(3px);
+  filter: blur(3px);
 }
 
 .con-vs-chip.number {
