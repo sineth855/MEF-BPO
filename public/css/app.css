@@ -109,6 +109,8 @@ INPUT[type=password] {
   font-family: Arial !important;
 }
 
+table tr td,
+th,
 input,
 footer,
 button,

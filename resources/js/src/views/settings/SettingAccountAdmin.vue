@@ -12,9 +12,9 @@
     <vx-card title="កំណត់គណនេយ្យ និងរដ្ឋបាល" code-toggler>
         <div class="mt-5">
             <vs-tabs alignment="center">
-                <vs-tab label="ប្រភេទតារាងតម្លៃ">
+                <vs-tab label="ទិន្នន័យផលិតផល/សេវ៉ាកម្ម">
                     <vx-card>
-                        <vs-table ref="table" multiple v-model="selected" pagination :max-items="itemsPerPage" search :data="price_list_groups">
+                        <vs-table ref="table" multiple v-model="selected" pagination :max-items="itemsPerPage" search :data="items">
                             <div slot="header" class="flex flex-wrap-reverse items-center flex-grow justify-between">
                                 <div class="flex flex-wrap-reverse items-center data-list-btn-container">
 
@@ -65,10 +65,6 @@
                                         <span class="ml-2 text-base text-primary">{{$t("AddNew")}}</span>
                                     </div>
                                 </div>
-
-                                <div id="popup-demo">
-                                    <popup-fullscreen></popup-fullscreen>
-                                </div>
                                 
                                 <!-- ITEMS PER PAGE -->
                                 <vs-dropdown vs-trigger-click class="cursor-pointer mb-4 mr-4 items-per-page-handler">
@@ -96,10 +92,13 @@
                             </div>
 
                             <template slot="thead">
-                                <vs-th sort-key="name">កូដ</vs-th>
-                                <vs-th sort-key="category">ឈ្មោះ</vs-th>
-                                <vs-th sort-key="category">ពីព័ណ៌នា</vs-th>
-                                <vs-th sort-key="category">លំដាប់</vs-th>
+                                <vs-th sort-key="">កូដ</vs-th>
+                                <vs-th sort-key="">ក្រុម/ជំពូក</vs-th>
+                                <vs-th sort-key="">ប្រភេទគណនី</vs-th>
+                                <vs-th sort-key="">ឈ្មោះ</vs-th>
+                                <vs-th sort-key="">ឯកតា/រង្វាស់</vs-th>
+                                <vs-th sort-key="">ពិព័ណ៌នា</vs-th>
+                                <vs-th sort-key="">លំដាប់</vs-th>
                                 <vs-th>​​ប៊ូតុងសកម្ម</vs-th>
                             </template>
 
@@ -107,7 +106,10 @@
                                 <tbody>
                                     <vs-tr :data="tr" :key="indextr" v-for="(tr, indextr) in data">
                                     <vs-td>{{ tr.code }}</vs-td>
+                                    <vs-td>{{ tr.account_group }}</vs-td>
+                                    <vs-td>{{ tr.account_type }}</vs-td>
                                     <vs-td>{{ tr.name }}</vs-td>
+                                    <vs-td>{{ tr.unit }}</vs-td>
                                     <vs-td>{{ tr.description }}</vs-td>
                                     <vs-td>{{ tr.order_level }}</vs-td>
                                     <vs-td class="whitespace-no-wrap">
@@ -341,6 +343,115 @@
                         </vs-table>
                     </vx-card>
                 </vs-tab>
+                 <vs-tab label="ប្រភេទតារាងតម្លៃ">
+                    <vx-card>
+                        <vs-table ref="table" multiple v-model="selected" pagination :max-items="itemsPerPage" search :data="price_list_groups">
+                            <div slot="header" class="flex flex-wrap-reverse items-center flex-grow justify-between">
+                                <div class="flex flex-wrap-reverse items-center data-list-btn-container">
+
+                                    <!-- ACTION - DROPDOWN -->
+                                    <vs-dropdown vs-trigger-click class="dd-actions cursor-pointer mr-4 mb-4">
+
+                                        <div class="p-4 shadow-drop rounded-lg d-theme-dark-bg cursor-pointer flex items-center justify-center text-lg font-medium w-32 w-full">
+                                        <span class="mr-2">{{$t("Action")}}</span>
+                                        <feather-icon icon="ChevronDownIcon" svgClasses="h-4 w-4" />
+                                        </div>
+
+                                        <vs-dropdown-menu>
+
+                                        <vs-dropdown-item>
+                                            <span class="flex items-center">
+                                            <feather-icon icon="TrashIcon" svgClasses="h-4 w-4" class="mr-2" />
+                                            <span>Delete</span>
+                                            </span>
+                                        </vs-dropdown-item>
+
+                                        <vs-dropdown-item>
+                                            <span class="flex items-center">
+                                            <feather-icon icon="ArchiveIcon" svgClasses="h-4 w-4" class="mr-2" />
+                                            <span>Archive</span>
+                                            </span>
+                                        </vs-dropdown-item>
+
+                                        <vs-dropdown-item>
+                                            <span class="flex items-center">
+                                            <feather-icon icon="FileIcon" svgClasses="h-4 w-4" class="mr-2" />
+                                            <span>Print</span>
+                                            </span>
+                                        </vs-dropdown-item>
+
+                                        <vs-dropdown-item>
+                                            <span class="flex items-center">
+                                            <feather-icon icon="SaveIcon" svgClasses="h-4 w-4" class="mr-2" />
+                                            <span>Another Action</span>
+                                            </span>
+                                        </vs-dropdown-item>
+
+                                        </vs-dropdown-menu>
+                                    </vs-dropdown>
+
+                                    <!-- ADD NEW -->
+                                    <div class="btn-add-new p-3 mb-4 mr-4 rounded-lg cursor-pointer flex items-center justify-center text-lg font-medium text-base text-primary border border-solid border-primary" @click="addNewData">
+                                        <feather-icon icon="PlusIcon" svgClasses="h-4 w-4" />
+                                        <span class="ml-2 text-base text-primary">{{$t("AddNew")}}</span>
+                                    </div>
+                                </div>
+
+                                <div id="popup-demo">
+                                    <popup-fullscreen></popup-fullscreen>
+                                </div>
+                                
+                                <!-- ITEMS PER PAGE -->
+                                <vs-dropdown vs-trigger-click class="cursor-pointer mb-4 mr-4 items-per-page-handler">
+                                    <div class="p-4 border border-solid d-theme-border-grey-light rounded-full d-theme-dark-bg cursor-pointer flex items-center justify-between font-medium">
+                                        <span class="mr-2">{{ currentPage * itemsPerPage - (itemsPerPage - 1) }} - {{ products.length - currentPage * itemsPerPage > 0 ? currentPage * itemsPerPage : products.length }} of {{ queriedItems }}</span>
+                                        <feather-icon icon="ChevronDownIcon" svgClasses="h-4 w-4" />
+                                    </div>
+                                    <!-- <vs-button class="btn-drop" type="line" color="primary" icon-pack="feather" icon="icon-chevron-down"></vs-button> -->
+                                    <vs-dropdown-menu>
+
+                                        <vs-dropdown-item @click="itemsPerPage=4">
+                                        <span>4</span>
+                                        </vs-dropdown-item>
+                                        <vs-dropdown-item @click="itemsPerPage=10">
+                                        <span>10</span>
+                                        </vs-dropdown-item>
+                                        <vs-dropdown-item @click="itemsPerPage=15">
+                                        <span>15</span>
+                                        </vs-dropdown-item>
+                                        <vs-dropdown-item @click="itemsPerPage=20">
+                                        <span>20</span>
+                                        </vs-dropdown-item>
+                                    </vs-dropdown-menu>
+                                </vs-dropdown>
+                            </div>
+
+                            <template slot="thead">
+                                <vs-th sort-key="name">កូដ</vs-th>
+                                <vs-th sort-key="category">ឈ្មោះ</vs-th>
+                                <vs-th sort-key="category">ពីព័ណ៌នា</vs-th>
+                                <vs-th sort-key="category">លំដាប់</vs-th>
+                                <vs-th>​​ប៊ូតុងសកម្ម</vs-th>
+                            </template>
+
+                            <template slot-scope="{data}">
+                                <tbody>
+                                    <vs-tr :data="tr" :key="indextr" v-for="(tr, indextr) in data">
+                                    <vs-td>{{ tr.code }}</vs-td>
+                                    <vs-td>{{ tr.name }}</vs-td>
+                                    <vs-td>{{ tr.description }}</vs-td>
+                                    <vs-td>{{ tr.order_level }}</vs-td>
+                                    <vs-td class="whitespace-no-wrap">
+                                        <feather-icon icon="EditIcon" svgClasses="w-5 h-5 hover:text-primary stroke-current" @click.stop="editData(tr)" />
+                                        <feather-icon icon="TrashIcon" svgClasses="w-5 h-5 hover:text-danger stroke-current" class="ml-2" @click.stop="deleteData(tr.id)" />
+                                    </vs-td>
+
+                                    </vs-tr>
+                                </tbody>
+                            </template>
+                        </vs-table>
+                    </vx-card>
+                </vs-tab>
                 <vs-tab label="គំរូថវិកា">
                     <div></div>
                 </vs-tab>
@@ -426,6 +537,38 @@
                     code: "60012",
                     parent: "សម្ភារៈផ្គត់ផ្គង់ថែទាំ",
                     name: "សម្ភារៈផ្គត់ផ្គង់សម្រាប់ថែទាំអាគារ ប្រសាទ និងសំណង់ផ្សេងៗ",
+                    description: "",
+                    order_level: 1,
+                    is_active: 1
+                },
+            ],
+            items:[
+                {
+                    code: "ITM0001",
+                    account_group: "ការទិញ",
+                    account_type:"សម្ភារៈផ្គត់ផ្គង់ថែទាំ->សម្ភារៈផ្គត់ផ្គង់និងអនាម័យ",
+                    name: "រាយនាមទំនិញ/សេវ៉ាកម្ម",
+                    unit: "ឯកតា",
+                    description: "",
+                    order_level: 1,
+                    is_active: 1
+                },
+                {
+                    code: "ITM0001",
+                    account_group: "ការទិញ",
+                    account_type:"សម្ភារៈផ្គត់ផ្គង់ថែទាំ->សម្ភារៈផ្គត់ផ្គង់និងអនាម័យ",
+                    name: "រាយនាមទំនិញ/សេវ៉ាកម្ម",
+                    unit: "ឯកតា",
+                    description: "",
+                    order_level: 1,
+                    is_active: 1
+                },
+                {
+                    code: "ITM0001",
+                    account_group: "ការទិញ",
+                    account_type:"សម្ភារៈផ្គត់ផ្គង់ថែទាំ->សម្ភារៈផ្គត់ផ្គង់និងអនាម័យ",
+                    name: "រាយនាមទំនិញ/សេវ៉ាកម្ម",
+                    unit: "ឯកតា",
                     description: "",
                     order_level: 1,
                     is_active: 1
