@@ -76,12 +76,12 @@ const data = {
     ]
   },
   chatLog: [
-    { senderImg: require("@assets/images/portrait/small/avatar-s-2.jpg"), msg: 'Cake sesame snaps cupcake gingerbread', isSent: false },
-    { senderImg: require("@assets/images/portrait/small/avatar-s-5.jpg"), msg: 'Apple pie pie jujubes chupa chups muffin', isSent: true },
-    { senderImg: require("@assets/images/portrait/small/avatar-s-2.jpg"), msg: 'Chocolate cake', isSent: false },
-    { senderImg: require("@assets/images/portrait/small/avatar-s-5.jpg"), msg: 'Donut sweet pie oat cake dragée fruitcake', isSent: true },
-    { senderImg: require("@assets/images/portrait/small/avatar-s-2.jpg"), msg: 'Liquorice chocolate bar jelly beans icing', isSent: false },
-    { senderImg: require("@assets/images/portrait/small/avatar-s-5.jpg"), msg: 'Pudding candy', isSent: true },
+    { senderImg: require("@assets/images/profile/user-uploads/limcheng.png"), msg: 'តើសកម្មភាពការងារប្រត្តិបត្តិប្រព័ន្ធយ៉ាងម៉េចហើយ?', isSent: false },
+    { senderImg: require("@assets/images/profile/user-uploads/limcheng.png"), msg: 'តើសកម្មភាពការងារប្រត្តិបត្តិប្រព័ន្ធយ៉ាងម៉េចហើយ?', isSent: true },
+    { senderImg: require("@assets/images/profile/user-uploads/limcheng.png"), msg: 'តើសកម្មភាពការងារប្រត្តិបត្តិប្រព័ន្ធយ៉ាងម៉េចហើយ?', isSent: false },
+    { senderImg: require("@assets/images/profile/user-uploads/limcheng.png"), msg: 'តើសកម្មភាពការងារប្រត្តិបត្តិប្រព័ន្ធយ៉ាងម៉េចហើយ?', isSent: true },
+    { senderImg: require("@assets/images/profile/user-uploads/limcheng.png"), msg: 'តើសកម្មភាពការងារប្រត្តិបត្តិប្រព័ន្ធយ៉ាងម៉េចហើយ?', isSent: false },
+    { senderImg: require("@assets/images/profile/user-uploads/limcheng.png"), msg: 'តើសកម្មភាពការងារប្រត្តិបត្តិប្រព័ន្ធយ៉ាងម៉េចហើយ?', isSent: true },
   ],
   item_reviews_12: {
     title: 'Vuexy Admin',

@@ -2,7 +2,7 @@ import mock from "@/fake-db/mock.js"
 
 // Contact
 let data = {
-  emails: [
+  emailss: [
     {
       id: 1,
       sender: 'tommys@mail.com',
@@ -474,6 +474,7 @@ let data = {
       "unread": false
     }
   ],
+  emails: [],
   emailTags: [
     { text: 'Personal', value : 'personal', color:"success"},
     { text: 'Company', value: 'company', color:"primary"},

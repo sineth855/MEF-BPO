@@ -5,7 +5,7 @@ const data = {
     {
       "id": 1,
       "category": "computers",
-      "img": "https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/01.png",
+      "img": "assets/images/portrait/small/avatar-s-12.jpg",
       "name": "Apple Watch series 4 GPS",
       "order_status": "on_hold",
       "popularity": 97,
@@ -86,7 +86,7 @@ const data = {
     {
       "id": 10,
       "category": "audio",
-      "img": "https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/01.png",
+      "img": "assets/images/portrait/small/avatar-s-12.jpg",
       "name": "Altec Lansing - Mini H2O Bluetooth Speaker",
       "order_status": "canceled",
       "popularity": 64,
@@ -104,7 +104,7 @@ const data = {
     {
       "id": 12,
       "category": "audio",
-      "img": "https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/01.png",
+      "img": "assets/images/portrait/small/avatar-s-12.jpg",
       "name": "Altec Lansing - Bluetooth Speaker",
       "order_status": "pending",
       "popularity": 75,
@@ -113,7 +113,7 @@ const data = {
     {
       "id": 13,
       "category": "audio",
-      "img": "https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/01.png",
+      "img": "assets/images/portrait/small/avatar-s-12.jpg",
       "name": "Altec Lansing - Bluetooth Speaker",
       "order_status": "delivered",
       "popularity": 88,
@@ -338,7 +338,7 @@ const data = {
     {
       "id": 38,
       "category": "audio",
-      "img": "https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/01.png",
+      "img": "assets/images/portrait/small/avatar-s-12.jpg",
       "name": "Bose® - SoundLink® Color Bluetooth Speaker",
       "order_status": "on_hold",
       "popularity": 100,
@@ -347,7 +347,7 @@ const data = {
     {
       "id": 39,
       "category": "audio",
-      "img": "https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/01.png",
+      "img": "assets/images/portrait/small/avatar-s-12.jpg",
       "name": "Bose® - SoundLink® Color Bluetooth Speaker",
       "order_status": "pending",
       "popularity": 89,
@@ -554,7 +554,7 @@ const data = {
     {
       "id": 62,
       "category": "audio",
-      "img": "https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/01.png",
+      "img": "assets/images/portrait/small/avatar-s-12.jpg",
       "name": "BRAVEN - Balance Portable Bluetooth Speaker",
       "order_status": "pending",
       "popularity": 80,
@@ -599,7 +599,7 @@ const data = {
     {
       "id": 67,
       "category": "audio",
-      "img": "https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/01.png",
+      "img": "assets/images/portrait/small/avatar-s-12.jpg",
       "name": "BRAVEN - Wireless Bluetooth Speaker",
       "order_status": "on_hold",
       "popularity": 50,
@@ -698,7 +698,7 @@ const data = {
     {
       "id": 78,
       "category": "fitness",
-      "img": "https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/01.png",
+      "img": "assets/images/portrait/small/avatar-s-12.jpg",
       "name": "Fitbit - Charge HR Activity Tracker + Heart Rate (Large)",
       "order_status": "delivered",
       "popularity": 66,
@@ -716,7 +716,7 @@ const data = {
     {
       "id": 80,
       "category": "fitness",
-      "img": "https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/01.png",
+      "img": "assets/images/portrait/small/avatar-s-12.jpg",
       "name": "Fitbit - Charge HR Activity Tracker + Heart Rate (Small)",
       "order_status": "on_hold",
       "popularity": 92,
@@ -734,7 +734,7 @@ const data = {
     {
       "id": 82,
       "category": "fitness",
-      "img": "https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/01.png",
+      "img": "assets/images/portrait/small/avatar-s-12.jpg",
       "name": "Fitbit - Activity Tracker + Heart Rate (Small)",
       "order_status": "pending",
       "popularity": 100,
@@ -743,7 +743,7 @@ const data = {
     {
       "id": 83,
       "category": "fitness",
-      "img": "https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/01.png",
+      "img": "assets/images/portrait/small/avatar-s-12.jpg",
       "name": "Fitbit - Activity Tracker + Sleep Wristband",
       "order_status": "pending",
       "popularity": 100,
@@ -902,12 +902,201 @@ const data = {
       "popularity": 72,
       "price": 99.99
     }
-  ]
+  ],
+  incentiveOfficers: [
+    {
+      "id": 1,
+      "category": "computers",
+      "img": "assets/images/portrait/small/avatar-s-12.jpg",
+      "name": "ឈិត សុវណ្ណបញ្ញា",
+      "role": "មន្ត្រីបង្គោល",
+      "bank": "ACELIDA",
+      "bank_acc_no": "0000456789",
+      "order_status": "on_hold",
+      "popularity": 97,
+      "price": "២,០០០,០០០",
+      "status": "Active"
+    },
+    {
+      "id": 2,
+      "category": "fitness",
+      "img": "https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/02.png",
+      "name": "ចន្ទ សុភ័ក្ក្រត្រា",
+      "role": "មន្ត្រីបង្គោល",
+      "bank": "ACELIDA",
+      "bank_acc_no": "00087656789",
+      "order_status": "on_hold",
+      "popularity": 83,
+      "price": "២,០០០,០០០",
+      "status": "Active"
+    },
+    {
+      "id": 1,
+      "category": "computers",
+      "img": "assets/images/portrait/small/avatar-s-12.jpg",
+      "name": "ឈិត សុវណ្ណបញ្ញា",
+      "role": "មន្ត្រីបង្គោល",
+      "bank": "ACELIDA",
+      "bank_acc_no": "0000456789",
+      "order_status": "on_hold",
+      "popularity": 97,
+      "price": "២,០០០,០០០",
+      "status": "Active"
+    },
+    {
+      "id": 2,
+      "category": "fitness",
+      "img": "https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/02.png",
+      "name": "ចន្ទ សុភ័ក្ក្រត្រា",
+      "role": "មន្ត្រីបង្គោល",
+      "bank": "ACELIDA",
+      "bank_acc_no": "00087656789",
+      "order_status": "on_hold",
+      "popularity": 83,
+      "price": "២,០០០,០០០",
+      "status": "Active"
+    },
+    {
+      "id": 1,
+      "category": "computers",
+      "img": "assets/images/portrait/small/avatar-s-12.jpg",
+      "name": "ឈិត សុវណ្ណបញ្ញា",
+      "role": "មន្ត្រីបង្គោល",
+      "bank": "ACELIDA",
+      "bank_acc_no": "0000456789",
+      "order_status": "on_hold",
+      "popularity": 97,
+      "price": "២,០០០,០០០",
+      "status": "Active"
+    },
+    {
+      "id": 2,
+      "category": "fitness",
+      "img": "https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/02.png",
+      "name": "ចន្ទ សុភ័ក្ក្រត្រា",
+      "role": "មន្ត្រីបង្គោល",
+      "bank": "ACELIDA",
+      "bank_acc_no": "00087656789",
+      "order_status": "on_hold",
+      "popularity": 83,
+      "price": "២,០០០,០០០",
+      "status": "Active"
+    },
+    {
+      "id": 1,
+      "category": "computers",
+      "img": "assets/images/portrait/small/avatar-s-12.jpg",
+      "name": "ឈិត សុវណ្ណបញ្ញា",
+      "role": "មន្ត្រីបង្គោល",
+      "bank": "ACELIDA",
+      "bank_acc_no": "0000456789",
+      "order_status": "on_hold",
+      "popularity": 97,
+      "price": "២,០០០,០០០",
+      "status": "Active"
+    }
+  ],
+  departments: [
+    {
+      "id": 1,
+      "name": "Departmet A"
+    },
+    {
+      "id": 2,
+      "name": "Departmet B"
+    },
+  ],
+  roles: [
+    {
+      "id": 1,
+      "name": "Departmet A"
+    },
+    {
+      "id": 2,
+      "name": "Departmet B"
+    },
+  ],
+  circular: [
+    {
+      "id": 1,
+      "name": "Departmet A"
+    },
+    {
+      "id": 2,
+      "name": "Departmet B"
+    },
+  ],
+  entity: [
+    {
+      "id": 1,
+      "name": "Departmet A"
+    },
+    {
+      "id": 2,
+      "name": "Departmet B"
+    },
+  ],
+  sectors: [
+    {
+      "id": 1,
+      "name": "Sector A"
+    },
+    {
+      "id": 2,
+      "name": "Sector B"
+    },
+  ],
+  title: [
+    {
+      "id": 1,
+      "name": "Mr"
+    },
+    {
+      "id": 2,
+      "name": "Mrs"
+    },
+    {
+      "id": 3,
+      "name": "His Excellency"
+    }
+  ],
+  taxable_salary: [
+    {
+      "id": 1,
+      "name": "Departmet A"
+    },
+    {
+      "id": 2,
+      "name": "Departmet B"
+    },
+  ],
+  currency: [
+    {
+      "id": 1,
+      "name": "Reil(រ)"
+    },
+    {
+      "id": 2,
+      "name": "Dollar($)"
+    },
+  ],
 }
 
 
 mock.onGet("/api/data-list/products").reply(() => {
   return [200, JSON.parse(JSON.stringify(data.products)).reverse()];
+});
+
+mock.onGet("/api/data-list/department").reply(() => {
+  return [200, JSON.parse(JSON.stringify(data.data)).reverse()];
+});
+
+mock.onGet("/api/data-list/sector").reply(() => {
+  return [200, JSON.parse(JSON.stringify(data.sectors)).reverse()];
+});
+
+mock.onGet("/api/data-list/incentive-officer").reply(() => {
+  return [200, JSON.parse(JSON.stringify(data.incentiveOfficers)).reverse()];
 });
 
 // POST : Add new Item

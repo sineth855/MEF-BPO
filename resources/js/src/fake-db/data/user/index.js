@@ -6,12 +6,13 @@ const data = {
     userName: "John",
     progress: "57.6%"
   },
+  // users: []
   users: [
     {
       uid: 34,
-      displayName: "Howard Potts",
-      password: "adminadmin",
-      photoURL: require("@assets/images/portrait/small/avatar-s-5.jpg"),
+      displayName: "Malimchheng",
+      password: "123456",
+      photoURL: require("@assets/images/portrait/small/limcheng.png"),
       email: "admin@admin.com",
       phoneNumber: null,
     }
@@ -25,39 +26,39 @@ const jwtConfig = {
 }
 
 
-mock.onPost("/api/auth/login").reply((request) => {
-  const {email, password} = JSON.parse(request.data)
+// mock.onPost("/api/auth/login").reply((request) => {
+//   const {email, password} = JSON.parse(request.data)
+//   console.log("Here is userprofile", request);
+//   let error = "Something went wrong"
 
-  let error = "Something went wrong"
+//   const user = data.users.find(user => user.email === email && user.password === password)
 
-  const user = data.users.find(user => user.email === email && user.password === password)
+//   if (user) {
 
-  if (user) {
+//     try {
 
-    try {
+//       const accessToken = jwt.sign({id: user.uid}, jwtConfig.secret, {expiresIn: jwtConfig.expireTime})
 
-      const accessToken = jwt.sign({id: user.uid}, jwtConfig.secret, {expiresIn: jwtConfig.expireTime})
+//       const userData = Object.assign({}, user, {providerId: "jwt"})
 
-      const userData = Object.assign({}, user, {providerId: "jwt"})
+//       const response = {
+//         userData : userData,
+//         accessToken: accessToken
+//       }
 
-      const response = {
-        userData : userData,
-        accessToken: accessToken
-      }
+//       return [200, response]
 
-      return [200, response]
+//     } catch(e) {
+//       error = e
+//     }
+//   }else {
+//     error = "Email Or Password Invalid"
+//   }
 
-    } catch(e) {
-      error = e
-    }
-  }else {
-    error = "Email Or Password Invalid"
-  }
-
-  return [200, {error}]
+//   return [200, {error}]
 
 
-})
+// })
 
 mock.onPost('/api/auth/register').reply((request) => {
     const {displayName, email, password} = JSON.parse(request.data)

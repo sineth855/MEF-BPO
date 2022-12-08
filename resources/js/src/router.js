@@ -135,34 +135,34 @@ const router = new Router({
                         rule: 'editor'
                     },
                 },
-                // {
-                //     path: '/user/view/:userId',
-                //     name: 'user-view',
-                //     component: () => import('@/views/users/user-edit/UserSettings.vue'),
-                //     meta: {
-                //         breadcrumb: [
-                //             { title: 'Home', url: '/' },
-                //             { title: 'អ្នកប្រើប្រាស់', url: '/user/list'},
-                //             { title: 'View', active: true },
-                //         ],
-                //         pageTitle: 'User View',
-                //         rule: 'editor'
-                //     },
-                // },
-                // {
-                //     path: '/user/edit/:userId',
-                //     name: 'user-edit',
-                //     component: () => import('@/views/users/user-edit/UserSettings.vue'),
-                //     meta: {
-                //         breadcrumb: [
-                //             { title: 'Home', url: '/' },
-                //             { title: 'User', url: '/user/list'},
-                //             { title: 'View', active: true },
-                //         ],
-                //         pageTitle: 'User View',
-                //         rule: 'editor'
-                //     },
-                // },
+                {
+                    path: '/user/view/:userId',
+                    name: 'user-view',
+                    component: () => import('@/views/users/user-edit/UserSettings.vue'),
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/' },
+                            { title: 'អ្នកប្រើប្រាស់', url: '/user/list'},
+                            { title: 'View', active: true },
+                        ],
+                        pageTitle: 'User View',
+                        rule: 'editor'
+                    },
+                },
+                {
+                    path: '/user/edit/:userId',
+                    name: 'user-edit',
+                    component: () => import('@/views/users/user-edit/UserSettings.vue'),
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/' },
+                            { title: 'User', url: '/user/list'},
+                            { title: 'View', active: true },
+                        ],
+                        pageTitle: 'User View',
+                        rule: 'editor'
+                    },
+                },
                 // =============================================================================
                 // Role
                 // =============================================================================
@@ -445,21 +445,20 @@ const router = new Router({
                             ],
                             rule: 'editor'
                         }
-                }
-                // , {           
-                //         path: 'report/pip',
-                //         name: 'ReportPIP',
-                //         component: () => import('@/views/reports/pip/Index.vue'),
-                //         meta: {
-                //             pageTitle: 'របាយការណ៍គម្រោងវិនិយោគ',
-                //             breadcrumb: [
-                //                 { title: 'Home', url: '/' },
-                //                 { title: 'គ្រប់គ្រងរបាយការណ៍', url: '/report' },
-                //                 { title: 'របាយការណ៍គម្រោងវិនិយោគ', active: true },
-                //             ],
-                //             rule: 'editor'
-                //         }
-                //     },
+                    },{           
+                        path: 'report/pip',
+                        name: 'ReportPIP',
+                        component: () => import('@/views/reports/pip/Index.vue'),
+                        meta: {
+                            pageTitle: 'របាយការណ៍គម្រោងវិនិយោគ',
+                            breadcrumb: [
+                                { title: 'Home', url: '/' },
+                                { title: 'គ្រប់គ្រងរបាយការណ៍', url: '/report' },
+                                { title: 'របាយការណ៍គម្រោងវិនិយោគ', active: true },
+                            ],
+                            rule: 'editor'
+                        }
+                    },
                     ,{           
                         path: 'report/credit-movement',
                         name: 'ReportCreditMovement',
@@ -1435,7 +1434,7 @@ const router = new Router({
                 // =============================================================================
                 {
                     path: '/setting',
-                    name: 'setting',
+                    name: 'data-user-form',
                     component: () => import('@/views/settings/Setting.vue'),
                     meta: {
                         breadcrumb: [
