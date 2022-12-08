@@ -55,132 +55,307 @@
 
       <vs-table :data="users">
 
-          <template slot="thead">
-              <vs-th>បរិយាយមុខសញ្ញា</vs-th>
-              <vs-th>ច្បាប់ឆ្នាំ២០២២</vs-th>
-              <vs-th>ចំណាយមិនប្រចាំ</vs-th>
-              <vs-th>ចំណាយប្រចាំ</vs-th>
-              <vs-th>ពិដានចំណាយចរន្ត</vs-th>
-              <vs-th>អាត្រាកំណើនប្រចាំឆ្នាំ</vs-th>
-          </template>
+          <!-- <template slot="thead">
+            <vs-th>បរិយាយមុខសញ្ញា</vs-th>
+            <vs-th>ច្បាប់ឆ្នាំ២០២២</vs-th>
+            <vs-th>ចំណាយមិនប្រចាំ</vs-th>
+            <vs-th>ចំណាយប្រចាំ</vs-th>
+            <vs-th>ពិដានចំណាយចរន្ត</vs-th>
+            <vs-th>អាត្រាកំណើនប្រចាំឆ្នាំ</vs-th>
+          </template> -->
 
           <template>
-              <vs-tr :state="'success'">
-                <vs-td colspan="6" >ផ្នែកទី១៖ ពិដានចំណាយចរន្ត ឆ្នាំ២០២៣-២០២៥ សរុបរួមក្រសួង (យោងលេខ ០៣ សរណន ចុះថ្ងៃទី៨ ខែមិថុនា ឆ្នាំ២០២២)</vs-td>
-              </vs-tr>
               <vs-tr style="background-color: #28C76F; color: #ffffff; font-weight: bold;">
-                <vs-td>សរុបរួមក្រសួង</vs-td>
-                <vs-td>187,283</vs-td>
-                <vs-td>0.0</vs-td>
-                <vs-td>187,283</vs-td>
-                <vs-td>187,283</vs-td>
-                <vs-td>187,283</vs-td>
+                <vs-td style="width: auto" rowspan="2"><center>បរិយាយមុខសញ្ញា</center></vs-td>
+                <vs-td style="" rowspan="2"><center>ច្បាប់ឆ្នាំ២០២២</center></vs-td>
+                <vs-td style="" rowspan="2"><center>ចំណាយមិនប្រចាំ</center></vs-td>
+                <vs-td style="" rowspan="2"><center>ចំណាយប្រចាំ</center></vs-td>
+                <vs-td style="width: 300px" colspan="3"><center>ពិដានចំណាយចរន្ត</center></vs-td>
+                <vs-td style="width: 300px" colspan="3"><center>អាត្រាកំណើនប្រចាំឆ្នាំ</center></vs-td>
+                <vs-td style="" rowspan="2">សម្គាល់</vs-td>
+              </vs-tr>
+
+              <vs-tr style="background-color: #28C76F; color: #ffffff; font-weight: bold;">
+                <!-- <vs-td></vs-td>
+                <vs-td></vs-td>
+                <vs-td></vs-td>
+                <vs-td></vs-td> -->
+
+                <vs-td>២០២៣</vs-td>
+                <vs-td>២០២៤</vs-td>
+                <vs-td>២០២៥</vs-td>
+
+                <vs-td>២០២៣</vs-td>
+                <vs-td>២០២៤</vs-td>
+                <vs-td>២០២៥</vs-td>
+
+                <!-- <vs-td></vs-td> -->
+              </vs-tr>
+
+              <vs-tr>
+                <vs-td></vs-td>
+                <vs-td><small>1</small></vs-td>
+                <vs-td><small>2</small></vs-td>
+                <vs-td><small>3=1-2</small></vs-td>
+
+                <vs-td><small>4</small></vs-td>
+                <vs-td><small>5</small></vs-td>
+                <vs-td><small>6</small></vs-td>
+
+                <vs-td><small>7=(4-1)/1</small></vs-td>
+                <vs-td><small>8=(5-4)/4</small></vs-td>
+                <vs-td><small>9=(6-5)/5</small></vs-td>
+
+                <vs-td><small>10</small></vs-td>
+              </vs-tr>
+
+              <!-- ################## -->
+              <vs-tr :state="'success'">
+                <vs-td colspan="11" >ផ្នែកទី១៖ ពិដានចំណាយចរន្ត ឆ្នាំ២០២៣-២០២៥ សរុបរួមក្រសួង (យោងលេខ ០៣ សរណន ចុះថ្ងៃទី៨ ខែមិថុនា ឆ្នាំ២០២២)</vs-td>
               </vs-tr>
               
+              <vs-tr :state="'primary'">
+                <vs-td>សរុបរួមក្រសួង</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td></vs-td>
+              </vs-tr>
+              
+              <!-- Part1 -->
               <vs-tr :state="'warning'">
                 <vs-td>I.រដ្ឋបាលកណ្តាល</vs-td>
-                <vs-td>187,283</vs-td>
-                <vs-td>0.0</vs-td>
-                <vs-td>187,283</vs-td>
-                <vs-td>187,283</vs-td>
-                <vs-td>187,283</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td></vs-td>
               </vs-tr>
 
                 <vs-tr>
                   <vs-td>- បន្ទុកបុគ្គលិក</vs-td>
-                  <vs-td>187,283</vs-td>
-                  <vs-td>0.0</vs-td>
-                  <vs-td>187,283</vs-td>
-                  <vs-td>187,283</vs-td>
-                  <vs-td>187,283</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td></vs-td>
                 </vs-tr>
                 <vs-tr>
                   <vs-td>- ក្រៅបន្ទុកបុគ្គលិក</vs-td>
-                  <vs-td>187,283</vs-td>
-                  <vs-td>0.0</vs-td>
-                  <vs-td>187,283</vs-td>
-                  <vs-td>187,283</vs-td>
-                  <vs-td>187,283</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td></vs-td>
                 </vs-tr>
 
+                <!-- Part2 -->
               <vs-tr :state="'warning'">
-                <vs-td>II.មន្ទីរសេដ្ឋកិច្ចនិងហិរញ្ញវត្ថុរាជធានី-ខេត្ត</vs-td>
-                <vs-td>187,283</vs-td>
-                <vs-td>0.0</vs-td>
-                <vs-td>187,283</vs-td>
-                <vs-td>187,283</vs-td>
-                <vs-td>187,283</vs-td>
+                <vs-td>II.មន្ទីរសេដ្ឋកិច្ច​និងហិរញ្ញវត្ថុ​ រាជធានី ខេត្ត</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td></vs-td>
               </vs-tr>
 
                 <vs-tr>
                   <vs-td>- បន្ទុកបុគ្គលិក</vs-td>
-                  <vs-td>187,283</vs-td>
-                  <vs-td>0.0</vs-td>
-                  <vs-td>187,283</vs-td>
-                  <vs-td>187,283</vs-td>
-                  <vs-td>187,283</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td></vs-td>
                 </vs-tr>
                 <vs-tr>
                   <vs-td>- ក្រៅបន្ទុកបុគ្គលិក</vs-td>
-                  <vs-td>187,283</vs-td>
-                  <vs-td>0.0</vs-td>
-                  <vs-td>187,283</vs-td>
-                  <vs-td>187,283</vs-td>
-                  <vs-td>187,283</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td></vs-td>
                 </vs-tr>
 
-
+                <vs-tr :state="'success'">
+                <vs-td colspan="11" >ផ្នែកទី២៖ ពិដានចំណាយចរន្ត ឆ្នាំ២០២៣-២០២៥ តាមអង្គភាពថវិកា</vs-td>
+              </vs-tr>
+              
+              <vs-tr :state="'primary'">
+                <vs-td>សរុបរួមក្រសួង</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td></vs-td>
+              </vs-tr>
+              
+              <!-- Part1 -->
               <vs-tr :state="'warning'">
                 <vs-td>I.រដ្ឋបាលកណ្តាល</vs-td>
-                <vs-td>187,283</vs-td>
-                <vs-td>0.0</vs-td>
-                <vs-td>187,283</vs-td>
-                <vs-td>187,283</vs-td>
-                <vs-td>187,283</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td></vs-td>
               </vs-tr>
 
-                <vs-tr>
+              <vs-tr>
                   <vs-td>- បន្ទុកបុគ្គលិក</vs-td>
-                  <vs-td>187,283</vs-td>
-                  <vs-td>0.0</vs-td>
-                  <vs-td>187,283</vs-td>
-                  <vs-td>187,283</vs-td>
-                  <vs-td>187,283</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td></vs-td>
                 </vs-tr>
                 <vs-tr>
                   <vs-td>- ក្រៅបន្ទុកបុគ្គលិក</vs-td>
-                  <vs-td>187,283</vs-td>
-                  <vs-td>0.0</vs-td>
-                  <vs-td>187,283</vs-td>
-                  <vs-td>187,283</vs-td>
-                  <vs-td>187,283</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td></vs-td>
                 </vs-tr>
 
+                <!-- Part1 -->
               <vs-tr :state="'warning'">
-                <vs-td>II.មន្ទីរសេដ្ឋកិច្ចនិងហិរញ្ញវត្ថុរាជធានី-ខេត្ត</vs-td>
-                <vs-td>187,283</vs-td>
-                <vs-td>0.0</vs-td>
-                <vs-td>187,283</vs-td>
-                <vs-td>187,283</vs-td>
-                <vs-td>187,283</vs-td>
+                <vs-td>១. អនុកម្មវិធីទី១.១ អគ្គនាយកដ្ឋាន​គោលនយោបាយ</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td></vs-td>
               </vs-tr>
 
-                <vs-tr>
+              <vs-tr>
                   <vs-td>- បន្ទុកបុគ្គលិក</vs-td>
-                  <vs-td>187,283</vs-td>
-                  <vs-td>0.0</vs-td>
-                  <vs-td>187,283</vs-td>
-                  <vs-td>187,283</vs-td>
-                  <vs-td>187,283</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td></vs-td>
                 </vs-tr>
                 <vs-tr>
                   <vs-td>- ក្រៅបន្ទុកបុគ្គលិក</vs-td>
-                  <vs-td>187,283</vs-td>
-                  <vs-td>0.0</vs-td>
-                  <vs-td>187,283</vs-td>
-                  <vs-td>187,283</vs-td>
-                  <vs-td>187,283</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td></vs-td>
                 </vs-tr>
+
+                <!-- Part1 -->
+              <vs-tr :state="'warning'">
+                <vs-td>២. អនុកម្មវិធីទី១.២ អគ្គលេខាធិការដ្ឋាន​គណៈកម្មាធិការជាតិ​ផលិតភាពសេដ្ឋកិច្ច​កម្ពុជា</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td></vs-td>
+              </vs-tr>
+
+              <vs-tr>
+                  <vs-td>- បន្ទុកបុគ្គលិក</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td></vs-td>
+                </vs-tr>
+                <vs-tr>
+                  <vs-td>- ក្រៅបន្ទុកបុគ្គលិក</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td>0.00</vs-td>
+                  <vs-td></vs-td>
+                </vs-tr>
+
           </template>
       </vs-table>
 
@@ -196,3 +371,28 @@ export default {
     },
 }
 </script>
+
+<style>
+  th.th-width-300{
+    min-width: 260px !important;
+  }
+  td.td-width-150{
+    min-width: 150px !important;
+  }
+  table tr td, th{
+    border: 1px solid #d7d7d7;
+  }
+  th{
+    text-align: center !important;
+    /* display: inline; */
+  }
+  th.rotate{
+    transform: rotate(-90deg)
+  }
+.vs-table--thead th .vs-table-text {
+    text-transform: uppercase;
+    font-weight: 600;
+    text-align: center;
+    display: inline !important;
+}
+</style>

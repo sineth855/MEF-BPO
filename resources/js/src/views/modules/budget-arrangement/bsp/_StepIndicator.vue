@@ -33,53 +33,49 @@
         </div>
         <div class="clearfix"></div>
         <vs-table :data="[]" style="overflow: scroll">
+          
+          <vs-tr>
+            <vs-td style="width: 500px" rowspan="3"><center>សេចក្ដីពណ៌នា<br/>
+(បន្ថែមជួរដេកមួយសម្រាប់សូចនាករលទ្ធផលនីមួយៗ)</center></vs-td>
+            <vs-td style="" rowspan="3"><center>កូដសូចនាករ</center></vs-td>
+            <vs-td style="" rowspan="3"><center>គម្រោងថវិកា​ឆ្នាំ២០២៣(លានរៀល)</center></vs-td>
+            <vs-td style="" colspan="6"><center>គោលដៅសូចនាករសមិទ្ធកម្ម</center></vs-td>
+          </vs-tr>
 
-          <template slot="thead">
-            <vs-th>កូដកម្មវិធី</vs-th>
-            <vs-th :rowspan="3">សេចក្ដីពណ៌នា</vs-th>
-            <vs-th>កូដសូចនាករ</vs-th>
-            <vs-th>គម្រោងថវិកា<br/>ឆ្នាំ២០២៣<br/>(លានរៀល)</vs-th>
-            <vs-th>គោលដៅសូចនាករសមិទ្ធកម្ម</vs-th>
-            <vs-th></vs-th>
-            <vs-th></vs-th>
-            <vs-th></vs-th>
-            <vs-th></vs-th>
-          </template>
+          <vs-tr>
+            <!-- <vs-td></vs-td> -->
+            <!-- <vs-td></vs-td> -->
+            <!-- <vs-td></vs-td> -->
 
-          <!-- <template> -->
-            
-            
-            <vs-tr :state="'warning'">
-              <vs-td></vs-td>
-              <!-- <vs-td></vs-td> -->
-              <vs-td></vs-td>
-              <vs-td></vs-td>
-              <vs-td>ឆ្នាំមុន-២០២១(អនុវត្តរួច)</vs-td>
-              <vs-td>ឆ្នាំបច្ចុប្បន្ន-២០២២(កំពុងអនុវត្ត)</vs-td>
-              <vs-td>ឆ្នាំគ្រោងថវិកា-២០២៣</vs-td>
-              <vs-td>ឆ្នាំគ្រោងថវិកា​២០២៤</vs-td>
-              <vs-td>ឆ្នាំគ្រោងថវិកា​២០២៥</vs-td>
-              <vs-td></vs-td>
-            </vs-tr>
+            <vs-td rowspan="2"><center>ឆ្នាំមុន-២០២១<br/>(អនុវត្តរួច)</center></vs-td>
 
-            <vs-tr :state="'warning'">
-              <vs-td></vs-td>
-              <!-- <vs-td></vs-td> -->
-              <vs-td></vs-td>
-              <vs-td></vs-td>
-              <vs-td></vs-td>
-              <vs-td></vs-td>
-              <vs-td>គោលដៅ</vs-td>
-              <vs-td>មូលហេតុផ្លាស់ប្ដូរ (ធៀបឆ្នាំ២០២២)</vs-td>
-              <vs-td></vs-td>
-              <vs-td></vs-td>
-            </vs-tr>
+            <vs-td rowspan="2"><center>ឆ្នាំបច្ចុប្បន្ន-២០២២<br/>(កំពុងអនុវត្ត)</center></vs-td>
+            <vs-td colspan="2">ឆ្នាំគ្រោងថវិកា-២០២៣</vs-td>
+            <!-- <vs-td></vs-td>   -->
 
-            <vs-tr :state="'primary'">
-                <vs-td></vs-td>
+            <vs-td rowspan="2">ឆ្នាំគ្រោងថវិកា​២០២៤</vs-td>
+            <vs-td rowspan="2">ឆ្នាំគ្រោងថវិកា២០២៥</vs-td>
+          </vs-tr>
+
+          <vs-tr style="width:500px">
+            <!-- <vs-td></vs-td> -->
+            <!-- <vs-td></vs-td> -->
+            <!-- <vs-td></vs-td> -->
+            <vs-td>គោលដៅ</vs-td>
+            <vs-td style="400px">មូលហេតុផ្លាស់ប្ដូរ (ធៀបឆ្នាំ២០២២)</vs-td>
+            <!-- <vs-td></vs-td>
+            <vs-td></vs-td> -->
+
+
+            <!-- <vs-td></vs-td>
+            <vs-td></vs-td> -->
+          </vs-tr>
+
+            <vs-tr :state="'success'">
                 <vs-td>១.១. អនុកម្មវិធីទី១.១ : ការគ្រប់គ្រងគោលនយោបាយសេដ្ឋកិច្ច ហិរញ្ញវត្ថុ និងគោលនយោបាយតាមវិស័យផ្សេងៗ</vs-td>
                 <vs-td></vs-td>
-                <vs-td>0.0</vs-td>
+                <vs-td></vs-td>
+                <vs-td></vs-td>
                 <vs-td></vs-td>
                 <vs-th></vs-th>
                 <vs-th></vs-th>
@@ -88,34 +84,22 @@
             </vs-tr>
 
             <vs-tr>
-                <vs-td></vs-td>
                 <vs-td>-សូចនាករទី១ : ... </vs-td>
                 <vs-td>PI-1011</vs-td>
                 <vs-td></vs-td>
                 <vs-td></vs-td>
+                <vs-td></vs-td>
                 <vs-th></vs-th>
                 <vs-th></vs-th>
                 <vs-th></vs-th>
                 <vs-th></vs-th>
             </vs-tr>
 
-            <vs-tr>
-                <vs-td></vs-td>
-                <vs-td>-សូចនាករទី២ : ... </vs-td>
-                <vs-td>PI-1011</vs-td>
-                <vs-td></vs-td>
-                <vs-td></vs-td>
-                <vs-th></vs-th>
-                <vs-th></vs-th>
-                <vs-th></vs-th>
-                <vs-th></vs-th>
-            </vs-tr>
-<!-- 
             <vs-tr :state="'warning'">
-                <vs-td></vs-td>
                 <vs-td>១.១.១. ចង្កោមសកម្មភាពទី១ : គាំទ្រ សម្របសម្រួល និងគ្រប់គ្រងការងាររដ្ឋបាលរបស់អគ្គនាយកដ្ឋាន</vs-td>
                 <vs-td></vs-td>
-                <vs-td>0.0</vs-td>
+                <vs-td></vs-td>
+                <vs-td></vs-td>
                 <vs-td></vs-td>
                 <vs-th></vs-th>
                 <vs-th></vs-th>
@@ -124,11 +108,11 @@
             </vs-tr>
 
             <vs-tr>
-                <vs-td></vs-td>
                 <vs-td>-សូចនាករទី១ : ... </vs-td>
                 <vs-td>PI-1011</vs-td>
                 <vs-td></vs-td>
                 <vs-td></vs-td>
+                <vs-td></vs-td>
                 <vs-th></vs-th>
                 <vs-th></vs-th>
                 <vs-th></vs-th>
@@ -136,16 +120,53 @@
             </vs-tr>
 
             <vs-tr>
-                <vs-td></vs-td>
-                <vs-td>-សូចនាករទី២ : ... </vs-td>
+                <vs-td>-សូចនាករទី១ : ... </vs-td>
                 <vs-td>PI-1011</vs-td>
                 <vs-td></vs-td>
                 <vs-td></vs-td>
+                <vs-td></vs-td>
                 <vs-th></vs-th>
                 <vs-th></vs-th>
                 <vs-th></vs-th>
                 <vs-th></vs-th>
-            </vs-tr> -->
+            </vs-tr>
+
+            <vs-tr :state="'warning'">
+                <vs-td>១.១.១. ចង្កោមសកម្មភាពទី១ : គាំទ្រ សម្របសម្រួល និងគ្រប់គ្រងការងាររដ្ឋបាលរបស់អគ្គនាយកដ្ឋាន</vs-td>
+                <vs-td></vs-td>
+                <vs-td></vs-td>
+                <vs-td></vs-td>
+                <vs-td></vs-td>
+                <vs-th></vs-th>
+                <vs-th></vs-th>
+                <vs-th></vs-th>
+                <vs-th></vs-th>
+            </vs-tr>
+
+            <vs-tr>
+                <vs-td>-សូចនាករទី១ : ... </vs-td>
+                <vs-td>PI-1011</vs-td>
+                <vs-td></vs-td>
+                <vs-td></vs-td>
+                <vs-td></vs-td>
+                <vs-th></vs-th>
+                <vs-th></vs-th>
+                <vs-th></vs-th>
+                <vs-th></vs-th>
+            </vs-tr>
+
+            <vs-tr>
+                <vs-td>-សូចនាករទី១ : ... </vs-td>
+                <vs-td>PI-1011</vs-td>
+                <vs-td></vs-td>
+                <vs-td></vs-td>
+                <vs-td></vs-td>
+                <vs-th></vs-th>
+                <vs-th></vs-th>
+                <vs-th></vs-th>
+                <vs-th></vs-th>
+            </vs-tr>
+
           <!-- </template> -->
         </vs-table>
       </div>

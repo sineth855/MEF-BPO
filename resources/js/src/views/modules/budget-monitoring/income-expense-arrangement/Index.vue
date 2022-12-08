@@ -51,11 +51,11 @@
                 <vx-card
                   title="ត្រីមាសទី១"
                   title-color="#fff"
-                  card-background="primary"
+                  card-background="#3fccca"
                   content-color="#fff"
                   code-toggler
                   @click="popupActive=true" color="primary">
-                  <center><h5 class="pb-4" style="line-height: 30px;">កម្មវិធីទី១ៈ ការគ្រប់គ្រងវិស្ស័យសេដ្ឋកិច្ច</h5></center>
+                  <center><h5 class="pb-4" style="line-height: 30px;"><b>កម្មវិធីទី១ៈ ការគ្រប់គ្រងវិស្ស័យសេដ្ឋកិច្ច</b></h5></center>
               </vx-card>
             </div>
             <!-- Background Color -->
@@ -63,10 +63,10 @@
                 <vx-card
                   title="ត្រីមាសទី២"
                   title-color="#fff"
-                  card-background="warning"
+                  card-background="#cfb007"
                   content-color="#fff"
                   code-toggler @click="popupActive=true">
-                  <center><h5 class="pb-4" style="line-height: 30px;">កម្មវិធីទី១ៈ ការគ្រប់គ្រងវិស្ស័យសេដ្ឋកិច្ច</h5></center>
+                  <center><h5 class="pb-4" style="line-height: 30px;"><b>កម្មវិធីទី២ៈ ការគ្រប់គ្រងវិស្ស័យហិរញ្ញវត្ថុ</b></h5></center>
               </vx-card>
             </div>
 
@@ -75,10 +75,10 @@
                 <vx-card
                   title="ត្រីមាសទី៣"
                   title-color="#fff"
-                  card-background="danger"
+                  card-background="#29a8d6"
                   content-color="#fff"
                   code-toggler @click="popupActive=true">
-                  <center><h5 class="pb-4" style="line-height: 30px;">កម្មវិធីទី១ៈ ការគ្រប់គ្រងវិស្ស័យសេដ្ឋកិច្ច</h5></center>
+                  <center><h5 class="pb-4" style="line-height: 30px;"><b>កម្មវិធីទី៣ៈ ការគ្រប់គ្រងចំណូលសាធារណៈ និងទ្រព្យសម្បត្តិ</b></h5></center>
               </vx-card>
             </div>
 
@@ -87,10 +87,10 @@
                 <vx-card
                   title="ត្រីមាសទី៤"
                   title-color="#fff"
-                  card-background="primary"
+                  card-background="#AFC817"
                   content-color="#fff"
                   code-toggler @click="popupActive=true">
-                  <center><h5 class="pb-4" style="line-height: 30px;">កម្មវិធីទី១ៈ ការគ្រប់គ្រងវិស្ស័យសេដ្ឋកិច្ច</h5></center>
+                  <center><h5 class="pb-4" style="line-height: 30px;"><b>កម្មវិធីទី៤ៈ ការគ្រប់គ្រងចំណាយសាធារណៈ និងប្រព័ន្ធហិរញ្ញវត្ថុ...</b></h5></center>
               </vx-card>
             </div>
 

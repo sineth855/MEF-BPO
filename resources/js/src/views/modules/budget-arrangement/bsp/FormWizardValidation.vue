@@ -1,8 +1,6 @@
 <template>
   <vx-card title="" code-toggler>
     <div class="mt-5">
-      <step-indicator></step-indicator>
-
       <form-wizard color="rgba(var(--vs-primary), 1)" errorColor="rgba(var(--vs-danger), 1)" :title="null" :subtitle="null" finishButtonText="Submit">
         <!-- Tab 1  -->
         <tab-content title="រៀបចំផែនការយុទ្ធសាស្ត្រថវិកា" class="mb-5" icon="feather icon-home" :before-change="validateStep1">
@@ -45,25 +43,25 @@
               <vs-collapse-item>
                 <div slot="header" style="color: #fff; background-color:#C0C9C4; padding: 10px;">
                   <!-- <vs-alert color="primary" icon="new_releases" active="true" class="mt-5"> -->
-                  គម្រោងថវិកាតាមចំណាត់ថ្នាក់សេដ្ឋកិច្ច
+                  គម្រោងថវិកាចំណាយតាមចំណាត់ថ្នាក់សេដ្ឋកិច្ច
                   <!-- </vs-alert> -->
                 </div>
-                Data under control
+                <step-economic-exppb></step-economic-exppb>
               </vs-collapse-item>
 
               <vs-collapse-item>
                 <div slot="header" style="color: #fff; background-color:#C0C9C4; padding: 10px;">គោលបំណង និងការទទួលខុសត្រូវលើអនុកម្មវិធី សង្កោមសកម្មភាព និងសកម្មភាព</div>
-                Data under control
+                <step-objective-sub-program></step-objective-sub-program>
               </vs-collapse-item>
 
               <vs-collapse-item _disabled>
                 <div slot="header" style="color: #fff; background-color:#C0C9C4; padding: 10px;">វឌ្ឍនភាពសូចនាករ និងគោលដៅសូចនាករនៃកម្មវិធី សង្កោមសកម្មភាព និងសកម្មភាព</div>
-                Data under control
+                <step-KPI-progress></step-KPI-progress>
               </vs-collapse-item>
 
               <vs-collapse-item>
                 <div slot="header" style="color: #fff; background-color:#C0C9C4; padding: 10px;">សូចនាករ និងគោលដៅសូចនាករ</div>
-                Data under control
+                <step-KPI></step-KPI>
               </vs-collapse-item>
             </vs-collapse>
         </tab-content>
@@ -167,6 +165,11 @@
   import StepIncomePlan from "./_StepIncomePlan.vue"
   import StepSubprogram from "./_StepSubprogram.vue"
   import StepIndicator from "./_StepIndicator.vue"
+
+  import StepEconomicExppb from "./step-budget-package/_StepEconomicExppb.vue"
+  import StepKPIProgress from "./step-budget-package/_StepKPIProgress.vue"
+  import StepObjectiveSubProgram from "./step-budget-package/_StepObjectiveSubProgram.vue"
+  import StepKPI from "./step-budget-package/_StepKPI.vue"
   // For custom error message
   import { Validator } from 'vee-validate';
   const dict = {
@@ -275,7 +278,12 @@
         StepExpenseDemand,
         StepIncomePlan,
         StepSubprogram,
-        StepIndicator
+        StepIndicator,
+
+        StepEconomicExppb,
+        StepKPI,
+        StepKPIProgress,
+        StepObjectiveSubProgram,
       }
   }
 </script>

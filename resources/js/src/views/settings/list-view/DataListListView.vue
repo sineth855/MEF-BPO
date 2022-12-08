@@ -1,9 +1,18 @@
+<!-- =========================================================================================
+  File Name: DataListListView.vue
+  Description: Data List - List View
+  ----------------------------------------------------------------------------------------
+  Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
+  Author: Pixinvent
+  Author URL: http://www.themeforest.net/user/pixinvent
+========================================================================================== -->
+
 <template>
   <div id="data-list-list-view" class="data-list-container">
 
     <data-view-sidebar :isSidebarActive="addNewDataSidebar" @closeSidebar="toggleDataSidebar" :data="sidebarData" />
 
-    <vs-table ref="table" multiple v-model="selected" pagination :max-items="itemsPerPage" search :data="data">
+    <vs-table ref="table" multiple v-model="selected" pagination :max-items="itemsPerPage" search :data="products">
 
       <div slot="header" class="flex flex-wrap-reverse items-center flex-grow justify-between">
 
@@ -13,7 +22,7 @@
           <vs-dropdown vs-trigger-click class="dd-actions cursor-pointer mr-4 mb-4">
 
             <div class="p-4 shadow-drop rounded-lg d-theme-dark-bg cursor-pointer flex items-center justify-center text-lg font-medium w-32 w-full">
-              <span class="mr-2">{{$t("Action")}}</span>
+              <span class="mr-2">Actions</span>
               <feather-icon icon="ChevronDownIcon" svgClasses="h-4 w-4" />
             </div>
 
@@ -53,14 +62,10 @@
           <!-- ADD NEW -->
           <div class="btn-add-new p-3 mb-4 mr-4 rounded-lg cursor-pointer flex items-center justify-center text-lg font-medium text-base text-primary border border-solid border-primary" @click="addNewData">
               <feather-icon icon="PlusIcon" svgClasses="h-4 w-4" />
-              <span class="ml-2 text-base text-primary">{{$t("AddNew")}}</span>
+              <span class="ml-2 text-base text-primary">Add New</span>
           </div>
         </div>
 
-         <div id="popup-demo">
-          <popup-fullscreen></popup-fullscreen>
-        </div>
-        
         <!-- ITEMS PER PAGE -->
         <vs-dropdown vs-trigger-click class="cursor-pointer mb-4 mr-4 items-per-page-handler">
           <div class="p-4 border border-solid d-theme-border-grey-light rounded-full d-theme-dark-bg cursor-pointer flex items-center justify-between font-medium">
@@ -87,35 +92,39 @@
       </div>
 
       <template slot="thead">
-        <vs-th sort-key="name">ពិដានប្រចាំឆាំ្ន</vs-th>
-        <vs-th sort-key="category">ឆ្នាំកំណត់</vs-th>
-        <vs-th sort-key="popularity">វឌ្ឍនភាព</vs-th>
-        <vs-th sort-key="order_status">ស្ថានភាព</vs-th>
-        <vs-th>​​ប៊ូតុងសកម្ម</vs-th>
+        <vs-th sort-key="name">Name</vs-th>
+        <vs-th sort-key="category">Category</vs-th>
+        <vs-th sort-key="popularity">Popularity</vs-th>
+        <vs-th sort-key="order_status">Order Status</vs-th>
+        <vs-th sort-key="price">Price</vs-th>
+        <vs-th>Action</vs-th>
       </template>
 
         <template slot-scope="{data}">
           <tbody>
             <vs-tr :data="tr" :key="indextr" v-for="(tr, indextr) in data">
 
-              <vs-td @click="viewCeiling()">
-                <p class="product-name font-medium truncate">{{ tr.title }}</p>
+              <vs-td>
+                <p class="product-name font-medium truncate">{{ tr.name }}</p>
               </vs-td>
 
               <vs-td>
-                <p class="product-category">{{ tr.ceiling_year }}</p>
+                <p class="product-category">{{ tr.category | title }}</p>
               </vs-td>
 
               <vs-td>
-                <vs-progress :percent="Number(tr.progress)" :color="getPopularityColor(Number(tr.progress))" class="shadow-md" />
+                <vs-progress :percent="Number(tr.popularity)" :color="getPopularityColor(Number(tr.popularity))" class="shadow-md" />
               </vs-td>
- 
+
               <vs-td>
-                <vs-chip :color="getOrderStatusColor(tr.status)" class="product-order-status">{{ $t(tr.status) }}</vs-chip>
+                <vs-chip :color="getOrderStatusColor(tr.order_status)" class="product-order-status">{{ tr.order_status | title }}</vs-chip>
+              </vs-td>
+
+              <vs-td>
+                <p class="product-price">${{ tr.price }}</p>
               </vs-td>
 
               <vs-td class="whitespace-no-wrap">
-                <feather-icon icon="DollarSignIcon" svgClasses="w-5 h-5 hover:text-primary stroke-current" @click="viewBudgetList();"  />
                 <feather-icon icon="EditIcon" svgClasses="w-5 h-5 hover:text-primary stroke-current" @click.stop="editData(tr)" />
                 <feather-icon icon="TrashIcon" svgClasses="w-5 h-5 hover:text-danger stroke-current" class="ml-2" @click.stop="deleteData(tr.id)" />
               </vs-td>
@@ -123,25 +132,20 @@
             </vs-tr>
           </tbody>
         </template>
-       
-
     </vs-table>
-    
   </div>
 </template>
 
 <script>
-import DataViewSidebar from './DataViewSidebar.vue'
+import DataViewSidebar from '../DataViewSidebar.vue'
 import moduleDataList from "@/store/data-list/moduleDataList.js"
-import PopupFullscreen from './PopupFullscreen.vue'
+
 export default {
   components: {
-    DataViewSidebar,
-    PopupFullscreen
+    DataViewSidebar
   },
   data() {
     return {
-      // popupActive: false,
       selected: [],
       // products: [],
       itemsPerPage: 4,
@@ -150,33 +154,6 @@ export default {
       // Data Sidebar
       addNewDataSidebar: false,
       sidebarData: {},
-      data: [
-        {
-          title: "ពិដានប្រចាំឆ្នាំ២០២២",
-          ceiling_year: "2022",
-          progress: "50",
-          status: "inprogress",
-          statusLabel: ""
-        },
-        {
-          title: "ពិដានប្រចាំឆ្នាំ២០២១",
-          ceiling_year: "2021",
-          progress: "100",
-          status: "completed",
-        },
-        {
-          title: "ពិដានប្រចាំឆ្នាំ២០២០",
-          ceiling_year: "2020",
-          progress: "100",
-          status: "completed"
-        },
-        {
-          title: "ពិដានប្រចាំឆ្នាំ២០១៩",
-          ceiling_year: "2019",
-          progress: "100",
-          status: "completed"
-        },
-      ]
     }
   },
   computed: {
@@ -194,9 +171,6 @@ export default {
     }
   },
   methods: {
-    viewBudgetList(){
-      this.$router.push('/module/budget-arrangement/budget-ceiling/list').catch(() => {});
-    },
     addNewData() {
       this.sidebarData = {}
       this.toggleDataSidebar(true)
@@ -211,7 +185,7 @@ export default {
     },
     getOrderStatusColor(status) {
       if(status == 'on_hold') return "warning"
-      if(status == 'completed') return "success"
+      if(status == 'delivered') return "success"
       if(status == 'canceled') return "danger"
       return "primary"
     },
@@ -224,9 +198,6 @@ export default {
     },
     toggleDataSidebar(val=false) {
       this.addNewDataSidebar = val
-    },
-    viewCeiling(){
-      alert("testing");
     }
   },
   created() {
@@ -235,7 +206,6 @@ export default {
       moduleDataList.isRegistered = true
     }
     this.$store.dispatch("dataList/fetchDataListItems")
-    this.data;
   },
   mounted() {
     this.isMounted = true;
@@ -341,7 +311,6 @@ export default {
       th {
         padding-top: 0;
         padding-bottom: 0;
-        font-size: 1.1rem;
 
         .vs-table-text{
           text-transform: uppercase;

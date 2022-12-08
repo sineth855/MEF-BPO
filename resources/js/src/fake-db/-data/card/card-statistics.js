@@ -3,16 +3,16 @@ import mock from "@/fake-db/mock.js"
 const data = {
   subscribers_gained: {
     series: [{
-      name: 'Subscribers',
-      data: [28, 40, 36, 52, 38, 60, 55]
+      name: ['Monthly'],
+      data: [28, 40, 36, 52, 38, 60, 55, 28, 40, 36, 52, 38]
     }],
     analyticsData: {
-      subscribers: 92600
+      subscribers: 8765678
     }
   },
   revenueGenerated: {
     series: [{
-        name: 'Revenue',
+        name: 'ចំណូល',
         data: [350, 275, 400, 300, 350, 300, 450]
     }],
     analyticsData: {
@@ -30,7 +30,7 @@ const data = {
   },
   ordersRecevied: {
     series: [{
-        name: 'Orders',
+        name: 'ចំណាយ',
         data: [10, 15, 8, 15, 7, 12, 8]
     }],
     analyticsData: {

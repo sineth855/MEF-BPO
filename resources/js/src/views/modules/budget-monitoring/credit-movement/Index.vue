@@ -54,33 +54,231 @@
           <popup-fullscreen></popup-fullscreen>
         </div>
 
-      <vs-table :data="users">
+      <vs-table :data="users" style="overflow: scroll">
+          <template>
+            
+            <vs-tr style="background-color: rgb(183 255 215)">
+              <vs-td>ជំពូក</vs-td>
+              <vs-td>ឆ្នាំ</vs-td>
+              <vs-td>អនុកម្មវិធី</vs-td>
+              <vs-td>លេខប្រកាស</vs-td>
+              <vs-td>កាលបរិច្ឆេទ</vs-td>
+              <vs-td>ប្រភេទចលនាឥណទាន</vs-td>
+              <vs-td>ប្រភេទចំណាយ</vs-td>
+              <vs-td>អនុគណនី</vs-td>
+              <vs-td>ចង្កោមសកម្មភាព</vs-td>
+              <vs-td>កើន</vs-td>
+              <vs-td>ថយ</vs-td>
 
-          <template slot="thead" style="border:1px solid #000">
-              <vs-th>ជំពូក</vs-th>
-              <vs-th>ឆ្នាំ</vs-th>
-              <vs-th>អនុកម្មវិធី</vs-th>
-              <vs-th>លេខប្រកាស</vs-th>
-              <vs-th>កាលបរិច្ឆេទ</vs-th>
-              <vs-th>ប្រភេទចលនាឥណទាន</vs-th>
-              <vs-th>ប្រភេទចំណាយ</vs-th>
-              <vs-th>អនុគណនី</vs-th>
-              <vs-th>ចង្កោមសកម្មភាព</vs-th>
-              <vs-th>កើន</vs-th>
-              <vs-th>ថយ</vs-th>
-          </template>
+              <vs-td>កើន</vs-td>
+              <vs-td>ថយ</vs-td>
 
-          <template  style="border:1px solid #000">
-              
-            <vs-tr :state="'Warning'">
+              <vs-td>ចលនា</vs-td>
+              <vs-td>កូដ ESE</vs-td>
+              <vs-td>លេខកូដ</vs-td>
+              <vs-td>ចលនា</vs-td>
+
+              <vs-td>ចលនា1119</vs-td>
+              <vs-td>ប្រភេទចំណាយ</vs-td>
+            </vs-tr>
+
+            <vs-tr style="min-height: 20px; font-size: 11px;" :state="'Warning'">
+              <vs-td>Chapter</vs-td>
+              <vs-td>Year</vs-td>
+              <vs-td>SubProgram</vs-td>
+              <vs-td>#DOC</vs-td>
+              <vs-td>Date</vs-td>
+              <vs-td>Budget Movement</vs-td>
+              <vs-td>Expense Type</vs-td>
+              <vs-td>SubAccount</vs-td>
+              <vs-td>ECACode</vs-td>
+              <vs-td>Increase</vs-td>
+              <vs-td>Decrease</vs-td>
+
+              <vs-td>+</vs-td>
+              <vs-td>-</vs-td>
+
+              <vs-td>=</vs-td>
+              <vs-td>Code ESE</vs-td>
+              <vs-td>Entry Code</vs-td>
+              <vs-td>Dif</vs-td>
+
+              <vs-td>Dif_1119</vs-td>
+              <vs-td>Expense Type</vs-td>
+            </vs-tr>
+
+            <vs-tr>
               <vs-td>60</vs-td>
-              <vs-td>202</vs-td>
+              <vs-td>2022</vs-td>
               <vs-td>104</vs-td>
+              <vs-td>001 សហវ. អថ 3/6/2022</vs-td>
+              <vs-td>វិចារណៈកម្មចំណាយ</vs-td>
               <vs-td></vs-td>
-              <vs-td>101 សហវ.អថ 6/3/2020</vs-td>
               <vs-td>60015</vs-td>
+              <vs-td>1</vs-td>
               <vs-td></vs-td>
               <vs-td></vs-td>
+              <vs-td>0.00</vs-td>
+
+              <vs-td></vs-td>
+              <vs-td>0.00</vs-td>
+
+              <vs-td>0.00</vs-td>
+              <vs-td>160015</vs-td>
+              <vs-td></vs-td>
+              <vs-td>0.00</vs-td>
+
+              <vs-td>0.00</vs-td>
+              <vs-td></vs-td>
+            </vs-tr>
+
+            <vs-tr>
+              <vs-td>60</vs-td>
+              <vs-td>2022</vs-td>
+              <vs-td>104</vs-td>
+              <vs-td>001 សហវ. អថ 3/6/2022</vs-td>
+              <vs-td>វិចារណៈកម្មចំណាយ</vs-td>
+              <vs-td></vs-td>
+              <vs-td>60015</vs-td>
+              <vs-td>1</vs-td>
+              <vs-td></vs-td>
+              <vs-td></vs-td>
+              <vs-td>0.00</vs-td>
+
+              <vs-td></vs-td>
+              <vs-td>0.00</vs-td>
+
+              <vs-td>0.00</vs-td>
+              <vs-td>160015</vs-td>
+              <vs-td></vs-td>
+              <vs-td>0.00</vs-td>
+
+              <vs-td>0.00</vs-td>
+              <vs-td></vs-td>
+            </vs-tr>
+
+            <vs-tr>
+              <vs-td>60</vs-td>
+              <vs-td>2022</vs-td>
+              <vs-td>104</vs-td>
+              <vs-td>001 សហវ. អថ 3/6/2022</vs-td>
+              <vs-td>វិចារណៈកម្មចំណាយ</vs-td>
+              <vs-td></vs-td>
+              <vs-td>60015</vs-td>
+              <vs-td>1</vs-td>
+              <vs-td></vs-td>
+              <vs-td></vs-td>
+              <vs-td>0.00</vs-td>
+
+              <vs-td></vs-td>
+              <vs-td>0.00</vs-td>
+
+              <vs-td>0.00</vs-td>
+              <vs-td>160015</vs-td>
+              <vs-td></vs-td>
+              <vs-td>0.00</vs-td>
+
+              <vs-td>0.00</vs-td>
+              <vs-td></vs-td>
+            </vs-tr>
+
+            <vs-tr>
+              <vs-td>60</vs-td>
+              <vs-td>2022</vs-td>
+              <vs-td>104</vs-td>
+              <vs-td>001 សហវ. អថ 3/6/2022</vs-td>
+              <vs-td>វិចារណៈកម្មចំណាយ</vs-td>
+              <vs-td></vs-td>
+              <vs-td>60015</vs-td>
+              <vs-td>1</vs-td>
+              <vs-td></vs-td>
+              <vs-td></vs-td>
+              <vs-td>0.00</vs-td>
+
+              <vs-td></vs-td>
+              <vs-td>0.00</vs-td>
+
+              <vs-td>0.00</vs-td>
+              <vs-td>160015</vs-td>
+              <vs-td></vs-td>
+              <vs-td>0.00</vs-td>
+
+              <vs-td>0.00</vs-td>
+              <vs-td></vs-td>
+            </vs-tr>
+
+            <vs-tr>
+              <vs-td>60</vs-td>
+              <vs-td>2022</vs-td>
+              <vs-td>104</vs-td>
+              <vs-td>001 សហវ. អថ 3/6/2022</vs-td>
+              <vs-td>វិចារណៈកម្មចំណាយ</vs-td>
+              <vs-td></vs-td>
+              <vs-td>60015</vs-td>
+              <vs-td>1</vs-td>
+              <vs-td></vs-td>
+              <vs-td></vs-td>
+              <vs-td>0.00</vs-td>
+
+              <vs-td></vs-td>
+              <vs-td>0.00</vs-td>
+
+              <vs-td>0.00</vs-td>
+              <vs-td>160015</vs-td>
+              <vs-td></vs-td>
+              <vs-td>0.00</vs-td>
+
+              <vs-td>0.00</vs-td>
+              <vs-td></vs-td>
+            </vs-tr>
+
+            <vs-tr>
+              <vs-td>60</vs-td>
+              <vs-td>2022</vs-td>
+              <vs-td>104</vs-td>
+              <vs-td>001 សហវ. អថ 3/6/2022</vs-td>
+              <vs-td>វិចារណៈកម្មចំណាយ</vs-td>
+              <vs-td></vs-td>
+              <vs-td>60015</vs-td>
+              <vs-td>1</vs-td>
+              <vs-td></vs-td>
+              <vs-td></vs-td>
+              <vs-td>0.00</vs-td>
+
+              <vs-td></vs-td>
+              <vs-td>0.00</vs-td>
+
+              <vs-td>0.00</vs-td>
+              <vs-td>160015</vs-td>
+              <vs-td></vs-td>
+              <vs-td>0.00</vs-td>
+
+              <vs-td>0.00</vs-td>
+              <vs-td></vs-td>
+            </vs-tr>
+
+            <vs-tr>
+              <vs-td>60</vs-td>
+              <vs-td>2022</vs-td>
+              <vs-td>104</vs-td>
+              <vs-td>001 សហវ. អថ 3/6/2022</vs-td>
+              <vs-td>វិចារណៈកម្មចំណាយ</vs-td>
+              <vs-td></vs-td>
+              <vs-td>60015</vs-td>
+              <vs-td>1</vs-td>
+              <vs-td></vs-td>
+              <vs-td></vs-td>
+              <vs-td>0.00</vs-td>
+
+              <vs-td></vs-td>
+              <vs-td>0.00</vs-td>
+
+              <vs-td>0.00</vs-td>
+              <vs-td>160015</vs-td>
+              <vs-td></vs-td>
+              <vs-td>0.00</vs-td>
+
+              <vs-td>0.00</vs-td>
               <vs-td></vs-td>
             </vs-tr>
 
@@ -99,3 +297,31 @@ export default {
     },
 }
 </script>
+
+<style>
+  th.th-width-300{
+    min-width: 260px !important;
+  }
+  td.td-width-150{
+    min-width: 150px !important;
+  }
+  table tr td, th{
+    border: 1px solid #d7d7d7;
+    font-size: 12px;
+    min-width: 100px;
+    text-align: center;
+  }
+  th{
+    text-align: center !important;
+    /* display: inline; */
+  }
+  th.rotate{
+    transform: rotate(-90deg)
+  }
+.vs-table--thead th .vs-table-text {
+    text-transform: uppercase;
+    font-weight: 600;
+    text-align: center;
+    display: inline !important;
+}
+</style>

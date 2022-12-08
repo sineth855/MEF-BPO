@@ -9,7 +9,7 @@
 
 
 <template>
-    <vx-card title="គោលបំណងនយោបាយទី១ៈ ការគ្រប់គ្រងសេដ្ឋកិច្ច និងហិរញ្ញវត្ថុ" code-toggler>
+    <vx-card title="កម្មវិធីទី១ៈ ការគ្រប់គ្រងវិស្ស័យសេដ្ឋកិច្ច" code-toggler>
       <div class="flex flex-wrap-reverse items-center data-list-btn-container">
         <!-- ADD NEW -->
         <div class="btn-add-new p-3 mb-4 mr-4 rounded-lg cursor-pointer text-right flex items-center justify-center text-lg font-medium text-base text-primary border border-solid border-primary" @click="addNewData">

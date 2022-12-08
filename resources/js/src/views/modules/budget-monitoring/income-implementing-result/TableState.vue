@@ -56,50 +56,264 @@
 
       <vs-table :data="users">
 
-          <template slot="thead" style="border:1px solid #000">
-              <vs-th>ជំពូក</vs-th>
-              <vs-th>គណនី</vs-th>
-              <vs-th>អនុគណនី</vs-th>
-              <vs-th>ចំណាត់ថ្នាក់ចំណូល</vs-th>
-
-              <vs-th colspan="3">
-                សរុបទាំងពន្ធដាថ្នាក់ក្រោមជាតិ
-                <!-- <small>សរុបរួម+ពន្ធដាថ្នាក់ក្រោមជាតិ</small> -->
-              </vs-th>
-
-              <vs-th colspan="3" style="text-align: center;">សរុបរួម</vs-th>
-          </template>
-
           <template  style="border:1px solid #000">
               
-              <vs-tr :state="'Warning'">
-                <vs-td></vs-td>
-                <vs-td></vs-td>
-                <vs-td></vs-td>
-                <vs-td>សរុបរួមចំណូល(ក+ខ)</vs-td>
-
-                <vs-td>ច្បា់ហិរញ្ញវត្ថុ</vs-td>
-                <vs-td>អនុវត្ត</vs-td>
-                <vs-td>អនុ/ច្បាប់</vs-td>
-
-                <vs-td>ច្បា់ហិរញ្ញវត្ថុ</vs-td>
-                <vs-td>អនុវត្ត</vs-td>
-                <vs-td>អនុ/ច្បាប់</vs-td>
+              <vs-tr style="background-color: rgb(183 255 215)">
+                <vs-td rowspan="3"><center>ជំពូក</center></vs-td>
+                <vs-td rowspan="3"><center>គណនី</center></vs-td>
+                <vs-td rowspan="3"><center>អនុគណនី</center></vs-td>
+                <vs-td rowspan="3"><center>ចំណាត់ថ្នាក់ចំណូល</center></vs-td>
+                <vs-td rowspan="2" colspan="3"><center>សរុបទាំងពន្ធដាថ្នាក់ក្រោមជាតិ <br/><small>សរុបរួម + ពន្ទដារថ្នាក់ក្រោមជាតិ</small></center></vs-td>
+                <vs-td rowspan="2" colspan="3"><center>សរុបរួម <br/> <small>រដ្ឋបាលកណ្តាល + មន្ទីរ សហវ.</small></center></vs-td>
+                <vs-td rowspan="2" colspan="3"><center>សរុបរដ្ឋបាលកណ្តាល <br/><small>ផ្នែកទី១ + ២ + ៣</small></center></vs-td>
+                <vs-td colspan="12"><center>ផ្នែកទី២ ទីស្តីការក្រសួង</center></vs-td>
               </vs-tr>
 
-              <vs-tr :state="'Success'">
-                <vs-td></vs-td>
+              <vs-tr style="background-color: rgb(183 255 215)">
+                <vs-td colspan="3">សរុបទីស្តីការក្រសួង</vs-td>
+                <vs-td colspan="3">១.១. អគ្គ.ឧស្សាហកម្មហិរញ្ញវត្ថុ</vs-td>
+                <vs-td colspan="3">១.២. អគ្គ.សហប្រតិ.អន្តរ.គ្រប់.បំណុល</vs-td>
+                <vs-td colspan="3">១.៣. និយ័តករគណនេយ្យ និងសវនកម្ម</vs-td>
+              </vs-tr>
+
+              <vs-tr style="background-color: rgb(183 255 215)">
+                <vs-td style="width: 150px;"><small>ច្បាប់ហិរញ្ញវត្ថុ</small></vs-td>
+                <vs-td style="width: 150px;"><small>អនុវត្ត</small></vs-td>
+                <vs-td style="width: 150px;"><small>អនុ/ច្បាប់</small></vs-td>
+                
+                <vs-td style="width: 150px;"><small>ច្បាប់ហិរញ្ញវត្ថុ</small></vs-td>
+                <vs-td style="width: 150px;"><small>អនុវត្ត</small></vs-td>
+                <vs-td style="width: 150px;"><small>អនុ/ច្បាប់</small></vs-td>
+
+                <vs-td style="width: 150px;"><small>ច្បាប់ហិរញ្ញវត្ថុ</small></vs-td>
+                <vs-td style="width: 150px;"><small>អនុវត្ត</small></vs-td>
+                <vs-td style="width: 150px;"><small>អនុ/ច្បាប់</small></vs-td>
+
+                <vs-td style="width: 150px;"><small>ច្បាប់ហិរញ្ញវត្ថុ</small></vs-td>
+                <vs-td style="width: 150px;"><small>អនុវត្ត</small></vs-td>
+                <vs-td style="width: 150px;"><small>អនុ/ច្បាប់</small></vs-td>
+
+                <vs-td style="width: 150px;"><small>ច្បាប់ហិរញ្ញវត្ថុ</small></vs-td>
+                <vs-td style="width: 150px;"><small>អនុវត្ត</small></vs-td>
+                <vs-td style="width: 150px;"><small>អនុ/ច្បាប់</small></vs-td>
+
+                <vs-td style="width: 150px;"><small>ច្បាប់ហិរញ្ញវត្ថុ</small></vs-td>
+                <vs-td style="width: 150px;"><small>អនុវត្ត</small></vs-td>
+                <vs-td style="width: 150px;"><small>អនុ/ច្បាប់</small></vs-td>
+
+                <vs-td style="width: 150px;"><small>ច្បាប់ហិរញ្ញវត្ថុ</small></vs-td>
+                <vs-td style="width: 150px;"><small>អនុវត្ត</small></vs-td>
+                <vs-td style="width: 150px;"><small>អនុ/ច្បាប់</small></vs-td>
+              </vs-tr>
+
+              <!-- Row -->
+              <vs-tr>
+                <vs-td colspan="4"><center>សរុបរួមចំណូល(ក+ខ)</center></vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+              </vs-tr>
+
+              <vs-tr>
+                <vs-td colspan="4"><center>ក្នុងនោះចំណូលក្នុងប្រទេស</center></vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+              </vs-tr>
+
+              <vs-tr>
+                <vs-td colspan="4"><center>ក. សរុបចំណូលចរន្ត (ក្រុមទី១ + ក្រុមទី២)</center></vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+              </vs-tr>
+
+              <vs-tr>
+                <vs-td colspan="4"><center>ក្រុមទី១ ចំណូលពិត (ប្រភេទទី១ + ប្រភេទទី២)</center></vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+              </vs-tr>
+
+              <vs-tr>
+                <vs-td colspan="4"><center>ប្រភេទទី១ (ចំណូលសារពើពន្ធ)</center></vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+              </vs-tr>
+
+              <vs-tr>
+                <vs-td>70</vs-td>
                 <vs-td></vs-td>
                 <vs-td></vs-td>
                 <vs-td>ចំណូលសារពើពន្ធក្នុងស្រុក</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+              </vs-tr>
 
-                <vs-td>1</vs-td>
-                <vs-td>2</vs-td>
-                <vs-td>3</vs-td>
+              <vs-tr>
+                <vs-td></vs-td>
+                <vs-td>7001</vs-td>
+                <vs-td></vs-td>
+                <vs-td>ពន្ធផ្ទាល់(ពន្ធលើទុន ប្រាក់ចំណូល)</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+              </vs-tr>
 
-                <vs-td>187,283</vs-td>
-                <vs-td>187,283</vs-td>
-                <vs-td>187,283</vs-td>
+              <vs-tr>
+                <vs-td></vs-td>
+                <vs-td></vs-td>
+                <vs-td>7001</vs-td>
+                <vs-td>ពន្ធលើប្រាក់ចំណូល</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
+                <vs-td>0.00</vs-td>
               </vs-tr>
               
           </template>
@@ -117,3 +331,31 @@ export default {
     },
 }
 </script>
+
+<style>
+  th.th-width-300{
+    min-width: 260px !important;
+  }
+  td.td-width-150{
+    min-width: 150px !important;
+  }
+  table tr td, th{
+    border: 1px solid #d7d7d7;
+    font-size: 12px;
+    min-width: 100px;
+    text-align: center;
+  }
+  th{
+    text-align: center !important;
+    /* display: inline; */
+  }
+  th.rotate{
+    transform: rotate(-90deg)
+  }
+.vs-table--thead th .vs-table-text {
+    text-transform: uppercase;
+    font-weight: 600;
+    text-align: center;
+    display: inline !important;
+}
+</style>

@@ -2,7 +2,7 @@ import mock from "@/fake-db/mock.js"
 
 // Contact
 let data = {
-  contacts: [
+  contactss: [
     {
       uid: 1,
       displayName: 'Felecia Rower',
@@ -74,7 +74,7 @@ let data = {
       status: 'away'
     },
   ],
-  chats: {
+  chatss: {
     1: {
       isPinned: true,
       msg: [
@@ -181,7 +181,9 @@ let data = {
           },
         ],
       },
-    },
+  },
+  chats: {},
+  contacts: []
 }
 
 // Functions

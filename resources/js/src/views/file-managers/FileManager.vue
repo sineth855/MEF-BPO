@@ -27,9 +27,9 @@
                             <div slot="no-body">
                                 <img :src="card_1.img" alt="content-img" class="responsive card-img-top">
                             </div>
-                            <h5 class="mb-2">{{ card_1.title }}</h5>
-                            <p class="text-grey">{{ card_1.subtitle }}</p>
-                            <p class="text-grey">{{ card_1.subtitle_2 }}</p>
+                            <h5 class="mb-2">{{ 'Document Name' }}</h5>
+                            <p class="text-grey">{{ 'Title Document' }}</p>
+                            <p class="text-grey">{{ 'BPO' }}</p>
                             <div class="flex justify-between flex-wrap">
                                 <vs-button class="mt-4 mr-2 shadow-lg" type="gradient" color="#7367F0" gradient-color-secondary="#CE9FFC">Download</vs-button>
                                 <!-- <vs-button class="mt-4" type="border" color="#b9b9b9">View All</vs-button> -->
@@ -43,9 +43,9 @@
                             <div slot="no-body">
                                 <img :src="card_1.img" alt="content-img" class="responsive card-img-top">
                             </div>
-                            <h5 class="mb-2">{{ card_1.title }}</h5>
-                            <p class="text-grey">{{ card_1.subtitle }}</p>
-                            <p class="text-grey">{{ card_1.subtitle_2 }}</p>
+                            <h5 class="mb-2">{{ 'Document Name' }}</h5>
+                            <p class="text-grey">{{ 'Title Document' }}</p>
+                            <p class="text-grey">{{ 'BPO' }}</p>
                             <div class="flex justify-between flex-wrap">
                                 <vs-button class="mt-4 mr-2 shadow-lg" type="gradient" color="#7367F0" gradient-color-secondary="#CE9FFC">Download</vs-button>
                                 <!-- <vs-button class="mt-4" type="border" color="#b9b9b9">View All</vs-button> -->
@@ -59,9 +59,9 @@
                             <div slot="no-body">
                                 <img :src="card_1.img" alt="content-img" class="responsive card-img-top">
                             </div>
-                            <h5 class="mb-2">{{ card_1.title }}</h5>
-                            <p class="text-grey">{{ card_1.subtitle }}</p>
-                            <p class="text-grey">{{ card_1.subtitle_2 }}</p>
+                            <h5 class="mb-2">{{ 'Document Name' }}</h5>
+                            <p class="text-grey">{{ 'Title Document' }}</p>
+                            <p class="text-grey">{{ 'BPO' }}</p>
                             <div class="flex justify-between flex-wrap">
                                 <vs-button class="mt-4 mr-2 shadow-lg" type="gradient" color="#7367F0" gradient-color-secondary="#CE9FFC">Download</vs-button>
                                 <!-- <vs-button class="mt-4" type="border" color="#b9b9b9">View All</vs-button> -->
@@ -75,9 +75,9 @@
                             <div slot="no-body">
                                 <img :src="card_1.img" alt="content-img" class="responsive card-img-top">
                             </div>
-                            <h5 class="mb-2">{{ card_1.title }}</h5>
-                            <p class="text-grey">{{ card_1.subtitle }}</p>
-                            <p class="text-grey">{{ card_1.subtitle_2 }}</p>
+                            <h5 class="mb-2">{{ 'Document Name' }}</h5>
+                            <p class="text-grey">{{ 'Title Document' }}</p>
+                            <p class="text-grey">{{ 'BPO' }}</p>
                             <div class="flex justify-between flex-wrap">
                                 <vs-button class="mt-4 mr-2 shadow-lg" type="gradient" color="#7367F0" gradient-color-secondary="#CE9FFC">Download</vs-button>
                                 <!-- <vs-button class="mt-4" type="border" color="#b9b9b9">View All</vs-button> -->
@@ -91,9 +91,9 @@
                             <div slot="no-body">
                                 <img :src="card_1.img" alt="content-img" class="responsive card-img-top">
                             </div>
-                            <h5 class="mb-2">{{ card_1.title }}</h5>
-                            <p class="text-grey">{{ card_1.subtitle }}</p>
-                            <p class="text-grey">{{ card_1.subtitle_2 }}</p>
+                            <h5 class="mb-2">{{ 'Document Name' }}</h5>
+                            <p class="text-grey">{{ 'Title Document' }}</p>
+                            <p class="text-grey">{{ 'BPO' }}</p>
                             <div class="flex justify-between flex-wrap">
                                 <vs-button class="mt-4 mr-2 shadow-lg" type="gradient" color="#7367F0" gradient-color-secondary="#CE9FFC">Download</vs-button>
                                 <!-- <vs-button class="mt-4" type="border" color="#b9b9b9">View All</vs-button> -->
@@ -107,9 +107,9 @@
                             <div slot="no-body">
                                 <img :src="card_1.img" alt="content-img" class="responsive card-img-top">
                             </div>
-                            <h5 class="mb-2">{{ card_1.title }}</h5>
-                            <p class="text-grey">{{ card_1.subtitle }}</p>
-                            <p class="text-grey">{{ card_1.subtitle_2 }}</p>
+                            <h5 class="mb-2">{{ 'Document Name' }}</h5>
+                            <p class="text-grey">{{ 'Title Document' }}</p>
+                            <p class="text-grey">{{ 'BPO' }}</p>
                             <div class="flex justify-between flex-wrap">
                                 <vs-button class="mt-4 mr-2 shadow-lg" type="gradient" color="#7367F0" gradient-color-secondary="#CE9FFC">Download</vs-button>
                                 <!-- <vs-button class="mt-4" type="border" color="#b9b9b9">View All</vs-button> -->
@@ -148,9 +148,9 @@
                             <div slot="no-body">
                                 <img :src="card_1.img" alt="content-img" class="responsive card-img-top">
                             </div>
-                            <h5 class="mb-2">{{ card_1.title }}</h5>
-                            <p class="text-grey">{{ card_1.subtitle }}</p>
-                            <p class="text-grey">{{ card_1.subtitle_2 }}</p>
+                            <h5 class="mb-2">{{ 'Document Name' }}</h5>
+                            <p class="text-grey">{{ 'Title Document' }}</p>
+                            <p class="text-grey">{{ 'BPO' }}</p>
                             <div class="flex justify-between flex-wrap">
                                 <vs-button class="mt-4 mr-2 shadow-lg" type="gradient" color="#7367F0" gradient-color-secondary="#CE9FFC">Download</vs-button>
                                 <!-- <vs-button class="mt-4" type="border" color="#b9b9b9">View All</vs-button> -->
@@ -164,9 +164,9 @@
                             <div slot="no-body">
                                 <img :src="card_1.img" alt="content-img" class="responsive card-img-top">
                             </div>
-                            <h5 class="mb-2">{{ card_1.title }}</h5>
-                            <p class="text-grey">{{ card_1.subtitle }}</p>
-                            <p class="text-grey">{{ card_1.subtitle_2 }}</p>
+                            <h5 class="mb-2">{{ 'Document Name' }}</h5>
+                            <p class="text-grey">{{ 'Title Document' }}</p>
+                            <p class="text-grey">{{ 'BPO' }}</p>
                             <div class="flex justify-between flex-wrap">
                                 <vs-button class="mt-4 mr-2 shadow-lg" type="gradient" color="#7367F0" gradient-color-secondary="#CE9FFC">Download</vs-button>
                                 <!-- <vs-button class="mt-4" type="border" color="#b9b9b9">View All</vs-button> -->
@@ -180,9 +180,9 @@
                             <div slot="no-body">
                                 <img :src="card_1.img" alt="content-img" class="responsive card-img-top">
                             </div>
-                            <h5 class="mb-2">{{ card_1.title }}</h5>
-                            <p class="text-grey">{{ card_1.subtitle }}</p>
-                            <p class="text-grey">{{ card_1.subtitle_2 }}</p>
+                            <h5 class="mb-2">{{ 'Document Name' }}</h5>
+                            <p class="text-grey">{{ 'Title Document' }}</p>
+                            <p class="text-grey">{{ 'BPO' }}</p>
                             <div class="flex justify-between flex-wrap">
                                 <vs-button class="mt-4 mr-2 shadow-lg" type="gradient" color="#7367F0" gradient-color-secondary="#CE9FFC">Download</vs-button>
                                 <!-- <vs-button class="mt-4" type="border" color="#b9b9b9">View All</vs-button> -->
@@ -196,9 +196,9 @@
                             <div slot="no-body">
                                 <img :src="card_1.img" alt="content-img" class="responsive card-img-top">
                             </div>
-                            <h5 class="mb-2">{{ card_1.title }}</h5>
-                            <p class="text-grey">{{ card_1.subtitle }}</p>
-                            <p class="text-grey">{{ card_1.subtitle_2 }}</p>
+                            <h5 class="mb-2">{{ 'Document Name' }}</h5>
+                            <p class="text-grey">{{ 'Title Document' }}</p>
+                            <p class="text-grey">{{ 'BPO' }}</p>
                             <div class="flex justify-between flex-wrap">
                                 <vs-button class="mt-4 mr-2 shadow-lg" type="gradient" color="#7367F0" gradient-color-secondary="#CE9FFC">Download</vs-button>
                                 <!-- <vs-button class="mt-4" type="border" color="#b9b9b9">View All</vs-button> -->
@@ -212,9 +212,9 @@
                             <div slot="no-body">
                                 <img :src="card_1.img" alt="content-img" class="responsive card-img-top">
                             </div>
-                            <h5 class="mb-2">{{ card_1.title }}</h5>
-                            <p class="text-grey">{{ card_1.subtitle }}</p>
-                            <p class="text-grey">{{ card_1.subtitle_2 }}</p>
+                            <h5 class="mb-2">{{ 'Document Name' }}</h5>
+                            <p class="text-grey">{{ '' }}</p>
+                            <p class="text-grey">{{ 'BPO' }}</p>
                             <div class="flex justify-between flex-wrap">
                                 <vs-button class="mt-4 mr-2 shadow-lg" type="gradient" color="#7367F0" gradient-color-secondary="#CE9FFC">Download</vs-button>
                                 <!-- <vs-button class="mt-4" type="border" color="#b9b9b9">View All</vs-button> -->
@@ -228,9 +228,9 @@
                             <div slot="no-body">
                                 <img :src="card_1.img" alt="content-img" class="responsive card-img-top">
                             </div>
-                            <h5 class="mb-2">{{ card_1.title }}</h5>
-                            <p class="text-grey">{{ card_1.subtitle }}</p>
-                            <p class="text-grey">{{ card_1.subtitle_2 }}</p>
+                            <h5 class="mb-2">{{ 'Document Name' }}</h5>
+                            <p class="text-grey">{{ 'Title Document' }}</p>
+                            <p class="text-grey">{{ 'BPO' }}</p>
                             <div class="flex justify-between flex-wrap">
                                 <vs-button class="mt-4 mr-2 shadow-lg" type="gradient" color="#7367F0" gradient-color-secondary="#CE9FFC">Download</vs-button>
                                 <!-- <vs-button class="mt-4" type="border" color="#b9b9b9">View All</vs-button> -->
@@ -266,9 +266,9 @@
                       <div class="vx-col w-full sm:w-1/2 lg:w-1/3 mb-base">
                         <vx-card>
                           <video-player ref="player" class="media-video-player card-video" :options="playerOptions" />
-                          <h5 class="mb-2">{{ card_1.title }}</h5>
-                          <p class="text-grey">{{ card_1.subtitle }}</p>
-                          <p class="text-grey">{{ card_1.subtitle_2 }}</p>
+                          <h5 class="mb-2">{{ 'Document Name' }}</h5>
+                          <p class="text-grey">{{ 'Title Document' }}</p>
+                          <p class="text-grey">{{ 'BPO' }}</p>
                         </vx-card>
                       </div>
 

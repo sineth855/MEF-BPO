@@ -12,21 +12,40 @@
             </template>
           </vx-input-group>
           <div class="flex items-center">
-            <!-- ADD NEW -->
-            <div class="btn-add-new p-3 mb-4 mr-4 rounded-lg cursor-pointer text-right flex items-center justify-center text-lg font-medium text-base text-primary border border-solid border-warning" @click="addNewData">
+            
+            <!-- <div class="btn-add-new p-3 mb-4 mr-4 rounded-lg cursor-pointer text-right flex items-center justify-center text-lg font-medium text-base text-primary border border-solid border-warning" @click="addNewData">
                 <feather-icon icon="DownloadIcon" svgClasses="h-4 w-4" />
                 <span class="ml-2 text-base text-primary">{{$t("Download")}}</span>
             </div>
-            <!-- ADD NEW -->
+            
             <div class="btn-add-new p-3 mb-4 mr-4 rounded-lg cursor-pointer text-right flex items-center justify-center text-lg font-medium text-base text-primary border border-solid border-danger" @click="printInvoice">
                 <feather-icon icon="FileIcon" svgClasses="h-4 w-4" />
                 <span class="ml-2 text-base text-primary">{{$t("Print")}}</span>
             </div>
-            <!-- ADD NEW -->
+
             <div class="btn-add-new p-3 mb-4 mr-4 rounded-lg cursor-pointer text-right flex items-center justify-center text-lg font-medium text-base text-primary border border-solid border-primary" @click="addNewData">
               <feather-icon icon="PlusIcon" svgClasses="h-4 w-4" />
               <span class="ml-2 text-base text-primary">{{$t("AddNew")}}</span>
+            </div> -->
+            <div class="vx-row mr-1">
+              <div class="btn-add-new p-3 mr-2 rounded-sm cursor-pointer text-right flex items-center justify-center text-lg font-medium text-base text-primary border border-solid border-default" @click="addNewData">
+                <feather-icon icon="FilterIcon" svgClasses="h-4 w-4" />
+              </div>
+
+              <div class="btn-add-new p-3 mr-2 rounded-sm cursor-pointer text-right flex items-center justify-center text-lg font-medium text-base text-primary border border-solid border-default" @click="addNewData">
+                <feather-icon icon="FileIcon" svgClasses="h-4 w-4" />
+              </div>
+
+              <div class="btn-add-new p-3 mr-1 rounded-sm cursor-pointer text-right flex items-center justify-center text-lg font-medium text-base text-primary border border-solid border-primary" @click="addNewData">
+                <vx-tooltip color="success" text="បង្កើតគោលបំណង">
+                <!-- <vs-button color="success" type="border">Color success</vs-button> -->
+                  <feather-icon icon="PlusIcon" svgClasses="h-4 w-4" />
+                  <span class="ml-2 text-base text-primary">{{$t("AddNew")}}</span>
+                </vx-tooltip>
+              </div>
+
             </div>
+
           </div>
         </div>
 
@@ -46,7 +65,15 @@
           </div>
 
           <vs-navbar-item index="0">
-              <a href="#" style="color: #000000;">សរុបកម្មវិធី</a>
+            <div class="vx-row mr-1">
+              <div class="btn-add-new p-3 mr-2 rounded-sm cursor-pointer text-right flex items-center justify-center text-lg font-medium text-base text-primary border border-solid border-primary" @click="addNewData">
+                <feather-icon icon="EditIcon" svgClasses="h-4 w-4" />
+              </div>
+
+              <div class="btn-add-new p-3 mr-1 rounded-sm cursor-pointer text-right flex items-center justify-center text-lg font-medium text-base text-primary border border-solid border-primary" @click="addNewData">
+                <feather-icon icon="PlusIcon" svgClasses="h-4 w-4" />
+              </div>
+            </div>
           </vs-navbar-item>
         </vs-navbar>
 
@@ -57,53 +84,32 @@
               <vx-card
                   title="ចំណាត់ថ្នាក់ៈ 101"
                   title-color="#fff"
-                  card-background="primary"
+                  card-background="#BFCAEF"
                   content-color="#fff"
-                  code-toggler>
-                  <center><h5 class="pb-4" style="line-height: 30px;">កម្មវិធីទី១ៈ <br/>ការគ្រប់គ្រងវិស្ស័យសេដ្ឋកិច្ច</h5></center>
-                  <p class="mb-3​ text-right">សរុបអនុកម្មវិធី</p>
+                  code-toggler
+                  @click="isVisible = !isVisible">
+                  <center><h5 class="pb-4" style="line-height: 30px;"><b>កម្មវិធីទី១ៈ <br/>ការគ្រប់គ្រងវិស្ស័យសេដ្ឋកិច្ច</b></h5></center>
+                  <p class="mb-3​ text-right">សរុបអនុកម្មវិធីៈ 5</p>
               </vx-card>
           </div>
           <!-- Background Color -->
           <div class="vx-col w-full sm:w-1/4 md:w-1/4 lg:w-1/4 xl:w-1/4 mb-base">
               <vx-card
-                  title="ចំណាត់ថ្នាក់ៈ 101"
+                  title="ចំណាត់ថ្នាក់ៈ 102"
                   title-color="#fff"
-                  card-background="danger"
+                  card-background="#8BEABC"
                   content-color="#fff"
-                  code-toggler>
-                  <center><h5 class="pb-4" style="line-height: 30px;">កម្មវិធីទី១ៈ <br/>ការគ្រប់គ្រងវិស្ស័យសេដ្ឋកិច្ច</h5></center>
-                  <p class="mb-3​ text-right">សរុបអនុកម្មវិធី</p>
-              </vx-card>
-          </div>
-
-          <!-- Background Color -->
-          <div class="vx-col w-full sm:w-1/4 md:w-1/4 lg:w-1/4 xl:w-1/4 mb-base">
-              <vx-card
-                  title="ចំណាត់ថ្នាក់ៈ 101"
-                  title-color="#fff"
-                  card-background="warning"
-                  content-color="#fff"
-                  code-toggler>
-                  <center><h5 class="pb-4" style="line-height: 30px;">កម្មវិធីទី១ៈ <br/>ការគ្រប់គ្រងវិស្ស័យសេដ្ឋកិច្ច</h5></center>
-                  <p class="mb-3​ text-right">សរុបអនុកម្មវិធី</p>
-              </vx-card>
-          </div>
-
-          <!-- Background Color -->
-          <div class="vx-col w-full sm:w-1/4 md:w-1/4 lg:w-1/4 xl:w-1/4 mb-base">
-              <vx-card
-                  title="ចំណាត់ថ្នាក់ៈ 101"
-                  title-color="#fff"
-                  card-background="primary"
-                  content-color="#fff"
-                  code-toggler>
-                  <center><h5 class="pb-4" style="line-height: 30px;">កម្មវិធីទី១ៈ <br/>ការគ្រប់គ្រងវិស្ស័យសេដ្ឋកិច្ច</h5></center>
-                  <p class="mb-3​ text-right">សរុបអនុកម្មវិធី</p>
+                  code-toggler
+                  @click="isVisible = !isVisible">
+                  <center><h5 class="pb-4" style="line-height: 30px;"><b>កម្មវិធីទី២ៈ <br/>ការគ្រប់គ្រងវិស្ស័យហិរញ្ញវត្ថុ</b></h5></center>
+                  <p class="mb-3​ text-right">សរុបអនុកម្មវិធីៈ ៦</p>
               </vx-card>
           </div>
 
         </div>
+
+        
+        <table-expandable-data v-show="isVisible"></table-expandable-data>
 
         <vs-navbar
           text-color="rgba(255,255,255,.6)"
@@ -116,12 +122,20 @@
 
           <div slot="title">
             <vs-navbar-title>
-              <span>គោលបំណងនយោបាយទី១ៈ ការគ្រប់គ្រងសេដ្ឋកិច្ច និងហិរញ្ញវត្ថុ</span>
+              <span>គោលបំណងនយោបាយទី២ៈ ការគ្រប់គ្រងប្រព័ន្ធហិរញ្ញវត្ថុ</span>
             </vs-navbar-title>
           </div>
 
           <vs-navbar-item index="0">
-              <a href="#" style="color: #000000;">សរុបកម្មវិធី</a>
+            <div class="vx-row mr-1">
+              <div class="btn-add-new p-3 mr-2 rounded-sm cursor-pointer text-right flex items-center justify-center text-lg font-medium text-base text-primary border border-solid border-primary" @click="addNewData">
+                <feather-icon icon="EditIcon" svgClasses="h-4 w-4" />
+              </div>
+
+              <div class="btn-add-new p-3 mr-1 rounded-sm cursor-pointer text-right flex items-center justify-center text-lg font-medium text-base text-primary border border-solid border-primary" @click="addNewData">
+                <feather-icon icon="PlusIcon" svgClasses="h-4 w-4" />
+              </div>
+            </div>
           </vs-navbar-item>
         </vs-navbar>
 
@@ -129,24 +143,26 @@
             <!-- Background Color -->
           <div class="vx-col w-full sm:w-1/4 md:w-1/4 lg:w-1/4 xl:w-1/4 mb-base">
               <vx-card
-                  title="ចំណាត់ថ្នាក់ៈ 101"
+                  title="ចំណាត់ថ្នាក់ៈ 103"
                   title-color="#fff"
-                  card-background="primary"
+                  card-background="#FEC8FF"
                   content-color="#fff"
-                  code-toggler>
-                  <center><h5 class="pb-4" style="line-height: 30px;">កម្មវិធីទី១ៈ <br/>ការគ្រប់គ្រងវិស្ស័យសេដ្ឋកិច្ច</h5></center>
+                  code-toggler
+                  @click="isVisible = !isVisible">
+                  <center><h5 class="pb-4" style="line-height: 30px;"><b>កម្មវិធីទី៣ <br/>ការគ្រប់គ្រងចំណូលសាធារណៈ និងទ្រព្យសម្បត្តិរដ្ឋ</b></h5></center>
                   <p class="mb-3​ text-right">សរុបអនុកម្មវិធី</p>
               </vx-card>
           </div>
           <!-- Background Color -->
           <div class="vx-col w-full sm:w-1/4 md:w-1/4 lg:w-1/4 xl:w-1/4 mb-base">
               <vx-card
-                  title="ចំណាត់ថ្នាក់ៈ 101"
+                  title="ចំណាត់ថ្នាក់ៈ 104"
                   title-color="#fff"
-                  card-background="danger"
+                  card-background="#AFC817"
                   content-color="#fff"
-                  code-toggler>
-                  <center><h5 class="pb-4" style="line-height: 30px;">កម្មវិធីទី១ៈ <br/>ការគ្រប់គ្រងវិស្ស័យសេដ្ឋកិច្ច</h5></center>
+                  code-toggler
+                  @click="isVisible = !isVisible">
+                  <center><h5 class="pb-4" style="line-height: 30px;"><b>កម្មវិធីទី៤ <br/>ការគ្រប់គ្រងចំណាយសាធារណៈ និងប្រព័ន្ធហិរញ្ញវត្ថុសាធារណៈ</b></h5></center>
                   <p class="mb-3​ text-right">សរុបអនុកម្មវិធី</p>
               </vx-card>
           </div>
@@ -154,51 +170,23 @@
           <!-- Background Color -->
           <div class="vx-col w-full sm:w-1/4 md:w-1/4 lg:w-1/4 xl:w-1/4 mb-base">
               <vx-card
-                  title="ចំណាត់ថ្នាក់ៈ 101"
+                  title="ចំណាត់ថ្នាក់ៈ 105"
                   title-color="#fff"
-                  card-background="warning"
+                  card-background="#7A97FB"
                   content-color="#fff"
-                  code-toggler>
-                  <center><h5 class="pb-4" style="line-height: 30px;">កម្មវិធីទី១ៈ <br/>ការគ្រប់គ្រងវិស្ស័យសេដ្ឋកិច្ច</h5></center>
+                  code-toggler
+                  @click="isVisible = !isVisible">
+                  <center><h5 class="pb-4" style="line-height: 30px;"><b>កម្មវិធីទី៥ៈ <br/>កិច្ចការរដ្ឋបាល និងអភិវឌ្ឍស្ថាប័ន</b><br/><br/></h5></center>
                   <p class="mb-3​ text-right">សរុបអនុកម្មវិធី</p>
               </vx-card>
           </div>
 
-          <!-- Background Color -->
-          <div class="vx-col w-full sm:w-1/4 md:w-1/4 lg:w-1/4 xl:w-1/4 mb-base">
-              <vx-card
-                  title="ចំណាត់ថ្នាក់ៈ 101"
-                  title-color="#fff"
-                  card-background="primary"
-                  content-color="#fff"
-                  code-toggler>
-                  <center><h5 class="pb-4" style="line-height: 30px;">កម្មវិធីទី១ៈ <br/>ការគ្រប់គ្រងវិស្ស័យសេដ្ឋកិច្ច</h5></center>
-                  <p class="mb-3​ text-right">សរុបអនុកម្មវិធី</p>
-              </vx-card>
-          </div>
 
         </div>
 
-        <vs-navbar
-          text-color="rgba(255,255,255,.6)"
-          active-text-color="rgba(255,255,255,1)" 
-          :type="type" 
-          color="#F4F4F4"
-          v-model="activeItem" 
-          style="box-shadow: 1px 5px 15px;"
-          class="p-2 mb-6">
+        <table-expandable-data v-show="isVisible"></table-expandable-data>
 
-          <div slot="title">
-            <vs-navbar-title>
-              <span>គោលបំណងនយោបាយទ៣១ៈ ការគ្រប់គ្រងសេដ្ឋកិច្ច និងហិរញ្ញវត្ថុ</span>
-            </vs-navbar-title>
-          </div>
-
-          <vs-navbar-item index="0">
-              <a href="#" style="color: #000000;">សរុបកម្មវិធី</a>
-          </vs-navbar-item>
-        </vs-navbar>
-
+      
         <!-- <div class="vx-row text-center">
           <center>
             <vs-button type="border" class="whitespace-no-wrap">{{$t("បង្កើតកម្មវិធីថ្មី")}}</vs-button>
@@ -207,7 +195,6 @@
         
         <!-- List Data View -->
         <!-- <data-list-view></data-list-view> -->
-         <table-expandable-data></table-expandable-data>
 
     </div>
 </template>
@@ -220,6 +207,7 @@
   export default{
       data() {
           return {
+            isVisible: false,
                 colorx: '#5A8DEE',
               mailTo: "",
               companyDetails: {
@@ -290,6 +278,9 @@
         }
       },
       methods: {
+        // showMe(){
+        //   this.isVisible = true;
+        // },
         printInvoice() {
           window.print()
         },

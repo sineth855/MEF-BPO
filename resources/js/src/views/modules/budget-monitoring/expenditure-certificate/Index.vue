@@ -54,38 +54,8 @@
           <popup-fullscreen></popup-fullscreen>
         </div>
 
-      <vs-table :data="users">
-
-          <template slot="thead" style="border:1px solid #000">
-              <vs-th>ជំពូក</vs-th>
-              <vs-th>ឆ្នាំ</vs-th>
-              <vs-th>អនុកម្មវិធី</vs-th>
-              <vs-th>លេខប្រកាស</vs-th>
-              <vs-th>កាលបរិច្ឆេទ</vs-th>
-              <vs-th>ប្រភេទចលនាឥណទាន</vs-th>
-              <vs-th>ប្រភេទចំណាយ</vs-th>
-              <vs-th>អនុគណនី</vs-th>
-              <vs-th>ចង្កោមសកម្មភាព</vs-th>
-              <vs-th>កើន</vs-th>
-              <vs-th>ថយ</vs-th>
-          </template>
-
-          <template  style="border:1px solid #000">
-              
-            <vs-tr :state="'Warning'">
-              <vs-td>60</vs-td>
-              <vs-td>202</vs-td>
-              <vs-td>104</vs-td>
-              <vs-td>101 សហវ.អថ 6/3/2020</vs-td>
-              <vs-td></vs-td>
-              <vs-td></vs-td>
-              <vs-td></vs-td>
-              <vs-td></vs-td>
-              <vs-td></vs-td>
-            </vs-tr>
-
-          </template>
-      </vs-table>
+        <!--  -->
+        <center><h3>កំពុងអភិវឌ្ឍ</h3></center>
 
     </vx-card>
 </template>

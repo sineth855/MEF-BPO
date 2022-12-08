@@ -2,7 +2,7 @@ import mock from "@/fake-db/mock.js"
 
 // Contact
 let data = {
-  tasks: [
+  taskss: [
     {
       "id": 10,
       "title": "Refactor Code",
@@ -104,6 +104,7 @@ let data = {
       "isTrashed": false
     },
   ],
+  tasks: [],
   taskTags: [
     { id: 5,text: 'Frontend' ,value : 'frontend', color: 'primary' },
     { id: 7,text: 'Backend', value: 'backend', color: 'warning'},

@@ -3,9 +3,9 @@ import mock from "@/fake-db/mock.js"
 const data = {
   subscribers_gained: {
     analyticsData: [
-        { device: 'Dekstop', icon: 'MonitorIcon', color: 'primary', sessionsPercentage: 58.6, comparedResultPercentage: 2 },
-        { device: 'Mobile', icon: 'SmartphoneIcon', color: 'warning', sessionsPercentage: 34.9, comparedResultPercentage: 8 },
-        { device: 'Tablet', icon: 'TabletIcon', color: 'danger', sessionsPercentage: 6.5, comparedResultPercentage: -5 },
+        { device: 'វិស័យសេវាសេដ្ឋកិច្ច', icon: 'MonitorIcon', color: 'primary', sessionsPercentage: 58.6, comparedResultPercentage: 2 },
+        { device: 'វិស័យសេវាសង្គមកិច្ច', icon: 'SmartphoneIcon', color: 'warning', sessionsPercentage: 34.9, comparedResultPercentage: 8 },
+        { device: 'វិស័យសាធារណៈ', icon: 'TabletIcon', color: 'danger', sessionsPercentage: 6.5, comparedResultPercentage: -5 },
     ],
     series: [58.6, 34.9, 6.5]
   },
@@ -19,9 +19,9 @@ const data = {
   },
   customers: {
     analyticsData: [
-        { 'customerType': 'New', 'counts': 890, color: 'primary' },
-        { 'customerType': 'Returning', 'counts': 258, color: 'warning' },
-        { 'customerType': 'Referrals ', 'counts': 149, color: 'danger' },
+        { 'customerType': 'វិស័យសេវាសេដ្ឋកិច្ច', 'counts': '១៣,៩៩៨,៧៤៤ ៛', color: 'primary' },
+        { 'customerType': 'វិស័យសេវាសង្គមកិច្ច', 'counts': '១៣,៩៩៨,៧៤៤ ៛', color: 'warning' },
+        { 'customerType': 'វិស័យសាធារណៈទូទៅ ', 'counts': '១៣,៩៩៨,៧៤៤ ៛', color: 'danger' },
     ],
     series: [690, 258, 149],
   },
@@ -51,11 +51,11 @@ const data = {
       lastMonth: 73683
     },
     series: [{
-            name: "This Month",
+            name: "ខែនេះ",
             data: [45000, 47000, 44800, 47500, 45500, 48000, 46500, 48600]
         },
         {
-            name: "Last Month",
+            name: "ខែមុន",
             data: [46000, 48000, 45500, 46600, 44500, 46500, 45000, 47000]
         }
     ],
@@ -65,7 +65,7 @@ const data = {
       completed: 786617,
       inProgress: 13561
     },
-    series: [83]
+    series: [100]
   },
   salesBarSession: {
     series: [{
@@ -133,28 +133,28 @@ const data = {
   },
   browserAnalytics: [{
       id: 1,
-      name: 'Google Chrome',
+      name: 'វិស័យសេវាសេដ្ឋកិច្ច',
       ratio: 73,
       time: 'Mon Dec 10 2018 07:46:05 GMT+0000 (GMT)',
       comparedResult: '800'
     },
     {
       id: 3,
-      name: 'Opera',
+      name: 'វិស័យសេវាសង្គមកិច្ច',
       ratio: 8,
       time: 'Mon Dec 10 2018 07:46:05 GMT+0000 (GMT)',
       comparedResult: '-200'
     },
     {
       id: 2,
-      name: 'Firefox',
+      name: 'វិស័យសាធារណៈទូទៅ',
       ratio: 19,
       time: 'Mon Dec 10 2018 07:46:05 GMT+0000 (GMT)',
       comparedResult: '100'
     },
     {
       id: 4,
-      name: 'Internet Explorer',
+      name: 'វិស័យការពារជាតិ សន្តិសុខ',
       ratio: 27,
       time: 'Mon Dec 10 2018 07:46:05 GMT+0000 (GMT)',
       comparedResult: '-450'
@@ -162,11 +162,11 @@ const data = {
   ],
   clientRetention: {
     series: [{
-        name: 'New Clients',
-        data: [175, 125, 225, 175, 160, 189, 206, 134, 159, 216, 148, 123]
+        name: 'ប្រាក់បើកផ្តល់',
+        data: ['85%', '85%', '85%', '85%', '85%', '85%', '85%', '85%', '85%', '85%', '85%', '85%']
     }, {
-        name: 'Retained Clients',
-        data: [-144, -155, -141, -167, -122, -143, -158, -107, -126, -131, -140, -137]
+        name: 'ប្រាក់ពន្ធ',
+        data: ['85%', '85%', '85%', '85%', '85%', '85%', '85%', '85%', '85%', '85%', '85%', '85%']
     }],
   }
 }

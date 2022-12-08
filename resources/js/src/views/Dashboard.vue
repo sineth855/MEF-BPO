@@ -71,9 +71,9 @@
                         }">
                             <div class="truncate">
                                 <h3 class="mb-1 font-bold"><feather-icon icon="UsersIcon" class="p-3 inline-flex rounded-full" :class="[`text-${color}`, {'mb-4': !iconRight}]" :style="{background: `rgba(var(--vs-${color}),.15)`}"></feather-icon> {{statistic}}</h3>
-                                <h5>អង្គភាពសរុប</h5>
-                                <div v-if="totalDollar != ''" class="mb-1"><b>323</b></div>
-                                <div v-else class="mb-1"><b>323<br/></b></div>
+                                <h5>អង្គភាពថវិកាសរុប</h5>
+                                <div v-if="totalDollar != ''" class="mb-1"><b>88</b></div>
+                                <div v-else class="mb-1"><b>88<br/></b></div>
                             </div>
                         </div>
                     </div>

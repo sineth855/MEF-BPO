@@ -35,10 +35,10 @@
 export default {
   data() {
     return {
-      username: "johny_01",
-      name: this.$store.state.AppActiveUser.displayName,
-      email: "john@admin.com",
-      company: "SnowMash Technologies Pvt Ltd",
+      username: "BPO-001",
+      name: "Administrator",
+      email: "admin@admin.com",
+      company: "នាយកដ្ឋានផែនការថវិកា(Budget Department)",
     }
   },
   computed: {
