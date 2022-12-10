@@ -101,6 +101,9 @@ export default {
       if (!this.checkLogin()) return
       this.$router.push('/pages/register').catch(() => {})
     }
+  },
+  created() {
+    this.$vs.loading.close();
   }
 }
 

@@ -1,6 +1,6 @@
 <template>
   <vx-card no-shadow>
-    
+
     <!-- Img Row -->
     <div class="flex flex-wrap items-center mb-base">
       <vs-avatar :src="activeUserInfo.photoURL" size="70px" class="mr-4 mb-4" />
@@ -27,7 +27,6 @@
       <vs-button class="ml-auto mt-2">Save Changes</vs-button>
       <vs-button class="ml-4 mt-2" type="border" color="warning">Reset</vs-button>
     </div>
-
   </vx-card>
 </template>
 
@@ -35,10 +34,10 @@
 export default {
   data() {
     return {
-      username: "BPO-001",
-      name: "Administrator",
-      email: "admin@admin.com",
-      company: "នាយកដ្ឋានផែនការថវិកា(Budget Department)",
+      username: "johny_01",
+      name: this.$store.state.AppActiveUser.displayName,
+      email: "john@admin.com",
+      company: "SnowMash Technologies Pvt Ltd",
     }
   },
   computed: {

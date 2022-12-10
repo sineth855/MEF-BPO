@@ -18,8 +18,52 @@ export default [
     tagColor: "warning",
     icon: "AirplayIcon",
     i18n: "ProgramManagement",
-    url: '/module/program-arragement',
-    slug: "module-program-arragement",
+    url: '/module/program-arrangement',
+    slug: "module-program-arrangement",
+    submenu: [
+      {
+        url: '/module/program-arrangement',
+        slug: 'program-arrangement',
+        name: "program-arrangement",
+        icon: "UserIcon",
+        i18n: "ProgramArrangement",
+      },
+      {
+        url: '/module/program-arrangement/objective',
+        slug: 'objective',
+        name: "objective",
+        icon: "UserIcon",
+        i18n: "ProgramObjective",
+      },
+      {
+        url: '/module/program-arrangement/program',
+        slug: 'program',
+        name: "program",
+        icon: "UserIcon",
+        i18n: "ProgramProgram",
+      },
+      {
+        url: '/module/program-arrangement/subprogram',
+        slug: 'subprogram',
+        name: "subprogram",
+        icon: "UserIcon",
+        i18n: "ProgramSubProgram",
+      },
+      {
+        url: '/module/program-arrangement/cluster-activity',
+        slug: 'cluster-activity',
+        name: "cluster-activity",
+        icon: "UserIcon",
+        i18n: "ProgramClusterActivity",
+      },
+      {
+        url: '/module/program-arrangement/activity',
+        slug: 'activity',
+        name: "activity",
+        icon: "UserIcon",
+        i18n: "ProgramActivity",
+      },
+    ]
   },
   // =============================================================================
   // Budget Arrangement - រៀបចំថវិកា
