@@ -1,7 +1,7 @@
 <template>
         <div class="demo-alignment">
             <vs-popup classContent="popup-example" title="បំពេញព័ត៌មានខាងក្រោម" :active.sync="showModalForm">
-                <d-form :data="data" :formAttributes="formAttributes" :api="api" :rowDisplay="rowDisplay"></d-form>
+                <d-form @clickForm="initTableData" :data="data" :dataInfo="dataInfo" :formAttributes="formAttributes" :api="api" :rowDisplay="rowDisplay"></d-form>
             </vs-popup>
         </div>
 </template>
@@ -51,12 +51,21 @@ export default {
                 //     data: this.data.order_status_choices
                 // },
             ],
+            dataInfo: {
+                name: "data",
+                name_kh: "dddd"
+            }
         }
     },
     methods: {
-        initForm(value) {
+        initForm(data) {
             this.showModalForm = true;
+            this.dataInfo = data;
+            console.log("form data", data);
         },
+        initTableData() {
+            this.$emit('clicked');
+        }
     }
   }
 </script>

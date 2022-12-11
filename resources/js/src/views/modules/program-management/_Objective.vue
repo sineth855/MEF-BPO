@@ -1,5 +1,5 @@
 <template>
-    <d-table-list :title="title" :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :data="data"></d-table-list>
+    <d-table-list @clicked="initTableData" ref="refInitPage" :allowDel="true" :title="title" :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data"></d-table-list>
 </template>
 
 <script>
@@ -14,7 +14,7 @@ export default {
         return {
             title: "ProgramObjective",
             dataAttributes: {
-                pageLimit: 2,
+                page_number: 1,
                 offset: 0,
                 dataGrid: "row",
             },
@@ -124,29 +124,46 @@ export default {
         DTableList,
     },
     methods: {
-        getData() {
+        getDataTable(_search_criteria) {
             return new Promise((resolve, reject) => {
-                axios.get(apiConfig._apiObjective +'?offset=0&limit=10&sort=id&order=desc')
+                axios.get(apiConfig._apiObjective + '?sort=' + _search_criteria.sort + '&order=' + _search_criteria.order + '&page_number=' + _search_criteria.page_number)
                     .then((response) => {
-                        this.data = response;
-                        console.log("response", response);
+                        this.data = response.data;
+                        this.$vs.loading.close();
                         // if (response.success) {
                         //     // this.$vs.loading.close();
                         // }
-                    }).catch((error) => { reject(error) })
+                    }).catch((error) => {
+                        // reject(error)
+                        this.$vs.loading.close();
+                    })
             })
+        },
+        getData() {
+            let _search_criteria = {
+                sort: "id",
+                order: "",
+                page_number: this.dataAttributes.page_number
+            }
+            this.getDataTable(_search_criteria);
+        },
+        initTableData(value) {
+            this.$vs.loading();
+            let _search_criteria = {
+                sort: "id",
+                order: "",
+                page_number: value
+            }
+            this.getDataTable(_search_criteria);
+            return false;
         }
+        
     },
     created() {
-        // this.$vs.loading();
+        this.$vs.loading();
         this.getData();
-        // for (let i = 0; i < this.entities.length; i++) {
-        //     const _data = {
-        //         id: this.entities[i]["id"],
-        //         label: this.entities[i]["name"]
-        //     };
-        //     this.dataArr.push(_data);
-        // }
+    },
+    watch: {
     }
 }
 </script>

@@ -28,19 +28,20 @@ class ObjectiveController extends Controller
     {
         $input = $request->all();
         $filter = array(
-            "offset" => isset($input["offset"]) ? $input["offset"] : OFFSET,
+            // "offset" => isset($input["offset"]) ? $input["offset"] : OFFSET,
             "limit" => isset($input["limit"]) ? $input["limit"] : LIMIT,
             "sort" => isset($input["sort"]) ? $input["sort"] : SORT,
             "order" => isset($input["order"]) ? $input["order"] : ORDER
         );
-        $table = $this->db_table::orderBy($filter["sort"], $filter["order"])
-                            ->offset($filter["offset"])
-                            ->limit($filter["limit"])
-                            ->get();
+        $query = $this->db_table::orderBy($filter["sort"], $filter["order"]);
+        $whereClause = $query;
+        $whereClause->offset(($input["page_number"] - 1) * LIMIT);       
+        $whereClause->limit($filter["limit"]);
+        $table = collect($whereClause->get());
         $data = array(
             "data" => $table,
-            "limit" => 2,
-            "total" => count($table)
+            "limit" => LIMIT,
+            "total" => $this->db_table->count()
         );
         return response()->json($data);
     }

@@ -1,6 +1,6 @@
 <template>
     <vx-card :title="$t(title)" code-toggler>
-        <modal-objective ref="refModalForm" :data="data"></modal-objective>
+        <modal-objective @clicked="initTableData" ref="refModalForm" :data="dataTables"></modal-objective>
         <div class="flex flex-wrap-reverse items-center data-list-btn-container">
             <!-- ACTION - DROPDOWN -->
             <vs-dropdown vs-trigger-click class="dd-actions cursor-pointer mr-4 mb-4">
@@ -51,25 +51,32 @@
                 <span class="ml-2 text-base text-primary">{{ $t("AddNew") }}</span>
             </div>
         </div>
-
-        <!-- {{ dataHeaders | json} -->
-        <vs-table :max-items="dataAttributes.pageLimit" :data="data.data">
+        
+        <vs-table v-if="dataTables.data && dataTables.data.length" :max-items="dataTables.limit" :data="dataTables.data">
             <template slot="thead">
+                <vs-th>{{ 'No' }}</vs-th>
                 <vs-th :key="i" v-for="(header, i) in dataHeaders">{{ header }}</vs-th>
+                <vs-th>{{ 'Action' }}</vs-th>
             </template>
             
             <template slot-scope="{data}">
                 <vs-tr :key="indextr" v-for="(tr, indextr) in data">
-                    <vs-th v-for="header in dataHeaders" :key="header.indextr">{{ tr[header] }}</vs-th>
+                    <vs-td>{{ calPageIncreaseNumber(dataTables.limit, indextr) }}</vs-td>
+                    <vs-td v-for="header in dataHeaders" :key="header.indextr">{{ tr[header] }}</vs-td>
+                    <vs-td>
+                        <feather-icon icon="EditIcon" svgClasses="w-5 h-5 hover:text-primary stroke-current" @click.stop="initEdit(tr)" />
+                        <feather-icon v-if="allowDel" icon="TrashIcon" svgClasses="w-5 h-5 hover:text-danger stroke-current" class="ml-2"
+                            @click.stop="initDel(tr.id)" />
+                    </vs-td>
                 </vs-tr>
             </template>
         </vs-table>
 
         <div class="my-5">
-            <vs-pagination :total="data.total" v-model="current_page"></vs-pagination>
-            <p class="mb-3">Current Page: {{ current_page }}</p>
+            <vs-pagination :total="calPaginNumber(dataTables.total / dataTables.limit)" v-model="current_page"></vs-pagination>
+            <!-- <p class="mb-3">Current Page: {{ current_page }}</p>
             <vs-button @click="current_page++">Increment</vs-button>
-            <vs-button class="ml-4 mb-4" @click="current_page--">Decrement</vs-button>
+            <vs-button class="ml-4 mb-4" @click="current_page--">Decrement</vs-button> -->
         </div>
 
     </vx-card>
@@ -91,28 +98,72 @@ export default {
         dataHeaders: {
             required: true,
         },
-        data: {
+        dataTables: {
             required: true,
         },
+        allowDel: {
+            type: Boolean
+        }
     },
     data() {
         return {
-            currentx: 1,
-            current_page: 1,
+            currentx: 0,
+            current_page: 1
         }
+    },
+    components: {
+        ModalObjective
     },
     methods: {
         openForm() {
             this.$refs.refModalForm.initForm();
+        },
+        calPaginNumber(n) {
+            // alert(n);
+            let _newVal = 0;
+            if (Number(n) === n && n % 1 === 0) {
+                _newVal = n;
+            } else {
+                _newVal = Math.floor(n + 1);
+            }
+            return _newVal;
+        },
+        calPageIncreaseNumber(_page_limit, index) {
+            let _offset = (this.current_page - 1) * _page_limit;
+            let _result = _offset + (index + 1);
+            return _result;
+        },
+        initTableData() {
+            this.$emit('clicked', this.current_page);
+        },
+        initDel() {
+            this.$vs.dialog({
+                type: 'confirm',
+                color: 'danger',
+                title: `Confirm`,
+                text: 'តើអ្នកពិតជាចង់ធ្វើការលុបទិន្នន័យនេះជារៀងរហូត?',
+                accept: this.acceptAlert
+            })
+        },
+        acceptAlert() {
+            this.$vs.notify({
+                color: 'danger',
+                title: 'Deleted image',
+                text: 'The selected image was successfully deleted'
+            })
+        },
+        initEdit(data) {
+            this.$refs.refModalForm.initForm(data);
         }
+
     },
     created() {
         this.$vs.loading.close();
-        this.currentx = this.data.total;
-        console.log("here data", this.dataHeaders);
     },
-    components: {
-        ModalObjective
+    watch: {
+        current_page: function (val) {
+            this.$emit('clicked', val)
+        }
     }
 }
 </script>

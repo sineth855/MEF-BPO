@@ -1,26 +1,27 @@
 <template>
     <div>
         <div class="vx-row">
+            {{dataInfo | json}}
             <div :key="i" v-for="(formAttribute, i) in formAttributes" :class="styleClass">
                 <!-- Form Input Text -->
                 <div v-if="formAttribute.type == 'text'">
                     <span v-if="formAttribute.required">
-                        <vs-input v-validate="'required|alpha'" :placeholder="$t(formAttribute.name)" v-model="formAttribute[i]" :name="formAttribute.name" class="mt-5 w-full" />
+                        <vs-input v-validate="'required|alpha'" v-model="form.attribute[formAttribute.name]" :placeholder="$t(formAttribute.name)" :name="formAttribute.name" class="mt-5 w-full" />
                         <span class="text-danger text-sm" v-show="errors.has(formAttribute.name)">{{ $t("required_"+formAttribute.name)
                         }}</span>
                     </span>
-                    <vs-input v-else :placeholder="$t(formAttribute.name)" v-model="formAttribute[i]" :name="formAttribute.name"
+                    <vs-input v-else :placeholder="$t(formAttribute.name)" v-model="form.attribute[formAttribute.name]" :name="formAttribute.name"
                         class="mt-5 w-full" />
                 </div>
                 <!-- Form Input Number -->
                 <div v-if="formAttribute.type == 'number'">
                     <span v-if="formAttribute.required">
-                        <vs-input v-validate="'required|alpha'" :placeholder="$t(formAttribute.name)" v-model="formAttribute[i]"
+                        <vs-input v-validate="'required|alpha'" :placeholder="$t(formAttribute.name)" v-model="form.attribute[formAttribute.name]"
                             :name="formAttribute.name" class="mt-5 w-full" />
                         <span class="text-danger text-sm" v-show="errors.has(formAttribute.name)">{{ $t("required_"+formAttribute.name)
                         }}</span>
                     </span>
-                    <vs-input v-else :placeholder="$t(formAttribute.name)" v-model="formAttribute[i]" :name="formAttribute.name"
+                    <vs-input v-else :placeholder="$t(formAttribute.name)" v-model="form.attribute[formAttribute.name]" :name="formAttribute.name"
                         class="mt-5 w-full" />
                 </div>
                 <!-- Form Select -->
@@ -61,8 +62,9 @@
                 required: true
             },
             api: {
-                required: true
-            }
+                type: String
+            },
+            dataInfo: { required: true }
         },
         data() {
             return {
@@ -78,33 +80,19 @@
                         name: "tes"
                     }
                 ],
-                dataArr: []
+                dataArr: [],
+                form: {
+                    attribute: []
+                }
             }
         },
         components: {
             DFormInput  
         },
+        computed: {
+        },
         methods: {
             submitForm() {
-                // console.log("field name", this.formAttributes[0]);
-                // for (var k = 0; this.formAttributes.length > 0; k++){
-                //     // this._arr.push(this.formAttributes[k]);
-                //     console.log(this.formAttributes[k])
-                // }
-                // for (let i = 0; i < this.formAttributes.length; i++) {
-                //     // this._arr.push(this.formAttributes[i]);
-                //     if (this.formAttributes[i]) {
-                //         // vm.push("test"+[i]);
-                //     }
-                //     console.log(this.formAttributes[i]);
-                // }
-                // for (let i = 0; i < this.entities.length; i++) {
-                //     const _data = {
-                //         id: this.entities[i]["id"]
-                //     };
-                //     this._arr.push({data: "testing"});
-                // // }
-                // console.log("push data", _arr);
                 this.dataArr = [];
                 for (let i = 0; i < this.formAttributes.length; i++) {
                     const _data = {
@@ -114,6 +102,7 @@
                     this.dataArr.push(this.formAttributes[i][i]);
                 }
                 this.$validator.validateAll().then(result => {
+                    
                     if (result) {
                         if (result) {
                             let _data = {
@@ -142,6 +131,7 @@
                                                 color: 'primary',
                                                 position: 'top-right'
                                             })
+                                            this.$emit('clickForm');
                                             // this.$router.push('/account/expense').catch(() => { })
                                         }).catch((error) => {
                                             reject(error)
@@ -159,7 +149,6 @@
                                 return new Promise((resolve, reject) => {
                                     axios.post(this.api, _data)
                                         .then((response) => {
-                                            console.log("message", response);
                                             this.$vs.notify({
                                                 title: 'Message',
                                                 text: response.data.message,
@@ -168,6 +157,7 @@
                                                 color: 'primary',
                                                 position: 'top-right'
                                             })
+                                            this.$emit('clickForm');
                                             // this.$router.push('/account/expense').catch(() => { })
                                         }).catch((error) => {
                                             reject(error)
@@ -198,7 +188,11 @@
                 })
             }
         },  
-    created() {
+        created()
+        {
+            console.log("ID PROPS", this.dataInfo.name);
+            this.form.attribute["name"] = this.dataInfo.name;
+            this.form.attribute["name_kh"] = this.dataInfo.name_kh;
             if (this.rowDisplay == "1grid") {
                 this.styleClass = "vx-col lg:w-1/1 w-full";
             }
