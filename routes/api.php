@@ -68,6 +68,9 @@ Route::group([
     Route::group([
         'middleware' => ['auth:api', 'global_site', 'cors']
     ], function() {
+        // គ្រប់គ្រងកម្មវិធី
+        Route::resource('module/program_management/objective', 'Modules\ProgramManagement\ObjectiveController');
+        // 
         Route::resource('department', 'DepartmentController');
         Route::resource('sector', 'SectorController');
         Route::resource('duty', 'DutyController');

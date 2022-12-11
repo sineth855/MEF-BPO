@@ -3,8 +3,11 @@
 </template>
 
 <script>
-import DTableList from '@/views/form-builder/DTableList.vue'
+import axios from "@/axios.js"
+import apiConfig from "@/apiConfig.js"
 import { ref } from 'vue';
+
+import DTableList from '@/views/form-builder/DTableList.vue'
 
 export default {
     data() {
@@ -19,89 +22,131 @@ export default {
                 header1: "id",
                 header2: "name",
                 header3: "name_kh",
-                header4: "order_level",
-                header5: "remark",
-                header6: "ddd",
-                header7: "remark",
+                header4: "remark",
+                header5: "order_level",
             },
-            data:{
-                limit: 2,
-                pageCount: 3,
-                data:[
-                {
-                    id: 3,
-                    name: "Objective",
-                    name_kh: "គោលបំណងទី3",
-                    order_level: 1,
-                    remark: "",
-                    ddd: "tttt12"
-                },
-                {
-                    id: 4,
-                    name: "Objective",
-                    name_kh: "គោលបំណងទី4",
-                    order_level: 1,
-                    remark: "",
-                    ddd: "tttt33"
-                },
+            data: {
+                // order_status_choices: [
+                //     { text: 'Pending', value: 'pending' },
+                //     { text: 'Canceled', value: 'canceled' },
+                //     { text: 'Delivered', value: 'delivered' },
+                //     { text: 'On Hold', value: 'on_hold' }
+                // ],
+                // titles: [
+                //     { text: 'Mr.', value: 'Mr.' },
+                //     { text: 'Ms.', value: 'Ms.' },
+                //     { text: 'Mrs.', value: 'Mrs.' }
+                // ],
+                // limit: 2,
+                // total: 3,
+                // data:[
+                // {
+                //     id: 3,
+                //     name: "Objective",
+                //     name_kh: "គោលបំណងទី3",
+                //     order_level: 1,
+                //     remark: "",
+                //     ddd: "tttt12"
+                // },
+                // {
+                //     id: 4,
+                //     name: "Objective",
+                //     name_kh: "គោលបំណងទី4",
+                //     order_level: 1,
+                //     remark: "",
+                //     ddd: "tttt33"
+                // },
+                // {
+                //     id: 1,
+                //     name: "Objective",
+                //     name_kh: "គោលបំណងទី១",
+                //     order_level: 1,
+                //     remark: "",
+                //     ddd: "tttt"
+                // },
+                // {
+                //     id: 2,
+                //     name: "Objective",
+                //     name_kh: "គោលបំណងទី2",
+                //     order_level: 1,
+                //     remark: "",
+                //     ddd: "tttt"
+                //     },
+                //     {
+                //         id: 3,
+                //         name: "Objective",
+                //         name_kh: "គោលបំណងទី3",
+                //         order_level: 1,
+                //         remark: "",
+                //     ddd: "tttt"
+                //     },
+                //     {
+                //         id: 4,
+                //         name: "Objective",
+                //         name_kh: "គោលបំណងទី4",
+                //         order_level: 1,
+                //         remark: "",
+                //     ddd: "tttt"
+                //     },
+                //     {
+                //         id: 1,
+                //         name: "Objective",
+                //         name_kh: "គោលបំណងទី១",
+                //         order_level: 1,
+                //         remark: "",
+                //     ddd: "tttt"
+                //     },
+                //     {
+                //         id: 2,
+                //         name: "Objective",
+                //         name_kh: "គោលបំណងទី2",
+                //         order_level: 1,
+                //         remark: "",
+                //     ddd: "tttt"
+                //     },
+               
+                // ]
+            },
+            entities: [
                 {
                     id: 1,
-                    name: "Objective",
-                    name_kh: "គោលបំណងទី១",
-                    order_level: 1,
-                    remark: "",
-                    ddd: "tttt"
+                    label: "ក្រសួង"
                 },
                 {
                     id: 2,
-                    name: "Objective",
-                    name_kh: "គោលបំណងទី2",
-                    order_level: 1,
-                    remark: "",
-                    ddd: "tttt"
-                    },
-                    {
-                        id: 3,
-                        name: "Objective",
-                        name_kh: "គោលបំណងទី3",
-                        order_level: 1,
-                        remark: "",
-                    ddd: "tttt"
-                    },
-                    {
-                        id: 4,
-                        name: "Objective",
-                        name_kh: "គោលបំណងទី4",
-                        order_level: 1,
-                        remark: "",
-                    ddd: "tttt"
-                    },
-                    {
-                        id: 1,
-                        name: "Objective",
-                        name_kh: "គោលបំណងទី១",
-                        order_level: 1,
-                        remark: "",
-                    ddd: "tttt"
-                    },
-                    {
-                        id: 2,
-                        name: "Objective",
-                        name_kh: "គោលបំណងទី2",
-                        order_level: 1,
-                        remark: "",
-                    ddd: "tttt"
-                    },
-               
-                ]
-            }
+                    label: "ក្រសួង"
+                }
+            ],
+            dataArr: []
         }
-    },
-    methods: {
-       
     },
     components: {
         DTableList,
+    },
+    methods: {
+        getData() {
+            return new Promise((resolve, reject) => {
+                axios.get(apiConfig._apiObjective +'?offset=0&limit=10&sort=id&order=desc')
+                    .then((response) => {
+                        this.data = response;
+                        console.log("response", response);
+                        // if (response.success) {
+                        //     // this.$vs.loading.close();
+                        // }
+                    }).catch((error) => { reject(error) })
+            })
+        }
+    },
+    created() {
+        // this.$vs.loading();
+        this.getData();
+        // for (let i = 0; i < this.entities.length; i++) {
+        //     const _data = {
+        //         id: this.entities[i]["id"],
+        //         label: this.entities[i]["name"]
+        //     };
+        //     this.dataArr.push(_data);
+        // }
     }
 }
 </script>

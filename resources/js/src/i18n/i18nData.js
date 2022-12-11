@@ -228,10 +228,10 @@ export default {
 // #######################################
 		// Label
 		id: "ល.រ",
-		NAME: "test",
-		label_name_kh: "ឈ្មោះជាភាសាខ្មែរ",
-		label_name: "ឈ្មោះជាភាសាអង់គ្លេស",
-		label_order_level: "តំរៀបតាមលំដាប់",
+		title: "ងារ",
+		name_kh: "ឈ្មោះជាភាសាខ្មែរ",
+		name: "ឈ្មោះជាភាសាអង់គ្លេស",
+		order_level: "តំរៀបតាមលំដាប់",
 		// Copy Right
 		Footer_CopyRight: "",
 		// Status

@@ -1,6 +1,6 @@
 <template>
     <vx-card :title="$t(title)" code-toggler>
-        <modal-objective ref="refModalForm"></modal-objective>
+        <modal-objective ref="refModalForm" :data="data"></modal-objective>
         <div class="flex flex-wrap-reverse items-center data-list-btn-container">
             <!-- ACTION - DROPDOWN -->
             <vs-dropdown vs-trigger-click class="dd-actions cursor-pointer mr-4 mb-4">
@@ -66,7 +66,7 @@
         </vs-table>
 
         <div class="my-5">
-            <vs-pagination :total="data.pageCount" v-model="current_page"></vs-pagination>
+            <vs-pagination :total="data.total" v-model="current_page"></vs-pagination>
             <p class="mb-3">Current Page: {{ current_page }}</p>
             <vs-button @click="current_page++">Increment</vs-button>
             <vs-button class="ml-4 mb-4" @click="current_page--">Decrement</vs-button>
@@ -101,14 +101,15 @@ export default {
             current_page: 1,
         }
     },
-    created() {
-        this.currentx = this.data.pageCount;
-        console.log("here data", this.dataHeaders);
-    },
     methods: {
         openForm() {
             this.$refs.refModalForm.initForm();
-        },
+        }
+    },
+    created() {
+        this.$vs.loading.close();
+        this.currentx = this.data.total;
+        console.log("here data", this.dataHeaders);
     },
     components: {
         ModalObjective

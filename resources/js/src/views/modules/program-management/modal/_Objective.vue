@@ -1,41 +1,55 @@
 <template>
         <div class="demo-alignment">
             <vs-popup classContent="popup-example" title="បំពេញព័ត៌មានខាងក្រោម" :active.sync="showModalForm">
-                <d-form :formAttributes="formAttributes" :api="api"></d-form>
+                <d-form :data="data" :formAttributes="formAttributes" :api="api" :rowDisplay="rowDisplay"></d-form>
             </vs-popup>
         </div>
 </template>
 
 <script>
+import apiConfig from "@/apiConfig.js"
 import DForm from '@/views/form-builder/DForm.vue'
-  export default{
+
+export default {
+    props: {
+        data: {
+            required: true,
+        },
+    },
   components: { DForm },
       data() {
         return {
-            showModalForm: true,
-            api: "",
+            showModalForm: false,
+            rowDisplay: "1grid", //1grid, 2grid, 3grid, 4grid
+            api: apiConfig._apiObjective,
             formAttributes: [
                 {
-                    name: "order_level",
-                    model: "order_level",
-                    type: "text",
-                    required: true,
-                    placeholder: "តំរៀបតាមលំដាប់",
-                },
-                {
                     name: "name",
-                    model: "name",
                     type: "text",
-                    required: false,
-                    placeholder:"ឈ្មោះ"
+                    required: false
                 },
                 {
                     name: "name_kh",
-                    model: "name_kh",
                     type: "text",
-                    required: true,
-                    placeholder: "ឈ្មោះជាភាសាខ្មែរ"
+                    required: true
                 },
+                // {
+                //     name: "select",
+                //     type: "select",
+                //     required: false,
+                //     data: this.data.titles
+                // },
+                {
+                    name: "order_level",
+                    type: "number",
+                    required: false
+                },
+                // {
+                //     name: "select",
+                //     type: "select",
+                //     required: false,
+                //     data: this.data.order_status_choices
+                // },
             ],
         }
     },
