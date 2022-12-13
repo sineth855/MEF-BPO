@@ -70,16 +70,6 @@
             return {
                 styleClass: "",
                 formAttribute: "",
-                entities: [
-                    {
-                        id: 1,
-                        name: "tes"
-                    },
-                    {
-                        id: 2,
-                        name: "tes"
-                    }
-                ],
                 dataArr: [],
                 form: {
                     attribute: []
@@ -104,95 +94,91 @@
                 this.$validator.validateAll().then(result => {
                     
                     if (result) {
-                        if (result) {
-                            let _data = {
-                                // title: this.title,
-                                // account: this.account.label,
-                                // description: this.description,
-                                // issue_date: this.issue_date,
-                                // category: this.category.label,
-                                // payment_method: this.payment_method.label,
-                                // amount: parseFloat(this.amount),
-                                // exchange_rate: parseInt(this.exchange_rate),
-                                // reference: this.reference,
-                                // entity: this.entity,
-                                // currency: this.currency.label
-                            }
-                            if (this.data.id) {
-                                let _id = this.data.id;
-                                return new Promise((resolve, reject) => {
-                                    axios.put(this.api + _id, _data)
-                                        .then((response) => {
-                                            this.$vs.notify({
-                                                title: 'Message',
-                                                text: response.data.message,
-                                                iconPack: 'feather',
-                                                icon: 'icon-check-circle',
-                                                color: 'primary',
-                                                position: 'top-right'
-                                            })
-                                            this.$emit('clickForm');
-                                            // this.$router.push('/account/expense').catch(() => { })
-                                        }).catch((error) => {
-                                            reject(error)
-                                            this.$vs.notify({
-                                                title: 'Message',
-                                                text: "មិនអាចដំណើរកាបានទេ,​ សូមត្រួតពិនិត្យពត៌មានឡើងវិញ។",
-                                                iconPack: 'feather',
-                                                icon: 'icon-check-circle',
-                                                color: 'danger',
-                                                position: 'top-right'
-                                            })
-                                        })
-                                })
-                            } else {
-                                return new Promise((resolve, reject) => {
-                                    axios.post(this.api, _data)
-                                        .then((response) => {
-                                            this.$vs.notify({
-                                                title: 'Message',
-                                                text: response.data.message,
-                                                iconPack: 'feather',
-                                                icon: 'icon-check-circle',
-                                                color: 'primary',
-                                                position: 'top-right'
-                                            })
-                                            this.$emit('clickForm');
-                                            // this.$router.push('/account/expense').catch(() => { })
-                                        }).catch((error) => {
-                                            reject(error)
-                                            this.$vs.notify({
-                                                title: 'Message',
-                                                text: "មិនអាចដំណើរកាបានទេ,​ សូមត្រួតពិនិត្យពត៌មានឡើងវិញ។",
-                                                iconPack: 'feather',
-                                                icon: 'icon-check-circle',
-                                                color: 'danger',
-                                                position: 'top-right'
-                                            })
-                                        })
-                                })
-                            }
+                        let _data = {
+                            // title: this.title,
+                            // account: this.account.label,
+                            // description: this.description,
+                            // issue_date: this.issue_date,
+                            // category: this.category.label,
+                            // payment_method: this.payment_method.label,
+                            // amount: parseFloat(this.amount),
+                            // exchange_rate: parseInt(this.exchange_rate),
+                            // reference: this.reference,
+                            // entity: this.entity,
+                            // currency: this.currency.label
                         }
-                        // this.$vs.notify({
-                        //     title: 'Icon mail',
-                        //     text: 'Lorem ipsum dolor sit amet, consectetur',
-                        //     color: 'success',
-                        //     iconPack: 'feather',
-                        //     icon: 'icon-check',
-                        //     position: 'top-right'
-                        // });
-                        // this.showObjective = false;
-                    } else {
-                        // form have errors
+                        if (this.data.id) {
+                            let _id = this.data.id;
+                            return new Promise((resolve, reject) => {
+                                axios.put(this.api + _id, _data)
+                                    .then((response) => {
+                                        this.$vs.notify({
+                                            title: 'Message',
+                                            text: response.data.message,
+                                            iconPack: 'feather',
+                                            icon: 'icon-check-circle',
+                                            color: 'primary',
+                                            position: 'top-right'
+                                        })
+                                        this.$emit('clickForm');
+                                        // this.$router.push('/account/expense').catch(() => { })
+                                    }).catch((error) => {
+                                        reject(error)
+                                        this.$vs.notify({
+                                            title: 'Message',
+                                            text: "មិនអាចដំណើរកាបានទេ,​ សូមត្រួតពិនិត្យពត៌មានឡើងវិញ។",
+                                            iconPack: 'feather',
+                                            icon: 'icon-check-circle',
+                                            color: 'danger',
+                                            position: 'top-right'
+                                        })
+                                    })
+                            })
+                        } else {
+                            return new Promise((resolve, reject) => {
+                                axios.post(this.api, _data)
+                                    .then((response) => {
+                                        this.$vs.notify({
+                                            title: 'Message',
+                                            text: response.data.message,
+                                            iconPack: 'feather',
+                                            icon: 'icon-check-circle',
+                                            color: 'primary',
+                                            position: 'top-right'
+                                        })
+                                        this.$emit('clickForm');
+                                        // this.$router.push('/account/expense').catch(() => { })
+                                    }).catch((error) => {
+                                        reject(error)
+                                        this.$vs.notify({
+                                            title: 'Message',
+                                            text: "មិនអាចដំណើរកាបានទេ,​ សូមត្រួតពិនិត្យពត៌មានឡើងវិញ។",
+                                            iconPack: 'feather',
+                                            icon: 'icon-check-circle',
+                                            color: 'danger',
+                                            position: 'top-right'
+                                        })
+                                    })
+                            })
+                        }
                     }
+                    // this.$vs.notify({
+                    //     title: 'Icon mail',
+                    //     text: 'Lorem ipsum dolor sit amet, consectetur',
+                    //     color: 'success',
+                    //     iconPack: 'feather',
+                    //     icon: 'icon-check',
+                    //     position: 'top-right'
+                    // });
+                    // this.showObjective = false;
+                    
                 })
             }
         },  
         created()
         {
-            console.log("ID PROPS", this.dataInfo.name);
-            this.form.attribute["name"] = this.dataInfo.name;
-            this.form.attribute["name_kh"] = this.dataInfo.name_kh;
+            // this.form.attribute["name"] = this.dataInfo.name;
+            // this.form.attribute["name_kh"] = this.dataInfo.name_kh;
             if (this.rowDisplay == "1grid") {
                 this.styleClass = "vx-col lg:w-1/1 w-full";
             }

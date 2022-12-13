@@ -15,45 +15,18 @@ export default {
         data: {
             required: true,
         },
+        api: { type: String },
+        formAttributes: {
+            required: true
+        },
+        rowDisplay: { type: String }
     },
   components: { DForm },
       data() {
         return {
             showModalForm: false,
-            rowDisplay: "1grid", //1grid, 2grid, 3grid, 4grid
-            api: apiConfig._apiObjective,
-            formAttributes: [
-                {
-                    name: "name",
-                    type: "text",
-                    required: false
-                },
-                {
-                    name: "name_kh",
-                    type: "text",
-                    required: true
-                },
-                // {
-                //     name: "select",
-                //     type: "select",
-                //     required: false,
-                //     data: this.data.titles
-                // },
-                {
-                    name: "order_level",
-                    type: "number",
-                    required: false
-                },
-                // {
-                //     name: "select",
-                //     type: "select",
-                //     required: false,
-                //     data: this.data.order_status_choices
-                // },
-            ],
             dataInfo: {
-                name: "data",
-                name_kh: "dddd"
+                
             }
         }
     },

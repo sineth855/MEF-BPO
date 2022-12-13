@@ -1,5 +1,8 @@
 <template>
-    <d-table-list @clicked="initTableData" :api="api" ref="refInitPage" :allowDel="true" :title="title" :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data"></d-table-list>
+    <d-table-list @clicked="initTableData" :api="api" ref="refInitPage" 
+    :allowDel="true" :title="title" :dataAttributes="dataAttributes" 
+    :dataHeaders="dataHeaders" :dataTables="data"
+    :formAttributes="formAttributes" :rowDisplay="rowDisplay"></d-table-list>
 </template>
 
 <script>
@@ -108,16 +111,41 @@ export default {
                
                 // ]
             },
-            entities: [
+            formAttributes: [
                 {
-                    id: 1,
-                    label: "ក្រសួង"
+                    name: "name",
+                    type: "text",
+                    required: true
                 },
                 {
-                    id: 2,
-                    label: "ក្រសួង"
-                }
+                    name: "name_kh",
+                    type: "text",
+                    required: true
+                },
+                // {
+                //     name: "select",
+                //     type: "select",
+                //     required: false,
+                //     data: this.data.titles
+                // },
+                {
+                    name: "order_level",
+                    type: "number",
+                    required: true
+                },
+                {
+                    name: "remark",
+                    type: "text",
+                    required: false
+                },
+                // {
+                //     name: "select",
+                //     type: "select",
+                //     required: false,
+                //     data: this.data.order_status_choices
+                // },
             ],
+            rowDisplay: "2grid", //1grid, 2grid, 3grid, 4grid
             dataArr: []
         }
     },

@@ -232,6 +232,7 @@ export default {
 		name_kh: "ឈ្មោះជាភាសាខ្មែរ",
 		name: "ឈ្មោះជាភាសាអង់គ្លេស",
 		order_level: "តំរៀបតាមលំដាប់",
+		remark: "សម្គាល់",
 		// Copy Right
 		Footer_CopyRight: "",
 		// Status
@@ -246,6 +247,7 @@ export default {
 		pip_adjustment_budget: "តម្រូវការហិរញ្ញប្បទានបំពេញបន្ថែម",
 		pip_financail_resource: "ប្រភពហិរញ្ញប្បទាន",
 		// Button
+		btn_search: "ស្វែងរក",
 		btn_save: "រក្សាទុក",
 		btn_cancel: "លុប",
 		btn_delete: "លុបចេញពីទិន្នន័យ",

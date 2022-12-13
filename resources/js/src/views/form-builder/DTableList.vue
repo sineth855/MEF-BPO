@@ -1,49 +1,10 @@
 <template>
     <vx-card :title="$t(title)" code-toggler>
-        <modal-objective @clicked="initTableData" ref="refModalForm" :data="dataTables"></modal-objective>
+        <modal-objective @clicked="initTableData" ref="refModalForm" 
+        :data="dataTables" :api="api" :formAttributes="formAttributes" 
+        :rowDisplay="rowDisplay"></modal-objective>
+
         <div class="flex flex-wrap-reverse items-center data-list-btn-container">
-            <!-- ACTION - DROPDOWN -->
-            <vs-dropdown vs-trigger-click class="dd-actions cursor-pointer mr-4 mb-4">
-
-                <div
-                    class="p-4 shadow-drop rounded-lg d-theme-dark-bg cursor-pointer flex items-center justify-center text-lg font-medium w-32 w-full">
-                    <span class="mr-2">{{ $t("Action") }}</span>
-                    <feather-icon icon="ChevronDownIcon" svgClasses="h-4 w-4" />
-                </div>
-
-                <vs-dropdown-menu>
-
-                    <vs-dropdown-item>
-                        <span class="flex items-center">
-                            <feather-icon icon="TrashIcon" svgClasses="h-4 w-4" class="mr-2" />
-                            <span>Delete</span>
-                        </span>
-                    </vs-dropdown-item>
-
-                    <vs-dropdown-item>
-                        <span class="flex items-center">
-                            <feather-icon icon="ArchiveIcon" svgClasses="h-4 w-4" class="mr-2" />
-                            <span>Archive</span>
-                        </span>
-                    </vs-dropdown-item>
-
-                    <vs-dropdown-item>
-                        <span class="flex items-center">
-                            <feather-icon icon="FileIcon" svgClasses="h-4 w-4" class="mr-2" />
-                            <span>Print</span>
-                        </span>
-                    </vs-dropdown-item>
-
-                    <vs-dropdown-item>
-                        <span class="flex items-center">
-                            <feather-icon icon="SaveIcon" svgClasses="h-4 w-4" class="mr-2" />
-                            <span>Another Action</span>
-                        </span>
-                    </vs-dropdown-item>
-
-                </vs-dropdown-menu>
-            </vs-dropdown>
-
             <!-- ADD NEW -->
             <div class="btn-add-new p-3 mb-4 mr-4 rounded-lg cursor-pointer flex items-center justify-center text-lg font-medium text-base text-primary border border-solid border-primary"
                 @click="openForm">
@@ -51,7 +12,10 @@
                 <span class="ml-2 text-base text-primary">{{ $t("AddNew") }}</span>
             </div>
         </div>
-        <d-search></d-search>
+
+        <d-search @clicked="initTableData" :data="dataTables" :api="api" :formAttributes="formAttributes" 
+        :rowDisplay="'4grid'" :dataInfo="''"></d-search>
+
         <vs-table v-if="dataTables.data && dataTables.data.length" :max-items="dataTables.limit" :data="dataTables.data">
             <template slot="thead">
                 <vs-th>{{ 'No' }}</vs-th>
@@ -107,7 +71,9 @@
             allowDel: {
                 type: Boolean
             },
-            api: { type: String }
+            api: { type: String },
+            formAttributes: { required: true },
+            rowDisplay: { type: String }
         },
         data() {
             return {
