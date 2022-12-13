@@ -1,5 +1,5 @@
 <template>
-    <d-table-list @clicked="initTableData" ref="refInitPage" :allowDel="true" :title="title" :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data"></d-table-list>
+    <d-table-list @clicked="initTableData" :api="api" ref="refInitPage" :allowDel="true" :title="title" :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data"></d-table-list>
 </template>
 
 <script>
@@ -13,6 +13,7 @@ export default {
     data() {
         return {
             title: "ProgramObjective",
+            api: apiConfig._apiObjective,
             dataAttributes: {
                 page_number: 1,
                 offset: 0,

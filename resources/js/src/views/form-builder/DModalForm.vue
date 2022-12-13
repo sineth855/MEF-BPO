@@ -7,7 +7,7 @@
                     <div class="vx-row lg:w-1/1 w-full">
 
                         <div class="vx-col w-full">
-                            asf<vs-input v-validate="'required|alpha'" :placeholder="$t('label_name_kh')"
+                            <vs-input v-validate="'required|alpha'" :placeholder="$t('label_name_kh')"
                                 v-model="name_kh" class="w-full" />
                             <span class="text-danger text-sm" v-show="errors.has('name_kh')">{{ $t("required_name_kh")
                             }}</span>

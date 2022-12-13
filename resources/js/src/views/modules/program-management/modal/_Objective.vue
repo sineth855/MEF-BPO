@@ -61,10 +61,10 @@ export default {
         initForm(data) {
             this.showModalForm = true;
             this.dataInfo = data;
-            console.log("form data", data);
         },
         initTableData() {
             this.$emit('clicked');
+            this.showModalForm = false;
         }
     }
   }

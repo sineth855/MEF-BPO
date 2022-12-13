@@ -118,8 +118,8 @@
                                 // entity: this.entity,
                                 // currency: this.currency.label
                             }
-                            if (this.$route.params.id) {
-                                let _id = this.$route.params.id;
+                            if (this.data.id) {
+                                let _id = this.data.id;
                                 return new Promise((resolve, reject) => {
                                     axios.put(this.api + _id, _data)
                                         .then((response) => {

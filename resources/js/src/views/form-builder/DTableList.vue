@@ -51,7 +51,7 @@
                 <span class="ml-2 text-base text-primary">{{ $t("AddNew") }}</span>
             </div>
         </div>
-        
+        <d-search></d-search>
         <vs-table v-if="dataTables.data && dataTables.data.length" :max-items="dataTables.limit" :data="dataTables.data">
             <template slot="thead">
                 <vs-th>{{ 'No' }}</vs-th>
@@ -83,89 +83,118 @@
 </template>
 
 <script>
-import ModalObjective from '@/views/modules/program-management/modal/_Objective.vue'
-import { stringify } from 'querystring';
-import { ref } from 'vue';
-export default {
-    props: {
-        title: {
-            type: String,
-            required: true
-        },
-        dataAttributes: {
-            required: true,
-        },
-        dataHeaders: {
-            required: true,
-        },
-        dataTables: {
-            required: true,
-        },
-        allowDel: {
-            type: Boolean
-        }
-    },
-    data() {
-        return {
-            currentx: 0,
-            current_page: 1
-        }
-    },
-    components: {
-        ModalObjective
-    },
-    methods: {
-        openForm() {
-            this.$refs.refModalForm.initForm();
-        },
-        calPaginNumber(n) {
-            // alert(n);
-            let _newVal = 0;
-            if (Number(n) === n && n % 1 === 0) {
-                _newVal = n;
-            } else {
-                _newVal = Math.floor(n + 1);
-            }
-            return _newVal;
-        },
-        calPageIncreaseNumber(_page_limit, index) {
-            let _offset = (this.current_page - 1) * _page_limit;
-            let _result = _offset + (index + 1);
-            return _result;
-        },
-        initTableData() {
-            this.$emit('clicked', this.current_page);
-        },
-        initDel() {
-            this.$vs.dialog({
-                type: 'confirm',
-                color: 'danger',
-                title: `Confirm`,
-                text: 'តើអ្នកពិតជាចង់ធ្វើការលុបទិន្នន័យនេះជារៀងរហូត?',
-                accept: this.acceptAlert
-            })
-        },
-        acceptAlert() {
-            this.$vs.notify({
-                color: 'danger',
-                title: 'Deleted image',
-                text: 'The selected image was successfully deleted'
-            })
-        },
-        initEdit(data) {
-            this.$refs.refModalForm.initForm(data);
-        }
 
-    },
-    created() {
-        this.$vs.loading.close();
-    },
-    watch: {
-        current_page: function (val) {
-            this.$emit('clicked', val)
+    import axios from "@/axios.js"
+    import ModalObjective from '@/views/modules/program-management/modal/_Objective.vue'
+    import DSearch from '@/views/form-builder/DSearch.vue'
+    import { stringify } from 'querystring';
+    import { ref } from 'vue';
+    export default {
+        props: {
+            title: {
+                type: String,
+                required: true
+            },
+            dataAttributes: {
+                required: true,
+            },
+            dataHeaders: {
+                required: true,
+            },
+            dataTables: {
+                required: true,
+            },
+            allowDel: {
+                type: Boolean
+            },
+            api: { type: String }
+        },
+        data() {
+            return {
+                currentx: 0,
+                current_page: 1,
+                dataId: 0
+            }
+        },
+        components: {
+            ModalObjective,
+            DSearch
+        },
+        methods: {
+            openForm() {
+                this.$refs.refModalForm.initForm();
+            },
+            calPaginNumber(n) {
+                // alert(n);
+                let _newVal = 0;
+                if (Number(n) === n && n % 1 === 0) {
+                    _newVal = n;
+                } else {
+                    _newVal = Math.floor(n + 1);
+                }
+                return _newVal;
+            },
+            calPageIncreaseNumber(_page_limit, index) {
+                let _offset = (this.current_page - 1) * _page_limit;
+                let _result = _offset + (index + 1);
+                return _result;
+            },
+            initTableData() {
+                this.$emit('clicked', this.current_page);
+            },
+            initDel(id) {
+                this.dataId = id;
+                this.$vs.dialog({
+                    type: 'confirm',
+                    color: 'danger',
+                    title: `Confirm`,
+                    text: 'តើអ្នកពិតជាចង់ធ្វើការលុបទិន្នន័យនេះជារៀងរហូត?',
+                    accept: this.acceptAlert
+                })
+            },
+            acceptAlert() {
+                let id = this.dataId;
+
+                return new Promise((resolve, reject) => {
+                    axios.delete(this.api+'/'+id)
+                        .then((response) => {
+                            this.$vs.notify({
+                                title: 'Message',
+                                text: response.data.message,
+                                iconPack: 'feather',
+                                icon: 'icon-check-circle',
+                                color: 'primary',
+                                position: 'top-right'
+                            })
+                            this.$emit('clicked', this.current_page);
+                            // this.$router.push('/account/expense').catch(() => { })
+                        }).catch((error) => {
+                            reject(error)
+                            this.$vs.notify({
+                                title: 'Message',
+                                text: "មិនអាចដំណើរកាបានទេ,​ សូមត្រួតពិនិត្យពត៌មានឡើងវិញ។",
+                                iconPack: 'feather',
+                                icon: 'icon-check-circle',
+                                color: 'danger',
+                                position: 'top-right'
+                            })
+                        })
+                })
+            },
+            initEdit(data) {
+                this.$refs.refModalForm.initForm(data);
+            }
+
+        },
+        created() {
+            this.$vs.loading.close();
+        },
+        watch: {
+            current_page: function (val) {
+                this.$emit('clicked', val)
+            }
         }
     }
-}
 </script>
 
 <style>
