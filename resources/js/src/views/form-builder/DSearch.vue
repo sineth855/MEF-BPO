@@ -5,17 +5,17 @@
             <div :key="i" v-for="(formAttribute, i) in formAttributes" :class="styleClass">
                 <!-- Form Input Text -->
                 <div v-if="formAttribute.type == 'text'">
-                    <vs-input :placeholder="$t(formAttribute.name)" v-model="form.attribute[formAttribute.name]"
+                    <vs-input v-if="formAttribute.required" :placeholder="$t(formAttribute.name)" v-model="form.attribute[formAttribute.name]"
                         :name="formAttribute.name" class="mt-5 w-full" />
                 </div>
                 <!-- Form Input Number -->
                 <div v-if="formAttribute.type == 'number'">
-                    <vs-input :placeholder="$t(formAttribute.name)" v-model="form.attribute[formAttribute.name]"
+                    <vs-input v-if="formAttribute.required" :placeholder="$t(formAttribute.name)" v-model="form.attribute[formAttribute.name]"
                         :name="formAttribute.name" class="mt-5 w-full" />
                 </div>
                 <!-- Form Select -->
                 <div v-if="formAttribute.type == 'select'">
-                    <vs-select v-model="formAttribute[i]" class="mt-5 w-full">
+                    <vs-select v-if="formAttribute.required" v-model="formAttribute[i]" class="mt-5 w-full">
                         <vs-select-item :key="item.value" :value="item.value" :text="item.text"
                             v-for="item in formAttribute.data" />
                     </vs-select>

@@ -84,29 +84,21 @@
         methods: {
             submitForm() {
                 this.dataArr = [];
-                for (let i = 0; i < this.formAttributes.length; i++) {
-                    const _data = {
-                        id: this.formAttributes[i],
-                        // label: this.formAttributes[i]["name"]
-                    };
-                    this.dataArr.push(this.formAttributes[i][i]);
+                let _formAttribute = this.formAttributes;
+                for (let i = 0; i < _formAttribute.length; i++) {
+                    let _nameField = _formAttribute[i]["name"]+':'+this.form.attribute[_formAttribute[i]["name"]];
+                    // const _data = {
+                    //     _nameField: _formAttribute[i],
+                    //     // label: this.formAttributes[i]["name"]
+                    // };
+                    // // this.dataArr.push(this.formAttributes[i]);
+                    this.dataArr.push(_nameField);
                 }
+                console.log("here is data value", this.dataArr);
                 this.$validator.validateAll().then(result => {
                     
                     if (result) {
-                        let _data = {
-                            // title: this.title,
-                            // account: this.account.label,
-                            // description: this.description,
-                            // issue_date: this.issue_date,
-                            // category: this.category.label,
-                            // payment_method: this.payment_method.label,
-                            // amount: parseFloat(this.amount),
-                            // exchange_rate: parseInt(this.exchange_rate),
-                            // reference: this.reference,
-                            // entity: this.entity,
-                            // currency: this.currency.label
-                        }
+                        let _data = this.dataArr;
                         if (this.data.id) {
                             let _id = this.data.id;
                             return new Promise((resolve, reject) => {
@@ -174,9 +166,26 @@
                     
                 })
             }
-        },  
+    },  
+    mounted() {
+        alert("here");
+    },
         created()
         {
+            if (this.dataInfo) {
+                let _formAttribute = this.formAttributes;
+                for (let i = 0; i < _formAttribute.length; i++) {
+                    // let _nameField = _formAttribute[i]["name"] + ':' + this.form.attribute[_formAttribute[i]["name"]];
+
+                    this.form.attribute[_formAttribute[i]["name"]] = this.dataInfo[_formAttribute[i]["name"]];// "I got all";
+                    // const _data = {
+                    //     _nameField: _formAttribute[i],
+                    //     // label: this.formAttributes[i]["name"]
+                    // };
+                    // // this.dataArr.push(this.formAttributes[i]);
+                    // this.dataArr.push(_nameField);
+                }
+            }
             // this.form.attribute["name"] = this.dataInfo.name;
             // this.form.attribute["name_kh"] = this.dataInfo.name_kh;
             if (this.rowDisplay == "1grid") {

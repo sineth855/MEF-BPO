@@ -131,7 +131,7 @@ export default {
                 {
                     name: "order_level",
                     type: "number",
-                    required: true
+                    required: false
                 },
                 {
                     name: "remark",
