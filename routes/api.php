@@ -69,6 +69,7 @@ Route::group([
         'middleware' => ['auth:api', 'global_site', 'cors']
     ], function() {
         // គ្រប់គ្រងកម្មវិធី
+        Route::post('module/program_management/objective/search', 'Modules\ProgramManagement\ObjectiveController@index');
         Route::resource('module/program_management/objective', 'Modules\ProgramManagement\ObjectiveController');
         // 
         Route::resource('department', 'DepartmentController');

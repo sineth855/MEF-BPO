@@ -4,22 +4,22 @@
         <div class="vx-row">
             <div :key="i" v-for="(formAttribute, i) in formAttributes" :class="styleClass">
                 <!-- Form Input Text -->
-                <div v-if="formAttribute.type == 'text'">
+                <template v-if="formAttribute.type == 'text'">
                     <vs-input v-if="formAttribute.required" :placeholder="$t(formAttribute.name)" v-model="form.attribute[formAttribute.name]"
                         :name="formAttribute.name" class="mt-5 w-full" />
-                </div>
+                </template>
                 <!-- Form Input Number -->
-                <div v-if="formAttribute.type == 'number'">
+                <template v-if="formAttribute.type == 'number'">
                     <vs-input v-if="formAttribute.required" :placeholder="$t(formAttribute.name)" v-model="form.attribute[formAttribute.name]"
                         :name="formAttribute.name" class="mt-5 w-full" />
-                </div>
+                </template>
                 <!-- Form Select -->
-                <div v-if="formAttribute.type == 'select'">
+                <template v-if="formAttribute.type == 'select'">
                     <vs-select v-if="formAttribute.required" v-model="formAttribute[i]" class="mt-5 w-full">
                         <vs-select-item :key="item.value" :value="item.value" :text="item.text"
                             v-for="item in formAttribute.data" />
                     </vs-select>
-                </div>
+                </template>
     
             </div>
     
@@ -56,6 +56,7 @@ export default {
     },
     data() {
         return {
+            _search_fields: {},
             form: {
                 attribute: []
             }
@@ -88,7 +89,13 @@ export default {
     },
     methods: {
         initSearch() {
-            alert("here is search result!");
+            this._search_fields = [];
+            let _formAttribute = this.form.attribute;
+            // for (let i = 0; i < _formAttribute.length; i++) {
+            //     let _nameField = _formAttribute[i]["name"] + ':' + this.form.attribute[_formAttribute[i]["name"]];
+            //     this._search_fields.push(_nameField);
+            // }
+            this.$emit('searchQuery', _formAttribute);
         }
     },
     mounted() {

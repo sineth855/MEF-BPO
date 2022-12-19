@@ -40,7 +40,7 @@ export default [
         slug: 'program',
         name: "program",
         icon: "UserIcon",
-        i18n: "ProgramProgram",
+        i18n: "Program",
       },
       {
         url: '/module/program-arrangement/subprogram',

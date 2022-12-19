@@ -1,8 +1,8 @@
 <template>
     <vx-card :title="$t(title)" code-toggler>
-        <modal-objective @clicked="initTableData" ref="refModalForm" 
+        <d-modal-form @clicked="initTableData" ref="refModalForm" 
         :data="dataTables" :api="api" :formAttributes="formAttributes" 
-        :rowDisplay="rowDisplay"></modal-objective>
+        :rowDisplay="rowDisplay"></d-modal-form>
 
         <div class="flex flex-wrap-reverse items-center data-list-btn-container">
             <!-- ADD NEW -->
@@ -13,14 +13,70 @@
             </div>
         </div>
 
-        <d-search @clicked="initTableData" :data="dataTables" :api="api" :formAttributes="formAttributes" 
+        <d-search @searchQuery="searchQuery" @clicked="initTableData"  :data="dataTables" :api="api" :formAttributes="formAttributes" 
         :rowDisplay="'4grid'" :dataInfo="''"></d-search>
 
-        <vs-table v-if="dataTables.data && dataTables.data.length" :max-items="dataTables.limit" :data="dataTables.data">
+
+        <!-- <table>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Name</th>
+                <th>Name</th>
+                <th>Name</th>
+                <th>Name</th>
+                <th>Name</th>
+                <th>Name</th>
+            </tr>
+
+            <tbody :key="indextr" v-for="(tr, indextr) in dataTables.data">
+                <tr>
+                    <td colspan="8">{{ tr.parent }}</td>    
+                </tr>
+                <tr :key="cindextr" v-for="(ctr, cindextr) in tr.children">
+                    <td>{{ ctr.id }}</td>
+                    <td>{{ ctr.code_activity }}</td>
+                    <td>{{ ctr.name }}</td>
+                    <td>{{ ctr.name_kh }}</td>
+                    <td>{{ ctr.cluster_activity }}</td>
+                    <td>{{ ctr.responsible_person }}</td>
+                    <td>{{ ctr.responsible_entity }}</td>
+                    <td>{{ ctr.order_level }}</td>
+                </tr>
+            </tbody>
+        </table> -->
+
+        <vs-table v-if="dataTables.data && dataTables.data.length && dataTables.children" :max-items="dataTables.limit" :data="dataTables.data">
             <template slot="thead">
-                <vs-th>{{ 'No' }}</vs-th>
-                <vs-th :key="i" v-for="(header, i) in dataHeaders">{{ header }}</vs-th>
-                <vs-th>{{ 'Action' }}</vs-th>
+                <vs-th>{{ $t("no") }}</vs-th>
+                <vs-th :key="i" v-for="(header, i) in dataHeaders">{{ $t(header) }}</vs-th>
+                <vs-th>{{ $t("Action") }}</vs-th>
+            </template>
+        
+            <template slot-scope="{data}">
+                <tbody :key="pindextr" v-for="(ptr, pindextr) in data">
+                    <vs-tr :state="dataTables.backgroundColor">
+                        <td colspan="9">{{ ptr.parent }}</td>
+                    </vs-tr>
+                    <vs-tr :key="indextr" v-for="(tr, indextr) in ptr.children">
+                        <vs-td>{{ calPageIncreaseNumber(dataTables.limit, indextr) }}</vs-td>
+                        <vs-td v-for="header in dataHeaders" :key="header.indextr">{{ tr[header] }}</vs-td>
+                        <vs-td>
+                            <feather-icon icon="EditIcon" svgClasses="w-5 h-5 hover:text-primary stroke-current"
+                                @click.stop="initEdit(tr)" />
+                            <feather-icon v-if="allowDel" icon="TrashIcon" svgClasses="w-5 h-5 hover:text-danger stroke-current"
+                                class="ml-2" @click.stop="initDel(tr.id)" />
+                        </vs-td>
+                    </vs-tr>
+                </tbody>
+            </template>
+        </vs-table>
+
+        <vs-table v-else-if="dataTables.data && dataTables.data.length" :max-items="dataTables.limit" :data="dataTables.data">
+            <template slot="thead">
+                <vs-th>{{ $t("no") }}</vs-th>
+                <vs-th :key="i" v-for="(header, i) in dataHeaders">{{ $t(header) }}</vs-th>
+                <vs-th>{{ $t("Action") }}</vs-th>
             </template>
             
             <template slot-scope="{data}">
@@ -28,7 +84,11 @@
                     <vs-td>{{ calPageIncreaseNumber(dataTables.limit, indextr) }}</vs-td>
                     <vs-td v-for="header in dataHeaders" :key="header.indextr">{{ tr[header] }}</vs-td>
                     <vs-td>
-                        <feather-icon icon="EditIcon" svgClasses="w-5 h-5 hover:text-primary stroke-current" @click.stop="initEdit(tr)" />
+                        <template v-if="dataTables.actionButton">
+                            <feather-icon v-for="rowBtnAction in dataTables.actionButton" :key="rowBtnAction.indextr" :icon="rowBtnAction.icon" svgClasses="mr-2 w-5 h-5 hover:text-primary stroke-current" @click.stop="viewUrl(rowBtnAction)" />
+                        </template>
+                        <feather-icon icon="EditIcon" svgClasses="w-5 h-5 hover:text-primary stroke-current" 
+                        @click.stop="initEdit(tr)" />
                         <feather-icon v-if="allowDel" icon="TrashIcon" svgClasses="w-5 h-5 hover:text-danger stroke-current" class="ml-2"
                             @click.stop="initDel(tr.id)" />
                     </vs-td>
@@ -49,8 +109,8 @@
 <script>
 
     import axios from "@/axios.js"
-    import ModalObjective from '@/views/modules/program-management/modal/_Objective.vue'
     import DSearch from '@/views/form-builder/DSearch.vue'
+    import DModalForm from '@/views/form-builder/DModalForm.vue'
     import { stringify } from 'querystring';
     import { ref } from 'vue';
     export default {
@@ -83,12 +143,16 @@
             }
         },
         components: {
-            ModalObjective,
-            DSearch
+            DSearch,
+            DModalForm
         },
         methods: {
+            viewUrl(obj) {
+                console.log(obj);
+                this.$router.push(obj.path).catch(() => { });
+            },
             openForm() {
-                this.$refs.refModalForm.initForm();
+                this.$refs.refModalForm.openNewForm();
             },
             calPaginNumber(n) {
                 // alert(n);
@@ -106,7 +170,18 @@
                 return _result;
             },
             initTableData() {
-                this.$emit('clicked', this.current_page);
+                let _search_params = {
+                    pageNum: this.current_page,
+                    searchFields: []
+                }
+                this.$emit('clicked', _search_params);
+            },
+            searchQuery(_search_fields) {
+                let _search_params = {
+                    pageNum: this.current_page,
+                    searchFields: _search_fields
+                }
+                this.$emit('clicked', _search_params);
             },
             initDel(id) {
                 this.dataId = id;
@@ -120,7 +195,10 @@
             },
             acceptAlert() {
                 let id = this.dataId;
-
+                let _search_params = {
+                    pageNum: this.current_page,
+                    searchFields: []
+                }
                 return new Promise((resolve, reject) => {
                     axios.delete(this.api+'/'+id)
                         .then((response) => {
@@ -132,7 +210,7 @@
                                 color: 'primary',
                                 position: 'top-right'
                             })
-                            this.$emit('clicked', this.current_page);
+                            this.$emit('clicked', _search_params);
                             // this.$router.push('/account/expense').catch(() => { })
                         }).catch((error) => {
                             reject(error)
@@ -157,169 +235,174 @@
         },
         watch: {
             current_page: function (val) {
-                this.$emit('clicked', val)
+                let _search_params = {
+                    pageNum: this.current_page,
+                    searchFields: []
+                }
+                this.$emit('clicked', _search_params)
             }
         }
     }
 </script>
 
 <style>
-th.th-width-300 {
-    min-width: 260px !important;
-}
+    th.th-width-300 {
+        min-width: 260px !important;
+    }
 
-td.td-width-150 {
-    min-width: 150px !important;
-}
+    td.td-width-150 {
+        min-width: 150px !important;
+    }
 
-table tr td,
-th {
-    border: 1px solid #d7d7d7;
-}
+    table tr td,
+    th {
+        border: 1px solid #d7d7d7;
+    }
 
-th {
-    text-align: center !important;
-    /* display: inline; */
-}
+    th {
+        text-align: center !important;
+        /* display: inline; */
+    }
 
-th.rotate {
-    transform: rotate(-90deg)
-}
+    th.rotate {
+        transform: rotate(-90deg)
+    }
 
-.vs-table--thead th .vs-table-text {
-    text-transform: uppercase;
-    font-weight: 600;
-    text-align: center;
-    display: inline !important;
-}
-</style>
+    .vs-table--thead th .vs-table-text {
+        text-transform: uppercase;
+        font-weight: 600;
+        text-align: center;
+        display: inline !important;
+    }
+    </style>
 
 
 <style lang="scss">
-#data-list-list-view {
-    font-family: 'Khmer MEF1';
+    #data-list-list-view {
+        font-family: 'Khmer MEF1';
 
-    .vs-con-table {
+        .vs-con-table {
 
-        /*
-      Below media-queries is fix for responsiveness of action buttons
-      Note: If you change action buttons or layout of this page, Please remove below style
-    */
-        @media (max-width: 689px) {
-            .vs-table--search {
-                margin-left: 0;
-                max-width: unset;
-                width: 100%;
-
-                .vs-table--search-input {
+            /*
+        Below media-queries is fix for responsiveness of action buttons
+        Note: If you change action buttons or layout of this page, Please remove below style
+        */
+            @media (max-width: 689px) {
+                .vs-table--search {
+                    margin-left: 0;
+                    max-width: unset;
                     width: 100%;
+
+                    .vs-table--search-input {
+                        width: 100%;
+                    }
                 }
             }
-        }
 
-        @media (max-width: 461px) {
-            .items-per-page-handler {
-                display: none;
-            }
-        }
-
-        @media (max-width: 341px) {
-            .data-list-btn-container {
-                width: 100%;
-
-                .dd-actions,
-                .btn-add-new {
-                    width: 100%;
-                    margin-right: 0 !important;
+            @media (max-width: 461px) {
+                .items-per-page-handler {
+                    display: none;
                 }
             }
-        }
 
-        .product-name {
-            max-width: 23rem;
-        }
+            @media (max-width: 341px) {
+                .data-list-btn-container {
+                    width: 100%;
 
-        .vs-table--header {
-            display: flex;
-            flex-wrap: wrap;
-            margin-left: 1.5rem;
-            margin-right: 1.5rem;
+                    .dd-actions,
+                    .btn-add-new {
+                        width: 100%;
+                        margin-right: 0 !important;
+                    }
+                }
+            }
 
-            >span {
+            .product-name {
+                max-width: 23rem;
+            }
+
+            .vs-table--header {
                 display: flex;
-                flex-grow: 1;
+                flex-wrap: wrap;
+                margin-left: 1.5rem;
+                margin-right: 1.5rem;
+
+                >span {
+                    display: flex;
+                    flex-grow: 1;
+                }
+
+                .vs-table--search {
+                    padding-top: 0;
+
+                    .vs-table--search-input {
+                        padding: 0.9rem 2.5rem;
+                        font-size: 1rem;
+
+                        &+i {
+                            left: 1rem;
+                        }
+
+                        &:focus+i {
+                            left: 1rem;
+                        }
+                    }
+                }
             }
 
-            .vs-table--search {
-                padding-top: 0;
+            .vs-table {
+                border-collapse: separate;
+                border-spacing: 0 1.3rem;
+                padding: 0 1rem;
 
-                .vs-table--search-input {
-                    padding: 0.9rem 2.5rem;
-                    font-size: 1rem;
+                tr {
+                    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, .05);
 
-                    &+i {
-                        left: 1rem;
+                    td {
+                        padding: 20px;
+
+                        &:first-child {
+                            border-top-left-radius: .5rem;
+                            border-bottom-left-radius: .5rem;
+                        }
+
+                        &:last-child {
+                            border-top-right-radius: .5rem;
+                            border-bottom-right-radius: .5rem;
+                        }
                     }
 
-                    &:focus+i {
-                        left: 1rem;
+                    td.td-check {
+                        padding: 20px !important;
                     }
                 }
             }
-        }
 
-        .vs-table {
-            border-collapse: separate;
-            border-spacing: 0 1.3rem;
-            padding: 0 1rem;
+            .vs-table--thead {
+                th {
+                    padding-top: 0;
+                    padding-bottom: 0;
 
-            tr {
-                box-shadow: 0 4px 20px 0 rgba(0, 0, 0, .05);
-
-                td {
-                    padding: 20px;
-
-                    &:first-child {
-                        border-top-left-radius: .5rem;
-                        border-bottom-left-radius: .5rem;
-                    }
-
-                    &:last-child {
-                        border-top-right-radius: .5rem;
-                        border-bottom-right-radius: .5rem;
+                    .vs-table-text {
+                        text-transform: uppercase;
+                        font-weight: 600;
                     }
                 }
 
-                td.td-check {
-                    padding: 20px !important;
+                th.td-check {
+                    padding: 0 15px !important;
                 }
-            }
-        }
 
-        .vs-table--thead {
-            th {
-                padding-top: 0;
-                padding-bottom: 0;
-
-                .vs-table-text {
-                    text-transform: uppercase;
-                    font-weight: 600;
+                tr {
+                    background: none;
+                    box-shadow: none;
                 }
             }
 
-            th.td-check {
-                padding: 0 15px !important;
+            .vs-table--pagination {
+                justify-content: center;
             }
-
-            tr {
-                background: none;
-                box-shadow: none;
-            }
-        }
-
-        .vs-table--pagination {
-            justify-content: center;
         }
     }
-}
 </style>
+

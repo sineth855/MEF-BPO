@@ -202,7 +202,7 @@ const router = new Router({
                     slug: 'program',
                     name: "program",
                     icon: "UserIcon",
-                    i18n: "ProgramProgram",
+                    i18n: "Program",
                     component: () => import('./views/modules/program-management/_Program.vue'),
                     meta: {
                         pageTitle: 'កម្មវិធី',

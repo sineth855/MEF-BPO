@@ -144,7 +144,7 @@ export default {
 		// P
 		ProgramArrangement: "ត្រួតពិនិត្យកម្មវិធី",
 		ProgramObjective: "គោលបំណង",
-		ProgramProgram: "កម្មវិធី",
+		Program: "កម្មវិធី",
 		ProgramSubProgram: "អនុកម្មវិធី",
 		ProgramClusterActivity: "ចង្កោមសកម្មភាព",
 		ProgramActivity: "សកម្មភាព",
@@ -227,12 +227,26 @@ export default {
 
 // #######################################
 		// Label
+		no: "ល.រ",
 		id: "ល.រ",
 		title: "ងារ",
 		name_kh: "ឈ្មោះជាភាសាខ្មែរ",
 		name: "ឈ្មោះជាភាសាអង់គ្លេស",
 		order_level: "តំរៀបតាមលំដាប់",
+		progress: "វឌ្ឍនភាព",
+		status: "ស្ថានភាព",
+		code_program: "កូដ",
+		code_subprogram: "កូដ",
+		code_activity: "កូដ",
+		program: "កម្មវិធី",
+		sub_program: "អនុកម្មវិធី",
+		cluster_activity: "ចង្កោមសកម្មភាព",
+		activity: "សកម្មភាព",
+		objective: "គោលបំណង",
+		responsible_person: "អ្នកទទួលបន្ទុក",
+		responsible_entity: "អង្គភាពទទួលបន្ទុក",
 		remark: "សម្គាល់",
+		is_active: "សកម្ម?",
 		// Copy Right
 		Footer_CopyRight: "",
 		// Status
@@ -258,6 +272,10 @@ export default {
 		required_name_kh: "សូមបំពេញឈ្មោះជាភាសាខ្មែរ!",
 		required_title: "សូមបំពេញចំណងជើងជាភាសាអង់គ្លេស!",
 		required_title_kh: "សូមបំពេញចំណងជើងជាភាសាខ្មែរ!",
+
+		required_objective: "សូមជ្រើសរើកគោលបំណង!",
+		required_responsible_person: "សូមជ្រើសរើសអ្នកទទួលខុសត្រូវ!",
+		required_responsible_entity: "សូមជ្រើសរើសអង្គភាព!",
 		// #Error
 		Error: 'Error',
 		404: '404',
@@ -415,7 +433,7 @@ export default {
 		// P
 		ProgramArrangement: "ត្រួតពិនិត្យកម្មវិធី",
 		ProgramObjective: "Objective",
-		ProgramProgram: "កម្មវិធី",
+		Program: "កម្មវិធី",
 		ProgramSubProgram: "អនុកម្មវិធី",
 		ProgramClusterActivity: "ចង្កោមសកម្មភាព",
 		ProgramActivity: "សកម្មភាព",

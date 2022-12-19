@@ -1,12 +1,12 @@
 <template>
     <div>
         <div class="vx-row">
-            {{dataInfo | json}}
+            <!-- {{dataInfo | json}} -->
             <div :key="i" v-for="(formAttribute, i) in formAttributes" :class="styleClass">
                 <!-- Form Input Text -->
                 <div v-if="formAttribute.type == 'text'">
                     <span v-if="formAttribute.required">
-                        <vs-input v-validate="'required|alpha'" v-model="form.attribute[formAttribute.name]" :placeholder="$t(formAttribute.name)" :name="formAttribute.name" class="mt-5 w-full" />
+                        <vs-input v-validate="'required'" v-model="form.attribute[formAttribute.name]" :placeholder="$t(formAttribute.name)" :name="formAttribute.name" class="mt-5 w-full" />
                         <span class="text-danger text-sm" v-show="errors.has(formAttribute.name)">{{ $t("required_"+formAttribute.name)
                         }}</span>
                     </span>
@@ -16,13 +16,14 @@
                 <!-- Form Input Number -->
                 <div v-if="formAttribute.type == 'number'">
                     <span v-if="formAttribute.required">
-                        <vs-input v-validate="'required|alpha'" :placeholder="$t(formAttribute.name)" v-model="form.attribute[formAttribute.name]"
-                            :name="formAttribute.name" class="mt-5 w-full" />
+                        <!-- <vs-input v-validate="'required'" :placeholder="$t(formAttribute.name)" v-model="form.attribute[formAttribute.name]" :name="formAttribute.name" class="mt-5 w-full" /> -->
+                        <vs-input-number :label="$t(formAttribute.name)" v-model="form.attribute[formAttribute.name]" icon-inc="expand_less" icon-dec="expand_more" class="mt-5 w-full" />
                         <span class="text-danger text-sm" v-show="errors.has(formAttribute.name)">{{ $t("required_"+formAttribute.name)
                         }}</span>
                     </span>
-                    <vs-input v-else :placeholder="$t(formAttribute.name)" v-model="form.attribute[formAttribute.name]" :name="formAttribute.name"
-                        class="mt-5 w-full" />
+                    <vs-input-number v-else :label="$t(formAttribute.name)" v-model="form.attribute[formAttribute.name]" icon-inc="expand_less" icon-dec="expand_more" class="mt-5 w-full" />
+                    <!-- <vs-input v-else :placeholder="$t(formAttribute.name)" v-model="form.attribute[formAttribute.name]" :name="formAttribute.name"
+                        class="mt-5 w-full" /> -->
                 </div>
                 <!-- Form Select -->
                 <div v-if="formAttribute.type == 'select'">
@@ -35,6 +36,18 @@
                         <vs-select v-model="formAttribute[i]" class="mt-5 w-full">
                             <vs-select-item :key="item.value" :value="item.value" :text="item.text" v-for="item in formAttribute.data" />
                         </vs-select>
+                    </span>
+                </div>
+
+                <!-- Form Check Box -->
+                <div v-if="formAttribute.type == 'checkbox'" class="mt-6">
+                    <span v-if="formAttribute.required">
+                        <vs-checkbox v-model="formAttribute[i]"> {{$t(formAttribute.name)}}</vs-checkbox>
+                        <span class="text-danger text-sm" v-show="errors.has(formAttribute.name)">{{ $t("required_"+formAttribute.name)
+                            }}</span>
+                    </span>
+                    <span v-else>
+                        <vs-checkbox v-model="formAttribute[i]"> {{$t(formAttribute.name)}}</vs-checkbox>
                     </span>
                 </div>
 
@@ -70,9 +83,13 @@
             return {
                 styleClass: "",
                 formAttribute: "",
-                dataArr: [],
+                dataFields: [],
                 form: {
-                    attribute: []
+                    attribute: [
+                        {
+                            order_level: 1
+                        }
+                    ]
                 }
             }
         },
@@ -82,28 +99,35 @@
         computed: {
         },
         methods: {
-            submitForm() {
-                this.dataArr = [];
+            showNewForm() {
+                this.form.attribute = [];
+            },
+            showDataForm(data) {
                 let _formAttribute = this.formAttributes;
                 for (let i = 0; i < _formAttribute.length; i++) {
-                    let _nameField = _formAttribute[i]["name"]+':'+this.form.attribute[_formAttribute[i]["name"]];
-                    // const _data = {
-                    //     _nameField: _formAttribute[i],
-                    //     // label: this.formAttributes[i]["name"]
-                    // };
-                    // // this.dataArr.push(this.formAttributes[i]);
-                    this.dataArr.push(_nameField);
+                    this.form.attribute[_formAttribute[i]["name"]] = data[_formAttribute[i]["name"]];// "I got all";
                 }
-                console.log("here is data value", this.dataArr);
+                // this.form.attribute[this.formAttributes[0]["name"]] = "Hdddello";
+            },
+            submitForm() {
+                this.dataFields = [];
+                let _formAttribute = this.formAttributes;
+                this.formAttributes.forEach(_formAttribute => {
+                    let _d = {
+                        [_formAttribute["name"]]: this.form.attribute[_formAttribute["name"]]
+                    }
+                    this.dataFields.push(_d);
+                });
+
                 this.$validator.validateAll().then(result => {
-                    
                     if (result) {
-                        let _data = this.dataArr;
-                        if (this.data.id) {
-                            let _id = this.data.id;
+                        let _data = this.dataFields;
+                        this.$vs.loading();
+                        if (this.dataInfo.id) {
+                            let _id = this.dataInfo.id;
                             return new Promise((resolve, reject) => {
-                                axios.put(this.api + _id, _data)
-                                    .then((response) => {
+                                axios.put(this.api + '/' + _id, _data)
+                                .then((response) => {
                                         this.$vs.notify({
                                             title: 'Message',
                                             text: response.data.message,
@@ -154,40 +178,15 @@
                             })
                         }
                     }
-                    // this.$vs.notify({
-                    //     title: 'Icon mail',
-                    //     text: 'Lorem ipsum dolor sit amet, consectetur',
-                    //     color: 'success',
-                    //     iconPack: 'feather',
-                    //     icon: 'icon-check',
-                    //     position: 'top-right'
-                    // });
-                    // this.showObjective = false;
-                    
+                    this.$vs.loading.close();
                 })
             }
     },  
     mounted() {
-        alert("here");
+        
     },
         created()
-        {
-            if (this.dataInfo) {
-                let _formAttribute = this.formAttributes;
-                for (let i = 0; i < _formAttribute.length; i++) {
-                    // let _nameField = _formAttribute[i]["name"] + ':' + this.form.attribute[_formAttribute[i]["name"]];
-
-                    this.form.attribute[_formAttribute[i]["name"]] = this.dataInfo[_formAttribute[i]["name"]];// "I got all";
-                    // const _data = {
-                    //     _nameField: _formAttribute[i],
-                    //     // label: this.formAttributes[i]["name"]
-                    // };
-                    // // this.dataArr.push(this.formAttributes[i]);
-                    // this.dataArr.push(_nameField);
-                }
-            }
-            // this.form.attribute["name"] = this.dataInfo.name;
-            // this.form.attribute["name_kh"] = this.dataInfo.name_kh;
+        { 
             if (this.rowDisplay == "1grid") {
                 this.styleClass = "vx-col lg:w-1/1 w-full";
             }
