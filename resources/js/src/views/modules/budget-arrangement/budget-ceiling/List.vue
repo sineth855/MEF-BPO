@@ -1,15 +1,382 @@
 <template>
     <div id="table-demo">
-        <table-state></table-state>
+        <!-- <table-state></table-state> -->
+        <d-table-list @clicked="initTableData" :api="api" ref="refInitPage" :allowDel="true" :title="title"
+            :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data"
+            :formAttributes="formAttributes" :rowDisplay="rowDisplay"></d-table-list>
     </div>
 </template>
 
 <script>
-import TableState from './TableState.vue'
+import axios from "@/axios.js"
+import apiConfig from "@/apiConfig.js"
+import { ref } from 'vue';
 
-export default{
+import TableState from './TableState.vue'
+import DTableList from '@/views/form-builder/DTableList.vue'
+
+
+export default {
+    data() {
+        return {
+            title: "CeilingBudget",
+            api: apiConfig._apiObjective,
+            dataAttributes: {
+                tableStyle: 3,
+                page_number: 1,
+                offset: 0,
+                dataGrid: "row",
+                actionButton: [
+                    {
+                        icon: "EditIcon",
+                        path: "/module/budget-arrangement/budget-ceiling/list",
+                        method: "Edit"
+                    },
+                    {
+                        icon: "TrashIcon",
+                        path: "/module/budget-arrangement/budget-ceiling/list",
+                        method: "Delete"
+                    }
+                ]
+            },
+            dataHeaders: {
+                header1: {
+                    width: 350,
+                    label: "បរិយាយមុខសញ្ញា",
+                    rowspan: 2,
+                    colspan: 0,
+                },
+                header2: {
+                    label: "ច្បាប់ឆ្នាំ២០២២",
+                    rowspan: 2,
+                    colspan: 0,
+                },
+                header3: {
+                    label: "ចំណាយមិនប្រចាំ",
+                    rowspan: 2,
+                    colspan: 0,
+                },
+                header4: {
+                    label: "ចំណាយប្រចាំ",
+                    rowspan: 2,
+                    colspan: 0,
+                },
+                header5: {
+                    label: "ពិដានចំណាយចរន្ត",
+                    rowspan: 0,
+                    colspan: 3,
+                },
+                header6: {
+                    label: "អាត្រាកំណើនប្រចាំឆ្នាំ",
+                    rowspan: 0,
+                    colspan: 3,
+                },
+                header7: {
+                    label: "សម្គាល់",
+                    rowspan: 2,
+                    colspan: 0,
+                },
+                header8: {
+                    label: "ប៊ូតុងសកម្ម",
+                    rowspan: 0,
+                    colspan: 0,
+                }
+            },
+            data: {
+                dataHeaders: {
+                    sheader1: "២០២៣",
+                    sheader2: "២០២៤",
+                    sheader3: "២០២៥",
+                    sheader4: "២០២៦",
+                    sheader5: "២០២៧",
+                    sheader6: "២០២៨",
+                    sheader7: ""
+                },
+                dataSubHeaders: {
+                    sheader0: "",
+                    sheader1: "1",
+                    sheader2: "2",
+                    sheader3: "3=1-2",
+                    sheader4: "4",
+                    sheader5: "5",
+                    sheader6: "6",
+                    sheader7: "7=(4-1)/1",
+                    sheader8: "8=(5-4)/4",
+                    sheader9: "9=(6-5)/5",
+                    sheader10: "10",
+                    sheader11: ""
+                },
+                data: [
+                    {
+                        id: 1,
+                        name: "ផ្នែកទី១៖ ពិដានចំណាយចរន្ត ឆ្នាំ២០២៣-២០២៥ សរុបរួមក្រសួង (យោងលេខ ០៣ សរណន ចុះថ្ងៃទី៨ ខែមិថុនា ឆ្នាំ២០២២",
+                        name_kh: "ផ្នែកទី១៖ ពិដានចំណាយចរន្ត ឆ្នាំ២០២៣-២០២៥ សរុបរួមក្រសួង (យោងលេខ ០៣ សរណន ចុះថ្ងៃទី៨ ខែមិថុនា ឆ្នាំ២០២២",
+                        remark: "",
+                        status: 1,
+                        hasColspan: true,
+                        colspan: 12,
+                        order_level: "",
+                        data: {
+                            summary: {
+                                id: 1,
+                                name: "សរុបរួមក្រសួង",
+                                values: [1.00, 2.00, 3.00, 4.00, 5.00, 6.00, 7.00, 8.00, 9.00, ""]
+                            },
+                            children: [
+                                {
+                                    id: 1,
+                                    name: "I.រដ្ឋបាលកណ្តាល",
+                                    values: [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, ""],
+                                    data: [
+                                        {
+                                            id: 1,
+                                            name: "- បន្ទុកបុគ្គលិក",
+                                            values: [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, ""]
+                                        },
+                                        {
+                                            id: 1,
+                                            name: "- បន្ទុកបុគ្គលិក",
+                                            values: [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, ""]
+                                        }
+                                    ],
+                                    dataDetails: [
+                                        {
+                                            id: 1,
+                                            name: "១. អនុកម្មវិធីទី១.១ អគ្គនាយកដ្ឋាន​គោលនយោបាយ",
+                                            entity: {},
+                                            values: [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, ""],
+                                            data: [
+                                                {
+                                                    id: 1,
+                                                    name: "- បន្ទុកបុគ្គលិក",
+                                                    values: [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, ""]
+                                                },
+                                                {
+                                                    id: 1,
+                                                    name: "- បន្ទុកបុគ្គលិក",
+                                                    values: [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, ""]
+                                                }
+                                            ],
+                                            ceiling_entities: [
+                                                {
+                                                    id: 1,
+                                                    name: "- បន្ទុកបុគ្គលិក",
+                                                    values: [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, ""]
+                                                },
+                                                {
+                                                    id: 1,
+                                                    name: "- បន្ទុកបុគ្គលិក",
+                                                    values: [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, ""]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            id: 2,
+                                            name: "២. អនុកម្មវិធីទី១.២ អគ្គលេខាធិការដ្ឋាន​គណៈកម្មាធិការជាតិ​ផលិតភាពសេដ្ឋកិច្ច​កម្ពុជា",
+                                            entity: {},
+                                            values: [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, ""],
+                                            data: [
+                                                {
+                                                    id: 1,
+                                                    name: "- បន្ទុកបុគ្គលិក",
+                                                    values: [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, ""]
+                                                },
+                                                {
+                                                    id: 1,
+                                                    name: "- បន្ទុកបុគ្គលិក",
+                                                    values: [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, ""]
+                                                }
+                                            ]
+                                        },
+                                    ]
+                                },
+                                {
+                                    id: 2,
+                                    name: "II.មន្ទីរសេដ្ឋកិច្ច​និងហិរញ្ញវត្ថុ​ រាជធានី ខេត្ត",
+                                    values: [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, ""],
+                                    data: [
+                                        {
+                                            id: 1,
+                                            name: "- បន្ទុកបុគ្គលិក",
+                                            values: [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, ""]
+                                        },
+                                        {
+                                            id: 1,
+                                            name: "- បន្ទុកបុគ្គលិក",
+                                            values: [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, ""]
+                                        }
+                                    ],
+                                    dataDetails: [
+                                        {
+                                            id: 1,
+                                            name: "១. មន្ទីរសេដ្ឋកិច្ចនិងហិរញ្ញវត្ថុខេត្តបាត់ដំបង",
+                                            entity: {},
+                                            values: [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, ""],
+                                            data: [
+                                                {
+                                                    id: 1,
+                                                    name: "- បន្ទុកបុគ្គលិក",
+                                                    values: [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, ""]
+                                                },
+                                                {
+                                                    id: 1,
+                                                    name: "- បន្ទុកបុគ្គលិក",
+                                                    values: [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, ""]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            id: 2,
+                                            name: "២. មន្ទីរសេដ្ឋកិច្ចនិងហិរញ្ញវត្ថុខេត្តបន្ទាយមានជ័យ",
+                                            entity: {},
+                                            values: [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, ""],
+                                            data: [
+                                                {
+                                                    id: 1,
+                                                    name: "- បន្ទុកបុគ្គលិក",
+                                                    values: [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, ""]
+                                                },
+                                                {
+                                                    id: 1,
+                                                    name: "- បន្ទុកបុគ្គលិក",
+                                                    values: [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, ""]
+                                                }
+                                            ]
+                                        },
+                                    ]
+                                },
+                            ]
+                        }
+                    }
+                ],
+                limit: 10,
+                total: 3,
+            },
+            formAttributes: [
+                {
+                    name: "objective",
+                    type: "select",
+                    required: true,
+                    data: [
+                        {
+                            "id": 1,
+                            "name": "គោលបំណងទី១",
+                            "name_kh": ""
+                        },
+                        {
+                            "id": 2,
+                            "name": "គោលបំណងទី២",
+                            "name_kh": ""
+                        }
+                    ],
+                },
+                {
+                    name: "name",
+                    type: "text",
+                    required: true
+                },
+                {
+                    name: "name_kh",
+                    type: "text",
+                    required: true
+                },
+                {
+                    name: "responsible_person",
+                    type: "text",
+                    required: true
+                },
+                {
+                    name: "responsible_entity",
+                    type: "text",
+                    required: true
+                },
+                {
+                    name: "order_level",
+                    type: "number",
+                    required: false
+                },
+                {
+                    name: "remark",
+                    type: "text",
+                    required: false
+                },
+
+            ],
+            rowDisplay: "2grid", //1grid, 2grid, 3grid, 4grid
+            dataFields: []
+        }
+    },
     components: {
-        TableState
+        DTableList,
+        TableState,
+    },
+    methods: {
+        getDataTable(_search_criteria) {
+            let _params = {};
+            if (_search_criteria.search_field) {
+                let _formAttribute = this.formAttributes;
+                this.dataFields = [];
+                this.formAttributes.forEach(_formAttribute => {
+                    if (_search_criteria.search_field[_formAttribute["name"]]) {
+                        let _d = {
+                            [_formAttribute["name"]]: _search_criteria.search_field[_formAttribute["name"]]
+                        }
+                        this.dataFields.push(_d);
+                    }
+
+                });
+                _params = {
+                    sort: _search_criteria.sort,
+                    order: _search_criteria.order,
+                    page_number: _search_criteria.page_number,
+                    search_field: this.dataFields,
+                };
+            } else {
+                _params = {
+                    sort: _search_criteria.sort,
+                    order: _search_criteria.order,
+                    page_number: _search_criteria.page_number,
+                };
+            }
+
+            return new Promise((resolve, reject) => {
+                axios.post(this.api + "/search", _params)
+                    .then((response) => {
+                        // this.data = response.data;
+                        this.data = this.data;
+                        this.$vs.loading.close();
+                    }).catch((error) => {
+                        // reject(error)
+                        this.$vs.loading.close();
+                    })
+            })
+        },
+        getData() {
+            let _search_criteria = {
+                sort: "id",
+                order: "",
+                page_number: this.dataAttributes.page_number
+            }
+            this.getDataTable(_search_criteria);
+        },
+        initTableData(searchQuery) {
+            this.$vs.loading();
+            let _search_criteria = {
+                sort: "id",
+                order: "",
+                page_number: searchQuery.pageNum,
+                search_field: searchQuery.searchFields
+            }
+            this.getDataTable(_search_criteria);
+            return false;
+        }
+
+    },
+    created() {
+        this.$vs.loading();
+        this.getData();
+    },
+    watch: {
     }
 }
 </script>

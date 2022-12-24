@@ -17,6 +17,8 @@ export default {
             title: "cluster_activity",
             api: apiConfig._apiProgram,
             dataAttributes: {
+                backgroundColor: "warning",
+                tableStyle: 2,
                 page_number: 1,
                 offset: 0,
                 dataGrid: "row",
@@ -33,34 +35,41 @@ export default {
                 data: [
                     {
                         id: 1,
-                        code_cluster_activity: "001",
-                        name: "ចង្កោមសកម្មភាពទី ១",
-                        name_kh: "ចង្កោមសកម្មភាពទី ១",
-                        sub_program: "អនុកម្មវិធីទី១",
-                        responsible_person: "ឯកឧត្តម ទទួលបន្ទុក",
-                        responsible_entity: "ឈ្មោះអង្គភាពទទួលបន្ទុក",
-                        order_level: 1
-                    },
-                    {
-                        id: 2,
-                        code_cluster_activity: "001",
-                        name: "ចង្កោមសកម្មភាពទី ២",
-                        name_kh: "ចង្កោមសកម្មភាពទី ២",
-                        sub_program: "អនុកម្មវិធីទី២",
-                        responsible_person: "ឯកឧត្តម ទទួលបន្ទុក",
-                        responsible_entity: "ឈ្មោះអង្គភាពទទួលបន្ទុក",
-                        order_level: 2
-                    },
-                    {
-                        id: 3,
-                        code_cluster_activity: "001",
-                        name: "ចង្កោមសកម្មភាពទី ៣",
-                        name_kh: "ចង្កោមសកម្មភាពទី ៣",
-                        sub_program: "អនុកម្មវិធីទី៣",
-                        responsible_person: "ឯកឧត្តម ទទួលបន្ទុក",
-                        responsible_entity: "ឈ្មោះអង្គភាពទទួលបន្ទុក",
-                        order_level: 3
-                    },
+                        name: "#120 - អនុកម្មវិធី",
+                        name_kh: "#120 - អនុកម្មវិធី",
+                        children: [
+                            {
+                                id: 1,
+                                // code_cluster_activity: "001",
+                                name: "ចង្កោមសកម្មភាពទី ១",
+                                name_kh: "ចង្កោមសកម្មភាពទី ១",
+                                sub_program: "អនុកម្មវិធីទី១",
+                                responsible_person: "ឯកឧត្តម ទទួលបន្ទុក",
+                                responsible_entity: "ឈ្មោះអង្គភាពទទួលបន្ទុក",
+                                order_level: 1
+                            },
+                            {
+                                id: 2,
+                                // code_cluster_activity: "001",
+                                name: "ចង្កោមសកម្មភាពទី ២",
+                                name_kh: "ចង្កោមសកម្មភាពទី ២",
+                                sub_program: "អនុកម្មវិធីទី២",
+                                responsible_person: "ឯកឧត្តម ទទួលបន្ទុក",
+                                responsible_entity: "ឈ្មោះអង្គភាពទទួលបន្ទុក",
+                                order_level: 2
+                            },
+                            {
+                                id: 3,
+                                // code_cluster_activity: "001",
+                                name: "ចង្កោមសកម្មភាពទី ៣",
+                                name_kh: "ចង្កោមសកម្មភាពទី ៣",
+                                sub_program: "អនុកម្មវិធីទី៣",
+                                responsible_person: "ឯកឧត្តម ទទួលបន្ទុក",
+                                responsible_entity: "ឈ្មោះអង្គភាពទទួលបន្ទុក",
+                                order_level: 3
+                            },
+                        ]
+                    }
                 ],
                 limit: 10,
                 total: 3
@@ -70,7 +79,7 @@ export default {
                     name: "sub_program",
                     type: "select",
                     required: true,
-                    data: [
+                    options: [
                         {
                             "id": 1,
                             "name": "អនុកម្មវិធីទី១",

@@ -17,6 +17,8 @@ export default {
             title: "Program",
             api: apiConfig._apiProgram,
             dataAttributes: {
+                backgroundColor: "warning",
+                tableStyle: 2,
                 page_number: 1,
                 offset: 0,
                 dataGrid: "row",
@@ -34,34 +36,41 @@ export default {
                 data: [
                     {
                         id: 1,
-                        code_program: "001",
-                        name: "កម្មវិធីទី១",
-                        name_kh: "កម្មវិធីទី១",
-                        objective: "គោលបំណងគោលនយោបាយទី១",
-                        responsible_person: "ឯកឧត្តម ទទួលបន្ទុក",
-                        responsible_entity: "ឈ្មោះអង្គភាពទទួលបន្ទុក",
-                        order_level: 1
-                    },
-                    {
-                        id: 2,
-                        code_program: "002",
-                        name: "កម្មវិធីទី១",
-                        name_kh: "កម្មវិធីទី១",
-                        objective: "គោលបំណងគោលនយោបាយទី១",
-                        responsible_person: "ឯកឧត្តម ទទួលបន្ទុក",
-                        responsible_entity: "ឈ្មោះអង្គភាពទទួលបន្ទុក",
-                        order_level: 1
-                    },
-                    {
-                        id: 3,
-                        code_program: "003",
-                        name: "កម្មវិធីទី១",
-                        name_kh: "កម្មវិធីទី១",
-                        objective: "គោលបំណងគោលនយោបាយទី១",
-                        responsible_entity: "ឈ្មោះអង្គភាពទទួលបន្ទុក",
-                        responsible_person: "ឯកឧត្តម ទទួលបន្ទុក",
-                        order_level: 1
-                    },
+                        name: "#120 - គោលបំណងទី១",
+                        name_kh: "#120 - គោលបំណងទី១",
+                        children: [
+                            {
+                                id: 1,
+                                code_program: "001",
+                                name: "កម្មវិធីទី១",
+                                name_kh: "កម្មវិធីទី១",
+                                objective: "គោលបំណងគោលនយោបាយទី១",
+                                responsible_person: "ឯកឧត្តម ទទួលបន្ទុក",
+                                responsible_entity: "ឈ្មោះអង្គភាពទទួលបន្ទុក",
+                                order_level: 1
+                            },
+                            {
+                                id: 2,
+                                code_program: "002",
+                                name: "កម្មវិធីទី១",
+                                name_kh: "កម្មវិធីទី១",
+                                objective: "គោលបំណងគោលនយោបាយទី១",
+                                responsible_person: "ឯកឧត្តម ទទួលបន្ទុក",
+                                responsible_entity: "ឈ្មោះអង្គភាពទទួលបន្ទុក",
+                                order_level: 1
+                            },
+                            {
+                                id: 3,
+                                code_program: "003",
+                                name: "កម្មវិធីទី១",
+                                name_kh: "កម្មវិធីទី១",
+                                objective: "គោលបំណងគោលនយោបាយទី១",
+                                responsible_entity: "ឈ្មោះអង្គភាពទទួលបន្ទុក",
+                                responsible_person: "ឯកឧត្តម ទទួលបន្ទុក",
+                                order_level: 1
+                            },
+                        ]
+                    }
                 ],
                 limit: 10,
                 total: 3
@@ -71,7 +80,7 @@ export default {
                     name: "objective",
                     type: "select",
                     required: true,
-                    data: [
+                    options: [
                         {
                             "id": 1,
                             "name": "គោលបំណងទី១",

@@ -18,6 +18,7 @@ export default {
             title: "ProgramObjective",
             api: apiConfig._apiObjective,
             dataAttributes: {
+                tableStyle: 1,
                 page_number: 1,
                 offset: 0,
                 dataGrid: "row",
@@ -45,7 +46,7 @@ export default {
                     name: "select",
                     type: "select",
                     required: false,
-                    data: [],//this.data.titles
+                    options: [],//this.data.titles
                 },
                 {
                     name: "order_level",
@@ -59,7 +60,7 @@ export default {
                 },
                 {
                     name: "select",
-                    type: "select",
+                    options: "select",
                     required: false,
                     data: [],//this.data.order_status_choices
                 },

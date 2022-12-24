@@ -4,22 +4,40 @@
         <div class="vx-row">
             <div :key="i" v-for="(formAttribute, i) in formAttributes" :class="styleClass">
                 <!-- Form Input Text -->
-                <template v-if="formAttribute.type == 'text'">
-                    <vs-input v-if="formAttribute.required" :placeholder="$t(formAttribute.name)" v-model="form.attribute[formAttribute.name]"
-                        :name="formAttribute.name" class="mt-5 w-full" />
+                <template v-if="formAttribute.type == 'text' && formAttribute.required">
+                    <vs-input :placeholder="$t(formAttribute.name)" v-model="form.attribute[formAttribute.name]"
+                        :name="formAttribute.name" size="small" class="mt-5 w-full" />
                 </template>
+
                 <!-- Form Input Number -->
-                <template v-if="formAttribute.type == 'number'">
-                    <vs-input v-if="formAttribute.required" :placeholder="$t(formAttribute.name)" v-model="form.attribute[formAttribute.name]"
-                        :name="formAttribute.name" class="mt-5 w-full" />
+                <template v-if="formAttribute.type == 'number' && formAttribute.required">
+                    <vs-input :placeholder="$t(formAttribute.name)" v-model="form.attribute[formAttribute.name]"
+                        :name="formAttribute.name" size="small" class="mt-5 w-full" />
                 </template>
+
                 <!-- Form Select -->
-                <template v-if="formAttribute.type == 'select'">
-                    <vs-select v-if="formAttribute.required" v-model="formAttribute[i]" class="mt-5 w-full">
-                        <vs-select-item :key="item.value" :value="item.value" :text="item.text"
-                            v-for="item in formAttribute.data" />
-                    </vs-select>
+                <template v-if="formAttribute.type == 'select' && formAttribute.required">
+                    <v-select size="small" v-model="form.attribute[formAttribute.name]" :options="formAttribute.options" :dir="$vs.rtl ? 'rtl' : 'ltr'" class="mt-5 w-full"/>
                 </template>
+
+                <!-- Form Textarea -->
+                <template v-if="formAttribute.type == 'textarea' && formAttribute.required">
+                    <vs-textarea label="Label in Textarea" v-model="form.attribute[formAttribute.name]" class="mt-5 w-full"/>
+                </template>
+                
+                <!-- Form Checkbox -->
+                <template v-if="formAttribute.type == 'checkbox' && formAttribute.required">
+                    <vs-checkbox v-model="form.attribute[formAttribute.name]"> {{$t(formAttribute.name)}}</vs-checkbox>
+                </template>
+
+                <!-- Form Date -->
+                <div v-if="formAttribute.type == 'date'" class="mt-4">
+                    <label class="mb-2">{{ $t(formAttribute.name) }}</label>
+                    <span v-if="formAttribute.required">
+                        <flat-pickr :name="formAttribute.name" v-model="form.attribute[formAttribute.name]"
+                            class="w-full" />
+                    </span>
+                </div>
     
             </div>
     

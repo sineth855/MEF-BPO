@@ -54,16 +54,6 @@
       </div>
 
       <vs-table :data="users">
-
-          <!-- <template slot="thead">
-            <vs-th>បរិយាយមុខសញ្ញា</vs-th>
-            <vs-th>ច្បាប់ឆ្នាំ២០២២</vs-th>
-            <vs-th>ចំណាយមិនប្រចាំ</vs-th>
-            <vs-th>ចំណាយប្រចាំ</vs-th>
-            <vs-th>ពិដានចំណាយចរន្ត</vs-th>
-            <vs-th>អាត្រាកំណើនប្រចាំឆ្នាំ</vs-th>
-          </template> -->
-
           <template>
               <vs-tr style="background-color: #28C76F; color: #ffffff; font-weight: bold;">
                 <vs-td style="width: auto" rowspan="2"><center>បរិយាយមុខសញ្ញា</center></vs-td>
@@ -76,20 +66,12 @@
               </vs-tr>
 
               <vs-tr style="background-color: #28C76F; color: #ffffff; font-weight: bold;">
-                <!-- <vs-td></vs-td>
-                <vs-td></vs-td>
-                <vs-td></vs-td>
-                <vs-td></vs-td> -->
-
                 <vs-td>២០២៣</vs-td>
                 <vs-td>២០២៤</vs-td>
                 <vs-td>២០២៥</vs-td>
-
                 <vs-td>២០២៣</vs-td>
                 <vs-td>២០២៤</vs-td>
                 <vs-td>២០២៥</vs-td>
-
-                <!-- <vs-td></vs-td> -->
               </vs-tr>
 
               <vs-tr>

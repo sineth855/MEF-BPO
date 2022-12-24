@@ -232,6 +232,8 @@ export default {
 		title: "ងារ",
 		name_kh: "ឈ្មោះជាភាសាខ្មែរ",
 		name: "ឈ្មោះជាភាសាអង់គ្លេស",
+		title_kh: "ចំណងជើងជាភាសាខ្មែរ",
+		title: "ចំណងជើងជាភាសាអង់គ្លេស",
 		order_level: "តំរៀបតាមលំដាប់",
 		progress: "វឌ្ឍនភាព",
 		status: "ស្ថានភាព",
@@ -241,6 +243,7 @@ export default {
 		program: "កម្មវិធី",
 		sub_program: "អនុកម្មវិធី",
 		cluster_activity: "ចង្កោមសកម្មភាព",
+		ceiling_year: "ពិដានក្នុងឆ្នាំ",
 		activity: "សកម្មភាព",
 		objective: "គោលបំណង",
 		responsible_person: "អ្នកទទួលបន្ទុក",
@@ -252,6 +255,8 @@ export default {
 		// Status
 		status_completed: "បានបញ្ចប់",
 		//PIP
+		pip_form_title: "ទម្រង់បង្កើតគម្រោងវិនិយោកសាធារណៈ",
+		pip_title: "គម្រោងវិនិយោកសាធារណៈ",
 		pip_program_title: "ឈ្មោះកម្មវិធី/ឈ្មោះអនុកម្មវិធី/ឈ្មោះគម្រោង",
 		pip_no: "លេខPIP",
 		pip_project_status: "ស្ថានភាពគម្រោង",
@@ -273,7 +278,7 @@ export default {
 		required_title: "សូមបំពេញចំណងជើងជាភាសាអង់គ្លេស!",
 		required_title_kh: "សូមបំពេញចំណងជើងជាភាសាខ្មែរ!",
 
-		required_objective: "សូមជ្រើសរើកគោលបំណង!",
+		required_objective: "សូមជ្រើសរើសគោលបំណង!",
 		required_responsible_person: "សូមជ្រើសរើសអ្នកទទួលខុសត្រូវ!",
 		required_responsible_entity: "សូមជ្រើសរើសអង្គភាព!",
 		// #Error
@@ -519,11 +524,13 @@ export default {
 		label_name_kh: "ឈ្មោះជាភាសាខ្មែរ",
 		label_name: "ឈ្មោះជាភាសាអង់គ្លេស",
 		label_order_level: "តំរៀបតាមលំដាប់",
+		label_fill_information: "បំពេញព័ត៌មាន",
 		// Copy Right
 		Footer_CopyRight: "",
 		// Status
 		status_completed: "បានបញ្ចប់",
 		//PIP
+		pip_title: "គម្រោងវិនិយោកសាធារណៈ",
 		pip_program_title: "ឈ្មោះកម្មវិធី/ឈ្មោះអនុកម្មវិធី/ឈ្មោះគម្រោង",
 		pip_no: "លេខPIP",
 		pip_project_status: "ស្ថានភាពគម្រោង",

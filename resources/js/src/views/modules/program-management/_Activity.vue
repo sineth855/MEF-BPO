@@ -17,6 +17,8 @@ export default {
             title: "activity",
             api: apiConfig._apiProgram,
             dataAttributes: {
+                backgroundColor: "warning",
+                tableStyle: 2,
                 page_number: 1,
                 offset: 0,
                 dataGrid: "row",
@@ -31,42 +33,11 @@ export default {
                 header7: "order_level"
             },
             data: {
-                // data: [
-                //     {
-                //         id: 1,
-                //         code_activity: "001",
-                //         name: "សកម្មភាពទី១ ១",
-                //         name_kh: "សកម្មភាពទី១ ១",
-                //         cluster_activity: "ចង្កោមសកម្មភាព",
-                //         responsible_person: "ឯកឧត្តម ទទួលបន្ទុក",
-                //         responsible_entity: "ឈ្មោះអង្គភាពទទួលបន្ទុក",
-                //         order_level: 1
-                //     },
-                //     {
-                //         id: 2,
-                //         code_activity: "001",
-                //         name: "សកម្មភាពទី១ ១",
-                //         name_kh: "សកម្មភាពទី១ ១",
-                //         cluster_activity: "ចង្កោមសកម្មភាព",
-                //         responsible_person: "ឯកឧត្តម ទទួលបន្ទុក",
-                //         responsible_entity: "ឈ្មោះអង្គភាពទទួលបន្ទុក",
-                //         order_level: 1
-                //     },
-                //     {
-                //         id: 3,
-                //         code_activity: "001",
-                //         name: "សកម្មភាពទី១ ១",
-                //         name_kh: "សកម្មភាពទី១ ១",
-                //         cluster_activity: "ចង្កោមសកម្មភាព",
-                //         responsible_person: "ឯកឧត្តម ទទួលបន្ទុក",
-                //         responsible_entity: "ឈ្មោះអង្គភាពទទួលបន្ទុក",
-                //         order_level: 1
-                //     }
-                // ],
                 data: [
                     {
                         id: 1,
-                        parent: "Parent Name",
+                        name: "ចង្កោមសកម្មភាពទី១",
+                        name_kh: "ចង្កោមសកម្មភាពទី១",
                         children: [
                             {
                                 id: 1,
@@ -102,10 +73,11 @@ export default {
                     },
                     {
                         id: 2,
-                        parent: "Parent Name 2",
+                        name: "ចង្កោមសកម្មភាពទី២",
+                        name_kh: "ចង្កោមសកម្មភាពទី២",
                         children: [
                             {
-                                id: 1,
+                                id: 4,
                                 code_activity: "004",
                                 name: "សកម្មភាពទី១ ១",
                                 name_kh: "សកម្មភាពទី១ ១",
@@ -115,7 +87,7 @@ export default {
                                 order_level: 1
                             },
                             {
-                                id: 2,
+                                id: 5,
                                 code_activity: "005",
                                 name: "សកម្មភាពទី១ ១",
                                 name_kh: "សកម្មភាពទី១ ១",
@@ -125,7 +97,7 @@ export default {
                                 order_level: 1
                             },
                             {
-                                id: 3,
+                                id: 6,
                                 code_activity: "006",
                                 name: "សកម្មភាពទី១ ១",
                                 name_kh: "សកម្មភាពទី១ ១",
@@ -137,8 +109,6 @@ export default {
                         ]
                     },
                 ],
-                backgroundColor: "warning",
-                children: true,
                 limit: 10,
                 total: 3
             },
@@ -147,7 +117,7 @@ export default {
                     name: "program",
                     type: "select",
                     required: true,
-                    data: [
+                    options: [
                         {
                             "id": 1,
                             "name": "កម្មវិធីទី១",

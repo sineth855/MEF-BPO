@@ -17,12 +17,15 @@ export default {
             title: "sub_program",
             api: apiConfig._apiProgram,
             dataAttributes: {
+                popupFullscreen: true,
+                backgroundColor: "warning",
+                tableStyle: 2,
                 page_number: 1,
                 offset: 0,
                 dataGrid: "row",
             },
             dataHeaders: {
-                header1: "code_subprogram",
+                // header1: "code_subprogram",
                 header2: "name",
                 header3: "name_kh",
                 header4: "program",
@@ -34,34 +37,42 @@ export default {
                 data: [
                     {
                         id: 1,
-                        code_subprogram: "001",
-                        name: "អនុកម្មវិធីទី ១",
-                        name_kh: "អនុកម្មវិធីទី ១",
-                        program: "កម្មវិធីទី១",
-                        responsible_person: "ឯកឧត្តម ទទួលបន្ទុក",
-                        responsible_entity: "ឈ្មោះអង្គភាពទទួលបន្ទុក",
-                        order_level: 1
-                    },
-                    {
-                        id: 2,
-                        code_subprogram: "002",
-                        name: "អនុកម្មវិធីទី ១",
-                        name_kh: "អនុកម្មវិធីទី ១",
-                        program: "កម្មវិធីទី១",
-                        responsible_person: "ឯកឧត្តម ទទួលបន្ទុក",
-                        responsible_entity: "ឈ្មោះអង្គភាពទទួលបន្ទុក",
-                        order_level: 1
-                    },
-                    {
-                        id: 3,
-                        code_subprogram: "003",
-                        name: "អនុកម្មវិធីទី ១",
-                        name_kh: "អនុកម្មវិធីទី ១",
-                        program: "កម្មវិធីទី១",
-                        responsible_person: "ឯកឧត្តម ទទួលបន្ទុក",
-                        responsible_entity: "ឈ្មោះអង្គភាពទទួលបន្ទុក",
-                        order_level: 1
-                    },
+                        name: "កម្មវិធីទី១",
+                        name_kh: "កម្មវិធីទី១",
+                        children: [
+                            {
+                                id: 1,
+                                // code_subprogram: "001",
+                                name: "#001 - អនុកម្មវិធីទី ១",
+                                name_kh: "#001 - អនុកម្មវិធីទី ១",
+                                program: "កម្មវិធីទី១",
+                                responsible_person: "ឯកឧត្តម ទទួលបន្ទុក",
+                                responsible_entity: "ឈ្មោះអង្គភាពទទួលបន្ទុក",
+                                order_level: 1
+                            },
+                            {
+                                id: 1,
+                                // code_subprogram: "001",
+                                name: "#001 - អនុកម្មវិធីទី ១",
+                                name_kh: "#001 - អនុកម្មវិធីទី ១",
+                                program: "កម្មវិធីទី១",
+                                responsible_person: "ឯកឧត្តម ទទួលបន្ទុក",
+                                responsible_entity: "ឈ្មោះអង្គភាពទទួលបន្ទុក",
+                                order_level: 1
+                            },
+
+                            {
+                                id: 1,
+                                // code_subprogram: "001",
+                                name: "#001 - អនុកម្មវិធីទី ១",
+                                name_kh: "#001 - អនុកម្មវិធីទី ១",
+                                program: "កម្មវិធីទី១",
+                                responsible_person: "ឯកឧត្តម ទទួលបន្ទុក",
+                                responsible_entity: "ឈ្មោះអង្គភាពទទួលបន្ទុក",
+                                order_level: 1
+                            },
+                        ]
+                    }
                 ],
                 limit: 10,
                 total: 3
@@ -71,18 +82,18 @@ export default {
                     name: "program",
                     type: "select",
                     required: true,
-                    data: [
+                    hasDefault: false,
+                    defaultOptions: {},
+                    options: [
                         {
-                            "id": 1,
-                            "name": "កម្មវិធីទី១",
-                            "name_kh": "កម្មវិធីទី១"
+                            value: 1,
+                            label: "កម្មវិធីទី១"
                         },
                         {
-                            "id": 2,
-                            "name": "កម្មវិធីទី២",
-                            "name_kh": "កម្មវិធីទី២"
+                            value: 2,
+                            label: "កម្មវិធីទី២"
                         }
-                    ],
+                    ]
                 },
                 {
                     name: "name",
@@ -97,7 +108,19 @@ export default {
                 {
                     name: "responsible_entity",
                     type: "select",
-                    required: true
+                    required: true,
+                    hasDefault: false,
+                    defaultOptions: {},
+                    options: [
+                        {
+                            value: 1,
+                            label: "អង្គភាពទី១"
+                        },
+                        {
+                            value: 2,
+                            label: "អង្គភាពទី២"
+                        }
+                    ]
                 },
                 {
                     name: "responsible_person",
@@ -117,9 +140,8 @@ export default {
                 {
                     name: "is_active",
                     type: "checkbox",
-                    required: true
-                },
-
+                    required: false
+                }
             ],
             rowDisplay: "2grid", //1grid, 2grid, 3grid, 4grid
             dataFields: []

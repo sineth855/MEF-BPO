@@ -1,9 +1,17 @@
 <template>
     <div class="demo-alignment">
-        <vs-popup classContent="popup-example" title="បំពេញព័ត៌មានខាងក្រោម" :active.sync="showModalForm">
-            <d-form @clickForm="initTableData" ref="refModalForm" :data="data" :dataInfo="dataInfo"
-                :formAttributes="formAttributes" :api="api" :rowDisplay="rowDisplay"></d-form>
-        </vs-popup>
+        <template v-if="dataAttributes.popupFullscreen" >
+            <vs-popup fullscreen classContent="popup-example" :title="title" :active.sync="showModalForm">
+                <d-form @clickForm="initTableData" ref="refModalForm" :data="data" :dataInfo="dataInfo" :formAttributes="formAttributes"
+                    :api="api" :rowDisplay="rowDisplay"></d-form>
+            </vs-popup>
+        </template>
+            <template v-else>
+                <vs-popup classContent="popup-example" :title="title" :active.sync="showModalForm">
+                    <d-form @clickForm="initTableData" ref="refModalForm" :data="data" :dataInfo="dataInfo"
+                        :formAttributes="formAttributes" :api="api" :rowDisplay="rowDisplay"></d-form>
+                </vs-popup>
+        </template>
     </div>
 </template>
 
@@ -21,7 +29,13 @@ export default {
         formAttributes: {
             required: true
         },
-        rowDisplay: { type: String }
+        dataAttributes: {
+            required: true
+        },
+        rowDisplay: { type: String },
+        title: {
+            required: true,
+        },
     },
     components: { DForm },
     data() {
