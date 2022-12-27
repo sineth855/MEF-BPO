@@ -53,12 +53,30 @@
                     <vs-tr :state="dataAttributes.backgroundColor">
                         <td :colspan="Object.keys(ptr.children[0]).length">{{ ptr.name }}</td>
                         <td>
-                            <center><feather-icon style="cursor: pointer;" icon="PlusIcon" svgClasses="w-5 h-5 hover:text-primary stroke-current"/></center>
+                            <center><feather-icon style="cursor: pointer;" @click="openForm" icon="PlusIcon" svgClasses="w-5 h-5 hover:text-primary stroke-current"/></center>
                         </td>
                     </vs-tr>
                     <vs-tr :key="indextr" v-for="(tr, indextr) in ptr.children">
                         <vs-td>{{ calPageIncreaseNumber(dataTables.limit, indextr) }}</vs-td>
-                        <vs-td v-for="header in dataHeaders" :key="header.indextr">{{ tr[header] }}</vs-td>
+                        <vs-td v-for="header in dataHeaders" :key="header.indextr">
+                            <span v-if="tr[header].data">
+                                <span v-if="tr[header].data.length > 0">
+                                    <div class="mb-2" :key="indexI" v-for="(dataRow, indexI) in tr[header].data">
+                                        <vx-card>
+                                            {{ dataRow["code"] }}-{{ dataRow["indicator_name"] }}
+                                            <feather-icon style="cursor: pointer;" icon="EditIcon" svgClasses="mt-2 w-5 h-5 hover:text-primary stroke-current"/>
+                                        </vx-card>
+                                    </div>
+                                </span>
+                                <!-- If No Data Indicators will create new -->
+                                <span v-else>
+                                    <center>
+                                        <feather-icon style="cursor: pointer;" @click="openForm" icon="PlusIcon" svgClasses="w-5 h-5 hover:text-primary stroke-current" />
+                                    </center>
+                                </span>
+                            </span>
+                            <span v-else>{{ tr[header] }}​</span>
+                        </vs-td>
                         <vs-td>
                             <feather-icon style="cursor: pointer;" icon="EditIcon" svgClasses="w-5 h-5 hover:text-primary stroke-current"
                                 @click.stop="initEdit(tr)" />
@@ -110,9 +128,13 @@
                     
                     <template v-for="row in ptr.data.children">
                         <vs-tr :state="'warning'">
-                            <td>{{ row.name }}</td>
-                            <td :key="index1" v-for="(row, index1) in row.values">{{ row }}</td>
-                            <td></td>
+                            <td>{{ row.name }} <feather-icon style="cursor: pointer;" @click="openForm" icon="PlusIcon"
+                                svgClasses="w-5 h-5 hover:text-primary stroke-current" /></td>
+                            <td :key="index1" v-for="(row, index1) in row.values">{{ row }} </td>
+                            <td>
+                                <center><feather-icon style="cursor: pointer;" @click="openForm" icon="PlusIcon"
+                                        svgClasses="w-5 h-5 hover:text-primary stroke-current" /></center>
+                            </td>
                         </vs-tr>
                         <vs-tr :key="index" v-for="(row2, index) in row.data">
                             <td>{{ row2.name }}</td>

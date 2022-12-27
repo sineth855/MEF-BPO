@@ -248,6 +248,7 @@ export default {
 		objective: "គោលបំណង",
 		responsible_person: "អ្នកទទួលបន្ទុក",
 		responsible_entity: "អង្គភាពទទួលបន្ទុក",
+		indicator: "សូចនាករ",
 		remark: "សម្គាល់",
 		is_active: "សកម្ម?",
 		// Copy Right

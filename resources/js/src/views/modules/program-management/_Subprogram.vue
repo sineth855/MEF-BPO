@@ -23,14 +23,17 @@ export default {
                 page_number: 1,
                 offset: 0,
                 dataGrid: "row",
+                hasIndicator: true,
+                allowDel: true
             },
             dataHeaders: {
                 // header1: "code_subprogram",
                 header2: "name",
                 header3: "name_kh",
                 header4: "program",
-                header5: "responsible_person",
+                header55: "indicator",
                 header6: "responsible_entity",
+                header5: "responsible_person",
                 header7: "order_level"
             },
             data: {
@@ -46,31 +49,48 @@ export default {
                                 name: "#001 - អនុកម្មវិធីទី ១",
                                 name_kh: "#001 - អនុកម្មវិធីទី ១",
                                 program: "កម្មវិធីទី១",
-                                responsible_person: "ឯកឧត្តម ទទួលបន្ទុក",
+                                indicator:{
+                                    data: [
+                                        {
+                                            id: 1,
+                                            code: "#1.3.10-1",
+                                            indicator_name: "ឈ្មោះសូចនាករជាភាសាអង់គ្លេស",
+                                            indicator_name_kh: "ឈ្មោះសូចនាករជាភាសាខ្មែរ",
+                                            order_level: 1,
+                                            status: "Active"
+                                        }, {
+                                            id: 2,
+                                            code: "#1.3.10-2",
+                                            indicator_name: "ឈ្មោះសូចនាករជាភាសាអង់គ្លេស",
+                                            indicator_name_kh: "ឈ្មោះសូចនាករជាភាសាខ្មែរ",
+                                            order_level: 1,
+                                            status: "Active"
+                                        }, {
+                                            id: 3,
+                                            code: "#1.3.10-3",
+                                            indicator_name: "ឈ្មោះសូចនាករជាភាសាអង់គ្លេស",
+                                            indicator_name_kh: "ឈ្មោះសូចនាករជាភាសាខ្មែរ",
+                                            order_level: 1,
+                                            status: "InActive"
+                                        },
+                                    ],
+                                },
                                 responsible_entity: "ឈ្មោះអង្គភាពទទួលបន្ទុក",
+                                responsible_person: "ឯកឧត្តម ទទួលបន្ទុក",
                                 order_level: 1
-                            },
-                            {
-                                id: 1,
+                            }, {
+                                id: 2,
                                 // code_subprogram: "001",
-                                name: "#001 - អនុកម្មវិធីទី ១",
-                                name_kh: "#001 - អនុកម្មវិធីទី ១",
-                                program: "កម្មវិធីទី១",
-                                responsible_person: "ឯកឧត្តម ទទួលបន្ទុក",
+                                name: "#002 - អនុកម្មវិធីទី ២",
+                                name_kh: "#002 - អនុកម្មវិធីទី ២",
+                                program: "កម្មវិធីទី២",
+                                indicator: {
+                                    data: [],
+                                },
                                 responsible_entity: "ឈ្មោះអង្គភាពទទួលបន្ទុក",
-                                order_level: 1
-                            },
-
-                            {
-                                id: 1,
-                                // code_subprogram: "001",
-                                name: "#001 - អនុកម្មវិធីទី ១",
-                                name_kh: "#001 - អនុកម្មវិធីទី ១",
-                                program: "កម្មវិធីទី១",
                                 responsible_person: "ឯកឧត្តម ទទួលបន្ទុក",
-                                responsible_entity: "ឈ្មោះអង្គភាពទទួលបន្ទុក",
                                 order_level: 1
-                            },
+                            }
                         ]
                     }
                 ],
@@ -134,7 +154,7 @@ export default {
                 },
                 {
                     name: "remark",
-                    type: "text",
+                    type: "textarea",
                     required: false
                 },
                 {
@@ -210,7 +230,6 @@ export default {
             this.getDataTable(_search_criteria);
             return false;
         }
-
     },
     created() {
         this.$vs.loading();

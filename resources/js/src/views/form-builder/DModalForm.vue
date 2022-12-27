@@ -1,17 +1,15 @@
 <template>
     <div class="demo-alignment">
-        <template v-if="dataAttributes.popupFullscreen" >
-            <vs-popup fullscreen classContent="popup-example" :title="title" :active.sync="showModalForm">
-                <d-form @clickForm="initTableData" ref="refModalForm" :data="data" :dataInfo="dataInfo" :formAttributes="formAttributes"
-                    :api="api" :rowDisplay="rowDisplay"></d-form>
-            </vs-popup>
-        </template>
-            <template v-else>
-                <vs-popup classContent="popup-example" :title="title" :active.sync="showModalForm">
-                    <d-form @clickForm="initTableData" ref="refModalForm" :data="data" :dataInfo="dataInfo"
-                        :formAttributes="formAttributes" :api="api" :rowDisplay="rowDisplay"></d-form>
-                </vs-popup>
-        </template>
+        <vs-popup v-if="dataAttributes.popupFullscreen" fullscreen classContent="popup-example" :title="title" :active.sync="showModalForm">
+            <d-form @clickForm="initTableData" ref="refModalForm" :data="data" :dataInfo="dataInfo" :formAttributes="formAttributes"
+                :api="api" :rowDisplay="rowDisplay"></d-form>
+            <d-indicator v-if="dataAttributes.hasIndicator" :dataInfo="dataInfo" :dataAttributes="dataAttributes"></d-indicator>
+        </vs-popup>
+        <vs-popup v-else classContent="popup-example" :title="title" :active.sync="showModalForm">
+            <d-form @clickForm="initTableData" ref="refModalForm" :data="data" :dataInfo="dataInfo"
+                :formAttributes="formAttributes" :api="api" :rowDisplay="rowDisplay"></d-form>
+            <d-indicator v-if="dataAttributes.hasIndicator" :dataInfo="dataInfo" :dataAttributes="dataAttributes"></d-indicator>
+        </vs-popup>
     </div>
 </template>
 
@@ -19,6 +17,7 @@
 import apiConfig from "@/apiConfig.js"
 import DForm from '@/views/form-builder/DForm.vue'
 import { ref } from 'vue';
+import DIndicator from '@/views/form-builder/DIndicator.vue';
 
 export default {
     props: {
@@ -35,15 +34,20 @@ export default {
         rowDisplay: { type: String },
         title: {
             required: true,
-        },
+        }
     },
-    components: { DForm },
+    components: { DForm, DIndicator },
     data() {
         return {
             showModalForm: false,
-            dataInfo: {
-
-            }
+            dataInfo: {},
+            dataIndicators: [
+                {
+                    id: "23",
+                    code: "12-",
+                    indicator_name: "ឈ្មោះសូចនាករ",
+                }
+            ]
         }
     },
     methods: {
@@ -54,6 +58,7 @@ export default {
         initForm(data) {
             this.showModalForm = true;
             this.dataInfo = data;
+            console.log("Edit", this.dataInfo);
             this.$refs.refModalForm.showDataForm(data);
         },
         initTableData() {
