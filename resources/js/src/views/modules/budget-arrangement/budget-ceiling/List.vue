@@ -43,7 +43,7 @@ export default {
                 header1: {
                     width: 350,
                     label: "បរិយាយមុខសញ្ញា",
-                    rowspan: 2,
+                    rowspan: 3,
                     colspan: 0,
                 },
                 header2: {
@@ -78,33 +78,104 @@ export default {
                 },
                 header8: {
                     label: "ប៊ូតុងសកម្ម",
-                    rowspan: 0,
+                    rowspan: 3,
                     colspan: 0,
                 }
             },
             data: {
                 dataHeaders: {
-                    sheader1: "២០២៣",
-                    sheader2: "២០២៤",
-                    sheader3: "២០២៥",
-                    sheader4: "២០២៦",
-                    sheader5: "២០២៧",
-                    sheader6: "២០២៨",
-                    sheader7: ""
+                    header1: {
+                        label: "២០២៣",
+                        rowspan: 0,
+                        colspan: 0,
+                    },
+                    header2: {
+                        label: "២០២៤",
+                        rowspan: 0,
+                        colspan: 0,
+                    },
+                    header3: {
+                        label: "២០២៥",
+                        rowspan: 0,
+                        colspan: 0,
+                    },
+                    header4: {
+                        label: "២០២៦",
+                        rowspan: 0,
+                        colspan: 0,
+                    },
+                    header5: {
+                        label: "២០២៧",
+                        rowspan: 0,
+                        colspan: 0,
+                    },
+                    header6: {
+                        label: "២០២៨",
+                        rowspan: 0,
+                        colspan: 0,
+                    },
+                    // header7: {
+                    //     label: "",
+                    //     rowspan: 0,
+                    //     colspan: 0,
+                    // }
                 },
                 dataSubHeaders: {
-                    sheader0: "",
-                    sheader1: "1",
-                    sheader2: "2",
-                    sheader3: "3=1-2",
-                    sheader4: "4",
-                    sheader5: "5",
-                    sheader6: "6",
-                    sheader7: "7=(4-1)/1",
-                    sheader8: "8=(5-4)/4",
-                    sheader9: "9=(6-5)/5",
-                    sheader10: "10",
-                    sheader11: ""
+                    header1: {
+                        label: "1",
+                        rowspan: 0,
+                        colspan: 0,
+                    },
+                    header2: {
+                        label: "2",
+                        rowspan: 0,
+                        colspan: 0,
+                    },
+                    header3: {
+                        label: "3",
+                        rowspan: 0,
+                        colspan: 0,
+                    },
+                    header4: {
+                        label: "4",
+                        rowspan: 0,
+                        colspan: 0,
+                    },
+                    header5: {
+                        label: "5",
+                        rowspan: 0,
+                        colspan: 0,
+                    },
+                    header6: {
+                        label: "6",
+                        rowspan: 0,
+                        colspan: 0,
+                    },
+                    header7: {
+                        label: "7=(4-1)/1",
+                        rowspan: 0,
+                        colspan: 0,
+                    },
+                    header8: {
+                        label: "8=(5-4)/4",
+                        rowspan: 0,
+                        colspan: 0,
+                    },
+                    header9: {
+                        label: "9=(6-5)/5",
+                        rowspan: 0,
+                        colspan: 0,
+                    },
+                    header10: {
+                        label: "10",
+                        rowspan: 0,
+                        colspan: 0,
+                    },
+                    // header11: {
+                    //     label: "",
+                    //     rowspan: 0,
+                    //     colspan: 0,
+                    // },
                 },
                 data: [
                     {
@@ -299,8 +370,7 @@ export default {
                     name: "remark",
                     type: "text",
                     required: false
-                },
-
+                }
             ],
             rowDisplay: "2grid", //1grid, 2grid, 3grid, 4grid
             dataFields: []

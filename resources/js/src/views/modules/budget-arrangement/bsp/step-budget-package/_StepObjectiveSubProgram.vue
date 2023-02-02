@@ -86,3 +86,13 @@
         </div>
     </div>
 </template>
+
+<script>
+    export default {
+        data() {
+            return {
+                checkBox2: false
+            }
+        }
+    }
+</script>

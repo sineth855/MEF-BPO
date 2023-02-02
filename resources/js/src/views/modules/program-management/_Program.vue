@@ -82,14 +82,12 @@ export default {
                     required: true,
                     options: [
                         {
-                            "id": 1,
-                            "name": "គោលបំណងទី១",
-                            "name_kh": ""
+                            "label": "គោលបំណងទី១",
+                            "value": 1,
                         },
                         {
-                            "id": 2,
-                            "name": "គោលបំណងទី២",
-                            "name_kh": ""
+                            "label": "គោលបំណងទី២",
+                            "value": 2,
                         }
                     ],
                 },
@@ -123,7 +121,6 @@ export default {
                     type: "text",
                     required: false
                 },
-                
             ],
             rowDisplay: "2grid", //1grid, 2grid, 3grid, 4grid
             dataFields: []

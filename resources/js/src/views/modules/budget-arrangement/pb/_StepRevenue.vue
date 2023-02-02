@@ -17,7 +17,7 @@ import DTableList from '@/views/form-builder/DTableList.vue'
 export default {
     data() {
         return {
-            title: "pb_heading_pb_expense",
+            title: "pb_heading_pb_revenue",
             api: apiConfig._apiObjective,
             dataAttributes: {
                 tableStyle: 6,
@@ -25,7 +25,7 @@ export default {
                 offset: 0,
                 dataGrid: "row",
                 hasHeadingReport: true,
-                headingReport: "pb_heading_pb_expense",
+                headingReport: "pb_heading_pb_revenue",
                 actionButton: [
                     {
                         icon: "EditIcon",
@@ -61,7 +61,7 @@ export default {
                     colspan: 0,
                 },
                 header5: {
-                    label: "ចំណាយឆ្នាំ២០២១(អនុវត្ត) ",
+                    label: "ចំណូលឆ្នាំ២០២១(អនុវត្ត) ",
                     rowspan: 3,
                     colspan: 0,
                 },
@@ -76,7 +76,7 @@ export default {
                     colspan: 4,
                 },
                 header8: {
-                    label: "គម្រោងថវិកា​ឆ្នាំ​២០២៣",
+                    label: "គម្រោង​ឆ្នាំ​២០២៣",
                     rowspan: 0,
                     colspan: 4,
                 }
@@ -84,22 +84,22 @@ export default {
             data: {
                 dataHeaders: {
                     header1: {
-                        label: "ឥណទានដើមឆ្នាំ",
+                        label: "មូលដ្ឋានគិតចំណូល",
                         rowspan: 2,
                         colspan: 0,
                     },
                     header2: {
-                        label: "ឥណទានវិចារណកម្ម",
+                        label: "បរិមាណ",
                         rowspan: 2,
                         colspan: 0,
                     },
                     header3: {
-                        label: "ឥណទានថ្មី",
+                        label: "សរុប​ឥណទានថវិកា",
                         rowspan: 2,
                         colspan: 0,
                     },
                     header4: {
-                        label: "អនុវត្ដជាក់ស្តែងឆមាសទី១",
+                        label: "អនុវត្ដឆមាសទី១",
                         rowspan: 2,
                         colspan: 0,
                     },
@@ -114,17 +114,17 @@ export default {
                         colspan: 2,
                     },
                     header7: {
-                        label: "មូលដ្ឋានគិតចំណាយ",
+                        label: "មូលដ្ឋានគិតចំណូល",
                         rowspan: 2,
                         colspan: 0,
                     },
                     header8: {
-                        label: "មូលដ្ឋានគិតចំណាយ",
+                        label: "មូលដ្ឋានគិតចំណូល",
                         rowspan: 2,
                         colspan: 0,
                     },
                     header9: {
-                        label: "សរុប​ការ​គ្រោ​ង​ចំណាយ",
+                        label: "សរុប​ការ​គ្រោ​ង​ចំណូល",
                         rowspan: 0,
                         colspan: 2,
                     }
@@ -169,13 +169,13 @@ export default {
                     field15: "f_plan_total_income",
                     field16: "f_plan_percentage_year_n"
                 },
-                group_fields: { field1: "rev_group", field2: "rev_type" },
+                group_fields: { field1: "rev_group", field2: "rev_type"},
                 summary: [
                     {
                         chapter: "",
                         account: "",
                         sub_account: "",
-                        cost_classification: "សរុប​រួមចំណាយ​ (ក+ខ)",
+                        cost_classification: "សរុប​រួមចំណូល​ (ក+ខ)",
                         income_year_minus_n: "0.00",
                         f_rule_year_n_basic_cal_income: "0.00", // f_rule_year_n_basic_cal_income => Finance Rule By Current Year (n=number of the curent year) (cal_income = calculated Income)
                         f_rule_year_n_quantity: "0.00",
@@ -193,7 +193,7 @@ export default {
                         chapter: "",
                         account: "",
                         sub_account: "",
-                        cost_classification: "សរុប​រួមចំណាយ​ (ក+ខ)",
+                        cost_classification: "សរុប​រួមចំណូល​ (ក+ខ)",
                         income_year_minus_n: "0.00",
                         f_rule_year_n_basic_cal_income: "0.00", // f_rule_year_n_basic_cal_income => Finance Rule By Current Year (n=number of the curent year) (cal_income = calculated Income)
                         f_rule_year_n_quantity: "0.00",
@@ -211,7 +211,7 @@ export default {
                         chapter: "",
                         account: "",
                         sub_account: "",
-                        cost_classification: "សរុប​រួមចំណាយ​ (ក+ខ)",
+                        cost_classification: "សរុប​រួមចំណូល​ (ក+ខ)",
                         income_year_minus_n: "0.00",
                         f_rule_year_n_basic_cal_income: "0.00", // f_rule_year_n_basic_cal_income => Finance Rule By Current Year (n=number of the curent year) (cal_income = calculated Income)
                         f_rule_year_n_quantity: "0.00",
@@ -232,7 +232,7 @@ export default {
                             chapter: "",
                             account: "",
                             sub_account: "",
-                            cost_classification: "ក្រុមទី១: ចំណាយ​ពិត (ប្រភេទទី១+ប្រភេទទី២)",
+                            cost_classification: "ក្រុមទី១: ចំណូល​ពិត (ប្រភេទទី១+ប្រភេទទី២)",
                             income_year_minus_n: "0.00",
                             f_rule_year_n_basic_cal_income: "0.00", // f_rule_year_n_basic_cal_income => Finance Rule By Current Year (n=number of the curent year) (cal_income = calculated Income)
                             f_rule_year_n_quantity: "0.00",
@@ -250,7 +250,25 @@ export default {
                             chapter: "",
                             account: "",
                             sub_account: "",
-                            cost_classification: "ប្រភេទទី១: ចំណាយ​សារពើពន្ធ",
+                            cost_classification: "ប្រភេទទី១: ចំណូល​សារពើពន្ធ",
+                            income_year_minus_n: "0.00",
+                            f_rule_year_n_basic_cal_income: "0.00", // f_rule_year_n_basic_cal_income => Finance Rule By Current Year (n=number of the curent year) (cal_income = calculated Income)
+                            f_rule_year_n_quantity: "0.00",
+                            f_rule_year_n_credit_budget: "0.00",
+                            est_budget_year_n_semester_1: "0.00",
+                            est_budget_year_n_semester_2: "0.00",
+                            est_cal_year_n_total: "0.00",
+                            est__percentage_f_rule_year_n: "0.00",
+                            f_plan_year_n1_basic_cal_income: "0.00",
+                            f_plan_year_n1_quantity: "0.00",
+                            f_plan_total_income: "0.00",
+                            f_plan_percentage_year_n: "0.00"
+                        },
+                        rev_typedd: {
+                            chapter: "",
+                            account: "",
+                            sub_account: "",
+                            cost_classification: "ប្រភេទទី១: ចំណូល​សារពើពន្ធ",
                             income_year_minus_n: "0.00",
                             f_rule_year_n_basic_cal_income: "0.00", // f_rule_year_n_basic_cal_income => Finance Rule By Current Year (n=number of the curent year) (cal_income = calculated Income)
                             f_rule_year_n_quantity: "0.00",
@@ -269,7 +287,7 @@ export default {
                                 chapter: "70",
                                 account: "",
                                 sub_account: "",
-                                cost_classification: "ចំណាយសារពើពន្ធក្នុងស្រុក",
+                                cost_classification: "ចំណូលសារពើពន្ធក្នុងស្រុក",
                                 income_year_minus_n: "0.00",
                                 f_rule_year_n_basic_cal_income: "0.00", // f_rule_year_n_basic_cal_income => Finance Rule By Current Year (n=number of the curent year) (cal_income = calculated Income)
                                 f_rule_year_n_quantity: "0.00",
@@ -288,7 +306,7 @@ export default {
                                         chapter: "",
                                         account: "7001",
                                         sub_account: "",
-                                        cost_classification: "ពន្ធផ្ទាល់ (ពន្ធលើផលទុន ប្រាក់ចំណាយ)",
+                                        cost_classification: "ពន្ធផ្ទាល់ (ពន្ធលើផលទុន ប្រាក់ចំណូល)",
                                         income_year_minus_n: "0.00",
                                         f_rule_year_n_basic_cal_income: "0.00", // f_rule_year_n_basic_cal_income => Finance Rule By Current Year (n=number of the curent year) (cal_income = calculated Income)
                                         f_rule_year_n_quantity: "0.00",
@@ -307,7 +325,7 @@ export default {
                                                 chapter: "",
                                                 account: "",
                                                 sub_account: "70011",
-                                                cost_classification: "ពន្ធលើប្រាក់ចំណាយ (រូបវន្តបុគ្គល)",
+                                                cost_classification: "ពន្ធលើប្រាក់ចំណូល (រូបវន្តបុគ្គល)",
                                                 income_year_minus_n: "0.00",
                                                 f_rule_year_n_basic_cal_income: "0.00", // f_rule_year_n_basic_cal_income => Finance Rule By Current Year (n=number of the curent year) (cal_income = calculated Income)
                                                 f_rule_year_n_quantity: "0.00",
@@ -325,7 +343,143 @@ export default {
                                                 chapter: "",
                                                 account: "",
                                                 sub_account: "70012",
-                                                cost_classification: "ពន្ធលើប្រាក់ចំណាយ (នីតិបុគ្គល)",
+                                                cost_classification: "ពន្ធលើប្រាក់ចំណូល (នីតិបុគ្គល)",
+                                                income_year_minus_n: "0.00",
+                                                f_rule_year_n_basic_cal_income: "0.00", // f_rule_year_n_basic_cal_income => Finance Rule By Current Year (n=number of the curent year) (cal_income = calculated Income)
+                                                f_rule_year_n_quantity: "0.00",
+                                                f_rule_year_n_credit_budget: "0.00",
+                                                est_budget_year_n_semester_1: "0.00",
+                                                est_budget_year_n_semester_2: "0.00",
+                                                est_cal_year_n_total: "0.00",
+                                                est__percentage_f_rule_year_n: "0.00",
+                                                f_plan_year_n1_basic_cal_income: "0.00",
+                                                f_plan_year_n1_quantity: "0.00",
+                                                f_plan_total_income: "0.00",
+                                                f_plan_percentage_year_n: "0.00",
+                                            },
+                                            {
+                                                chapter: "",
+                                                account: "",
+                                                sub_account: "70013",
+                                                cost_classification: "ពន្ធលើប្រាក់បៀវត្ស",
+                                                income_year_minus_n: "0.00",
+                                                f_rule_year_n_basic_cal_income: "0.00", // f_rule_year_n_basic_cal_income => Finance Rule By Current Year (n=number of the curent year) (cal_income = calculated Income)
+                                                f_rule_year_n_quantity: "0.00",
+                                                f_rule_year_n_credit_budget: "0.00",
+                                                est_budget_year_n_semester_1: "0.00",
+                                                est_budget_year_n_semester_2: "0.00",
+                                                est_cal_year_n_total: "0.00",
+                                                est__percentage_f_rule_year_n: "0.00",
+                                                f_plan_year_n1_basic_cal_income: "0.00",
+                                                f_plan_year_n1_quantity: "0.00",
+                                                f_plan_total_income: "0.00",
+                                                f_plan_percentage_year_n: "0.00",
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        rev_group: {
+                            chapter: "",
+                            account: "",
+                            sub_account: "",
+                            cost_classification: "ក្រុមទី១: ចំណូល​ពិត (ប្រភេទទី១+ប្រភេទទី២)",
+                            income_year_minus_n: "0.00",
+                            f_rule_year_n_basic_cal_income: "0.00", // f_rule_year_n_basic_cal_income => Finance Rule By Current Year (n=number of the curent year) (cal_income = calculated Income)
+                            f_rule_year_n_quantity: "0.00",
+                            f_rule_year_n_credit_budget: "0.00",
+                            est_budget_year_n_semester_1: "0.00",
+                            est_budget_year_n_semester_2: "0.00",
+                            est_cal_year_n_total: "0.00",
+                            est__percentage_f_rule_year_n: "0.00",
+                            f_plan_year_n1_basic_cal_income: "0.00",
+                            f_plan_year_n1_quantity: "0.00",
+                            f_plan_total_income: "0.00",
+                            f_plan_percentage_year_n: "0.00"
+                        },
+                        rev_type: {
+                            chapter: "",
+                            account: "",
+                            sub_account: "",
+                            cost_classification: "ប្រភេទទី១: ចំណូល​សារពើពន្ធ",
+                            income_year_minus_n: "0.00",
+                            f_rule_year_n_basic_cal_income: "0.00", // f_rule_year_n_basic_cal_income => Finance Rule By Current Year (n=number of the curent year) (cal_income = calculated Income)
+                            f_rule_year_n_quantity: "0.00",
+                            f_rule_year_n_credit_budget: "0.00",
+                            est_budget_year_n_semester_1: "0.00",
+                            est_budget_year_n_semester_2: "0.00",
+                            est_cal_year_n_total: "0.00",
+                            est__percentage_f_rule_year_n: "0.00",
+                            f_plan_year_n1_basic_cal_income: "0.00",
+                            f_plan_year_n1_quantity: "0.00",
+                            f_plan_total_income: "0.00",
+                            f_plan_percentage_year_n: "0.00"
+                        },
+                        children: [
+                            {
+                                chapter: "70",
+                                account: "",
+                                sub_account: "",
+                                cost_classification: "ចំណូលសារពើពន្ធក្នុងស្រុក",
+                                income_year_minus_n: "0.00",
+                                f_rule_year_n_basic_cal_income: "0.00", // f_rule_year_n_basic_cal_income => Finance Rule By Current Year (n=number of the curent year) (cal_income = calculated Income)
+                                f_rule_year_n_quantity: "0.00",
+                                f_rule_year_n_credit_budget: "0.00",
+                                est_budget_year_n_semester_1: "0.00",
+                                est_budget_year_n_semester_2: "0.00",
+                                est_cal_year_n_total: "0.00",
+                                est__percentage_f_rule_year_n: "0.00",
+                                f_plan_year_n1_basic_cal_income: "0.00",
+                                f_plan_year_n1_quantity: "0.00",
+                                f_plan_total_income: "0.00",
+                                f_plan_percentage_year_n: "0.00",
+                                has_child: true,
+                                children: [
+                                    {
+                                        chapter: "",
+                                        account: "7001",
+                                        sub_account: "",
+                                        cost_classification: "ពន្ធផ្ទាល់ (ពន្ធលើផលទុន ប្រាក់ចំណូល)",
+                                        income_year_minus_n: "0.00",
+                                        f_rule_year_n_basic_cal_income: "0.00", // f_rule_year_n_basic_cal_income => Finance Rule By Current Year (n=number of the curent year) (cal_income = calculated Income)
+                                        f_rule_year_n_quantity: "0.00",
+                                        f_rule_year_n_credit_budget: "0.00",
+                                        est_budget_year_n_semester_1: "0.00",
+                                        est_budget_year_n_semester_2: "0.00",
+                                        est_cal_year_n_total: "0.00",
+                                        est__percentage_f_rule_year_n: "0.00",
+                                        f_plan_year_n1_basic_cal_income: "0.00",
+                                        f_plan_year_n1_quantity: "0.00",
+                                        f_plan_total_income: "0.00",
+                                        f_plan_percentage_year_n: "0.00",
+                                        has_child: true,
+                                        children: [
+                                            {
+                                                chapter: "",
+                                                account: "",
+                                                sub_account: "70011",
+                                                cost_classification: "ពន្ធលើប្រាក់ចំណូល (រូបវន្តបុគ្គល)",
+                                                income_year_minus_n: "0.00",
+                                                f_rule_year_n_basic_cal_income: "0.00", // f_rule_year_n_basic_cal_income => Finance Rule By Current Year (n=number of the curent year) (cal_income = calculated Income)
+                                                f_rule_year_n_quantity: "0.00",
+                                                f_rule_year_n_credit_budget: "0.00",
+                                                est_budget_year_n_semester_1: "0.00",
+                                                est_budget_year_n_semester_2: "0.00",
+                                                est_cal_year_n_total: "0.00",
+                                                est__percentage_f_rule_year_n: "0.00",
+                                                f_plan_year_n1_basic_cal_income: "0.00",
+                                                f_plan_year_n1_quantity: "0.00",
+                                                f_plan_total_income: "0.00",
+                                                f_plan_percentage_year_n: "0.00",
+                                            },
+                                            {
+                                                chapter: "",
+                                                account: "",
+                                                sub_account: "70012",
+                                                cost_classification: "ពន្ធលើប្រាក់ចំណូល (នីតិបុគ្គល)",
                                                 income_year_minus_n: "0.00",
                                                 f_rule_year_n_basic_cal_income: "0.00", // f_rule_year_n_basic_cal_income => Finance Rule By Current Year (n=number of the curent year) (cal_income = calculated Income)
                                                 f_rule_year_n_quantity: "0.00",

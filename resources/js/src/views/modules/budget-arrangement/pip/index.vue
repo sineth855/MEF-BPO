@@ -93,37 +93,83 @@ export default {
       },
       data: {
         dataHeaders: {
-          sheader1: "២០២៣",
-          sheader2: "២០២៤",
-          sheader3: "២០២៥",
-          sheader4: "សរុប៣ឆ្នាំ",
-          sheader5: "២០២៣",
-          sheader6: "២០២៤",
-          sheader7: "២០២៥",
-          sheader8: "សរុប៣ឆ្នាំ",
-          sheader9: "២០២៣",
-          sheader10: "២០២៤",
-          sheader11: "២០២៥",
-          sheader12: "សរុប៣ឆ្នាំ"
+          // sheader1: "២០២៣",
+          // sheader2: "២០២៤",
+          // sheader3: "២០២៥",
+          // sheader4: "សរុប៣ឆ្នាំ",
+          // sheader5: "២០២៣",
+          // sheader6: "២០២៤",
+          // sheader7: "២០២៥",
+          // sheader8: "សរុប៣ឆ្នាំ",
+          // sheader9: "២០២៣",
+          // sheader10: "២០២៤",
+          // sheader11: "២០២៥",
+          // sheader12: "សរុប៣ឆ្នាំ"
+          header1: {
+            label: "២០២៣",
+            rowspan: 0,
+            colspan: 0,
+          },
+          header2: {
+            label: "២០២៤",
+            rowspan: 0,
+            colspan: 0,
+          },
+          header3: {
+            label: "២០២៥",
+            rowspan: 0,
+            colspan: 0,
+          },
+          header4: {
+            label: "សរុប៣ឆ្នាំ",
+            rowspan: 0,
+            colspan: 0,
+          },
+
+          header5: {
+            label: "២០២៣",
+            rowspan: 0,
+            colspan: 0,
+          },
+          header6: {
+            label: "២០២៤",
+            rowspan: 0,
+            colspan: 0,
+          },
+          header7: {
+            label: "២០២៥",
+            rowspan: 0,
+            colspan: 0,
+          },
+          header8: {
+            label: "សរុប៣ឆ្នាំ",
+            rowspan: 0,
+            colspan: 0,
+          },
+
+          header9: {
+            label: "២០២៣",
+            rowspan: 0,
+            colspan: 0,
+          },
+          header10: {
+            label: "២០២៤",
+            rowspan: 0,
+            colspan: 0,
+          },
+          header11: {
+            label: "២០២៥",
+            rowspan: 0,
+            colspan: 0,
+          },
+          header12: {
+            label: "សរុប៣ឆ្នាំ",
+            rowspan: 0,
+            colspan: 0,
+          },
         },
         dataSubHeaders: {
-          sheader0: "1",
-          sheader1: "2",
-          sheader2: "3",
-          sheader3: "4",
-          sheader4: "5",
-          sheader5: "6",
-          sheader6: "7",
-          sheader7: "8=5+6+7",
-          sheader8: "9",
-          sheader9: "10",
-          sheader10: "11",
-          sheader11: "12=9+10+11",
-          sheader12: "13=5-9",
-          sheader13: "14=6-10",
-          sheader14: "15=7-11",
-          sheader15: "16=13+14+15",
-          sheader16: "17",
+          
         },
         data: [
           {

@@ -251,10 +251,33 @@ export default {
 		indicator: "សូចនាករ",
 		remark: "សម្គាល់",
 		is_active: "សកម្ម?",
+		action: "សកម្ម",
 		// Copy Right
 		Footer_CopyRight: "",
 		// Status
 		status_completed: "បានបញ្ចប់",
+		controlled: "បានត្រួតពិនិត្យ",
+		// 
+		ministry_of_economy: "ក្រសួងសេដ្ឋកិច្ច និងហិរញ្ញវត្ថុ<br/>អគ្គលេខាធិការដ្ឋានក្រសួងសេដ្ឋកិច្ចនិងហិរញ្ញវត្ថុ<br/>នាយកដា្ឋនរដ្ឋបាលនិងហិរញ្ញវត្ថុ<br/>ការិយាល័យផែនការថវិកា",
+		kindom_of_cambodia: "ព្រះរាជាណាចក្រកម្ពុជា",
+		nation_religion_king: "ជាតិ សាសនា ព្រះមហាក្សត្រ",
+		// BSP
+		bsp_heading_subpro_res_entity: "តារាង១ៈ អនុកម្មវិធី អ្នកគ្រប់គ្រង និងអង្គភាពទទួលខុសត្រូវ",
+		bsp_heading_target_kpi: "តារាង ២: ការកំណត់សូចនាករ និងគោលដៅសូចនាករសមិទ្ធកម្ម",
+		bsp_heading_revenue_plan: "តារាង ៣: ការគ្រោងចំណូល",
+		bsp_heading_expend_demand_subpro: "តារាង ៤: ការកំណត់តម្រូវការចំណាយសម្រាប់អនុកម្មវិធី",
+		bsp_title_objective: "ឈ្មោះគោលបំណងគោលនយោបាយ",
+		bsp_title_pro_subpro_title: "ឈ្នោះកម្មវិធី និងអនុកម្មវិធី",
+		bsp_manager: "អ្នកគ្រប់គ្រង",
+		bsp_res_entity: "អង្គភាពទទួលខុសត្រូវ",
+		// PB
+		pb_step_prepare_annual_budget: "រៀបចំគម្រោងថវិកាប្រចាំឆ្នាំ",
+		pb_verify: "ផ្ទៀងផ្ទាត់",
+		pb_heading_pb_revenue: "គម្រោងចំណូលថវិកាតាមចំណាត់ថ្នាក់សេដ្ឋកិច្ច(PB Revenue)",
+		pb_heading_pb_expense: "គម្រោងចំណាយថវិកាតាមចំណាត់ថ្នាក់សេដ្ឋកិច្ច(PB Expense)",
+		pb_heading_staff_expense: "តារាងគណនាគម្រោងចំណាយបន្ទុកបុគ្គលិក",
+		pb_heading_target_indicator: "សូចនាករ និងគោលដៅសូចនាករ",
+		pb_heading_none_regular_expense: "ចំណាយមិនប្រចាំ",
 		//PIP
 		pip_form_title: "ទម្រង់បង្កើតគម្រោងវិនិយោកសាធារណៈ",
 		pip_title: "គម្រោងវិនិយោកសាធារណៈ",
@@ -278,7 +301,6 @@ export default {
 		required_name_kh: "សូមបំពេញឈ្មោះជាភាសាខ្មែរ!",
 		required_title: "សូមបំពេញចំណងជើងជាភាសាអង់គ្លេស!",
 		required_title_kh: "សូមបំពេញចំណងជើងជាភាសាខ្មែរ!",
-
 		required_objective: "សូមជ្រើសរើសគោលបំណង!",
 		required_responsible_person: "សូមជ្រើសរើសអ្នកទទួលខុសត្រូវ!",
 		required_responsible_entity: "សូមជ្រើសរើសអង្គភាព!",
@@ -518,10 +540,10 @@ export default {
 		WishList: 'Wish List',
 		// X
 		// Y
-		// Z	
-
+		// Z
 // #######################################
 		// Label
+		label_action: "ប៊ូតុងសកម្ម",
 		label_name_kh: "ឈ្មោះជាភាសាខ្មែរ",
 		label_name: "ឈ្មោះជាភាសាអង់គ្លេស",
 		label_order_level: "តំរៀបតាមលំដាប់",

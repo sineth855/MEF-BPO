@@ -9,16 +9,16 @@
 
 <template>
     <div id="extra-component-form-wizard-demo">
-        <form-wizard-validation></form-wizard-validation>
+        <form-wizard></form-wizard>
     </div>
 </template>
 
 <script>
-import FormWizardValidation from "./FormWizardValidation.vue"
+import FormWizard from "./FormWizard.vue"
 
 export default {
     components: {
-        FormWizardValidation,
+        FormWizard,
     }
 }
 </script>

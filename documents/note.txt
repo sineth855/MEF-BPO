@@ -1,3 +1,10 @@
+ធ្វើដល់ចំណុច PB -> Step_indicator
+
+
+
+
+
+
 ALTER TABLE tbl_incentive ADD `khmer_date` VARCHAR(255) AFTER issue_date;
 ALTER TABLE tbl_entity ADD `limit_officer` INT(2) AFTER name;
 ALTER TABLE tbl_incentive ADD `khmer_day` VARCHAR(120) AFTER khmer_date;

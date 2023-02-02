@@ -4,7 +4,7 @@
         :data="dataTables" :api="api" :formAttributes="formAttributes" 
         :rowDisplay="rowDisplay" :dataAttributes="dataAttributes" :title="$t(title)"></d-modal-form>
 
-        <div class="flex flex-wrap-reverse items-center data-list-btn-container">
+        <div v-if="!dataAttributes.hasHeadingReport" class="flex flex-wrap-reverse items-center data-list-btn-container">
             <!-- ADD NEW -->
             <div class="btn-add-new p-3 mb-4 mr-4 rounded-lg cursor-pointer flex items-center justify-center text-lg font-medium text-base text-primary border border-solid border-primary"
                 @click="openForm">
@@ -12,6 +12,8 @@
                 <span class="ml-2 text-base text-primary">{{ $t("AddNew") }}</span>
             </div>
         </div>
+
+        <d-heading-wizard v-if="dataAttributes.hasHeadingReport" :dataAttributes="dataAttributes"></d-heading-wizard>
 
         <d-search @searchQuery="searchQuery" @clicked="initTableData"  :data="dataTables" :api="api" :formAttributes="formAttributes" 
         :rowDisplay="'4grid'" :dataInfo="''"></d-search>
@@ -92,25 +94,27 @@
             :data="dataTables.data" style="overflow: scroll">
             <template slot-scope="{data}">
                 <vs-tr>
-                    <vs-td :style="style(header)" :key="i"
-                        v-for="(header, i) in dataHeaders" :colspan="colspan(header)" :rowspan="rowspan(header)">
+                    <vs-td :style="style(header)" :key="i" v-for="(header, i) in dataHeaders" :colspan="colspan(header)"
+                        :rowspan="rowspan(header)">
                         <span v-if="header.label">
-                            <center>{{ $t(header.label) }}</center>
+                            <center>{{ $t(header.label) }} </center>
                         </span>
                         <span v-else>
-                            <center>{{ $t(header) }}</center>
+                            <center>{{ $t(header.label) }}</center>
                         </span>
                     </vs-td>
                 </vs-tr>
-
+                
                 <vs-tr v-if="dataTables.dataHeaders" style="background-color: #28C76F; color: #ffffff; font-weight: bold;">
-                    <vs-td :key="j" v-for="(sheader, j) in dataTables.dataHeaders">{{ sheader }}</vs-td>
+                    <vs-td :key="j" v-for="(header, j) in dataTables.dataHeaders" :colspan="colspan(header)"
+                        :rowspan="rowspan(header)">{{ header.label }} </vs-td>
                 </vs-tr>
                 
-                <vs-tr v-if="dataTables.dataSubHeaders">
-                    <vs-td :key="k" v-for="(sheader, k) in dataTables.dataSubHeaders"><small>{{ sheader }}</small></vs-td>
+                <vs-tr v-if="dataTables.dataSubHeaders" style="background-color: #28C76F; color: #ffffff; font-weight: bold;">
+                    <vs-td :key="k" v-for="(header, k) in dataTables.dataSubHeaders" :colspan="colspan(header)"
+                        :rowspan="rowspan(header)"><small>{{ header.label }}</small></vs-td>
                 </vs-tr>
-                
+
                 <tbody :key="pindextr" v-for="(ptr, pindextr) in data">
                     <vs-tr :state="'success'">
                         <template v-if="ptr.hasColspan == false">
@@ -118,7 +122,6 @@
                             <td :key="index" v-for="(row, index) in ptr.values">{{ row }}</td>
                         </template>
                         <td v-else :colspan="ptr.colspan">{{ ptr.name }}</td>
-                        <!-- <td :colspan="'12'">{{ ptr.name }}</td> -->
                     </vs-tr>
                     <vs-tr :state="'primary'">
                         <td>{{ ptr.data.summary.name }}</td>
@@ -163,15 +166,361 @@
                         </template>
                     </template>
 
-                    <!-- <template v-for="t in ptr.data.children">
-                        <tbody :key="index" v-for="(row, index) in t.values">
-                            <tr>
-                                <td>{{ row.name }}</td>
-                                <td :key="index" v-for="(row, index) in row.values">{{ row }}</td>
-                            </tr>
-                        </tbody>
-                    </template> -->
+                </tbody>
+            </template>
+        </vs-table>
 
+        <vs-table v-if="dataTables.data && dataTables.data.length && dataAttributes.tableStyle == 4"
+            :max-items="dataTables.limit" :data="dataTables.data" style="overflow: scroll">
+            <template slot-scope="{data}">
+                <vs-tr>
+                    <vs-td :style="style(header)" :key="i" v-for="(header, i) in dataHeaders" :colspan="colspan(header)"
+                        :rowspan="rowspan(header)">
+                        <span v-if="header.label">
+                            <center>{{ $t(header.label) }}</center>
+                        </span>
+                        <span v-else>
+                            <center>{{ $t(header) }}</center>
+                        </span>
+                    </vs-td>
+                </vs-tr>
+        
+                <vs-tr v-if="dataTables.dataHeaders" style="background-color: #28C76F; color: #ffffff; font-weight: bold;">
+                    <vs-td :key="j" v-for="(sheader, j) in dataTables.dataHeaders">{{ sheader }}</vs-td>
+                </vs-tr>
+        
+                <vs-tr v-if="dataTables.dataSubHeaders">
+                    <vs-td :key="k" v-for="(sheader, k) in dataTables.dataSubHeaders"><small>{{ sheader }}</small></vs-td>
+                </vs-tr>
+        
+                <tbody :key="pindextr" v-for="(ptr, pindextr) in data">
+                    <vs-tr :state="'success'">
+                        <template v-if="ptr.hasColspan == false">
+                            <td>{{ ptr.name }}</td>
+                            <td :key="index" v-for="(row, index) in ptr.values">{{ row }}</td>
+                        </template>
+                        <td v-else :colspan="ptr.colspan">{{ ptr.name }}</td>
+                    </vs-tr>
+        
+                    <template v-if="ptr.children" v-for="(row, index) in ptr.children">
+
+                        <vs-tr :state="'warning'">
+                            <td></td>
+                            <td>{{ row.name }}</td>
+                            <td>{{ row.responsible_entity.name }}</td>
+                            <td>{{ row.responsible_person.name }}</td>
+                            <td>
+                                <center><feather-icon style="cursor: pointer;" @click="openForm" icon="PlusIcon"
+                                        svgClasses="w-5 h-5 hover:text-primary stroke-current" /></center>
+                            </td>
+                        </vs-tr>
+
+                        <template v-if="row.children" v-for="row in row.children">
+
+                            <vs-tr>
+                                <td></td>
+                                <td>{{ row.name }}</td>
+                                <td>{{ row.responsible_entity.name }}</td>
+                                <td>{{ row.responsible_person.name }}</td>
+                                <td>
+                                    <center><feather-icon style="cursor: pointer;" @click="openForm" icon="PlusIcon"
+                                            svgClasses="w-5 h-5 hover:text-primary stroke-current" /></center>
+                                </td>
+                            </vs-tr>
+        
+                            <template v-if="row.children" v-for="row in row.children">
+                                <vs-tr style="background-color: #fffde5">
+                                    <td></td>
+                                    <td>{{ row.name }}</td>
+                                    <td>{{ row.responsible_entity.name }}</td>
+                                    <td>{{ row.responsible_person.name }}</td>
+                                    <td>
+                                        <center><feather-icon style="cursor: pointer;" @click="openForm" icon="PlusIcon"
+                                                svgClasses="w-5 h-5 hover:text-primary stroke-current" /></center>
+                                    </td>
+                                </vs-tr>
+
+                                <template v-for="row in row.children">
+                                    <vs-tr style="background-color: #fffde5">
+                                        <td></td>
+                                        <td>{{ row.name }}</td>
+                                        <td>{{ row.responsible_entity.name }}</td>
+                                        <td>{{ row.responsible_person.name }}</td>
+                                        <td></td>
+                                    </vs-tr>
+                                </template>
+
+                            </template>
+        
+                            <!-- <vs-tr :key="index" v-for="(row2, index) in row3.data">
+                                <td>{{ row2.name }}</td>
+                                <td :key="index3" v-for="(row, index3) in row2.values">{{ row }}</td>
+                                <td></td>
+                            </vs-tr> -->
+                        </template>
+                    </template>
+        
+                </tbody>
+            </template>
+        </vs-table>
+
+        <vs-table v-if="dataTables.data && dataTables.data.length && dataAttributes.tableStyle == 5"
+            :max-items="dataTables.limit" :data="dataTables.data" style="overflow: scroll">
+            
+            <template slot-scope="{data}">
+                
+                <vs-tr>
+                    <vs-td :style="style(header)" :key="i" v-for="(header, i) in dataHeaders" :colspan="colspan(header)"
+                        :rowspan="rowspan(header)">
+                        <span v-if="header.label">
+                            <center>{{ $t(header.label) }} </center>
+                        </span>
+                        <span v-else>
+                            <center>{{ $t(header.label) }}</center>
+                        </span>
+                    </vs-td>
+                </vs-tr>
+                
+                <vs-tr v-if="dataTables.dataHeaders" style="background-color: #28C76F; color: #ffffff; font-weight: bold;">
+                    <vs-td :key="j" v-for="(header, j) in dataTables.dataHeaders" :colspan="colspan(header)"
+                        :rowspan="rowspan(header)">{{ header.label }} </vs-td>
+                </vs-tr>
+                
+                <vs-tr v-if="dataTables.dataSubHeaders" style="background-color: #28C76F; color: #ffffff; font-weight: bold;">
+                    <vs-td :key="k" v-for="(header, k) in dataTables.dataSubHeaders" :colspan="colspan(header)"
+                        :rowspan="rowspan(header)"><small>{{ header.label }}</small></vs-td>
+                </vs-tr>
+        
+                <tbody :key="pindextr" v-for="(ptr, pindextr) in data">
+                   
+                    <vs-tr :state="'success'">
+                        <template v-if="ptr.hasColspan == false">
+                            <td>{{ ptr.name }}</td>
+                            <td :key="index" v-for="(row, index) in ptr.values">{{ row }}</td>
+                        </template>
+                        <td v-else :colspan="ptr.colspan">{{ ptr.name }}</td>
+                    </vs-tr>
+                    <!-- Level 1 -->
+                    <template v-if="ptr.children" v-for="(row, index) in ptr.children">
+        
+                        <vs-tr :state="'warning'">
+                            <td>{{ row.name }}</td>
+                            <td>{{ }}</td>
+                            <td>{{ }}</td>
+                            <td>{{ }}</td>
+                            <td>{{ }}</td>
+                            <td>{{ }}</td>
+                            <td>{{ }}</td>
+                            <td>{{ }}</td>
+                            <td>
+                                <center><feather-icon style="cursor: pointer;" @click="openForm" icon="PlusIcon"
+                                        svgClasses="w-5 h-5 hover:text-primary stroke-current" /></center>
+                            </td>
+                        </vs-tr>
+
+                        <!-- Indicator -->
+                        <template v-for="indicator_row in row.indicators">
+                            <vs-tr>
+                                <td>{{ indicator_row.indicator }}</td>
+                                <td>{{ indicator_row.code }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>
+                                    
+                                </td>
+                            </vs-tr>
+                        </template>
+
+                        <!-- Level 2 -->
+                        <template v-if="row.children" v-for="row in row.children">
+        
+                            <vs-tr :state="'danger'">
+                                <td>{{ row.name }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>{{ }}</td>
+                                <td>
+                                    <center><feather-icon style="cursor: pointer;" @click="openForm" icon="PlusIcon"
+                                            svgClasses="w-5 h-5 hover:text-primary stroke-current" /></center>
+                                </td>
+                            </vs-tr>
+
+                            <!-- Indicator -->
+                            <template v-for="indicator_row in row.indicators">
+                                <vs-tr>
+                                    <td>{{ indicator_row.indicator }}</td>
+                                    <td>{{ indicator_row.code }}</td>
+                                    <td>{{ }}</td>
+                                    <td>{{ }}</td>
+                                    <td>{{ }}</td>
+                                    <td>{{ }}</td>
+                                    <td>{{ }}</td>
+                                    <td>{{ }}</td>
+                                    <td>
+                                        
+                                    </td>
+                                </vs-tr>
+                            </template>
+                            
+                            <!-- Level 3 -->
+                            <template v-if="row.children" v-for="row in row.children">
+                                <vs-tr style="background-color: #fffde5">
+                                    <td>{{ row.name }}</td>
+                                    <td>{{ }}</td>
+                                    <td>{{ }}</td>
+                                    <td>{{ }}</td>
+                                    <td>{{ }}</td>
+                                    <td>{{ }}</td>
+                                    <td>{{ }}</td>
+                                    <td>{{ }}</td>
+                                    <td>{{ }}</td>
+                                    <td>
+                                        <center><feather-icon style="cursor: pointer;" @click="openForm" icon="PlusIcon"
+                                                svgClasses="w-5 h-5 hover:text-primary stroke-current" /></center>
+                                    </td>
+                                </vs-tr>
+                                
+                                <!-- Level 4 -->
+                                <template v-for="row in row.children">
+                                    <vs-tr style="background-color: #fffde5">
+                                        <td>{{ row.name }}</td>
+                                        <td>{{ }}</td>
+                                        <td>{{ }}</td>
+                                        <td>{{ }}</td>
+                                        <td>{{ }}</td>
+                                        <td>{{ }}</td>
+                                        <td>{{ }}</td>
+                                        <td>{{ }}</td>
+                                        <td>{{ }}</td>
+                                        <td>{{ }}</td>
+                                    </vs-tr>
+                                </template>
+                                
+                            </template>
+                        </template>
+                    </template>
+        
+                </tbody>
+            </template>
+        </vs-table>
+
+        <vs-table v-if="dataTables.data && dataTables.data.length && dataAttributes.tableStyle == 6"
+            :max-items="dataTables.limit" :data="dataTables.data" style="overflow: scroll">
+            <template slot-scope="{data}">
+                <vs-tr>
+                    <vs-td :style="style(header)" :key="i" v-for="(header, i) in dataHeaders" :colspan="colspan(header)"
+                        :rowspan="rowspan(header)">
+                        <span v-if="header.label">
+                            <center><span v-html="$t(header.label)"></span></center>
+                        </span>
+                        <span v-else>
+                            <center><span v-html="$t(header.label)"></span></center>
+                        </span>
+                    </vs-td>
+                </vs-tr>
+        
+                <vs-tr v-if="dataTables.dataHeaders" style="background-color: #28C76F; color: #ffffff; font-weight: bold;">
+                    <vs-td :style="style(header)" :key="j" v-for="(header, j) in dataTables.dataHeaders" :colspan="colspan(header)"
+                        :rowspan="rowspan(header)">{{ header.label }} </vs-td>
+                </vs-tr>
+        
+                <vs-tr v-if="dataTables.dataSubHeaders" style="background-color: #28C76F; color: #ffffff; font-weight: bold;">
+                    <vs-td :key="k" v-for="(header, k) in dataTables.dataSubHeaders" :colspan="colspan(header)"
+                        :rowspan="rowspan(header)"><small>{{ header.label }}</small></vs-td>
+                </vs-tr>
+                
+                <tbody :key="pindextr" v-for="(ptr, pindextr) in data">
+
+                    <vs-tr :key="cindex" v-for="(cusField, cindex) in dataTables.group_fields" style="color: #f00;">
+                        <td :key="scindex" v-for="(scfield, scindex) in ptr[cusField]"><center>{{ scfield }}</center></td>
+                    </vs-tr>
+
+                    <template v-for="parent in ptr.children">
+                        <vs-tr>
+                            <vs-td :key="sindex" v-for="(dataField, sindex) in dataTables.dataFillables">
+                                <center>{{ parent[dataField] }} </center>
+                            </vs-td>
+                        </vs-tr>
+                        
+                        <template v-for="child in parent.children">
+                            <vs-tr>
+                                <vs-td :key="sindex" v-for="(dataField, sindex) in dataTables.dataFillables">
+                                    <center>{{ child[dataField] }} </center>
+                                </vs-td>
+                            </vs-tr>
+
+                            <vs-tr :key="sindex" v-for="(schild, sindex) in child.children">
+                                <vs-td :key="sindex" v-for="(dataField, sindex) in dataTables.dataFillables">
+                                    <center>{{ schild[dataField] }} </center>
+                                </vs-td>
+                            </vs-tr>
+                        </template>
+                    </template>
+                </tbody>
+            </template>
+        </vs-table>
+
+        <vs-table v-if="dataTables.data && dataTables.data.length && dataAttributes.tableStyle == 7"
+            :max-items="dataTables.limit" :data="dataTables.data" style="overflow: scroll">
+            <template slot-scope="{data}">
+                <vs-tr>
+                    <vs-td :style="style(header)" :key="i" v-for="(header, i) in dataHeaders" :colspan="colspan(header)"
+                        :rowspan="rowspan(header)">
+                        <span v-if="header.label">
+                            <center><span v-html="$t(header.label)"></span></center>
+                        </span>
+                        <span v-else>
+                            <center><span v-html="$t(header.label)"></span></center>
+                        </span>
+                    </vs-td>
+                </vs-tr>
+        
+                <vs-tr v-if="dataTables.dataHeaders" style="background-color: #28C76F; color: #ffffff; font-weight: bold;">
+                    <vs-td :style="style(header)" :key="j" v-for="(header, j) in dataTables.dataHeaders"
+                        :colspan="colspan(header)" :rowspan="rowspan(header)">{{ header.label }} </vs-td>
+                </vs-tr>
+        
+                <vs-tr v-if="dataTables.dataSubHeaders" style="background-color: #28C76F; color: #ffffff; font-weight: bold;">
+                    <vs-td :key="k" v-for="(header, k) in dataTables.dataSubHeaders" :colspan="colspan(header)"
+                        :rowspan="rowspan(header)"><small>{{ header.label }}</small></vs-td>
+                </vs-tr>
+        
+                <tbody>
+                    <template v-for="ptr in data">
+                        <vs-tr :key="cindex" v-for="(cusField, cindex) in dataTables.group_fields" style="color: #f00;">
+                            <td :key="scindex" v-for="(scfield, scindex) in ptr[cusField]">
+                                <center>{{ scfield }}</center>
+                            </td>
+                        </vs-tr>
+                    </template>
+                    
+                    <template v-for="ptr in data">
+                        <vs-tr>
+                            <vs-td :key="sindex" v-for="(dataField, sindex) in dataTables.dataFillables">
+                                <center>{{ ptr[dataField] }} </center>
+                            </vs-td>
+                        </vs-tr>
+                        <vs-tr :key="sindex" v-for="(schild, sindex) in ptr.children">
+                            <vs-td :key="sindex" v-for="(dataField, sindex) in dataTables.dataFillables">{{ schild[dataField]}}</vs-td>
+                        </vs-tr>
+
+                        <template v-for="sdata in ptr.data">
+                            <vs-tr>
+                                <vs-td :key="sindex" v-for="(dataField, sindex) in dataTables.dataFillables">{{ sdata[dataField]}}</vs-td>
+                            </vs-tr>
+                            <vs-tr :key="sindex" v-for="(schild, sindex) in sdata.children">
+                                <vs-td :key="sindex" v-for="(dataField, sindex) in dataTables.dataFillables">{{ schild[dataField]}}</vs-td>
+                            </vs-tr>
+                        </template>
+                    </template>
                 </tbody>
             </template>
         </vs-table>
@@ -188,9 +537,10 @@
 
 <script>
 
-    import axios from "@/axios.js"
-    import DSearch from '@/views/form-builder/DSearch.vue'
-    import DModalForm from '@/views/form-builder/DModalForm.vue'
+    import axios from "@/axios.js";
+    import DSearch from '@/views/form-builder/DSearch.vue';
+    import DModalForm from '@/views/form-builder/DModalForm.vue';
+    import DHeadingWizard from '@/views/form-builder/DHeadingWizard.vue';
     import { stringify } from 'querystring';
     import { ref } from 'vue';
     export default {
@@ -225,7 +575,8 @@
         },
         components: {
             DSearch,
-            DModalForm
+            DModalForm,
+            DHeadingWizard
         },
     methods: {
         style(obj) { 
@@ -255,6 +606,7 @@
             },
             openForm() {
                 this.$refs.refModalForm.openNewForm();
+                this.$emit("emitDataForm", "test change form attribute");
             },
             calPaginNumber(n) {
                 // alert(n);
@@ -333,6 +685,8 @@
 
         },
     created() {
+        console.log("data table", this.dataTables)
+            console.log("ddd", this.dataTables);
             this.$vs.loading.close();
         },
         watch: {

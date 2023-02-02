@@ -1,31 +1,181 @@
-<!-- =========================================================================================
-    File Name: FormWizard.vue
-    Description: Form Wizard (third-party) - Imports page portions
-    ----------------------------------------------------------------------------------------
-    Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
-      Author: Pixinvent
-    Author URL: http://www.themeforest.net/user/pixinvent
-========================================================================================== -->
-
 <template>
-    <div id="extra-component-form-wizard-demo">
+  <vx-card title="" code-toggler>
+    <step-indicator></step-indicator>
+    <div class="mt-5">
+      <form-wizard color="rgba(var(--vs-primary), 1)" errorColor="rgba(var(--vs-danger), 1)" :title="null" :subtitle="null" finishButtonText="Submit">
+        <tab-content :title="$t('pb_step_prepare_annual_budget')" class="mb-5" icon="feather icon-home" :before-change="validateStep1">
 
-        <p class="mb-4"><a href="https://binarcode.github.io/vue-form-wizard/#/" target="_blank" rel="nofollow">vue-form-wizard</a> is a vue based component with no external depenendcies which simplifies tab wizard management and allows you to focus on the functional part of your app rather than wasting time on details.</p>
+          <vx-card title="គម្រោងថវិកាប្រចាំឆ្នាំ" code-toggler>
+            <div class="mt-5">
 
-        <form-wizard-number-tab></form-wizard-number-tab>
-        <form-wizard-validation></form-wizard-validation>
+                <vs-collapse>
+                  <vs-collapse-item>
+                    <div slot="header" style="color: #fff; background-color:#28c76f; padding: 10px;">
+                      {{ $t("pb_heading_pb_revenue") }}
+                    </div>
+                    <step-revenue></step-revenue>
+                  </vs-collapse-item>
+
+                  <vs-collapse-item _disabled>
+                    <div slot="header" style="color: #fff; background-color:#C0C9C4; padding: 10px;">គម្រោងចំណាយថវិកាតាមចំណាត់ថ្នាក់សេដ្ឋកិច្ច(PB Expense)</div>
+                    <step-expense></step-expense>
+                  </vs-collapse-item>
+
+                  <vs-collapse-item>
+                    <div slot="header" style="color: #fff; background-color:#C0C9C4; padding: 10px;">តារាងគណនាគម្រោងចំណាយបន្ទុកបុគ្គលិក</div>
+                    <step-staff-costing></step-staff-costing>
+                  </vs-collapse-item>
+
+                  <vs-collapse-item>
+                    <div slot="header" style="color: #fff; background-color:#C0C9C4; padding: 10px;">សូចនាករ និងគោលដៅសូចនាករ</div>
+                    <step-indicator></step-indicator>
+                  </vs-collapse-item>
+
+                  <vs-collapse-item>
+                    <div slot="header" style="color: #fff; background-color:#C0C9C4; padding: 10px;">ចំណាយមិនប្រចាំ</div>
+                    Data Under Controll
+                    <br><br>
+                    Data Under Controll
+                    <br><br>
+                    Data Under Controll
+                  </vs-collapse-item>
+
+
+                </vs-collapse>
+            </div>
+          </vx-card>
+        </tab-content>
+
+        <!-- tab 2 content -->
+        <tab-content :title="$t('pb_verify')" class="mb-5" icon="feather icon-briefcase" :before-change="validateStep2">
+          <center><h2>Page is under construction</h2></center>
+        </tab-content>
+
+      </form-wizard>
     </div>
+
+  </vx-card>
 </template>
 
 <script>
-import FormWizardNumberTab from "./FormWizardNumberTab.vue"
-import FormWizardValidation from "./FormWizardValidation.vue"
+import { FormWizard, TabContent } from 'vue-form-wizard'
+import 'vue-form-wizard/dist/vue-form-wizard.min.css'
+import StepIndicator from "./_StepIndicator.vue"
+import StepCostingBudget from "./_StepCostingBudget.vue"
+import StepStaffCosting from "./_StepStaffCosting.vue"
+import StepRevenue from "./_StepRevenue.vue"
+import StepExpense from "./_StepExpense.vue"
+
+// For custom error message
+import { Validator } from 'vee-validate';
+const dict = {
+    custom: {
+        first_name: {
+            required: 'First name is required',
+            alpha: "First name may only contain alphabetic characters"
+        },
+        last_name: {
+            required: 'Last name is required',
+            alpha: "Last name may only contain alphabetic characters"
+        },
+        email: {
+            required: 'Email is required',
+            email: "Please enter valid email"
+        },
+        job_title: {
+            required: 'Job title name is required',
+            alpha: "Job title may only contain alphabetic characters"
+        },
+        proposal_title: {
+            required: 'Proposal title name is required',
+            alpha: "Proposal title may only contain alphabetic characters"
+        },
+        event_name: {
+            required: 'Event name is required',
+            alpha: "Event name may only contain alphabetic characters"
+        },
+    }
+};
+
+// register custom messages
+Validator.localize('en', dict);
 
 export default {
+    data() {
+        return {
+            firstName: "",
+            lastName: "",
+            email: "",
+            city: "new-york",
+            proposalTitle: "",
+            jobTitle: "",
+            textarea: "",
+            eventName: "",
+            eventLocation: "san-francisco",
+            status: "plannning",
+            cityOptions: [
+                { text: "New York", value: "new-york" },
+                { text: "Chicago", value: "chicago" },
+                { text: "San Francisco", value: "san-francisco" },
+                { text: "Boston", value: "boston" },
+            ],
+            statusOptions: [
+                { text: "Plannning", value: "plannning" },
+                { text: "In Progress", value: "in progress" },
+                { text: "Finished", value: "finished" },
+            ],
+            LocationOptions: [
+                { text: "New York", value: "new-york" },
+                { text: "Chicago", value: "chicago" },
+                { text: "San Francisco", value: "san-francisco" },
+                { text: "Boston", value: "boston" },
+            ],
+        }
+    },
+    methods: {
+        validateStep1() {
+            return new Promise((resolve, reject) => {
+                this.$validator.validateAll('step-1').then(result => {
+                    if (result) {
+                        resolve(true)
+                    } else {
+                        reject("correct all values");
+                    }
+                })
+            })
+        },
+        validateStep2() {
+            return new Promise((resolve, reject) => {
+                this.$validator.validateAll("step-2").then(result => {
+                    if (result) {
+                        resolve(true)
+                    } else {
+                        reject("correct all values");
+                    }
+                })
+            })
+        },
+        validateStep3() {
+            return new Promise((resolve, reject) => {
+                this.$validator.validateAll("step-3").then(result => {
+                    if (result) {
+                        alert("Form submitted!");
+                        resolve(true)
+                    } else {
+                        reject("correct all values");
+                    }
+                })
+            })
+        }
+    },
     components: {
-        FormWizardNumberTab,
-        FormWizardIconTab,
-        FormWizardValidation,
+      FormWizard,
+      TabContent,
+      StepIndicator,
+      StepCostingBudget,
+      StepStaffCosting,
+      StepRevenue,
+      StepExpense
     }
 }
 </script>
