@@ -1,6 +1,5 @@
 <template>
   <vx-card title="" code-toggler>
-    <step-indicator></step-indicator>
     <div class="mt-5">
       <form-wizard color="rgba(var(--vs-primary), 1)" errorColor="rgba(var(--vs-danger), 1)" :title="null" :subtitle="null" finishButtonText="Submit">
         <tab-content :title="$t('pb_step_prepare_annual_budget')" class="mb-5" icon="feather icon-home" :before-change="validateStep1">
@@ -31,15 +30,14 @@
                     <step-indicator></step-indicator>
                   </vs-collapse-item>
 
-                  <vs-collapse-item>
+                  <!-- <vs-collapse-item>
                     <div slot="header" style="color: #fff; background-color:#C0C9C4; padding: 10px;">ចំណាយមិនប្រចាំ</div>
                     Data Under Controll
                     <br><br>
                     Data Under Controll
                     <br><br>
                     Data Under Controll
-                  </vs-collapse-item>
-
+                  </vs-collapse-item> -->
 
                 </vs-collapse>
             </div>

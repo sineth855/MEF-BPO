@@ -1,41 +1,48 @@
 <template>
     <vx-card class="mb-6">
-        <h3>ស្វែងរកទិន្នន័យ</h3>
+        <h3 class="pb-4">ស្វែងរកទិន្នន័យ</h3>
         <div class="vx-row">
             <div :key="i" v-for="(formAttribute, i) in formAttributes" :class="styleClass">
                 <!-- Form Input Text -->
                 <template v-if="formAttribute.type == 'text' && formAttribute.required">
+                    <label>{{ $t(formAttribute.name) }}</label>
                     <vs-input :placeholder="$t(formAttribute.name)" v-model="form.attribute[formAttribute.name]"
-                        :name="formAttribute.name" size="small" class="mt-5 w-full" />
+                        :name="formAttribute.name" size="small" class="mt-2 w-full" />
                 </template>
 
                 <!-- Form Input Number -->
                 <template v-if="formAttribute.type == 'number' && formAttribute.required">
+                    <label>{{ $t(formAttribute.name) }}</label>
                     <vs-input :placeholder="$t(formAttribute.name)" v-model="form.attribute[formAttribute.name]"
-                        :name="formAttribute.name" size="small" class="mt-5 w-full" />
+                        :name="formAttribute.name" size="small" class="mt-2 w-full" />
                 </template>
 
                 <!-- Form Select -->
                 <template v-if="formAttribute.type == 'select' && formAttribute.required">
-                    <v-select size="small" v-model="form.attribute[formAttribute.name]" :options="formAttribute.options" :dir="$vs.rtl ? 'rtl' : 'ltr'" class="mt-5 w-full"/>
+                    <label>{{ $t(formAttribute.name) }}</label>
+                    <v-select size="small" v-model="form.attribute[formAttribute.name]" :options="formAttribute.options" :dir="$vs.rtl ? 'rtl' : 'ltr'" class="mt-2 w-full"/>
                 </template>
 
                 <!-- Form Textarea -->
                 <template v-if="formAttribute.type == 'textarea' && formAttribute.required">
-                    <vs-textarea label="Label in Textarea" v-model="form.attribute[formAttribute.name]" class="mt-5 w-full"/>
+                    <label>{{ $t(formAttribute.name) }}</label>
+                    <vs-textarea label="Label in Textarea" v-model="form.attribute[formAttribute.name]" class="mt-2 w-full"/>
                 </template>
                 
                 <!-- Form Checkbox -->
                 <template v-if="formAttribute.type == 'checkbox' && formAttribute.required">
+                    <label>{{ $t(formAttribute.name) }}</label>
                     <vs-checkbox v-model="form.attribute[formAttribute.name]"> {{$t(formAttribute.name)}}</vs-checkbox>
                 </template>
 
                 <!-- Form Date -->
-                <div v-if="formAttribute.type == 'date'" class="mt-4">
-                    <label class="mb-2">{{ $t(formAttribute.name) }}</label>
+                <div v-if="formAttribute.type == 'date'">
+                    <label>{{ $t(formAttribute.name) }}</label>
                     <span v-if="formAttribute.required">
-                        <flat-pickr :name="formAttribute.name" v-model="form.attribute[formAttribute.name]"
-                            class="w-full" />
+                        <!-- <flat-pickr :name="formAttribute.name" v-model="form.attribute[formAttribute.name]"
+                            class="w-full" /> -->
+                        <vs-input :placeholder="$t(formAttribute.name)" v-model="form.attribute[formAttribute.name]" :name="formAttribute.name"
+                            size="small" class="mt-2 w-full" />
                     </span>
                 </div>
     
@@ -43,7 +50,7 @@
     
         </div>
         <span class="pull-right">
-            <vs-button type="filled" @click.prevent="initSearch" class="mt-5 block">{{$t("btn_search")}}</vs-button>
+            <vs-button type="filled" @click.prevent="initSearch" class="mt-2 block">{{$t("btn_search")}}</vs-button>
         </span>
     </vx-card>
 </template>

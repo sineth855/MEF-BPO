@@ -3,17 +3,17 @@
 
     <div class="vx-row">
       <div class="vx-col md:w-1/2 w-full mt-5">
-        <vs-input aria-disabled="true" label="អ្នកប្រើប្រាស់" autocomplete="off" name="username" v-model="username" class="w-full" v-validate="'required'"/>
+        <vs-input aria-disabled="true" :label="$t('setting_user')" autocomplete="off" name="username" v-model="username" class="w-full" v-validate="'required'"/>
         <span class="text-danger">{{ errors.first('username') }}</span>
       </div>
 
       <div class="vx-col md:w-1/2 w-full mt-5">
-        <vs-input type="password" label="លេខសម្ងាត់" autocomplete="off" name="password" v-model="password" class="w-full" v-validate="'required'"/>
+        <vs-input type="password" :label="$t('setting_password')" autocomplete="off" name="password" v-model="password" class="w-full" v-validate="'required'"/>
         <span class="text-danger">{{ errors.first('password') }}</span>
       </div>
 
       <div class="vx-col md:w-1/2 w-full mt-5">
-        <vs-input type="password" label="បញ្ជាក់លេខសម្ងាត់" autocomplete="off" name="confirm_password" v-model="confirm_password" class="w-full" v-validate="'required'"/>
+        <vs-input type="password" :label="$t('setting_conf_password')" autocomplete="off" name="confirm_password" v-model="confirm_password" class="w-full" v-validate="'required'"/>
         <span class="text-danger">{{ errors.first('confirm_password') }}</span>
       </div>
     </div>
@@ -24,7 +24,7 @@
 
     <!-- Save & Reset Button -->
     <div class="flex flex-wrap items-center justify-end">
-      <vs-button class="ml-auto mt-2" @click="saveGeneral()">រក្សាទុក</vs-button>
+      <vs-button class="ml-auto mt-2" @click="saveGeneral()">{{ $t("btn_save")}}</vs-button>
       <!-- <vs-button class="ml-4 mt-2" type="border" color="warning">Reset</vs-button> -->
     </div>
   </vx-card>

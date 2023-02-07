@@ -1,19 +1,16 @@
 <template>
-
   <vs-tabs position="top" class="tabs-shadow-none" id="profile-tabs" :key="isSmallerScreen">
+    <vs-tab icon-pack="feather" icon="icon-edit" :label="!isSmallerScreen ? 'ពត៌មានទូទៅ' : ''">
+      <div class="tab-general md:ml-4 md:mt-0 mt-4 ml-0">
+        <setting-general />
+      </div>
+    </vs-tab>
     
     <vs-tab icon-pack="feather" icon="icon-settings" :label="!isSmallerScreen ? 'គណនេយ្យ និងរដ្ឋបាល' : ''">
       <div class="tab-text md:ml-4 md:mt-0 mt-4 ml-0">
         <setting-account-admin />
       </div>
     </vs-tab>
-
-    <vs-tab icon-pack="feather" icon="icon-edit" :label="!isSmallerScreen ? 'ពត៌មានទូទៅ' : ''">
-      <div class="tab-general md:ml-4 md:mt-0 mt-4 ml-0">
-        <setting-general />
-      </div>
-    </vs-tab>
-
 
     <vs-tab icon-pack="feather" icon="icon-users" :label="!isSmallerScreen ? 'រចនាសម្ព័ន្ធ' : ''">
       <div class="tab-text md:ml-4 md:mt-0 mt-4 ml-0">

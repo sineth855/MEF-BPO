@@ -1,18 +1,8 @@
-<!-- =========================================================================================
-    File Name: TabsAlignments.vue
-    Description: Align your tabs using alignments prop
-    ----------------------------------------------------------------------------------------
-    Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
-      Author: Pixinvent
-    Author URL: http://www.themeforest.net/user/pixinvent
-========================================================================================== -->
-
-
 <template>
-    <vx-card title="កំណត់គណនេយ្យ និងរដ្ឋបាល" code-toggler>
+    <vx-card :title="$t('setting_account_administration')" code-toggler>
         <div class="mt-5">
             <vs-tabs alignment="center">
-                <vs-tab label="ទិន្នន័យផលិតផល/សេវ៉ាកម្ម">
+                <vs-tab :label="$t('setting_product_service')">
                     <vx-card>
                         <vs-table ref="table" multiple v-model="selected" pagination :max-items="itemsPerPage" search :data="items">
                             <div slot="header" class="flex flex-wrap-reverse items-center flex-grow justify-between">
@@ -92,38 +82,39 @@
                             </div>
 
                             <template slot="thead">
-                                <vs-th sort-key="">កូដ</vs-th>
-                                <vs-th sort-key="">ក្រុម/ជំពូក</vs-th>
-                                <vs-th sort-key="">ប្រភេទគណនី</vs-th>
-                                <vs-th sort-key="">ឈ្មោះ</vs-th>
-                                <vs-th sort-key="">ឯកតា/រង្វាស់</vs-th>
-                                <vs-th sort-key="">ពិព័ណ៌នា</vs-th>
-                                <vs-th sort-key="">លំដាប់</vs-th>
-                                <vs-th>​​ប៊ូតុងសកម្ម</vs-th>
+                                <vs-th sort-key="">{{ $t("code")}}</vs-th>
+                                <vs-th sort-key="">{{ $t("account_group")}}</vs-th>
+                                <vs-th sort-key="">{{ $t("group_chapter")}}</vs-th>
+                                <vs-th sort-key="">{{ $t("account_type")}}</vs-th>
+                                <vs-th sort-key="">{{ $t("name")}}</vs-th>
+                                <vs-th sort-key="">{{ $t("unit")}}</vs-th>
+                                <vs-th sort-key="">{{ $t("description")}}</vs-th>
+                                <vs-th sort-key="">{{ $t("order_level")}}</vs-th>
+                                <vs-th>{{ $t("action_button") }}</vs-th>
                             </template>
 
                             <template slot-scope="{data}">
                                 <tbody>
                                     <vs-tr :data="tr" :key="indextr" v-for="(tr, indextr) in data">
-                                    <vs-td>{{ tr.code }}</vs-td>
-                                    <vs-td>{{ tr.account_group }}</vs-td>
-                                    <vs-td>{{ tr.account_type }}</vs-td>
-                                    <vs-td>{{ tr.name }}</vs-td>
-                                    <vs-td>{{ tr.unit }}</vs-td>
-                                    <vs-td>{{ tr.description }}</vs-td>
-                                    <vs-td>{{ tr.order_level }}</vs-td>
-                                    <vs-td class="whitespace-no-wrap">
-                                        <feather-icon icon="EditIcon" svgClasses="w-5 h-5 hover:text-primary stroke-current" @click.stop="editData(tr)" />
-                                        <feather-icon icon="TrashIcon" svgClasses="w-5 h-5 hover:text-danger stroke-current" class="ml-2" @click.stop="deleteData(tr.id)" />
-                                    </vs-td>
-
+                                        <vs-td>{{ tr.code }}</vs-td>
+                                        <vs-td>{{ tr.account_group }}</vs-td>
+                                        <vs-td>{{ tr.account_type }}</vs-td>
+                                        <vs-td>{{ tr.account_type }}</vs-td>
+                                        <vs-td>{{ tr.name }}</vs-td>
+                                        <vs-td>{{ tr.unit }}</vs-td>
+                                        <vs-td>{{ tr.description }}</vs-td>
+                                        <vs-td>{{ tr.order_level }}</vs-td>
+                                        <vs-td class="whitespace-no-wrap">
+                                            <feather-icon icon="EditIcon" svgClasses="w-5 h-5 hover:text-primary stroke-current" @click.stop="editData(tr)" />
+                                            <feather-icon icon="TrashIcon" svgClasses="w-5 h-5 hover:text-danger stroke-current" class="ml-2" @click.stop="deleteData(tr.id)" />
+                                        </vs-td>
                                     </vs-tr>
                                 </tbody>
                             </template>
                         </vs-table>
                     </vx-card>
                 </vs-tab>
-                <vs-tab label="ក្រុម/ជំពូកគណនី">
+                <vs-tab :label="$t('setting_group_chapter')">
                     <vx-card>
                         <vs-table ref="table" multiple v-model="selected" pagination :max-items="itemsPerPage" search :data="accountGroups">
                             <div slot="header" class="flex flex-wrap-reverse items-center flex-grow justify-between">
@@ -232,7 +223,7 @@
                         </vs-table>
                     </vx-card>
                 </vs-tab>
-                <vs-tab label="គណនី/អនុគណនី">
+                <vs-tab :label="$t('setting_account_sub_account')">
                     <vx-card>
                         <vs-table ref="table" multiple v-model="selected" pagination :max-items="itemsPerPage" search :data="accounts">
                             <div slot="header" class="flex flex-wrap-reverse items-center flex-grow justify-between">
@@ -343,7 +334,7 @@
                         </vs-table>
                     </vx-card>
                 </vs-tab>
-                 <vs-tab label="ប្រភេទតារាងតម្លៃ">
+                 <vs-tab :label="$t('setting_cost_list')">
                     <vx-card>
                         <vs-table ref="table" multiple v-model="selected" pagination :max-items="itemsPerPage" search :data="price_list_groups">
                             <div slot="header" class="flex flex-wrap-reverse items-center flex-grow justify-between">
@@ -452,7 +443,7 @@
                         </vs-table>
                     </vx-card>
                 </vs-tab>
-                <vs-tab label="គំរូថវិកា">
+                <vs-tab :label="$t('setting_budget_template')">
                     <div></div>
                 </vs-tab>
             </vs-tabs>

@@ -1,19 +1,9 @@
-<!-- =========================================================================================
-    File Name: TabsAlignments.vue
-    Description: Align your tabs using alignments prop
-    ----------------------------------------------------------------------------------------
-    Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
-      Author: Pixinvent
-    Author URL: http://www.themeforest.net/user/pixinvent
-========================================================================================== -->
-
-
 <template>
     <!-- <vx-card title="អង្គភាព" code-toggler> -->
         <div class="mt-5">
-            <h6 class="mb-3"> អង្គភាព </h6>
+            <h6 class="mb-3"> {{ $t("setting_entity")}} </h6>
             <vs-tabs position="top" alignment="left" class="mt-8">
-                <vs-tab label="លេខាធិការដ្ឋាន">
+                <vs-tab :label="$t('setting_secretary')">
                     <vx-card>
                         <vs-table ref="table" multiple v-model="selected" pagination :max-items="itemsPerPage" search :data="data">
                             <div slot="header" class="flex flex-wrap-reverse items-center flex-grow justify-between">
@@ -126,7 +116,7 @@
                         </vs-table>
                     </vx-card>
                 </vs-tab>
-                <vs-tab label="ផ្នែក">
+                <vs-tab :label="$t('setting_department')">
                     <vx-card>
                         <vs-table ref="table" multiple v-model="selected" pagination :max-items="itemsPerPage" search :data="departments">
                             <div slot="header" class="flex flex-wrap-reverse items-center flex-grow justify-between">
@@ -237,10 +227,10 @@
                         </vs-table>
                     </vx-card>
                 </vs-tab>
-                <vs-tab label="រចនាសម្ព័ន្ធ">
+                <vs-tab :label="$t('setting_structure')">
                     <div></div>
                 </vs-tab>
-                <vs-tab label="ងារ">
+                <vs-tab :label="$t('setting_title')">
                     <vx-card>
                         <vs-table ref="table" multiple v-model="selected" pagination :max-items="itemsPerPage" search :data="titles">
                             <div slot="header" class="flex flex-wrap-reverse items-center flex-grow justify-between">
@@ -353,7 +343,7 @@
                         </vs-table>
                     </vx-card>
                 </vs-tab>
-                <vs-tab label="តំណែង">
+                <vs-tab :label="$t('setting_position')">
                     <vx-card>
                         <vs-table ref="table" multiple v-model="selected" pagination :max-items="itemsPerPage" search :data="positions">
                             <div slot="header" class="flex flex-wrap-reverse items-center flex-grow justify-between">

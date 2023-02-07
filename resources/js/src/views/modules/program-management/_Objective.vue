@@ -25,10 +25,10 @@ export default {
             },
             dataHeaders: {
                 // header1: "id",
-                header2: "name",
-                header3: "name_kh",
-                header4: "remark",
-                header5: "order_level",
+                header1: "name",
+                header2: "name_kh",
+                // header3: "remark",
+                header4: "order_level",
             },
             data: {},
             formAttributes: [
@@ -42,12 +42,12 @@ export default {
                     type: "text",
                     required: true
                 },
-                {
-                    name: "select",
-                    type: "select",
-                    required: false,
-                    options: [],//this.data.titles
-                },
+                // {
+                //     name: "select",
+                //     type: "select",
+                //     required: false,
+                //     options: [],//this.data.titles
+                // },
                 {
                     name: "order_level",
                     type: "number",
@@ -55,7 +55,7 @@ export default {
                 },
                 {
                     name: "remark",
-                    type: "text",
+                    type: "textarea",
                     required: false
                 },
                 {

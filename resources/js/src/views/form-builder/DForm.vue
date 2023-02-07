@@ -33,7 +33,7 @@
                         <v-select :name="formAttribute.name" v-model="form.attribute[formAttribute.name]" :options="formAttribute.options" :dir="$vs.rtl ? 'rtl' : 'ltr'"
                             v-validate="'required'" />
                         <span class="text-danger text-sm" v-show="errors.has(formAttribute.name)">{{ $t("required_"+formAttribute.name)
-                            }}</span>
+                        }}</span>
                     </span>
                     <span v-else>
                         <v-select v-model="form.attribute[formAttribute.name]" @v-blur="onChange($event)" :options="formAttribute.options" :clearable="false" :dir="$vs.rtl ? 'rtl' : 'ltr'" class="w-full"></v-select>
@@ -55,12 +55,12 @@
                 <div v-if="formAttribute.type == 'textarea'" class="mt-4">
                     <label class="mb-2">{{ $t(formAttribute.name) }}</label>
                     <span v-if="formAttribute.required">
-                        <vs-textarea label="Label in Textarea" v-validate="'required'" class="w-full" v-model="form.attribute[formAttribute.name]" />
+                        <vs-textarea v-validate="'required'" class="w-full" v-model="form.attribute[formAttribute.name]" />
                         <span class="text-danger text-sm" v-show="errors.has(formAttribute.name)">{{ $t("required_" + formAttribute.name)
                         }}</span>
                     </span>
                     <span v-else>
-                        <vs-textarea label="Label in Textarea" class="w-full" v-model="form.attribute[formAttribute.name]" />
+                        <vs-textarea class="w-full" v-model="form.attribute[formAttribute.name]" />
                     </span>
                 </div>
 
