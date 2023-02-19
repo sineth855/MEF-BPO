@@ -248,47 +248,84 @@ export default {
             }
           }
         ],
+        status: [
+          {
+            label: "កំពុងដំណើរការ",
+            value: 1
+          },
+          {
+            label: "គម្រោងថ្មី",
+            value: 2,
+          }
+        ],
+        pip_project_type: [
+          {
+            label: "គម្រោងវិនិយោគជាទុន",
+            value: 1
+          },
+          {
+            label: "គម្រោងជំនួយបច្ចេកទេស",
+            value: 2,
+          }
+        ],
+        sub_program_id: [
+          {
+            "label": "អនុកម្មវិធីទី១",
+            "value": 1,
+          },
+          {
+            "label": "អនុកម្មវិធីទី២",
+            "value": 2,
+          }
+        ],
+        entity_id: [
+          {
+            "label": "អង្គភាពទី១",
+            "value": 1,
+          },
+          {
+            "label": "អង្គភាពទី២",
+            "value": 2,
+          }
+        ],
+        entity_member_id: [
+          {
+            "label": "សមាជិកទី១",
+            "value": 1,
+          },
+          {
+            "label": "សមាជិកទី២",
+            "value": 2,
+          }
+        ],
         limit: 10,
         total: 3,
       },
       formAttributes: [
         {
-          name: "objective",
+          name: "sub_program_id",
           type: "select",
           required: true,
-          hasDefault: true,
-          defaultOptions: {
-            label: "គោលបំណងទី១",
-            value: 1,
-          },
-          options: [
-            {
-              label: "គោលបំណងទី១",
-              value: 1,
-            },
-            {
-              label: "គោលបំណងទី២",
-              value: 2,
-            }
-          ],
+          // hasDefault: true,
+          // defaultOptions: {
+          //   label: "គោលបំណងទី១",
+          //   value: 1,
+          // },
+          options: [],
+        },
+        {
+          name: "pip_code",
+          type: "text",
+          required: true
         },
         {
           name: "pip_project_type",
           type: "select",
           required: true,
-          options: [
-            {
-              value: 1,
-              label: "គម្រោងវិនិយោគជាទុន"
-            },
-            {
-              value: 2,
-              label: "គម្រោងជំនួយបច្ចេកទេស"
-            }
-          ],
+          options: [],
         },
         {
-          name: "name",
+          name: "name_en",
           type: "text",
           required: true
         },
@@ -298,18 +335,15 @@ export default {
           required: true
         },
         {
-          name: "responsible_entity",
+          name: "entity_id",
           type: "select",
-          options: [
-            { id: 1, label: 'អង្គភាពទី១' },
-            { id: 3, label: 'អង្គភាពទី២' },
-            { id: 2, label: 'អង្គភាពទី៣' },
-          ],
+          options: [],
           required: true
         },
         {
-          name: "responsible_person",
-          type: "text",
+          name: "entity_member_id",
+          type: "select",
+          options: [],
           required: true
         },
         {
@@ -318,7 +352,7 @@ export default {
           required: false
         },
         {
-          name: "ប្រភពហិរញ្ញបទាន",
+          name: "pip_source_funding",
           type: "checkbox",
           required: false,
           attributes: [
@@ -338,12 +372,56 @@ export default {
         },
 
         {
-          name: "ស្ថានភាពនៃការអនុវត្តគម្រោង ",
+          name: "មុំនៃគោលនយោបាយក្នុងយុទ្ធសាស្រ្តចតុកោណ ដំណាក់កាលទី៤ ដែលគម្រោងស្ថិតនៅ៖ ",
           type: "textarea",
           required: false
         },
         {
-          name: "សមត្ថភាពអនុវត្តគម្រោង ",
+          name: "ការចូលរួមចំណែករបស់គម្រោងក្នុងការសម្រេចបានគោលនយោបាយអាទិភាពខាងលើ ",
+          type: "textarea",
+          required: false
+        }, {
+          name: "វិស័យ (សូមប្រើវិស័យ អនុវិស័យ ដែលមានចែងក្នុង ផ.យ.អ.ជ. ២០១៩-២០២៣) ",
+          type: "textarea",
+          required: false
+        }, {
+          name: "ទីតាំងអនុវត្តគម្រោង (ពិពណ៌នាពីទីតាំងដែលត្រូវអនុវត្តគម្រោង- ឈ្មោះខេត្ត)",
+          type: "textarea",
+          required: false
+        }, {
+          name: "គោលបំណងរបស់គម្រោង (ពិពណ៌នាគោលបំណងចម្បងៗរបស់គម្រោង)",
+          type: "textarea",
+          required: false
+        }, {
+          name: "ការពិពណ៌នាអំពីគម្រោង (ពិពណ៌នាអំពីសមាសភាគទាំងអស់របស់គម្រោង)",
+          type: "textarea",
+          required: false
+        }, {
+          name: "យុត្តិកម្មលើគម្រោង (សូមផ្តល់ហេតុផលដែលគម្រោងនេះត្រូវបានចាត់ទុកថាមានប្រយោជន៍)",
+          type: "textarea",
+          required: false
+        }, {
+          name: "ផលប្រយោជន៍របស់គម្រោង (រៀបរាប់ពីអ្នកដែលនឹងទទួលប្រយោជន៍ផ្ទាល់និងមិនផ្ទាល់ពីការអនុវត្តគម្រោង)",
+          type: "textarea",
+          required: false
+        }, {
+          name: "ផលប៉ះពាល់ផ្នែកបរិស្ថាននិងសង្គម (ពណ៌នាសង្ខេបពីផលប៉ះពាល់របស់គម្រោងលើប្រជាជននិងបរិស្ថានជុំវិញ ប្រសិនបើមាន។ តើគម្រោងនេះនឹងជួយដល់ការកាត់បន្ថយភាពក្រីក្រដែរឬទេ?)",
+          type: "textarea",
+          required: false
+        }, {
+          name: "ការវិភាគយេនឌ័រ (តើគម្រោងនេះមានផលប៉ះពាល់ដល់តួនាទីរបស់បុរសនិងស្រ្តីក្នុងទីតាំងរបស់គម្រោងនេះដូចម្តេច? តើស្រ្តីនឹងត្រូវចូលរួមយ៉ាងសកម្មក្នុងការអនុវត្តគម្រោងនេះដែរឬទេ?)",
+          type: "textarea",
+          required: false
+        }, {
+          name: "សមត្ថភាពអនុវត្តគម្រោង (តើក្រសួងមានជំនាញនិងបទពិសោធន៍គ្រប់គ្រាន់សម្រាប់អនុវត្តគម្រោងដែរឬទេ?)",
+          type: "textarea",
+          required: false
+        }, {
+          name: "ស្ថានភាពនៃការអនុវត្តគម្រោង (ពិពណ៌នាសង្ខេបអំពីវឌ្ឍនភាពរបស់គម្រោងនិងបង្ហាញអំពីភាពប្រឈមនានាដែលបណ្តាលឲ្យមានការពន្យារពេលក្នុងការអនុវត្តគម្រោង។)",
+          type: "textarea",
+          required: false
+        }, {
+          name: "ការចូលរួមរបស់ដៃគូអភិវឌ្ឍ (ផ្តល់ព័ត៌មានអំពីដៃគូអភិវឌ្ឍសក្តានុពល ដែលពាក់ព័ន្ធនឹងគម្រោងនេះ)",
           type: "textarea",
           required: false
         },

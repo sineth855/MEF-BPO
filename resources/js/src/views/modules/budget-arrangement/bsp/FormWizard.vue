@@ -1,19 +1,54 @@
 <template>
   <div>
     <vx-card title="" code-toggler>
-      <!-- <step-subprogram></step-subprogram> -->
       <!-- <step-income-plan></step-income-plan> -->
-      <!-- <step-expense-demand></step-expense-demand> -->
       <div class="mt-5">
         <form-wizard color="rgba(var(--vs-primary), 1)" errorColor="rgba(var(--vs-danger), 1)" :title="null" :subtitle="null" finishButtonText="Submit">
+          <!-- Tab 1  -->
+          <tab-content title="រៀបចំផែនការយុទ្ធសាស្ត្រថវិកា" class="mb-5" icon="feather icon-home" :before-change="validateStep1">
+            <!-- tab 1 content -->
+            <vx-card title="ផែនការយុទ្ធសាស្ត្រថវិកា" code-toggler>
+              <div class="mt-5">
+                <vs-collapse>
+                  <vs-collapse-item>
+                    <div slot="header" style="color: #fff; background-color:#28c76f; padding: 10px;">អនុកម្មវិធី អ្នកគ្រប់គ្រង
+                      និងអង្គភាពទទួលខុសត្រូវ</div>
+                    <step-subprogram></step-subprogram>
+                  </vs-collapse-item>
+          
+                  <vs-collapse-item>
+                    <div slot="header" style="color: #fff; background-color:#C0C9C4; padding: 10px;">ការកំណត់សូចនាករ
+                      និងគោលដៅសូចនាករ នៃអនុកម្មវិធី សង្កោមសកម្មភាព និងសកម្មភាព</div>
+                    <step-indicator></step-indicator>
+                  </vs-collapse-item>
+          
+                  <vs-collapse-item _disabled>
+                    <div slot="header" style="color: #fff; background-color:#C0C9C4; padding: 10px;">ការគ្រោងចំណូល</div>
+                    <!-- ###################### -->
+                    <step-income-plan></step-income-plan>
+                    <!-- ###################### -->
+                  </vs-collapse-item>
+          
+                  <vs-collapse-item>
+                    <div slot="header" style="color: #fff; background-color:#C0C9C4; padding: 10px;">
+                      ការកំណត់តម្រូវការចំណាយសម្រាប់អនុកម្មវិធី</div>
+                    <!-- ###################### -->
+                    <step-expense-demand></step-expense-demand>
+                    <!-- ###################### -->
+                  </vs-collapse-item>
+                </vs-collapse>
+              </div>
+            </vx-card>
+          </tab-content>
+
           <!-- tab 2 content -->
-          <tab-content title="រៀបចំកញ្ចប់ថវិកា" class="mb-5" icon="feather icon-briefcase" :before-change="validateStep2">
+          <!-- <tab-content title="រៀបចំកញ្ចប់ថវិកា" class="mb-5" icon="feather icon-briefcase" :before-change="validateStep2">
             <vs-collapse>
               <vs-collapse-item>
                 <div slot="header" style="color: #fff; background-color:#C0C9C4; padding: 10px;">
-                  <!-- <vs-alert color="primary" icon="new_releases" active="true" class="mt-5"> -->
+                  <vs-alert color="primary" icon="new_releases" active="true" class="mt-5">
                   គម្រោងថវិកាចំណាយតាមចំណាត់ថ្នាក់សេដ្ឋកិច្ច
-                  <!-- </vs-alert> -->
+                  </vs-alert>
                 </div>
                 <step-economic-exppb></step-economic-exppb>
               </vs-collapse-item>
@@ -35,41 +70,7 @@
                 <step-KPI></step-KPI>
               </vs-collapse-item>
             </vs-collapse>
-          </tab-content>
-
-          <!-- Tab 1  -->
-          <tab-content title="រៀបចំផែនការយុទ្ធសាស្ត្រថវិកា" class="mb-5" icon="feather icon-home" :before-change="validateStep1">
-            <!-- tab 1 content -->
-            <vx-card title="ផែនការយុទ្ធសាស្ត្រថវិកា" code-toggler>
-              <div class="mt-5">
-                  <vs-collapse>
-                    <vs-collapse-item>
-                      <div slot="header" style="color: #fff; background-color:#28c76f; padding: 10px;">អនុកម្មវិធី អ្នកគ្រប់គ្រង និងអង្គភាពទទួលខុសត្រូវ</div>
-                      <step-subprogram></step-subprogram>
-                    </vs-collapse-item>
-
-                    <vs-collapse-item>
-                      <div slot="header" style="color: #fff; background-color:#C0C9C4; padding: 10px;">ការកំណត់សូចនាករ និងគោលដៅសូចនាករ នៃអនុកម្មវិធី សង្កោមសកម្មភាព និងសកម្មភាព</div>
-                      <step-indicator></step-indicator>
-                    </vs-collapse-item>
-
-                    <vs-collapse-item _disabled>
-                      <div slot="header" style="color: #fff; background-color:#C0C9C4; padding: 10px;">ការគ្រោងចំណូល</div>
-                      <!-- ###################### -->
-                      <step-income-plan></step-income-plan>
-                      <!-- ###################### -->
-                    </vs-collapse-item>
-
-                    <vs-collapse-item>
-                        <div slot="header" style="color: #fff; background-color:#C0C9C4; padding: 10px;">ការកំណត់តម្រូវការចំណាយសម្រាប់អនុកម្មវិធី</div>
-                        <!-- ###################### -->
-                        <step-expense-demand></step-expense-demand>
-                        <!-- ###################### -->
-                    </vs-collapse-item>
-                  </vs-collapse>
-              </div>
-            </vx-card>
-          </tab-content>
+          </tab-content> -->
 
           <!-- tab 3 content -->
           <tab-content title="បោះពុម្ភ" class="mb-5" icon="feather icon-image" :before-change="validateStep3">

@@ -14,9 +14,9 @@ import DTableList from '@/views/form-builder/DTableList.vue'
 export default {
   data() {
     return {
-      title: "ProgramObjective",
-      api: apiConfig._apiObjective,
-      dataAttributes: {
+        title: "CeilingBudget",
+        api: apiConfig._apiObjective,
+        dataAttributes: {
         tableStyle: 1,
         page_number: 1,
         offset: 0,
@@ -78,6 +78,20 @@ export default {
               order_level: 1
             },
           ],
+          status: [
+              {
+                  label: "កំពុងដំណើរការ",
+                  value: 1
+              },
+              {
+                  label: "បញ្ចប់",
+                  value: 2,
+              },
+              {
+                  label: "បានអនុម័ត",
+                  value: 3,
+              }
+          ],
         limit: 10,
         total: 3,
       },
@@ -114,6 +128,10 @@ export default {
                   {
                       label: "បញ្ចប់",
                       value: 2,
+                  },
+                  {
+                      label: "បានអនុម័ត",
+                      value: 3,
                   }
               ],
           },

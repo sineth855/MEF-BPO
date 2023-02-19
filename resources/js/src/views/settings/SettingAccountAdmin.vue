@@ -3,12 +3,12 @@
         <div class="mt-5">
             <vs-tabs alignment="center">
                 <vs-tab :label="$t('setting_product_service')">
-                    <vx-card>
+                    <product-service></product-service>
+                    <!-- <vx-card>
                         <vs-table ref="table" multiple v-model="selected" pagination :max-items="itemsPerPage" search :data="items">
                             <div slot="header" class="flex flex-wrap-reverse items-center flex-grow justify-between">
                                 <div class="flex flex-wrap-reverse items-center data-list-btn-container">
 
-                                    <!-- ACTION - DROPDOWN -->
                                     <vs-dropdown vs-trigger-click class="dd-actions cursor-pointer mr-4 mb-4">
 
                                         <div class="p-4 shadow-drop rounded-lg d-theme-dark-bg cursor-pointer flex items-center justify-center text-lg font-medium w-32 w-full">
@@ -49,20 +49,17 @@
                                         </vs-dropdown-menu>
                                     </vs-dropdown>
 
-                                    <!-- ADD NEW -->
                                     <div class="btn-add-new p-3 mb-4 mr-4 rounded-lg cursor-pointer flex items-center justify-center text-lg font-medium text-base text-primary border border-solid border-primary" @click="addNewData">
                                         <feather-icon icon="PlusIcon" svgClasses="h-4 w-4" />
                                         <span class="ml-2 text-base text-primary">{{$t("AddNew")}}</span>
                                     </div>
                                 </div>
                                 
-                                <!-- ITEMS PER PAGE -->
                                 <vs-dropdown vs-trigger-click class="cursor-pointer mb-4 mr-4 items-per-page-handler">
                                     <div class="p-4 border border-solid d-theme-border-grey-light rounded-full d-theme-dark-bg cursor-pointer flex items-center justify-between font-medium">
                                         <span class="mr-2">{{ currentPage * itemsPerPage - (itemsPerPage - 1) }} - {{ products.length - currentPage * itemsPerPage > 0 ? currentPage * itemsPerPage : products.length }} of {{ queriedItems }}</span>
                                         <feather-icon icon="ChevronDownIcon" svgClasses="h-4 w-4" />
                                     </div>
-                                    <!-- <vs-button class="btn-drop" type="line" color="primary" icon-pack="feather" icon="icon-chevron-down"></vs-button> -->
                                     <vs-dropdown-menu>
 
                                         <vs-dropdown-item @click="itemsPerPage=4">
@@ -112,15 +109,15 @@
                                 </tbody>
                             </template>
                         </vs-table>
-                    </vx-card>
+                    </vx-card> -->
                 </vs-tab>
                 <vs-tab :label="$t('setting_group_chapter')">
-                    <vx-card>
+                    <account-group></account-group>
+                    <!-- <vx-card>
                         <vs-table ref="table" multiple v-model="selected" pagination :max-items="itemsPerPage" search :data="accountGroups">
                             <div slot="header" class="flex flex-wrap-reverse items-center flex-grow justify-between">
                                 <div class="flex flex-wrap-reverse items-center data-list-btn-container">
 
-                                    <!-- ACTION - DROPDOWN -->
                                     <vs-dropdown vs-trigger-click class="dd-actions cursor-pointer mr-4 mb-4">
 
                                         <div class="p-4 shadow-drop rounded-lg d-theme-dark-bg cursor-pointer flex items-center justify-center text-lg font-medium w-32 w-full">
@@ -161,7 +158,6 @@
                                         </vs-dropdown-menu>
                                     </vs-dropdown>
 
-                                    <!-- ADD NEW -->
                                     <div class="btn-add-new p-3 mb-4 mr-4 rounded-lg cursor-pointer flex items-center justify-center text-lg font-medium text-base text-primary border border-solid border-primary" @click="addNewData">
                                         <feather-icon icon="PlusIcon" svgClasses="h-4 w-4" />
                                         <span class="ml-2 text-base text-primary">{{$t("AddNew")}}</span>
@@ -172,13 +168,11 @@
                                     <popup-fullscreen></popup-fullscreen>
                                 </div>
                                 
-                                <!-- ITEMS PER PAGE -->
                                 <vs-dropdown vs-trigger-click class="cursor-pointer mb-4 mr-4 items-per-page-handler">
                                     <div class="p-4 border border-solid d-theme-border-grey-light rounded-full d-theme-dark-bg cursor-pointer flex items-center justify-between font-medium">
                                         <span class="mr-2">{{ currentPage * itemsPerPage - (itemsPerPage - 1) }} - {{ products.length - currentPage * itemsPerPage > 0 ? currentPage * itemsPerPage : products.length }} of {{ queriedItems }}</span>
                                         <feather-icon icon="ChevronDownIcon" svgClasses="h-4 w-4" />
                                     </div>
-                                    <!-- <vs-button class="btn-drop" type="line" color="primary" icon-pack="feather" icon="icon-chevron-down"></vs-button> -->
                                     <vs-dropdown-menu>
 
                                         <vs-dropdown-item @click="itemsPerPage=4">
@@ -221,15 +215,15 @@
                                 </tbody>
                             </template>
                         </vs-table>
-                    </vx-card>
+                    </vx-card> -->
                 </vs-tab>
                 <vs-tab :label="$t('setting_account_sub_account')">
-                    <vx-card>
+                    <account></account>
+                    <!-- <vx-card>
                         <vs-table ref="table" multiple v-model="selected" pagination :max-items="itemsPerPage" search :data="accounts">
                             <div slot="header" class="flex flex-wrap-reverse items-center flex-grow justify-between">
                                 <div class="flex flex-wrap-reverse items-center data-list-btn-container">
 
-                                    <!-- ACTION - DROPDOWN -->
                                     <vs-dropdown vs-trigger-click class="dd-actions cursor-pointer mr-4 mb-4">
 
                                         <div class="p-4 shadow-drop rounded-lg d-theme-dark-bg cursor-pointer flex items-center justify-center text-lg font-medium w-32 w-full">
@@ -270,7 +264,6 @@
                                         </vs-dropdown-menu>
                                     </vs-dropdown>
 
-                                    <!-- ADD NEW -->
                                     <div class="btn-add-new p-3 mb-4 mr-4 rounded-lg cursor-pointer flex items-center justify-center text-lg font-medium text-base text-primary border border-solid border-primary" @click="addNewData">
                                         <feather-icon icon="PlusIcon" svgClasses="h-4 w-4" />
                                         <span class="ml-2 text-base text-primary">{{$t("AddNew")}}</span>
@@ -281,13 +274,11 @@
                                     <popup-fullscreen></popup-fullscreen>
                                 </div>
                                 
-                                <!-- ITEMS PER PAGE -->
                                 <vs-dropdown vs-trigger-click class="cursor-pointer mb-4 mr-4 items-per-page-handler">
                                     <div class="p-4 border border-solid d-theme-border-grey-light rounded-full d-theme-dark-bg cursor-pointer flex items-center justify-between font-medium">
                                         <span class="mr-2">{{ currentPage * itemsPerPage - (itemsPerPage - 1) }} - {{ products.length - currentPage * itemsPerPage > 0 ? currentPage * itemsPerPage : products.length }} of {{ queriedItems }}</span>
                                         <feather-icon icon="ChevronDownIcon" svgClasses="h-4 w-4" />
                                     </div>
-                                    <!-- <vs-button class="btn-drop" type="line" color="primary" icon-pack="feather" icon="icon-chevron-down"></vs-button> -->
                                     <vs-dropdown-menu>
 
                                         <vs-dropdown-item @click="itemsPerPage=4">
@@ -332,15 +323,15 @@
                                 </tbody>
                             </template>
                         </vs-table>
-                    </vx-card>
+                    </vx-card> -->
                 </vs-tab>
                  <vs-tab :label="$t('setting_cost_list')">
-                    <vx-card>
+                    <price-list-type></price-list-type>
+                    <!-- <vx-card>
                         <vs-table ref="table" multiple v-model="selected" pagination :max-items="itemsPerPage" search :data="price_list_groups">
                             <div slot="header" class="flex flex-wrap-reverse items-center flex-grow justify-between">
                                 <div class="flex flex-wrap-reverse items-center data-list-btn-container">
 
-                                    <!-- ACTION - DROPDOWN -->
                                     <vs-dropdown vs-trigger-click class="dd-actions cursor-pointer mr-4 mb-4">
 
                                         <div class="p-4 shadow-drop rounded-lg d-theme-dark-bg cursor-pointer flex items-center justify-center text-lg font-medium w-32 w-full">
@@ -381,7 +372,6 @@
                                         </vs-dropdown-menu>
                                     </vs-dropdown>
 
-                                    <!-- ADD NEW -->
                                     <div class="btn-add-new p-3 mb-4 mr-4 rounded-lg cursor-pointer flex items-center justify-center text-lg font-medium text-base text-primary border border-solid border-primary" @click="addNewData">
                                         <feather-icon icon="PlusIcon" svgClasses="h-4 w-4" />
                                         <span class="ml-2 text-base text-primary">{{$t("AddNew")}}</span>
@@ -392,13 +382,11 @@
                                     <popup-fullscreen></popup-fullscreen>
                                 </div>
                                 
-                                <!-- ITEMS PER PAGE -->
                                 <vs-dropdown vs-trigger-click class="cursor-pointer mb-4 mr-4 items-per-page-handler">
                                     <div class="p-4 border border-solid d-theme-border-grey-light rounded-full d-theme-dark-bg cursor-pointer flex items-center justify-between font-medium">
                                         <span class="mr-2">{{ currentPage * itemsPerPage - (itemsPerPage - 1) }} - {{ products.length - currentPage * itemsPerPage > 0 ? currentPage * itemsPerPage : products.length }} of {{ queriedItems }}</span>
                                         <feather-icon icon="ChevronDownIcon" svgClasses="h-4 w-4" />
                                     </div>
-                                    <!-- <vs-button class="btn-drop" type="line" color="primary" icon-pack="feather" icon="icon-chevron-down"></vs-button> -->
                                     <vs-dropdown-menu>
 
                                         <vs-dropdown-item @click="itemsPerPage=4">
@@ -441,10 +429,11 @@
                                 </tbody>
                             </template>
                         </vs-table>
-                    </vx-card>
+                    </vx-card> -->
                 </vs-tab>
                 <vs-tab :label="$t('setting_budget_template')">
-                    <div></div>
+                    <budget-template></budget-template>
+                    <!-- <div></div> -->
                 </vs-tab>
             </vs-tabs>
         </div>
@@ -453,9 +442,19 @@
 </template>
 
 <script>
-    import moduleDataList from "@/store/data-list/moduleDataList.js"
+    import moduleDataList from "@/store/data-list/moduleDataList.js";
+    import ProductService from '@/views/settings/_Product_Service.vue';
+    import AccountGroup from '@/views/settings/_Account_Group.vue';
+    import Account from '@/views/settings/_Account.vue';
+    import PriceListType from '@/views/settings/_Price_List_Type.vue';
+    import BudgetTemplate from '@/views/settings/_Budget_Template.vue';
     export default {
     components: {
+        ProductService,
+        AccountGroup,
+        Account,
+        PriceListType,
+        BudgetTemplate
     },
     data() {
         return {

@@ -152,7 +152,8 @@
               path: "/module/budget-arrangement/budget-ceiling/list",
               method: "View"
             }
-          ]
+          ],
+          popupFullscreen: true
         },
         dataHeaders: {
           header1: {
@@ -365,10 +366,58 @@
               ]
             }
           ],
+          program_id: [
+            {
+              "label": "កម្មវិធីទី១",
+              "value": 1,
+            },
+            {
+              "label": "កម្មវិធីទី២",
+              "value": 2,
+            }
+          ],
+          sub_program_id: [
+            {
+              "label": "អនុកម្មវិធីទី១",
+              "value": 1,
+            },
+            {
+              "label": "អនុកម្មវិធីទី២",
+              "value": 2,
+            }
+          ],
+          cluster_activity_id: [
+            {
+              "label": "ចង្កោមសកម្មភាពទី១",
+              "value": 1,
+            },
+            {
+              "label": "ចង្កោមសកម្មភាពទី២",
+              "value": 2,
+            }
+          ],
           limit: 10,
           total: 3,
         },
         formAttributes: [
+          {
+            name: "program_id",
+            type: "select",
+            required: true,
+            options: [],
+          },
+          {
+            name: "sub_program_id",
+            type: "select",
+            required: true,
+            options: [],
+          },
+          {
+            name: "cluster_activity_id",
+            type: "select",
+            required: true,
+            options: [],
+          },
           {
             name: "title",
             type: "text",
@@ -380,41 +429,22 @@
             required: true
           },
           {
-            name: "ceiling_year",
-            type: "select",
-            required: true,
-            data: [
-              {
-                "id": 1,
-                "name": "គោលបំណងទី១",
-                "name_kh": ""
-              },
-              {
-                "id": 2,
-                "name": "គោលបំណងទី២",
-                "name_kh": ""
-              }
-            ],
+            name: "code_indicator",
+            type: "text",
+            required: true
           },
           {
-            name: "status",
-            type: "select",
-            required: true,
-            data: [
-              {
-                "id": 1,
-                "name": "In Progress",
-                "name_kh": "កំពុងដំណើរការ"
-              },
-              {
-                "id": 2,
-                "name": "Complete",
-                "name_kh": "បញ្ចប់"
-              }
-            ],
+            name: "target",
+            type: "text",
+            required: true
+          },
+          {
+            name: "change_reason",
+            type: "text",
+            required: true
           },
         ],
-        rowDisplay: "2grid", //1grid, 2grid, 3grid, 4grid
+        rowDisplay: "3grid", //1grid, 2grid, 3grid, 4grid
         dataFields: []
       }
     },
@@ -423,7 +453,7 @@
     },
     methods: {
       initDataForm() {
-        alert("testing");
+        // alert("testing");
       },
       getDataTable(_search_criteria) {
         let _params = {};

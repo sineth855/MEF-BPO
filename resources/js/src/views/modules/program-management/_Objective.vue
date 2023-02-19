@@ -24,16 +24,15 @@ export default {
                 dataGrid: "row",
             },
             dataHeaders: {
-                // header1: "id",
-                header1: "name",
-                header2: "name_kh",
-                // header3: "remark",
+                header1: "code",
+                header2: "name_en",
+                header3: "name_kh",
                 header4: "order_level",
             },
             data: {},
             formAttributes: [
                 {
-                    name: "name",
+                    name: "name_en",
                     type: "text",
                     required: true
                 },

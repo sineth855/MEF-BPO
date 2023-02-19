@@ -70,21 +70,31 @@ Route::group([
     ], function() {
         // គ្រប់គ្រងកម្មវិធី
         Route::post('module/program_management/objective/search', 'Modules\ProgramManagement\ObjectiveController@index');
+        Route::post('module/program_management/program/search', 'Modules\ProgramManagement\ProgramController@index');
+        Route::post('module/program_management/sub_program/search', 'Modules\ProgramManagement\SubProgramController@index');
+        Route::post('module/program_management/cluster_activity/search', 'Modules\ProgramManagement\ClusterActivityController@index');
+        Route::post('module/program_management/activity/search', 'Modules\ProgramManagement\ActivityController@index');
+        // Setting
         Route::resource('module/program_management/objective', 'Modules\ProgramManagement\ObjectiveController');
-        // 
-        Route::resource('department', 'DepartmentController');
-        Route::resource('sector', 'SectorController');
-        Route::resource('duty', 'DutyController');
-        Route::resource('entity', 'EntityController');
-        Route::resource('bank', 'BankController');
-        Route::resource('position', 'PositionController');
-        Route::resource('title', 'TitleController');
-        Route::resource('role', 'RoleController');
-        Route::resource('currency', 'CurrencyController');
-        Route::resource('taxable_salary', 'TaxableSalaryController');
-        Route::resource('notificatoin_type', 'NotificationTypeController');
-        Route::resource('circular', 'CircularController');
-        Route::resource('incentive_officer', 'IncentiveOfficerController');
+        Route::resource('module/program_management/program', 'Modules\ProgramManagement\ProgramController');
+        Route::resource('module/program_management/sub_program', 'Modules\ProgramManagement\SubProgramController');
+        Route::resource('module/program_management/cluster_activity', 'Modules\ProgramManagement\ClusterActivityController');
+        Route::resource('module/program_management/activity', 'Modules\ProgramManagement\ActivityController');
+
+        Route::resource('setting/department', 'Settings\DepartmentController');
+        Route::resource('setting/sector', 'Settings\SectorController');
+        Route::resource('setting/duty', 'Settings\DutyController');
+        Route::resource('setting/entity', 'Settings\EntityController');
+        Route::resource('setting/bank', 'Settings\BankController');
+        Route::resource('setting/position', 'Settings\PositionController');
+        Route::resource('setting/title', 'Settings\TitleController');
+        Route::resource('setting/role', 'Settings\RoleController');
+        Route::resource('setting/currency', 'Settings\CurrencyController');
+        Route::resource('setting/taxable_salary', 'Settings\TaxableSalaryController');
+        Route::resource('setting/notificatoin_type', 'Settings\NotificationTypeController');
+        Route::resource('setting/circular', 'Settings\CircularController');
+        Route::resource('setting/incentive_officer', 'Settings\IncentiveOfficerController');
+
         Route::post('update_officer_user', 'IncentiveOfficerController@updateIncentiveOfficer');
         Route::post('incentive/officer_by_bank', 'IncentiveController@getIncentiveOfficerByBanks');
         Route::resource('incentive', 'IncentiveController');

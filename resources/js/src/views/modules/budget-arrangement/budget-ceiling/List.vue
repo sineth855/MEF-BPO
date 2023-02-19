@@ -26,6 +26,7 @@ export default {
                 page_number: 1,
                 offset: 0,
                 dataGrid: "row",
+                popupFullscreen: true,
                 actionButton: [
                     {
                         icon: "EditIcon",
@@ -205,8 +206,8 @@ export default {
                                             values: [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, ""]
                                         },
                                         {
-                                            id: 1,
-                                            name: "- បន្ទុកបុគ្គលិក",
+                                            id: 2,
+                                            name: "- ក្រៅបន្ទុកបុគ្គលិក",
                                             values: [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, ""]
                                         }
                                     ],
@@ -224,7 +225,7 @@ export default {
                                                 },
                                                 {
                                                     id: 1,
-                                                    name: "- បន្ទុកបុគ្គលិក",
+                                                    name: "- ក្រៅបន្ទុកបុគ្គលិក",
                                                     values: [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, ""]
                                                 }
                                             ],
@@ -236,7 +237,7 @@ export default {
                                                 },
                                                 {
                                                     id: 1,
-                                                    name: "- បន្ទុកបុគ្គលិក",
+                                                    name: "- ក្រៅបន្ទុកបុគ្គលិក",
                                                     values: [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, ""]
                                                 }
                                             ]
@@ -254,7 +255,7 @@ export default {
                                                 },
                                                 {
                                                     id: 1,
-                                                    name: "- បន្ទុកបុគ្គលិក",
+                                                    name: "- ក្រៅបន្ទុកបុគ្គលិក",
                                                     values: [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, ""]
                                                 }
                                             ]
@@ -273,7 +274,7 @@ export default {
                                         },
                                         {
                                             id: 1,
-                                            name: "- បន្ទុកបុគ្គលិក",
+                                            name: "- ក្រៅបន្ទុកបុគ្គលិក",
                                             values: [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, ""]
                                         }
                                     ],
@@ -291,7 +292,7 @@ export default {
                                                 },
                                                 {
                                                     id: 1,
-                                                    name: "- បន្ទុកបុគ្គលិក",
+                                                    name: "- ក្រៅបន្ទុកបុគ្គលិក",
                                                     values: [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, ""]
                                                 }
                                             ]
@@ -309,7 +310,7 @@ export default {
                                                 },
                                                 {
                                                     id: 1,
-                                                    name: "- បន្ទុកបុគ្គលិក",
+                                                    name: "- ក្រៅបន្ទុកបុគ្គលិក",
                                                     values: [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, ""]
                                                 }
                                             ]
@@ -320,59 +321,96 @@ export default {
                         }
                     }
                 ],
+                entity_id: [
+                    {
+                        "label": "អង្គភាពទី១",
+                        "value": 1,
+                    },
+                    {
+                        "label": "អង្គភាពទី២",
+                        "value": 2,
+                    }
+                ],
+                target_type_id: [
+                    {
+                        "label": "បន្ទុកបុគ្គលិក",
+                        "value": 1,
+                    },
+                    {
+                        "label": "ក្រៅបន្ទុកបុគ្គលិក",
+                        "value": 2,
+                    }
+                ],
+                rule_year: [
+                    {
+                        "label": "2022",
+                        "value": 1,
+                    }
+                ],
                 limit: 10,
                 total: 3,
             },
             formAttributes: [
                 {
-                    name: "objective",
+                    name: "entity_id", // អង្គភាព
                     type: "select",
                     required: true,
-                    data: [
-                        {
-                            "id": 1,
-                            "name": "គោលបំណងទី១",
-                            "name_kh": ""
-                        },
-                        {
-                            "id": 2,
-                            "name": "គោលបំណងទី២",
-                            "name_kh": ""
-                        }
-                    ],
+                    options: [],
                 },
                 {
-                    name: "name",
+                    name: "target_type_id", // ប្រភេទមុខសញ្ញា
+                    type: "select",
+                    required: true,
+                    options: [],
+                },
+                {
+                    name: "rule_year", //ច្បាប់ឆ្នាំ
+                    type: "select",
+                    required: true,
+                    options: [],
+                },
+                {
+                    name: "irregular_expense", // ចំណាយមិនប្រចាំ
                     type: "text",
-                    required: true
+                    required: false,
                 },
                 {
-                    name: "name_kh",
+                    name: "regular_expense", // ចំណាយប្រចាំ
                     type: "text",
-                    required: true
+                    required: false,
                 },
                 {
-                    name: "responsible_person",
+                    name: "tran_exp_ceiling_year_plus_1", // ពិដានចំណាយចរន្ត
                     type: "text",
-                    required: true
+                    required: false
                 },
                 {
-                    name: "responsible_entity",
+                    name: "tran_exp_ceiling_year_plus_2", // ពិដានចំណាយចរន្ត
                     type: "text",
-                    required: true
-                },
-                {
-                    name: "order_level",
-                    type: "number",
                     required: false
                 },
                 {
-                    name: "remark",
+                    name: "tran_exp_ceiling_year_plus_3", // ពិដានចំណាយចរន្ត
                     type: "text",
                     required: false
-                }
+                },
+                {
+                    name: "annual_growth_rate_plus_1", // អត្រាកំណើនប្រចាំឆ្នាំ
+                    type: "text",
+                    required: false
+                },
+                {
+                    name: "annual_growth_rate_plus_2", // អត្រាកំណើនប្រចាំឆ្នាំ
+                    type: "text",
+                    required: false
+                },
+                {
+                    name: "annual_growth_rate_plus_3", // អត្រាកំណើនប្រចាំឆ្នាំ
+                    type: "text",
+                    required: false
+                },
             ],
-            rowDisplay: "2grid", //1grid, 2grid, 3grid, 4grid
+            rowDisplay: "3grid", //1grid, 2grid, 3grid, 4grid
             dataFields: []
         }
     },

@@ -87,7 +87,8 @@
                             path: "/module/budget-arrangement/budget-ceiling/list",
                             method: "View"
                         }
-                    ]
+                    ],
+                    popupFullscreen: true
                 },
                 dataHeaders: {
                     header1: {
@@ -144,8 +145,8 @@
                                     id: 1,
                                     name: "កម្មវិធីទី១ : ការគ្រប់គ្រងវិស័យសេដ្ឋកិច្ច",
                                     name_kh: "កម្មវិធីទី១ : ការគ្រប់គ្រងវិស័យសេដ្ឋកិច្ច",
-                                    responsible_entity: { id: 1, name: "ឈ្មោះអង្គភាពទទួលបន្ទុក", name_kh: "ឈ្មោះអង្គភាពទទួលបន្ទុក" },
                                     responsible_person: { id: 1, name: "បុគ្គលទទួលបន្ទុក", name: "បុគ្គលទទួលបន្ទុក" },
+                                    responsible_entity: { id: 1, name: "ឈ្មោះអង្គភាពទទួលបន្ទុក", name_kh: "ឈ្មោះអង្គភាពទទួលបន្ទុក" },
                                     order_level: 1,
                                     indicators: [
                                         {
@@ -217,53 +218,143 @@
                             ]
                         }
                     ],
+                    objective_id: [
+                        {
+                            "label": "គោលបំណងទី១",
+                            "value": 1,
+                        },
+                        {
+                            "label": "គោលបំណងទី២",
+                            "value": 2,
+                        }
+                    ],
+                    entity_id: [
+                        {
+                            "label": "អង្គភាពទី១",
+                            "value": 1,
+                        },
+                        {
+                            "label": "អង្គភាពទី២",
+                            "value": 2,
+                        }
+                    ],
+                    entity_member_id: [
+                        {
+                            "label": "សមាជិកទី១",
+                            "value": 1,
+                        },
+                        {
+                            "label": "សមាជិកទី២",
+                            "value": 2,
+                        }
+                    ],
+                    program_id: [
+                        {
+                            "label": "កម្មវិធីទី១",
+                            "value": 1,
+                        },
+                        {
+                            "label": "កម្មវិធីទី២",
+                            "value": 2,
+                        }
+                    ],
+                    sub_program_id: [
+                        {
+                            "label": "អនុកម្មវិធីទី១",
+                            "value": 1,
+                        },
+                        {
+                            "label": "អនុកម្មវិធីទី២",
+                            "value": 2,
+                        }
+                    ],
+                    cluster_activity_id: [
+                        {
+                            "label": "ចង្កោមសកម្មភាពទី១",
+                            "value": 1,
+                        },
+                        {
+                            "label": "ចង្កោមសកម្មភាពទី២",
+                            "value": 2,
+                        }
+                    ],
                     limit: 10,
                     total: 3,
                 },
                 formAttributes: [
                     {
-                        name: "title",
+                        name: "objective_id",
+                        type: "select",
+                        required: true,
+                        options: []
+                    },
+                    {
+                        name: "program_id",
+                        type: "select",
+                        required: true,
+                        options: []
+                    },
+                    {
+                        name: "sub_program_id",
+                        type: "select",
+                        required: true,
+                        options: []
+                    },
+                    {
+                        name: "cluster_activity_id",
+                        type: "select",
+                        required: true,
+                        options: []
+                    },
+                    {
+                        name: "name_en",
                         type: "text",
                         required: true
                     },
                     {
-                        name: "title_kh",
+                        name: "name_kh",
                         type: "text",
                         required: true
                     },
                     {
-                        name: "ceiling_year",
+                        name: "entity_id",
                         type: "select",
                         required: true,
-                        data: [
+                        options: [
                             {
-                                "id": 1,
-                                "name": "គោលបំណងទី១",
-                                "name_kh": ""
+                                "label": "អង្គភាពទី១",
+                                "value": 1,
                             },
                             {
-                                "id": 2,
-                                "name": "គោលបំណងទី២",
-                                "name_kh": ""
+                                "label": "អង្គភាពទី២",
+                                "value": 2,
                             }
                         ],
                     },
                     {
-                        name: "status",
+                        name: "entity_member_id",
                         type: "select",
                         required: true,
-                        data: [
+                        options: [
                             {
-                                "id": 1,
-                                "name": "In Progress",
-                                "name_kh": "កំពុងដំណើរការ"
+                                "label": "បុគ្គលទិ១",
+                                "value": 1,
                             },
                             {
-                                "id": 2,
-                                "name": "Complete",
-                                "name_kh": "បញ្ចប់"
+                                "label": "បុគ្គលទិ២",
+                                "value": 2,
                             }
                         ],
+                    },
+                    {
+                        name: "order_level",
+                        type: "number",
+                        required: false
+                    },
+                    {
+                        name: "remark",
+                        type: "textarea",
+                        required: false
                     },
                 ],
                 rowDisplay: "2grid", //1grid, 2grid, 3grid, 4grid
@@ -275,7 +366,7 @@
         },
         methods: {
             initDataForm() {
-                alert("testing");
+                // alert("testing");
             },
             getDataTable(_search_criteria) {
                 let _params = {};

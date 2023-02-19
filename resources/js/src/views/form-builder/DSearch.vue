@@ -20,7 +20,7 @@
                 <!-- Form Select -->
                 <template v-if="formAttribute.type == 'select' && formAttribute.required">
                     <label>{{ $t(formAttribute.name) }}</label>
-                    <v-select size="small" v-model="form.attribute[formAttribute.name]" :options="formAttribute.options" :dir="$vs.rtl ? 'rtl' : 'ltr'" class="mt-2 w-full"/>
+                    <v-select size="small" v-model="form.attribute[formAttribute.name]" :options="data[formAttribute.name]" :dir="$vs.rtl ? 'rtl' : 'ltr'" class="mt-2 w-full"/>
                 </template>
 
                 <!-- Form Textarea -->

@@ -55,6 +55,11 @@ export default {
             this.showModalForm = true;
             this.$refs.refModalForm.showNewForm();
         },
+        openNewFormByParent(obj) {
+            this.dataInfo = {};
+            this.showModalForm = true;
+            this.$refs.refModalForm.showNewFormByParent(obj); 
+        },
         initForm(data) {
             this.showModalForm = true;
             this.dataInfo = data;
@@ -65,6 +70,9 @@ export default {
             this.$emit('clicked');
             this.showModalForm = false;
         }
+    },
+    created() {
+        console.log("check data form objects", this.data);
     }
 }
 </script>

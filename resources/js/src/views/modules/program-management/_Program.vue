@@ -16,60 +16,104 @@ export default {
         return {
             title: "Program",
             api: apiConfig._apiProgram,
+            objectives: [
+                {
+                    "label": "គោលបំណងទី១",
+                    "value": 1,
+                },
+                {
+                    "label": "គោលបំណងទី២",
+                    "value": 2,
+                }
+            ],
             dataAttributes: {
                 backgroundColor: "warning",
                 tableStyle: 2,
                 page_number: 1,
                 offset: 0,
                 dataGrid: "row",
+                popupFullscreen: false
             },
             dataHeaders: {
-                header1: "code_program",
-                header2: "name",
+                header1: "code",
+                header2: "name_en",
                 header3: "name_kh",
-                header4: "objective",
-                header5: "responsible_person",
-                header6: "responsible_entity",
+                // header4: "objective_id",
+                // header5: "entity_id",
+                // header6: "entity_member_id",
+                header5: "entity_id",
+                header6: "entity_member_id",
                 header7: "order_level"
             },
+            // data: "",
             data: {
                 data: [
                     {
                         id: 1,
-                        name: "#120 - គោលបំណងទី១",
+                        name_en: "#120 - គោលបំណងទី១",
                         name_kh: "#120 - គោលបំណងទី១",
                         children: [
                             {
                                 id: 1,
-                                code_program: "001",
-                                name: "កម្មវិធីទី១",
+                                code: "001",
+                                name_en: "កម្មវិធីទី១",
                                 name_kh: "កម្មវិធីទី១",
-                                objective: "គោលបំណងគោលនយោបាយទី១",
-                                responsible_person: "ឯកឧត្តម ទទួលបន្ទុក",
-                                responsible_entity: "ឈ្មោះអង្គភាពទទួលបន្ទុក",
+                                // objective: "គោលបំណងគោលនយោបាយទី១",
+                                entity_id: "ឯកឧត្តម ទទួលបន្ទុក",
+                                entity_member_id: "ឈ្មោះអង្គភាពទទួលបន្ទុក",
                                 order_level: 1
                             },
                             {
                                 id: 2,
-                                code_program: "002",
-                                name: "កម្មវិធីទី១",
+                                code: "002",
+                                name_en: "កម្មវិធីទី១",
                                 name_kh: "កម្មវិធីទី១",
-                                objective: "គោលបំណងគោលនយោបាយទី១",
-                                responsible_person: "ឯកឧត្តម ទទួលបន្ទុក",
-                                responsible_entity: "ឈ្មោះអង្គភាពទទួលបន្ទុក",
+                                // objective: "គោលបំណងគោលនយោបាយទី១",
+                                entity_id: "ឯកឧត្តម ទទួលបន្ទុក",
+                                entity_member_id: "ឈ្មោះអង្គភាពទទួលបន្ទុក",
                                 order_level: 1
                             },
                             {
                                 id: 3,
-                                code_program: "003",
-                                name: "កម្មវិធីទី១",
+                                code: "003",
+                                name_en: "កម្មវិធីទី១",
                                 name_kh: "កម្មវិធីទី១",
-                                objective: "គោលបំណងគោលនយោបាយទី១",
-                                responsible_entity: "ឈ្មោះអង្គភាពទទួលបន្ទុក",
-                                responsible_person: "ឯកឧត្តម ទទួលបន្ទុក",
+                                // objective: "គោលបំណងគោលនយោបាយទី១",
+                                entity_id: "ឈ្មោះអង្គភាពទទួលបន្ទុក",
+                                entity_member_id: "ឯកឧត្តម ទទួលបន្ទុក",
                                 order_level: 1
                             },
                         ]
+                    }
+                ],
+                objective_id: [
+                    {
+                        "label": "គោលបំណងទី១",
+                        "value": 1,
+                    },
+                    {
+                        "label": "គោលបំណងទី២",
+                        "value": 2,
+                    }
+                ],
+                entity_id: [
+                    {
+                        "label": "អង្គភាពទី១",
+                        "value": 1,
+                    },
+                    {
+                        "label": "អង្គភាពទី២",
+                        "value": 2,
+                    }
+                ],
+                entity_member_id: [
+                    {
+                        "label": "សមាជិកទី១",
+                        "value": 1,
+                    },
+                    {
+                        "label": "សមាជិកទី២",
+                        "value": 2,
                     }
                 ],
                 limit: 10,
@@ -77,22 +121,13 @@ export default {
             },
             formAttributes: [
                 {
-                    name: "objective",
+                    name: "objective_id",
                     type: "select",
                     required: true,
-                    options: [
-                        {
-                            "label": "គោលបំណងទី១",
-                            "value": 1,
-                        },
-                        {
-                            "label": "គោលបំណងទី២",
-                            "value": 2,
-                        }
-                    ],
+                    options: []
                 },
                 {
-                    name: "name",
+                    name: "name_en",
                     type: "text",
                     required: true
                 },
@@ -102,14 +137,34 @@ export default {
                     required: true
                 },
                 {
-                    name: "responsible_person",
-                    type: "text",
-                    required: true
+                    name: "entity_id",
+                    type: "select",
+                    required: true,
+                    options: [
+                        {
+                            "label": "អង្គភាពទី១",
+                            "value": 1,
+                        },
+                        {
+                            "label": "អង្គភាពទី២",
+                            "value": 2,
+                        }
+                    ],
                 },
                 {
-                    name: "responsible_entity",
-                    type: "text",
-                    required: true
+                    name: "entity_member_id",
+                    type: "select",
+                    required: true,
+                    options: [
+                        {
+                            "label": "បុគ្គលទិ១",
+                            "value": 1,
+                        },
+                        {
+                            "label": "បុគ្គលទិ២",
+                            "value": 2,
+                        }
+                    ],
                 },
                 {
                     name: "order_level",
@@ -118,7 +173,7 @@ export default {
                 },
                 {
                     name: "remark",
-                    type: "text",
+                    type: "textarea",
                     required: false
                 },
             ],
@@ -161,8 +216,11 @@ export default {
             return new Promise((resolve, reject) => {
                 axios.post(this.api + "/search", _params)
                     .then((response) => {
-                        // this.data = response.data;
-                        this.data = this.data;
+                        if (response.data) {
+                            this.data = response.data;
+                        } else {
+                            this.data = this.data;
+                        }
                         this.$vs.loading.close();
                     }).catch((error) => {
                         // reject(error)

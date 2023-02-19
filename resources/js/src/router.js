@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import auth from "@/auth/authService";
-
 import firebase from 'firebase/app'
 import 'firebase/auth'
 

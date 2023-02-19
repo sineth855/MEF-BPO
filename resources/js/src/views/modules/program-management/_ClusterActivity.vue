@@ -15,7 +15,7 @@ export default {
     data() {
         return {
             title: "cluster_activity",
-            api: apiConfig._apiProgram,
+            api: apiConfig._apiClusterActivity,
             dataAttributes: {
                 backgroundColor: "warning",
                 tableStyle: 2,
@@ -24,7 +24,7 @@ export default {
                 dataGrid: "row",
             },
             dataHeaders: {
-                header2: "name",
+                header2: "name_en",
                 header3: "name_kh",
                 header4: "sub_program",
                 header5: "responsible_person",
@@ -35,13 +35,13 @@ export default {
                 data: [
                     {
                         id: 1,
-                        name: "#120 - អនុកម្មវិធី",
+                        name_en: "#120 - អនុកម្មវិធី",
                         name_kh: "#120 - អនុកម្មវិធី",
                         children: [
                             {
                                 id: 1,
                                 // code_cluster_activity: "001",
-                                name: "ចង្កោមសកម្មភាពទី ១",
+                                name_en: "ចង្កោមសកម្មភាពទី ១",
                                 name_kh: "ចង្កោមសកម្មភាពទី ១",
                                 sub_program: "អនុកម្មវិធីទី១",
                                 responsible_person: "ឯកឧត្តម ទទួលបន្ទុក",
@@ -51,7 +51,7 @@ export default {
                             {
                                 id: 2,
                                 // code_cluster_activity: "001",
-                                name: "ចង្កោមសកម្មភាពទី ២",
+                                name_en: "ចង្កោមសកម្មភាពទី ២",
                                 name_kh: "ចង្កោមសកម្មភាពទី ២",
                                 sub_program: "អនុកម្មវិធីទី២",
                                 responsible_person: "ឯកឧត្តម ទទួលបន្ទុក",
@@ -61,7 +61,7 @@ export default {
                             {
                                 id: 3,
                                 // code_cluster_activity: "001",
-                                name: "ចង្កោមសកម្មភាពទី ៣",
+                                name_en: "ចង្កោមសកម្មភាពទី ៣",
                                 name_kh: "ចង្កោមសកម្មភាពទី ៣",
                                 sub_program: "អនុកម្មវិធីទី៣",
                                 responsible_person: "ឯកឧត្តម ទទួលបន្ទុក",
@@ -71,29 +71,57 @@ export default {
                         ]
                     }
                 ],
+                sub_program_id: [
+                    {
+                        "label": "អនុកម្មវិធីទី១",
+                        "value": 1,
+                    },
+                    {
+                        "label": "អនុកម្មវិធីទី២",
+                        "value": 2,
+                    }
+                ],
+                entity_id: [
+                    {
+                        "label": "អង្គភាពទី១",
+                        "value": 1,
+                    },
+                    {
+                        "label": "អង្គភាពទី២",
+                        "value": 2,
+                    }
+                ],
+                entity_member_id: [
+                    {
+                        "label": "សមាជិកទី១",
+                        "value": 1,
+                    },
+                    {
+                        "label": "សមាជិកទី២",
+                        "value": 2,
+                    }
+                ],
                 limit: 10,
                 total: 3
             },
             formAttributes: [
                 {
-                    name: "sub_program",
+                    name: "sub_program_id",
                     type: "select",
                     required: true,
                     options: [
                         {
-                            "id": 1,
-                            "name": "អនុកម្មវិធីទី១",
-                            "name_kh": "អនុកម្មវិធីទី១"
+                            "label": "អនុកម្មវិធីទី១",
+                            "value": 1,
                         },
                         {
-                            "id": 2,
-                            "name": "អនុកម្មវិធីទី២",
-                            "name_kh": "អនុកម្មវិធីទី២"
+                            "label": "អនុកម្មវិធីទី២",
+                            "value": 2
                         }
                     ],
                 },
                 {
-                    name: "name",
+                    name: "name_en",
                     type: "text",
                     required: true
                 },
@@ -103,14 +131,34 @@ export default {
                     required: true
                 },
                 {
-                    name: "responsible_person",
-                    type: "text",
-                    required: true
+                    name: "entity_id",
+                    type: "select",
+                    required: true,
+                    options: [
+                        {
+                            "label": "អង្គភាពទី១",
+                            "value": 1,
+                        },
+                        {
+                            "label": "អង្គភាពទី២",
+                            "value": 2,
+                        }
+                    ],
                 },
                 {
-                    name: "responsible_entity",
-                    type: "text",
-                    required: true
+                    name: "entity_member_id",
+                    type: "select",
+                    required: true,
+                    options: [
+                        {
+                            "label": "បុគ្គលទី១",
+                            "value": 1,
+                        },
+                        {
+                            "label": "បុគ្គលទី២",
+                            "value": 2,
+                        }
+                    ],
                 },
                 {
                     name: "order_level",
@@ -119,7 +167,7 @@ export default {
                 },
                 {
                     name: "remark",
-                    type: "text",
+                    type: "textarea",
                     required: false
                 },
 

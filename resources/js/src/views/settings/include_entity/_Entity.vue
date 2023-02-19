@@ -14,7 +14,7 @@ import DTableList from '@/views/form-builder/DTableList.vue'
 export default {
     data() {
         return {
-            title: "ProgramObjective",
+            title: "setting_entity",
             api: apiConfig._apiObjective,
             dataAttributes: {
                 tableStyle: 1,
@@ -22,56 +22,60 @@ export default {
                 offset: 0,
                 dataGrid: "row",
                 actionButton: [
-                    {
-                        icon: "DollarSignIcon",
-                        path: "/module/budget-arrangement/budget-ceiling/list",
-                        method: "View"
-                    }
+                    // {
+                    //     icon: "DollarSignIcon",
+                    //     path: "/module/budget-arrangement/budget-ceiling/list",
+                    //     method: "View"
+                    // }
                 ]
             },
             dataHeaders: {
-                // header1: "id",
                 header1: "code",
-                header2: "account_group",
-                header3: "group_chapter",
-                header4: "account_type",
-                header5: "name",
-                header6: "unit",
-                header7: "description",
-                header8: "order_level",
-                header9: "action_button",
+                header2: "name_en",
+                header3: "name_kh",
+                header4: "order_level",
             },
             data: {
                 data: [
                     {
-                        id: 1,
-                        title: "ពិដានប្រចាំឆ្នាំ២០១៩",
-                        title_kh: "ពិដានប្រចាំឆ្នាំ២០១៩",
-                        ceiling_year: "2022",
-                        progress: "100",
-                        status: "completed",
-                        order_level: 1
-                    }
+                        code: "60",
+                        name_en: "ការទិញ",
+                        name_kh: "ការទិញ",
+                        description: "",
+                        order_level: 1,
+                        is_active: 1
+                    },
                 ],
+
                 limit: 10,
                 total: 3,
             },
             formAttributes: [
                 {
-                    name: "title",
+                    name: "code",
                     type: "text",
                     required: true
                 },
                 {
-                    name: "title_kh",
+                    name: "name_en",
                     type: "text",
                     required: true
                 },
                 {
-                    name: "ceiling_year",
-                    type: "date",
+                    name: "name_kh",
+                    type: "text",
                     required: true
-                }
+                },
+                {
+                    name: "order_level",
+                    type: "number",
+                    required: false
+                },
+                {
+                    name: "description",
+                    type: "textarea",
+                    required: false
+                },
             ],
             rowDisplay: "2grid", //1grid, 2grid, 3grid, 4grid
             dataFields: []

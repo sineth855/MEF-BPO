@@ -4,7 +4,28 @@
         :data="dataTables" :api="api" :formAttributes="formAttributes" 
         :rowDisplay="rowDisplay" :dataAttributes="dataAttributes" :title="$t(title)"></d-modal-form>
 
-        <div v-if="!dataAttributes.hasHeadingReport" class="flex flex-wrap-reverse items-center data-list-btn-container">
+        <div v-if="dataAttributes.hasFormType" class="items-center data-list-btn-container">
+            <div class="p-3 mr-4">
+                <vs-button @click="openToggleForm" color="primary" type="filled">{{ $t("បន្ថែមគំរូប្រភេទចំណាត់ថ្នាក់") }}</vs-button>
+            </div>
+            <!-- ADD NEW -->
+            <!-- <div class="btn-add-new p-3 mb-4 mr-4 rounded-lg cursor-pointer flex items-center justify-center text-lg font-medium text-base text-primary border border-solid border-primary"
+                @click="openToggleForm">
+                <feather-icon icon="PlusIcon" svgClasses="h-4 w-4" />
+                <span class="ml-2 text-base text-primary">{{ $t("AddNew") }}</span>
+            </div> -->
+            <div class="p-3 mb-4 mr-4">
+                <d-form v-if="enableToggleForm" @clickForm="initTableData" :data="dataTables" :dataInfo="dataInfo" :formAttributes="formAttributes" :api="api" :rowDisplay="rowDisplay"></d-form>
+                <table>
+                    <tr :key="index" v-for="(row, index) in test_attribute_data">
+                        <td>1</td>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div v-else class="flex flex-wrap-reverse items-center data-list-btn-container">
             <!-- ADD NEW -->
             <div class="btn-add-new p-3 mb-4 mr-4 rounded-lg cursor-pointer flex items-center justify-center text-lg font-medium text-base text-primary border border-solid border-primary"
                 @click="openForm">
@@ -12,7 +33,7 @@
                 <span class="ml-2 text-base text-primary">{{ $t("AddNew") }}</span>
             </div>
         </div>
-
+        
         <d-heading-wizard v-if="dataAttributes.hasHeadingReport" :dataAttributes="dataAttributes"></d-heading-wizard>
 
         <d-search @searchQuery="searchQuery" @clicked="initTableData"  :data="dataTables" :api="api" :formAttributes="formAttributes" 
@@ -53,39 +74,91 @@
             <template slot-scope="{data}">
                 <tbody :key="pindextr" v-for="(ptr, pindextr) in data">
                     <vs-tr :state="dataAttributes.backgroundColor">
-                        <td :colspan="Object.keys(ptr.children[0]).length">{{ ptr.name }}</td>
+                        <!-- <td :colspan="Object.keys(ptr.children[0]).length">{{ ptr.name_kh }}</td> -->
+                        <td :colspan="Object.keys(dataHeaders).length + 1">{{ ptr.code }}-{{ ptr.name_kh }}</td>
                         <td>
-                            <center><feather-icon style="cursor: pointer;" @click="openForm" icon="PlusIcon" svgClasses="w-5 h-5 hover:text-primary stroke-current"/></center>
+                            <center><feather-icon style="cursor: pointer;" @click="openFormByParent(ptr)" icon="PlusIcon" svgClasses="w-5 h-5 hover:text-primary stroke-current"/></center>
                         </td>
                     </vs-tr>
-                    <vs-tr :key="indextr" v-for="(tr, indextr) in ptr.children">
-                        <vs-td>{{ calPageIncreaseNumber(dataTables.limit, indextr) }}</vs-td>
-                        <vs-td v-for="header in dataHeaders" :key="header.indextr">
-                            <span v-if="tr[header].data">
-                                <span v-if="tr[header].data.length > 0">
-                                    <div class="mb-2" :key="indexI" v-for="(dataRow, indexI) in tr[header].data">
-                                        <vx-card>
-                                            {{ dataRow["code"] }}-{{ dataRow["indicator_name"] }}
-                                            <feather-icon style="cursor: pointer;" icon="EditIcon" svgClasses="mt-2 w-5 h-5 hover:text-primary stroke-current"/>
-                                        </vx-card>
-                                    </div>
+                    <template v-if="ptr.children.length > 0">
+                        <vs-tr :key="indextr" v-for="(tr, indextr) in ptr.children">
+                            <vs-td>{{ calPageIncreaseNumber(dataTables.limit, indextr) }}</vs-td>
+                            <vs-td v-for="header in dataHeaders" :key="header.indextr">
+                                <span v-if="tr[header].data">
+                                    <span v-if="getDocumentSize(tr[header].data) > 0">
+                                        <div class="mb-2" :key="indexI" v-for="(dataRow, indexI) in tr[header].data">
+                                            <vx-card>
+                                                {{ dataRow["code"] }}-{{ dataRow["kpi_name_kh"] }}
+                                            </vx-card>
+                                        </div>
+                                    </span>
+                                    <span v-else>
+                                        <center>
+                                            {{ $t("msg_no_indicator") }}
+                                            <feather-icon style="cursor: pointer;" @click="openForm" icon="PlusIcon"
+                                                svgClasses="w-5 h-5 hover:text-primary stroke-current" />
+                                        </center>
+                                    </span>
                                 </span>
-                                <!-- If No Data Indicators will create new -->
                                 <span v-else>
-                                    <center>
-                                        <feather-icon style="cursor: pointer;" @click="openForm" icon="PlusIcon" svgClasses="w-5 h-5 hover:text-primary stroke-current" />
-                                    </center>
+                                    <center>{{ tr[header] }}</center>
                                 </span>
-                            </span>
-                            <span v-else>{{ tr[header] }}​</span>
-                        </vs-td>
-                        <vs-td>
-                            <feather-icon style="cursor: pointer;" icon="EditIcon" svgClasses="w-5 h-5 hover:text-primary stroke-current"
-                                @click.stop="initEdit(tr)" />
-                            <feather-icon style="cursor: pointer;" v-if="allowDel" icon="TrashIcon" svgClasses="w-5 h-5 hover:text-danger stroke-current"
-                                class="ml-2" @click.stop="initDel(tr.id)" />
-                        </vs-td>
-                    </vs-tr>
+                                
+                                <!-- <span v-if="tr[header].data"> -->
+                                    <!-- <span v-if="tr[header].data.length">
+                                        <div class="mb-2" :key="indexI" v-for="(dataRow, indexI) in tr[header].data">
+                                            <vx-card>
+                                                {{ dataRow["code"] }}-{{ dataRow["kpi_name_kh"] }}
+                                                <feather-icon style="cursor: pointer;" icon="EditIcon"
+                                                    svgClasses="mt-2 w-5 h-5 hover:text-primary stroke-current" />
+                                            </vx-card>
+                                        </div>
+                                    </span> -->
+                                    <!-- If No Data Indicators will create new -->
+                                    <!-- <span v-else>
+                                        <center>
+                                            {{ $t("msg_no_indicator") }}
+                                            <feather-icon style="cursor: pointer;" @click="openForm" icon="PlusIcon" svgClasses="w-5 h-5 hover:text-primary stroke-current" />
+                                        </center>
+                                    </span> -->
+                                <!-- </span> -->
+
+                                <!-- <span v-else>{{ tr[header] }}​</span> -->
+
+                                <!-- <span v-if="tr[header].data">
+                                    <span v-if="tr[header].data.length">
+                                        <div class="mb-2" :key="indexI" v-for="(dataRow, indexI) in tr[header].data">
+                                            <vx-card>
+                                                {{ dataRow["code"] }}-{{ dataRow["kpi_name_kh"] }}
+                                                <feather-icon style="cursor: pointer;" icon="EditIcon" svgClasses="mt-2 w-5 h-5 hover:text-primary stroke-current"/>
+                                            </vx-card>
+                                        </div>
+                                    </span> -->
+                                    <!-- If No Data Indicators will create new -->
+                                    <!-- <span v-else>
+                                        <center>
+                                            {{ $t("msg_no_indicator") }}
+                                            <feather-icon style="cursor: pointer;" @click="openForm" icon="PlusIcon" svgClasses="w-5 h-5 hover:text-primary stroke-current" />
+                                        </center>
+                                    </span>
+                                </span>
+                                
+                                <span v-else>{{ tr[header] }}​</span> -->
+
+                            </vs-td>
+                            <vs-td>
+                                <!-- <template v-if="dataAttributes.actionButton">
+                                    <feather-icon style="cursor: pointer;" v-for="rowBtnAction in dataAttributes.actionButton"
+                                        :key="rowBtnAction.indextr" :icon="rowBtnAction.icon"
+                                        svgClasses="mr-2 w-5 h-5 hover:text-primary stroke-current" @click.stop="viewUrl(rowBtnAction)" />
+                                </template> -->
+                                <feather-icon style="cursor: pointer;" icon="EditIcon" svgClasses="w-5 h-5 hover:text-primary stroke-current"
+                                    @click.stop="initEdit(tr)" />
+                                <feather-icon style="cursor: pointer;" v-if="allowDel" icon="TrashIcon" svgClasses="w-5 h-5 hover:text-danger stroke-current"
+                                    class="ml-2" @click.stop="initDel(tr.id)" />
+                            </vs-td>
+                        </vs-tr>
+                    </template>
                 </tbody>
             </template>
         </vs-table>
@@ -150,11 +223,13 @@
                                 <td>{{ row3.name }}</td>
                                 <td :key="index4" v-for="(row, index4) in row.values">{{ row }}</td>
                                 <td>
-                                    <template v-if="dataAttributes.actionButton">
+                                    <feather-icon style="cursor: pointer;" icon="EditIcon" svgClasses="w-5 h-5 hover:text-primary stroke-current"
+                                        @click.stop="initEdit(row3)" />
+                                    <!-- <template v-if="dataAttributes.actionButton">
                                         <feather-icon style="cursor: pointer;" v-for="rowBtnAction in dataAttributes.actionButton"
                                             :key="rowBtnAction.indextr" :icon="rowBtnAction.icon"
                                             svgClasses="mr-2 w-5 h-5 hover:text-primary stroke-current" @click.stop="viewUrl(rowBtnAction)" />
-                                    </template>
+                                    </template> -->
                                 </td>
                             </vs-tr>
 
@@ -204,7 +279,7 @@
         
                     <template v-if="ptr.children" v-for="(row, index) in ptr.children">
 
-                        <vs-tr :state="'warning'">
+                        <vs-tr style="background: #b2ffd9">
                             <td></td>
                             <td>{{ row.name }}</td>
                             <td>{{ row.responsible_entity.name }}</td>
@@ -217,7 +292,7 @@
 
                         <template v-if="row.children" v-for="row in row.children">
 
-                            <vs-tr>
+                            <vs-tr style="background-color: #f3edf5">
                                 <td></td>
                                 <td>{{ row.name }}</td>
                                 <td>{{ row.responsible_entity.name }}</td>
@@ -241,7 +316,7 @@
                                 </vs-tr>
 
                                 <template v-for="row in row.children">
-                                    <vs-tr style="background-color: #fffde5">
+                                    <vs-tr style="background-color: ">
                                         <td></td>
                                         <td>{{ row.name }}</td>
                                         <td>{{ row.responsible_entity.name }}</td>
@@ -415,6 +490,7 @@
         <vs-table v-if="dataTables.data && dataTables.data.length && dataAttributes.tableStyle == 6"
             :max-items="dataTables.limit" :data="dataTables.data" style="overflow: scroll">
             <template slot-scope="{data}">
+                
                 <vs-tr>
                     <vs-td :style="style(header)" :key="i" v-for="(header, i) in dataHeaders" :colspan="colspan(header)"
                         :rowspan="rowspan(header)">
@@ -508,6 +584,7 @@
                                 <center>{{ ptr[dataField] }} </center>
                             </vs-td>
                         </vs-tr>
+
                         <vs-tr :key="sindex" v-for="(schild, sindex) in ptr.children">
                             <vs-td :key="sindex" v-for="(dataField, sindex) in dataTables.dataFillables">{{ schild[dataField]}}</vs-td>
                         </vs-tr>
@@ -540,6 +617,8 @@
     import axios from "@/axios.js";
     import DSearch from '@/views/form-builder/DSearch.vue';
     import DModalForm from '@/views/form-builder/DModalForm.vue';
+    import DForm from '@/views/form-builder/DForm.vue'
+    import DFormElement from '@/views/form-builder/DFormElement.vue'
     import DHeadingWizard from '@/views/form-builder/DHeadingWizard.vue';
     import { stringify } from 'querystring';
     import { ref } from 'vue';
@@ -570,15 +649,43 @@
                 titleStr: "",
                 currentx: 0,
                 current_page: 1,
-                dataId: 0
+                dataId: 0,
+                // Remove Data Info Obj just for testing 
+                dataInfo: {
+                    indicator: {
+                        data: {
+
+                        }
+                    }
+                },
+                enableToggleForm: true,
+                test_attribute_data: [
+                    {
+                        id: name, 
+                        vaue: 1
+                    },
+                    {
+                    id: name,
+                    vaue: 1
+                },
+                ]
             }
         },
         components: {
             DSearch,
             DModalForm,
-            DHeadingWizard
+            DHeadingWizard,
+            DForm,
+            DFormElement
         },
     methods: {
+        transformData(obj) {
+            let _str = JSON.parse(obj);
+            return _str;
+        },
+        getDocumentSize(obj) {
+            return obj ? obj.length : 0;
+        },
         style(obj) { 
             if (obj.width) {
                 return "background-color: #28C76F; color: #ffffff; font-weight: bold;min-width:" + obj.width + "px";
@@ -586,107 +693,112 @@
                 return "background-color: #28C76F; color: #ffffff; font-weight: bold;";
             }
         },
-            colspan(obj) {
-                let _val = "";
-                if (obj.colspan) {
-                    _val = obj.colspan;
-                }
-                return _val;
-            },
-            rowspan(obj) {
-                let _val = "";
-                if (obj.rowspan) {
-                    _val = obj.rowspan;
-                }
-                return _val;
-            },
-            viewUrl(obj) {
-                console.log(obj);
-                this.$router.push(obj.path).catch(() => { });
-            },
-            openForm() {
-                this.$refs.refModalForm.openNewForm();
-                this.$emit("emitDataForm", "test change form attribute");
-            },
-            calPaginNumber(n) {
-                // alert(n);
-                let _newVal = 0;
-                if (Number(n) === n && n % 1 === 0) {
-                    _newVal = n;
-                } else {
-                    _newVal = Math.floor(n + 1);
-                }
-                return _newVal;
-            },
-            calPageIncreaseNumber(_page_limit, index) {
-                let _offset = (this.current_page - 1) * _page_limit;
-                let _result = _offset + (index + 1);
-                return _result;
-            },
-            initTableData() {
-                let _search_params = {
-                    pageNum: this.current_page,
-                    searchFields: []
-                }
-                this.$emit('clicked', _search_params);
-            },
-            searchQuery(_search_fields) {
-                let _search_params = {
-                    pageNum: this.current_page,
-                    searchFields: _search_fields
-                }
-                this.$emit('clicked', _search_params);
-            },
-            initDel(id) {
-                this.dataId = id;
-                this.$vs.dialog({
-                    type: 'confirm',
-                    color: 'danger',
-                    title: `Confirm`,
-                    text: 'តើអ្នកពិតជាចង់ធ្វើការលុបទិន្នន័យនេះជារៀងរហូត?',
-                    accept: this.acceptAlert
-                })
-            },
-            acceptAlert() {
-                let id = this.dataId;
-                let _search_params = {
-                    pageNum: this.current_page,
-                    searchFields: []
-                }
-                return new Promise((resolve, reject) => {
-                    axios.delete(this.api+'/'+id)
-                        .then((response) => {
-                            this.$vs.notify({
-                                title: 'Message',
-                                text: response.data.message,
-                                iconPack: 'feather',
-                                icon: 'icon-check-circle',
-                                color: 'primary',
-                                position: 'top-right'
-                            })
-                            this.$emit('clicked', _search_params);
-                            // this.$router.push('/account/expense').catch(() => { })
-                        }).catch((error) => {
-                            reject(error)
-                            this.$vs.notify({
-                                title: 'Message',
-                                text: "មិនអាចដំណើរកាបានទេ,​ សូមត្រួតពិនិត្យពត៌មានឡើងវិញ។",
-                                iconPack: 'feather',
-                                icon: 'icon-check-circle',
-                                color: 'danger',
-                                position: 'top-right'
-                            })
-                        })
-                })
-            },
-            initEdit(data) {
-                this.$refs.refModalForm.initForm(data);
+        colspan(obj) {
+            let _val = "";
+            if (obj.colspan) {
+                _val = obj.colspan;
             }
-
+            return _val;
         },
+        rowspan(obj) {
+            let _val = "";
+            if (obj.rowspan) {
+                _val = obj.rowspan;
+            }
+            return _val;
+        },
+        viewUrl(obj) {
+            console.log(obj);
+            this.$router.push(obj.path).catch(() => { });
+        },
+        openForm() {
+            this.$refs.refModalForm.openNewForm();
+            this.$emit("emitDataForm", "test change form attribute");
+        },
+        openToggleForm() {
+            this.enableToggleForm = true
+        },
+        openFormByParent(obj) {
+            this.$refs.refModalForm.openNewFormByParent(obj);
+        },
+        calPaginNumber(n) {
+            // alert(n);
+            let _newVal = 0;
+            if (Number(n) === n && n % 1 === 0) {
+                _newVal = n;
+            } else {
+                _newVal = Math.floor(n + 1);
+            }
+            return _newVal;
+        },
+        calPageIncreaseNumber(_page_limit, index) {
+            let _offset = (this.current_page - 1) * _page_limit;
+            let _result = _offset + (index + 1);
+            return _result;
+        },
+        initTableData() {
+            let _search_params = {
+                pageNum: this.current_page,
+                searchFields: []
+            }
+            this.$emit('clicked', _search_params);
+        },
+        searchQuery(_search_fields) {
+            let _search_params = {
+                pageNum: this.current_page,
+                searchFields: _search_fields
+            }
+            this.$emit('clicked', _search_params);
+        },
+        initDel(id) {
+            this.dataId = id;
+            this.$vs.dialog({
+                type: 'confirm',
+                color: 'danger',
+                title: `Confirm`,
+                text: 'តើអ្នកពិតជាចង់ធ្វើការលុបទិន្នន័យនេះជារៀងរហូត?',
+                accept: this.acceptAlert
+            })
+        },
+        acceptAlert() {
+            let id = this.dataId;
+            let _search_params = {
+                pageNum: this.current_page,
+                searchFields: []
+            }
+            return new Promise((resolve, reject) => {
+                axios.delete(this.api+'/'+id)
+                    .then((response) => {
+                        this.$vs.notify({
+                            title: 'Message',
+                            text: response.data.message,
+                            iconPack: 'feather',
+                            icon: 'icon-check-circle',
+                            color: 'primary',
+                            position: 'top-right'
+                        })
+                        this.$emit('clicked', _search_params);
+                        // this.$router.push('/account/expense').catch(() => { })
+                    }).catch((error) => {
+                        reject(error)
+                        this.$vs.notify({
+                            title: 'Message',
+                            text: "មិនអាចដំណើរកាបានទេ,​ សូមត្រួតពិនិត្យពត៌មានឡើងវិញ។",
+                            iconPack: 'feather',
+                            icon: 'icon-check-circle',
+                            color: 'danger',
+                            position: 'top-right'
+                        })
+                    })
+            })
+        },
+        initEdit(data) {
+            this.$refs.refModalForm.initForm(data);
+        }
+
+    },
     created() {
-        console.log("data table", this.dataTables)
-            console.log("ddd", this.dataTables);
+            console.log("data table", this.dataTables)
             this.$vs.loading.close();
         },
         watch: {

@@ -49,7 +49,7 @@ class ObjectiveController extends Controller
         );
         $query = $this->db_table::orderBy($filter["sort"], $filter["order"]);
         $whereClause = $query;
-        $whereClause->offset(($input["page_number"] - 1) * LIMIT);       
+        $whereClause->offset(($input["page_number"] - 1) * $filter["limit"]);       
         $whereClause->limit($filter["limit"]);
         if(isset($input["search_field"])){
             for($i=0 ; $i < count($input["search_field"]); $i++){
@@ -64,7 +64,7 @@ class ObjectiveController extends Controller
         $data = array(
             "data_fields" => $this->dataFields(),
             "data" => $table,
-            "limit" => LIMIT,
+            "limit" => $filter["limit"],
             "total" => $this->db_table->count()
         );
         return response()->json($data);
@@ -89,9 +89,7 @@ class ObjectiveController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
-
         $dataFields = $this->dataForm($input);
-
         $table = $this->db_table::create($dataFields);
         if($table){
             $status = 200;
@@ -167,10 +165,11 @@ class ObjectiveController extends Controller
 
     public function dataForm($input){
         $dataFields = array(
-            "name" => isset($input[0]["name"])?$input[0]["name"]:"",
-            "name_kh" => isset($input[1]["name_kh"])?$input[1]["name_kh"]:"",
-            "order_level" => isset($input[2]["order_level"])?$input[2]["order_level"]:0,
-            "remark" => isset($input[3]["remark"])?$input[3]["remark"]:"",
+            "code" => isset($input[0]["code"])?$input[0]["code"]:null,
+            "name_en" => isset($input[0]["name_en"])?$input[0]["name_en"]:null,
+            "name_kh" => isset($input[1]["name_kh"])?$input[1]["name_kh"]:null,
+            "remark" => isset($input[3]["remark"])?$input[3]["remark"]:null,
+            "order_level" => isset($input[2]["order_level"])?$input[2]["order_level"]:0
         );
         return $dataFields;
     }

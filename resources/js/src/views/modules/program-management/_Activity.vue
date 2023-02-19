@@ -15,7 +15,7 @@ export default {
     data() {
         return {
             title: "activity",
-            api: apiConfig._apiProgram,
+            api: apiConfig._apiActivity,
             dataAttributes: {
                 backgroundColor: "warning",
                 tableStyle: 2,
@@ -25,7 +25,7 @@ export default {
             },
             dataHeaders: {
                 header1: "code_activity",
-                header2: "name",
+                header2: "name_en",
                 header3: "name_kh",
                 header4: "cluster_activity",
                 header5: "responsible_person",
@@ -36,13 +36,13 @@ export default {
                 data: [
                     {
                         id: 1,
-                        name: "ចង្កោមសកម្មភាពទី១",
+                        name_en: "ចង្កោមសកម្មភាពទី១",
                         name_kh: "ចង្កោមសកម្មភាពទី១",
                         children: [
                             {
                                 id: 1,
                                 code_activity: "001",
-                                name: "សកម្មភាពទី១ ១",
+                                name_en: "សកម្មភាពទី១ ១",
                                 name_kh: "សកម្មភាពទី១ ១",
                                 cluster_activity: "ចង្កោមសកម្មភាព",
                                 responsible_person: "ឯកឧត្តម ទទួលបន្ទុក",
@@ -52,7 +52,7 @@ export default {
                             {
                                 id: 2,
                                 code_activity: "002",
-                                name: "សកម្មភាពទី១ ១",
+                                name_en: "សកម្មភាពទី១ ១",
                                 name_kh: "សកម្មភាពទី១ ១",
                                 cluster_activity: "ចង្កោមសកម្មភាព",
                                 responsible_person: "ឯកឧត្តម ទទួលបន្ទុក",
@@ -62,7 +62,7 @@ export default {
                             {
                                 id: 3,
                                 code_activity: "003",
-                                name: "សកម្មភាពទី១ ១",
+                                name_en: "សកម្មភាពទី១ ១",
                                 name_kh: "សកម្មភាពទី១ ១",
                                 cluster_activity: "ចង្កោមសកម្មភាព",
                                 responsible_person: "ឯកឧត្តម ទទួលបន្ទុក",
@@ -73,13 +73,13 @@ export default {
                     },
                     {
                         id: 2,
-                        name: "ចង្កោមសកម្មភាពទី២",
+                        name_en: "ចង្កោមសកម្មភាពទី២",
                         name_kh: "ចង្កោមសកម្មភាពទី២",
                         children: [
                             {
                                 id: 4,
                                 code_activity: "004",
-                                name: "សកម្មភាពទី១ ១",
+                                name_en: "សកម្មភាពទី១ ១",
                                 name_kh: "សកម្មភាពទី១ ១",
                                 cluster_activity: "ចង្កោមសកម្មភាព",
                                 responsible_person: "ឯកឧត្តម ទទួលបន្ទុក",
@@ -89,7 +89,7 @@ export default {
                             {
                                 id: 5,
                                 code_activity: "005",
-                                name: "សកម្មភាពទី១ ១",
+                                name_en: "សកម្មភាពទី១ ១",
                                 name_kh: "សកម្មភាពទី១ ១",
                                 cluster_activity: "ចង្កោមសកម្មភាព",
                                 responsible_person: "ឯកឧត្តម ទទួលបន្ទុក",
@@ -99,7 +99,7 @@ export default {
                             {
                                 id: 6,
                                 code_activity: "006",
-                                name: "សកម្មភាពទី១ ១",
+                                name_en: "សកម្មភាពទី១ ១",
                                 name_kh: "សកម្មភាពទី១ ១",
                                 cluster_activity: "ចង្កោមសកម្មភាព",
                                 responsible_person: "ឯកឧត្តម ទទួលបន្ទុក",
@@ -109,29 +109,57 @@ export default {
                         ]
                     },
                 ],
+                cluster_activity_id: [
+                    {
+                        "label": "ចង្កោមសកម្មភាពទី១",
+                        "value": 1,
+                    },
+                    {
+                        "label": "ចង្កោមសកម្មភាពទី២",
+                        "value": 2,
+                    }
+                ],
+                entity_id: [
+                    {
+                        "label": "អង្គភាពទី១",
+                        "value": 1,
+                    },
+                    {
+                        "label": "អង្គភាពទី២",
+                        "value": 2,
+                    }
+                ],
+                entity_member_id: [
+                    {
+                        "label": "សមាជិកទី១",
+                        "value": 1,
+                    },
+                    {
+                        "label": "សមាជិកទី២",
+                        "value": 2,
+                    }
+                ],
                 limit: 10,
                 total: 3
             },
             formAttributes: [
                 {
-                    name: "program",
+                    name: "cluster_activity_id",
                     type: "select",
                     required: true,
                     options: [
                         {
-                            "id": 1,
-                            "name": "កម្មវិធីទី១",
-                            "name_kh": "កម្មវិធីទី១"
+                            "label": "ចង្កោមសកម្មភាពទី១",
+                            "value": 1
                         },
                         {
-                            "id": 2,
-                            "name": "កម្មវិធីទី២",
-                            "name_kh": "កម្មវិធីទី២"
+                            "label": "ចង្កោមសកម្មភាពទី២",
+                            "value": 2
                         }
                     ],
                 },
                 {
-                    name: "name",
+                    name: "name_en",
                     type: "text",
                     required: true
                 },
@@ -141,14 +169,34 @@ export default {
                     required: true
                 },
                 {
-                    name: "responsible_person",
-                    type: "text",
-                    required: true
+                    name: "entity_id",
+                    type: "select",
+                    required: true,
+                    options: [
+                        {
+                            "label": "អង្គភាពទី១",
+                            "value": 1,
+                        },
+                        {
+                            "label": "អង្គភាពទី២",
+                            "value": 2,
+                        }
+                    ],
                 },
                 {
-                    name: "responsible_entity",
-                    type: "text",
-                    required: true
+                    name: "entity_member_id",
+                    type: "select",
+                    required: true,
+                    options: [
+                        {
+                            "label": "បុគ្គលទិ១",
+                            "value": 1,
+                        },
+                        {
+                            "label": "បុគ្គលទិ២",
+                            "value": 2,
+                        }
+                    ],
                 },
                 {
                     name: "order_level",
@@ -157,7 +205,7 @@ export default {
                 },
                 {
                     name: "remark",
-                    type: "text",
+                    type: "textarea",
                     required: false
                 },
 

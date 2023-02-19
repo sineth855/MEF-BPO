@@ -360,54 +360,63 @@ export default {
                         }
                     }
                 ],
+                bsp_source_income_group: [
+                    {
+                        "label": "ចំណូលពីប្រភពក្នុងស្រុក ",
+                        "value": 1,
+                    },
+                    {
+                        "label": "ចំណូលពីការអនុវត្តគម្រោង",
+                        "value": 2,
+                    }
+                ],
+                bsp_source_income: [
+
+                    {
+                        "label": "ចំណូលសារពើពន្ធ",
+                        "value": 1,
+                    },
+                    {
+                        "label": "ចំណូលមិនមែនសារពើពន្ធ",
+                        "value": 2,
+                    }, {
+                        "label": "ចំណូលមូលធនក្នុងស្រុក",
+                        "value": 3,
+                    },
+
+                ],
+                bsp_source_income_level: [
+                    {
+                        "label": "មានហិរញ្ញ ",
+                        "value": 1,
+                    },
+                    {
+                        "label": "ចំណូលពីការអនុវត្តគម្រោង",
+                        "value": 2,
+                    }
+                ],
                 limit: 10,
                 total: 3,
             },
             formAttributes: [
                 {
-                    name: "title",
-                    type: "text",
-                    required: true
-                },
-                {
-                    name: "title_kh",
-                    type: "text",
-                    required: true
-                },
-                {
-                    name: "ceiling_year",
+                    name: "bsp_source_income_group",
                     type: "select",
                     required: true,
-                    data: [
-                        {
-                            "id": 1,
-                            "name": "គោលបំណងទី១",
-                            "name_kh": ""
-                        },
-                        {
-                            "id": 2,
-                            "name": "គោលបំណងទី២",
-                            "name_kh": ""
-                        }
-                    ],
+                    options: [],
                 },
                 {
-                    name: "status",
+                    name: "bsp_source_income",
                     type: "select",
                     required: true,
-                    data: [
-                        {
-                            "id": 1,
-                            "name": "In Progress",
-                            "name_kh": "កំពុងដំណើរការ"
-                        },
-                        {
-                            "id": 2,
-                            "name": "Complete",
-                            "name_kh": "បញ្ចប់"
-                        }
-                    ],
+                    options: [],
                 },
+                {
+                    name: "bsp_source_income_level",
+                    type: "select",
+                    required: true,
+                    options: [],
+                }
             ],
             rowDisplay: "2grid", //1grid, 2grid, 3grid, 4grid
             dataFields: []
@@ -418,7 +427,7 @@ export default {
     },
     methods: {
         initDataForm() {
-            alert("testing");
+            // alert("testing");
         },
         getDataTable(_search_criteria) {
             let _params = {};
