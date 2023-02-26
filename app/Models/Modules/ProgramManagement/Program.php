@@ -10,6 +10,7 @@ class Program extends Model
     protected $table = 'mef_program';
     protected $fillable = [
                             'code',
+                            'sub_code',
                             'objective_id',
                             'entity_id',
                             'entity_member_id',

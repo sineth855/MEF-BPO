@@ -1,5 +1,17 @@
 <template>
     <div id="table-demo">
+        <!-- <table-state></table-state> -->
+        <div v-if="dataAttributes.enableToggleForm" class="items-center data-list-btn-container">
+            <div class="p-3 mr-4">
+                <vs-button @click="openToggleForm" color="primary" type="filled">{{ $t("បន្ថែមគំរូប្រភេទចំណាត់ថ្នាក់")
+                }}</vs-button>
+            </div>
+            <div class="p-3 mb-4" style="overflow: scroll;">
+                <d-form @clicked="initPushDataTable" @clickForm="initTableData" :data="data" :dataInfo="dataInfo"
+                    :formAttributes="formAttributes" :api="api" :rowDisplay="rowDisplay"></d-form>
+                <form-income-imple-result></form-income-imple-result>
+            </div>
+        </div>
         <d-table-list @clicked="initTableData" :api="api" ref="refInitPage" :allowDel="true" :title="title"
             :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data" :formAttributes="formAttributes"
             :rowDisplay="rowDisplay"></d-table-list>
@@ -11,6 +23,8 @@ import axios from "@/axios.js"
 import apiConfig from "@/apiConfig.js"
 import { ref } from 'vue';
 import DTableList from '@/views/form-builder/DTableList.vue'
+import DForm from '@/views/form-builder/DForm.vue'
+import FormIncomeImpleResult from './_form_income_imple_result.vue'
 
 export default {
     data() {
@@ -18,14 +32,15 @@ export default {
             title: "income_implementing_result",
             api: apiConfig._apiObjective,
             dataAttributes: {
-                tableStyle: 6,
+                tableStyle: 8,
                 page_number: 1,
                 offset: 0,
                 dataGrid: "row",
                 hasHeadingReport: false,
                 headingReport: "",
                 popupFullscreen: true,
-                hasFormType: true
+                hideSearchBar: true,
+                enableToggleForm: true // if allow to show form by toggling but no popup
             },
             dataHeaders: {
                 header1: {
@@ -370,6 +385,15 @@ export default {
                         ]
                     }
                 ],
+                sector_type: [
+                    {
+                        value: 1,
+                        label: "ផ្នែកទី៣ ពន្ធដារ"
+                    }, {
+                        value: 2,
+                        label: "ផ្នែកទី២ គយនិងរដ្ឋាករ"
+                    },
+                ],
                 account_group_id: [
                     {
                         value: 1,
@@ -411,6 +435,12 @@ export default {
                 total: 3,
             },
             formAttributes: [
+                {
+                    name: "sector_type",
+                    type: "select",
+                    options: [],
+                    required: false,
+                },
                 {
                     name: "income_classicaition",
                     type: "select_autocomplete",
@@ -457,7 +487,9 @@ export default {
         }
     },
     components: {
-        DTableList
+        DTableList,
+        DForm,
+        FormIncomeImpleResult
     },
     methods: {
         getDataTable(_search_criteria) {

@@ -131,6 +131,15 @@ Route::group([
         Route::get('officer_by_entities', 'IncentiveOfficerController@getOfficerByEntities');
         Route::get('officer_list_by_entities', 'IncentiveOfficerController@getOfficerListByEntities');
         // Upload File
+        Route::post('upload_objective', 'FileManagerController@fileUploadObjective');
+        Route::post('upload_program', 'FileManagerController@fileUploadProgram');
+        Route::post('upload_subprogram', 'FileManagerController@fileUploadSubProgram');
+        Route::post('upload_cluster_activity', 'FileManagerController@fileUploadClusterActivity');
+        
+        Route::post('upload_account_group', 'FileManagerController@fileUploadAccountGroup');
+        Route::post('upload_acount', 'FileManagerController@fileUploadAccount');
+        Route::post('upload_sub_account', 'FileManagerController@fileUploadSubAccount');
+
         Route::post('file_upload', 'FileManagerController@fileUploadService');
         Route::post('file_officer_upload', 'FileManagerController@fileUploadOfficer');
         Route::post('file_officer_expense_upload', 'FileManagerController@OfficerIncentiveExpenseImport');

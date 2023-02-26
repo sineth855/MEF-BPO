@@ -8,8 +8,11 @@ use App\Models\Modules\ProgramManagement\Program;
 class Objective extends Model
 {
     protected $table = 'mef_objective';
+    protected $primaryKey = 'id';
     protected $fillable = [
+                            'id',
                             'code',
+                            'sub_code',
                             'name_en',
                             'name_kh',
                             'remark',

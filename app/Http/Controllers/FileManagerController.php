@@ -5,6 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Incentive;
 use App\Models\FileManager;
+
+use App\Imports\ObjectiveImport;
+use App\Imports\ProgramImport;
+use App\Imports\SubProgramImport;
+use App\Imports\ClusterActivityImport;
+
+use App\Imports\AccountGroupImport;
+use App\Imports\AccountImport;
+use App\Imports\SubAccountImport;
+
+
 use App\Imports\CsvImport;
 use App\Imports\OfficerImport;
 use App\Imports\OfficerExpenseIncentiveImport;
@@ -101,7 +112,72 @@ class FileManagerController extends Controller
         // $fileUrl = '/'.$destinationPath.$fileName;
         // return response()->json(['success'=>true,'message'=>'File uploaded successfully.','data'=>['file_url'=>$fileUrl,'extension'=>$extension]], 200);
     }
+    
+    public function fileUploadObjective(Request $request){
+        $path = $request->file('file')->getRealPath();
+        $rows = Excel::import(new ObjectiveImport, $path);
+        if($rows){
+            return response()->json(['success'=>true,'message'=>'File uploaded successfully.'], 200);
+        }else{
+            return response()->json(['success'=>false,'message'=>'File upload is failed!'], 500);
+        }
+    }
+    public function fileUploadProgram(Request $request){
+        $path = $request->file('file')->getRealPath();
+        $rows = Excel::import(new ProgramImport, $path);
+        if($rows){
+            return response()->json(['success'=>true,'message'=>'File uploaded successfully.'], 200);
+        }else{
+            return response()->json(['success'=>false,'message'=>'File upload is failed!'], 500);
+        }
+    }
+    public function fileUploadSubProgram(Request $request){
+        $path = $request->file('file')->getRealPath();
+        $rows = Excel::import(new SubProgramImport, $path);
+        if($rows){
+            return response()->json(['success'=>true,'message'=>'File uploaded successfully.'], 200);
+        }else{
+            return response()->json(['success'=>false,'message'=>'File upload is failed!'], 500);
+        }
+    }
+    public function fileUploadClusterActivity(Request $request){
+        $path = $request->file('file')->getRealPath();
+        $rows = Excel::import(new ClusterActivityImport, $path);
+        if($rows){
+            return response()->json(['success'=>true,'message'=>'File uploaded successfully.'], 200);
+        }else{
+            return response()->json(['success'=>false,'message'=>'File upload is failed!'], 500);
+        }
+    }
 
+    public function fileUploadAccountGroup(Request $request){
+        $path = $request->file('file')->getRealPath();
+        $rows = Excel::import(new AccountGroupImport, $path);
+        if($rows){
+            return response()->json(['success'=>true,'message'=>'File uploaded successfully.'], 200);
+        }else{
+            return response()->json(['success'=>false,'message'=>'File upload is failed!'], 500);
+        }
+    }
+    public function fileUploadAccount(Request $request){
+        $path = $request->file('file')->getRealPath();
+        $rows = Excel::import(new AccountImport, $path);
+        if($rows){
+            return response()->json(['success'=>true,'message'=>'File uploaded successfully.'], 200);
+        }else{
+            return response()->json(['success'=>false,'message'=>'File upload is failed!'], 500);
+        }
+    }
+    public function fileUploadSubAccount(Request $request){
+        $path = $request->file('file')->getRealPath();
+        $rows = Excel::import(new SubAccountImport, $path);
+        if($rows){
+            return response()->json(['success'=>true,'message'=>'File uploaded successfully.'], 200);
+        }else{
+            return response()->json(['success'=>false,'message'=>'File upload is failed!'], 500);
+        }
+    }
+    // 
     public function fileUploadOfficer(Request $request){
         $path = $request->file('file')->getRealPath();
         $rows = Excel::import(new OfficerImport, $path);

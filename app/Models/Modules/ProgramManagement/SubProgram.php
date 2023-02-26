@@ -11,12 +11,14 @@ class SubProgram extends Model
     protected $primaryKey = 'id';
     protected $fillable = [
                             'code',
+                            'sub_code',
                             'program_id',
                             'entity_id',
                             'entity_member_id',
                             'name_en',
                             'name_kh',
                             'remark',
+                            'administrative_class',
                             'order_level',
                             'created_by',
                             'modified_by'

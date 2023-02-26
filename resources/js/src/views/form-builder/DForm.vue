@@ -19,11 +19,11 @@
                 <div v-if="formAttribute.type == 'number'" class="mt-4">
                     <label class="mb-2">{{ $t(formAttribute.name) }}</label>
                     <span v-if="formAttribute.required">
-                        <vs-input-number :name="formAttribute.name" v-model="form.attribute[formAttribute.name]" icon-inc="expand_less" icon-dec="expand_more" class="w-full" />
+                        <vs-input type="number" :name="formAttribute.name" v-model="form.attribute[formAttribute.name]" icon-inc="expand_less" icon-dec="expand_more" class="w-full" />
                         <span class="text-danger text-sm" v-show="errors.has(formAttribute.name)">{{ $t("required_"+formAttribute.name)
                         }}</span>
                     </span>
-                    <vs-input-number v-else :name="formAttribute.name" v-model="form.attribute[formAttribute.name]" icon-inc="expand_less" icon-dec="expand_more" class="w-full" />
+                    <vs-input type="number" v-else :name="formAttribute.name" v-model="form.attribute[formAttribute.name]" icon-inc="expand_less" icon-dec="expand_more" class="w-full" />
                 </div>
               
                 <!-- <div v-if="formAttribute.type == 'select'" class="mt-4">
@@ -261,7 +261,9 @@
     methods: {
             // Just test to create dynamic data table on form
             onChangeElement(e, form_name) {
-                this.form.attribute[form_name] = "ddddd";
+                // this.form.attribute[form_name] = ;
+                this.$emit('clicked', e)
+                // this.$refs.refInitPushDataTable.initPushDataTable(form_name);
             },
             showNewForm() {
                 this.form.attribute = [];
@@ -272,7 +274,6 @@
                 });
             },
             showNewFormByParent(obj) {
-                console.log("found you did", obj);
                 this.form.attribute = [];
                 this.formAttributes.forEach(_formAttribute => {
                     if (_formAttribute["type"] == "select") {

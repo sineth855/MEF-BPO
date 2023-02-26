@@ -9,6 +9,7 @@ class ClusterActivity extends Model
     protected $table = 'mef_cluster_activity';
     protected $fillable = [
                             'code',
+                            'sub_code',
                             'sub_program_id',
                             'entity_id',
                             'entity_member_id',
