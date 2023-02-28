@@ -15,7 +15,7 @@ export default {
     data() {
         return {
             title: "setting_entity",
-            api: apiConfig._apiObjective,
+            api: apiConfig._apiEntity,
             dataAttributes: {
                 tableStyle: 1,
                 page_number: 1,
@@ -30,18 +30,23 @@ export default {
                 ]
             },
             dataHeaders: {
-                header1: "code",
-                header2: "name_en",
-                header3: "name_kh",
-                header4: "order_level",
+                // header1: "department",
+                // header2: "parent_id",
+                header3: "code",
+                header4: "name_en",
+                header5: "name_kh",
+                header6: "abbreviation",
+                header7: "order_level",
             },
             data: {
                 data: [
                     {
-                        code: "60",
-                        name_en: "ការទិញ",
-                        name_kh: "ការទិញ",
-                        description: "",
+                        // department: "លេខាធិការដ្ឋាន",
+                        // parent_id: "លេខាធិការដ្ឋាន",
+                        code: "",
+                        name_en: "នាយកដ្ឋានគោលនយោ​បាយ​ម៉ាក្រូសេដ្ឋកិច្ចនិងសារពើពន្ធ",
+                        name_kh: "នាយកដ្ឋានគោលនយោ​បាយ​ម៉ាក្រូសេដ្ឋកិច្ចនិងសារពើពន្ធ",
+                        abbreviation: "",
                         order_level: 1,
                         is_active: 1
                     },
@@ -119,8 +124,11 @@ export default {
             return new Promise((resolve, reject) => {
                 axios.post(this.api + "/search", _params)
                     .then((response) => {
-                        // this.data = response.data;
-                        this.data = this.data;
+                        if (response.data) {
+                            this.data = response.data;
+                        } else {
+                            this.data = this.data;
+                        }
                         this.$vs.loading.close();
                     }).catch((error) => {
                         // reject(error)

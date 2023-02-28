@@ -2,7 +2,7 @@
 
 namespace App\Imports;
 
-use App\Models\Modules\Settings\Account;
+use App\Models\Settings\Account;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use DB;
@@ -21,11 +21,12 @@ class AccountImport implements ToModel,WithHeadingRow
         $queryCheck = Account::where("id", (int)$row["id"])->first();
         if(!$queryCheck){
             Account::insert([
-                "parent_id" => $row["parent_id"]?$row["parent_id"]:0,
+                "id"=>$row["id"],
+                "parent_id"=>$row["parent_id"],
                 "code"=>$row["code"],
                 "name_en"=>$row["name_en"],
                 "name_kh"=>$row["name_kh"],
-                // "description"=>$row["description"],
+                "description"=>$row["description"],
                 "order_level"=>$row["order_level"],
             ]);
         }

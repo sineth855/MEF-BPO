@@ -15,7 +15,7 @@ export default {
     data() {
         return {
             title: "setting_department",
-            api: apiConfig._apiObjective,
+            api: apiConfig._apiDepartment,
             dataAttributes: {
                 tableStyle: 1,
                 page_number: 1,
@@ -30,9 +30,6 @@ export default {
                 ]
             },
             dataHeaders: {
-                header1: "code",
-                header2: "secretary",
-                header3: "parent",
                 header4: "name_en",
                 header5: "name_kh",
                 header6: "order_level",
@@ -54,11 +51,6 @@ export default {
             },
             formAttributes: [
                 {
-                    name: "code",
-                    type: "text",
-                    required: true
-                },
-                {
                     name: "name_en",
                     type: "text",
                     required: true
@@ -72,12 +64,7 @@ export default {
                     name: "order_level",
                     type: "number",
                     required: false
-                },
-                {
-                    name: "description",
-                    type: "textarea",
-                    required: false
-                },
+                }
             ],
             rowDisplay: "2grid", //1grid, 2grid, 3grid, 4grid
             dataFields: []
@@ -121,8 +108,11 @@ export default {
             return new Promise((resolve, reject) => {
                 axios.post(this.api + "/search", _params)
                     .then((response) => {
-                        // this.data = response.data;
-                        this.data = this.data;
+                        if (response.data) {
+                            this.data = response.data;
+                        } else {
+                            this.data = this.data;
+                        }
                         this.$vs.loading.close();
                     }).catch((error) => {
                         // reject(error)

@@ -81,13 +81,26 @@ Route::group([
         Route::resource('module/program_management/cluster_activity', 'Modules\ProgramManagement\ClusterActivityController');
         Route::resource('module/program_management/activity', 'Modules\ProgramManagement\ActivityController');
 
+        Route::post('setting/account_group/search', 'Settings\AccountGroupController@index');
+        Route::resource('setting/account_group', 'Settings\AccountGroupController');
+
+        Route::post('setting/account/search', 'Settings\AccountController@index');
+        Route::resource('setting/account', 'Settings\AccountController');
+
+        Route::post('setting/department/search', 'Settings\DepartmentController@index');
         Route::resource('setting/department', 'Settings\DepartmentController');
+
+        Route::post('setting/entity/search', 'Settings\EntityController@index');
+        Route::resource('setting/entity', 'Settings\EntityController');
+
+        Route::post('setting/position/search', 'Settings\PositionController@index');
+        Route::resource('setting/position', 'Settings\PositionController');
+        Route::post('setting/title/search', 'Settings\TitleController@index');
+        Route::resource('setting/title', 'Settings\TitleController');
+
         Route::resource('setting/sector', 'Settings\SectorController');
         Route::resource('setting/duty', 'Settings\DutyController');
-        Route::resource('setting/entity', 'Settings\EntityController');
         Route::resource('setting/bank', 'Settings\BankController');
-        Route::resource('setting/position', 'Settings\PositionController');
-        Route::resource('setting/title', 'Settings\TitleController');
         Route::resource('setting/role', 'Settings\RoleController');
         Route::resource('setting/currency', 'Settings\CurrencyController');
         Route::resource('setting/taxable_salary', 'Settings\TaxableSalaryController');
@@ -136,9 +149,11 @@ Route::group([
         Route::post('upload_subprogram', 'FileManagerController@fileUploadSubProgram');
         Route::post('upload_cluster_activity', 'FileManagerController@fileUploadClusterActivity');
         
-        Route::post('upload_account_group', 'FileManagerController@fileUploadAccountGroup');
-        Route::post('upload_acount', 'FileManagerController@fileUploadAccount');
+        Route::post('upload_account', 'FileManagerController@fileUploadAccount');
         Route::post('upload_sub_account', 'FileManagerController@fileUploadSubAccount');
+        Route::post('upload_account_group', 'FileManagerController@fileUploadAccountGroup');
+
+        Route::post('upload_entity', 'FileManagerController@fileUploadEntity');
 
         Route::post('file_upload', 'FileManagerController@fileUploadService');
         Route::post('file_officer_upload', 'FileManagerController@fileUploadOfficer');

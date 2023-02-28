@@ -15,7 +15,7 @@ export default {
     data() {
         return {
             title: "setting_group_chapter",
-            api: apiConfig._apiObjective,
+            api: apiConfig._apiAccountGroup,
             dataAttributes: {
                 tableStyle: 1,
                 page_number: 1,
@@ -30,10 +30,10 @@ export default {
                 ]
             },
             dataHeaders: {
-                header1: "code",
-                header2: "name_en",
-                header3: "name_kh",
-                header4: "order_level",
+                header2: "code",
+                header3: "name_en",
+                header4: "name_kh",
+                header5: "order_level",
             },
             data: {
                 data: [
@@ -46,7 +46,7 @@ export default {
                         is_active: 1
                     },
                 ],
-                
+
                 limit: 10,
                 total: 3,
             },
@@ -119,8 +119,11 @@ export default {
             return new Promise((resolve, reject) => {
                 axios.post(this.api + "/search", _params)
                     .then((response) => {
-                        // this.data = response.data;
-                        this.data = this.data;
+                        if (response.data) {
+                            this.data = response.data;
+                        } else {
+                            this.data = this.data;
+                        }
                         this.$vs.loading.close();
                     }).catch((error) => {
                         // reject(error)

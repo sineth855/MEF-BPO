@@ -61,9 +61,52 @@ class ClusterActivityController extends Controller
         }
         
         $table = collect($whereClause->get());
+        // $data = array(
+        //     "data_fields" => $this->dataFields(),
+        //     "data" => $table,
+        //     "limit" => LIMIT,
+        //     "total" => $this->db_table->count()
+        // );
+        $objectives = array(
+            [
+                "label" => "គោលបំណងទី១",
+                "value" => 1,
+            ],
+            [
+                "label" => "គោលបំណងទី២",
+                "value" => 2,
+            ],
+            [
+                "label" => "គោលបំណងទី៣",
+                "value" => 3,
+            ]
+        );
+        $entities = array(
+            [
+                "label" => "អង្គភាពទី២២១",
+                "value" => 1,
+            ],
+            [
+                "label" => "អង្គភាពទី២២២",
+                "value" => 2,
+            ]
+        );
+        $entity_members = array(
+            [
+                "label" => "សមាជិកទី១",
+                "value" => 1,
+            ],
+            [
+                "label" => "សមាជិកទី២",
+                "value" => 2,
+            ]
+        );
+        
         $data = array(
             "data_fields" => $this->dataFields(),
-            "data" => $table,
+            "data" => ClusterActivity::getClusterActBySProgram($filter),
+            "entity_id" => $entities,
+            "entity_member_id" => $entity_members,
             "limit" => LIMIT,
             "total" => $this->db_table->count()
         );

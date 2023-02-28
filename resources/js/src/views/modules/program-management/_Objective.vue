@@ -1,8 +1,7 @@
 <template>
-    <d-table-list @clicked="initTableData" :api="api" ref="refInitPage" 
-    :allowDel="true" :title="title" :dataAttributes="dataAttributes" 
-    :dataHeaders="dataHeaders" :dataTables="data"
-    :formAttributes="formAttributes" :rowDisplay="rowDisplay"></d-table-list>
+    <d-table-list @clicked="initTableData" :api="api" ref="refInitPage" :allowDel="true" :title="title"
+        :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data" :formAttributes="formAttributes"
+        :rowDisplay="rowDisplay"></d-table-list>
 </template>
 
 <script>
@@ -84,7 +83,7 @@ export default {
                         }
                         this.dataFields.push(_d);
                     }
-                    
+
                 });
                 _params = {
                     sort: _search_criteria.sort,
@@ -103,7 +102,11 @@ export default {
             return new Promise((resolve, reject) => {
                 axios.post(this.api + "/search", _params)
                     .then((response) => {
-                        this.data = response.data;
+                        if (response.data) {
+                            this.data = response.data;
+                        } else {
+                            this.data = this.data;
+                        }
                         this.$vs.loading.close();
                     }).catch((error) => {
                         // reject(error)
@@ -130,7 +133,7 @@ export default {
             this.getDataTable(_search_criteria);
             return false;
         }
-        
+
     },
     created() {
         this.$vs.loading();

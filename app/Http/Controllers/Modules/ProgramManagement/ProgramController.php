@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Modules\ProgramManagement;
 
 use App\Http\Controllers\Controller;
 use App\Models\Modules\ProgramManagement\Objective;
@@ -119,7 +119,7 @@ class ProgramController extends Controller
         $data = array(
             "data_fields" => $this->dataFields(),
             "data" => Objective::getProgramByObj($filter),
-            "objective_id" => $objectives,
+            // "objective_id" => ,
             "entity_id" => $entities,
             "entity_member_id" => $entity_members,
             "limit" => $filter["limit"],

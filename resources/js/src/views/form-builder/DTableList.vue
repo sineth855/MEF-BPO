@@ -101,7 +101,7 @@
                                     </span>
                                 </span>
                                 <span v-else>
-                                    <center>{{ tr[header] }}</center>
+                                    {{ tr[header] }}
                                 </span>
 
                                 <!-- <span v-if="tr[header].data"> -->

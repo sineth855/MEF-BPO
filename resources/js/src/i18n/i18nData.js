@@ -233,6 +233,7 @@ export default {
 
 		// Label
 		action_button: "​​ប៊ូតុងសកម្ម",
+		abbreviation: "អក្សរកាត់",
 		no: "ល.រ",
 		id: "ល.រ",
 		code: "កូដ",

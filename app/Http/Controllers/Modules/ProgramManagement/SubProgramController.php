@@ -189,7 +189,7 @@ class SubProgramController extends Controller
         );
         $data = array(
             "data_fields" => $this->dataFields(),
-            "data" => $table_test,//SubProgram::getSubProgramByProgram($filter),
+            "data" => SubProgram::getSubProgramByProgram($filter),
             "objective_id" => $objectives,
             "entity_id" => $entities,
             "entity_member_id" => $entity_members,

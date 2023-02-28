@@ -35,13 +35,14 @@ export default {
             },
             dataHeaders: {
                 // header1: "code_subprogram",
+                header1: "code",
                 header2: "name_en",
                 header3: "name_kh",
                 // header4: "program",
                 header5: "indicator",
-                header6: "responsible_entity",
-                header8: "responsible_person",
-                header9: "order_level"
+                header5: "entity_id",
+                header6: "entity_member_id",
+                header7: "order_level"
             },
             data: {
                 data: [
@@ -49,13 +50,17 @@ export default {
                         id: 1,
                         name_en: "12-កម្មវិធីទី១",
                         name_kh: "12-កម្មវិធីទី១",
+                        code: "",
                         children: [
                             {
                                 id: 1,
-                                // code_subprogram: "001",
+                                program_id: 1,
+                                code: "001",
                                 name_en: "#001 - អនុកម្មវិធីទី ១",
                                 name_kh: "#001 - អនុកម្មវិធីទី ១",
-                                program: "កម្មវិធីទី១",
+                                entity_id: 1,
+                                entity_member_id: 2,
+                                order_level: 1,
                                 indicator: {
                                     data: [
                                         {
@@ -82,124 +87,9 @@ export default {
                                         }
                                     ]
                                 },
-                                responsible_entity: "ឈ្មោះអង្គភាពទទួលបន្ទុក",
-                                responsible_person: "ឯកឧត្តម ទទួលបន្ទុក",
-                                order_level: 1
-                            }, {
-                                id: 2,
-                                // code_subprogram: "001",
-                                name_en: "#002 - អនុកម្មវិធីទី ២",
-                                name_kh: "#002 - អនុកម្មវិធីទី ២",
-                                program: "កម្មវិធីទី២",
-                                indicator: {
-                                    data: [
-                                        {
-                                            id: 1,
-                                            code: "#1.3.10-1",
-                                            kpi_name_en: "ឈ្មោះសូចនាករ",
-                                            kpi_name_kh: "ឈ្មោះសូចនាករ",
-                                            order_level: 1,
-                                            status: "Active"
-                                        }, {
-                                            id: 2,
-                                            code: "#1.3.10-2",
-                                            kpi_name_en: "ឈ្មោះសូចនាករ",
-                                            kpi_name_kh: "ឈ្មោះសូចនាករ",
-                                            order_level: 1,
-                                            status: "Active"
-                                        }, {
-                                            id: 3,
-                                            code: "#1.3.10-3",
-                                            kpi_name_en: "ឈ្មោះសូចនាករជាភាសាអង់គ្លេស",
-                                            kpi_name_kh: "ឈ្មោះសូចនាករជាភាសាអង់គ្លេស",
-                                            order_level: 1,
-                                            status: "InActive"
-                                        }
-                                    ]
-                                },
-                                responsible_entity: "ឈ្មោះអង្គភាពទទួលបន្ទុក",
-                                responsible_person: "ឯកឧត្តម ទទួលបន្ទុក",
-                                order_level: 1
                             }
                         ]
-                    }, {
-                        id: 1,
-                        name_en: "12-កម្មវិធីទី១",
-                        name_kh: "12-កម្មវិធីទី១",
-                        children: [
-                            {
-                                id: 1,
-                                // code_subprogram: "001",
-                                name_en: "#001 - អនុកម្មវិធីទី ១",
-                                name_kh: "#001 - អនុកម្មវិធីទី ១",
-                                program: "កម្មវិធីទី១",
-                                indicator: {
-                                    data: [
-                                        {
-                                            id: 1,
-                                            code: "#1.3.10-1",
-                                            kpi_name_en: "ឈ្មោះសូចនាករ",
-                                            kpi_name_kh: "ឈ្មោះសូចនាករ",
-                                            order_level: 1,
-                                            status: "Active"
-                                        }, {
-                                            id: 2,
-                                            code: "#1.3.10-2",
-                                            kpi_name_en: "ឈ្មោះសូចនាករ",
-                                            kpi_name_kh: "ឈ្មោះសូចនាករ",
-                                            order_level: 1,
-                                            status: "Active"
-                                        }, {
-                                            id: 3,
-                                            code: "#1.3.10-3",
-                                            kpi_name_en: "ឈ្មោះសូចនាករជាភាសាអង់គ្លេស",
-                                            kpi_name_kh: "ឈ្មោះសូចនាករជាភាសាអង់គ្លេស",
-                                            order_level: 1,
-                                            status: "InActive"
-                                        }
-                                    ]
-                                },
-                                responsible_entity: "ឈ្មោះអង្គភាពទទួលបន្ទុក",
-                                responsible_person: "ឯកឧត្តម ទទួលបន្ទុក",
-                                order_level: 1
-                            }, {
-                                id: 2,
-                                // code_subprogram: "001",
-                                name_en: "#002 - អនុកម្មវិធីទី ២",
-                                name_kh: "#002 - អនុកម្មវិធីទី ២",
-                                program: "កម្មវិធីទី២",
-                                indicator: {
-                                    data: [
-                                        {
-                                            id: 1,
-                                            code: "#1.3.10-1",
-                                            kpi_name_en: "ឈ្មោះសូចនាករ",
-                                            kpi_name_kh: "ឈ្មោះសូចនាករ",
-                                            order_level: 1,
-                                            status: "Active"
-                                        }, {
-                                            id: 2,
-                                            code: "#1.3.10-2",
-                                            kpi_name_en: "ឈ្មោះសូចនាករ",
-                                            kpi_name_kh: "ឈ្មោះសូចនាករ",
-                                            order_level: 1,
-                                            status: "Active"
-                                        }, {
-                                            id: 3,
-                                            code: "#1.3.10-3",
-                                            kpi_name_en: "ឈ្មោះសូចនាករជាភាសាអង់គ្លេស",
-                                            kpi_name_kh: "ឈ្មោះសូចនាករជាភាសាអង់គ្លេស",
-                                            order_level: 1,
-                                            status: "InActive"
-                                        }
-                                    ]
-                                },
-                                responsible_entity: "ឈ្មោះអង្គភាពទទួលបន្ទុក",
-                                responsible_person: "ឯកឧត្តម ទទួលបន្ទុក",
-                                order_level: 1
-                            }
-                        ]
-                    },
+                    }
                 ],
                 program_id: [
                     {
@@ -358,9 +248,8 @@ export default {
             return new Promise((resolve, reject) => {
                 axios.post(this.api + "/search", _params)
                     .then((response) => {
-                        if (response) {
+                        if (response.data) {
                             this.data = response.data;
-                            // this.data = this.data
                         } else {
                             this.data = this.data;
                         }

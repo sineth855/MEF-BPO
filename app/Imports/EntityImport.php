@@ -2,13 +2,13 @@
 
 namespace App\Imports;
 
-use App\Models\Settings\Account;
+use App\Models\Settings\Entity;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use DB;
 use Auth;
 
-class SubAccountImport implements ToModel,WithHeadingRow
+class EntityImport implements ToModel,WithHeadingRow
 {
     /**
     * @param array $row
@@ -18,15 +18,18 @@ class SubAccountImport implements ToModel,WithHeadingRow
     public function model(array $row)
     {
         // dd($row);
-        $queryCheck = Account::where("id", (int)$row["id"])->first();
+        $queryCheck = Entity::where("id", (int)$row["id"])->first();
         if(!$queryCheck){
-            Account::insert([
-                "parent_id"=>$row["parent_id"],
+            Entity::insert([
+                "id"=>$row["id"],
                 "code"=>$row["code"],
+                "department_id"=>$row["department_id"],
+                "parent_id"=>$row["parent_id"],
                 "name_en"=>$row["name_en"],
                 "name_kh"=>$row["name_kh"],
-                "description"=>$row["description"],
                 "order_level"=>$row["order_level"],
+                "is_active"=>1,
+                "created_by"=>Auth::user()->id
             ]);
         }
     }

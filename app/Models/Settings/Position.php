@@ -9,7 +9,8 @@ class Position extends Model
     protected $table = 'position';
     protected  $primaryKey = 'id';
     protected $fillable = [
-                            'name',
+                            'name_en',
+                            'name_kh',
                             'modified_by'
                           ];
     public $timestamps = true;

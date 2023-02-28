@@ -9,7 +9,8 @@ class Title extends Model
     protected $table = 'title';
     protected  $primaryKey = 'id';
     protected $fillable = [
-                            'name',
+                            'name_en',
+                            'name_kh',
                             'modified_by'
                           ];
     public $timestamps = true;

@@ -15,7 +15,7 @@ export default {
     data() {
         return {
             title: "setting_secretary",
-            api: apiConfig._apiObjective,
+            api: apiConfig._apiDepartment,
             dataAttributes: {
                 tableStyle: 1,
                 page_number: 1,
@@ -115,8 +115,11 @@ export default {
             return new Promise((resolve, reject) => {
                 axios.post(this.api + "/search", _params)
                     .then((response) => {
-                        // this.data = response.data;
-                        this.data = this.data;
+                        if (response.data) {
+                            this.data = response.data;
+                        } else {
+                            this.data = this.data;
+                        }
                         this.$vs.loading.close();
                     }).catch((error) => {
                         // reject(error)

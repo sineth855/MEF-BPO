@@ -13,7 +13,6 @@ use App\Imports\ClusterActivityImport;
 
 use App\Imports\AccountGroupImport;
 use App\Imports\AccountImport;
-use App\Imports\SubAccountImport;
 
 
 use App\Imports\CsvImport;
@@ -21,6 +20,7 @@ use App\Imports\OfficerImport;
 use App\Imports\OfficerExpenseIncentiveImport;
 use App\Imports\IncomeImport;
 use App\Imports\OutcomeImport;
+use App\Imports\EntityImport;
 use Auth;
 // use Excel;
 use Maatwebsite\Excel\Facades\Excel;
@@ -170,13 +170,24 @@ class FileManagerController extends Controller
     }
     public function fileUploadSubAccount(Request $request){
         $path = $request->file('file')->getRealPath();
-        $rows = Excel::import(new SubAccountImport, $path);
+        $rows = Excel::import(new AccountImport, $path);
         if($rows){
             return response()->json(['success'=>true,'message'=>'File uploaded successfully.'], 200);
         }else{
             return response()->json(['success'=>false,'message'=>'File upload is failed!'], 500);
         }
     }
+
+    public function fileUploadEntity(Request $request){
+        $path = $request->file('file')->getRealPath();
+        $rows = Excel::import(new EntityImport, $path);
+        if($rows){
+            return response()->json(['success'=>true,'message'=>'File uploaded successfully.'], 200);
+        }else{
+            return response()->json(['success'=>false,'message'=>'File upload is failed!'], 500);
+        }
+    }
+
     // 
     public function fileUploadOfficer(Request $request){
         $path = $request->file('file')->getRealPath();
