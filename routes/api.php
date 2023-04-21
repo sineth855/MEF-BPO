@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
+
 Route::get("/users", function() {
     $users = factory(User::class, 100)->make();
     return $users;
@@ -88,10 +89,9 @@ Route::group([
         // BPS
         Route::post('module/budget_arrangement/bsp_program/search', 'Modules\BudgetArrangement\BSPProgramController@index');
         Route::resource('module/budget_arrangement/bsp_program', 'Modules\BudgetArrangement\BSPProgramController');
-        // PB
-        Route::resource('module/budget_arrangement/pb_revenue', 'Modules\BudgetArrangement\PBRevenueController');
-        Route::resource('module/budget_arrangement/pb_expense', 'Modules\BudgetArrangement\PBExpenseController');
+
         // Settings
+
         // Expenditure Group
         Route::post('setting/expenditure_group/search', 'Settings\ExpenditureGroupController@index');
         Route::post('setting/expenditure_type/search', 'Settings\ExpenditureTypeController@index');
@@ -113,7 +113,7 @@ Route::group([
 
         Route::post('setting/entity/search', 'Settings\EntityController@index');
         Route::resource('setting/entity', 'Settings\EntityController');
-        
+
         Route::post('setting/position/search', 'Settings\PositionController@index');
         Route::resource('setting/position', 'Settings\PositionController');
         Route::post('setting/title/search', 'Settings\TitleController@index');
@@ -127,7 +127,7 @@ Route::group([
 
         Route::post('setting/item_category/search', 'Settings\ItemCategoryController@index');
         Route::resource('setting/item_category', 'Settings\ItemCategoryController');
-
+        
         Route::resource('setting/sector', 'Settings\SectorController');
         Route::resource('setting/duty', 'Settings\DutyController');
         Route::resource('setting/bank', 'Settings\BankController');
@@ -185,8 +185,6 @@ Route::group([
         Route::get('officer_group_by_entities', 'IncentiveOfficerController@getOfficerGroupByEntities');
         Route::get('officer_by_entities', 'IncentiveOfficerController@getOfficerByEntities');
         Route::get('officer_list_by_entities', 'IncentiveOfficerController@getOfficerListByEntities');
-        // Upload Postion
-        Route::post('upload_position', 'FileManagerController@fileUploadPosition');
         // Upload File
         Route::post('upload_objective', 'FileManagerController@fileUploadObjective');
         Route::post('upload_program', 'FileManagerController@fileUploadProgram');
@@ -203,11 +201,8 @@ Route::group([
         // PIP 
         Route::post('upload_pip_investment', 'FileManagerController@fileUploadPIPInvestment');
         Route::post('upload_pip_inv_detail', 'FileManagerController@fileUploadPIPInvDetail');
-        // PB
-        Route::post('upload_pb_revenue', 'FileManagerController@fileUploadPBRevenue');
-        Route::post('upload_pb_expense', 'FileManagerController@fileUploadPBExpense');
         // BSP
-        // Import Assign SubProgram, Cluster Activity, Activity to Entity
+            // Import Assign SubProgram, Cluster Activity, Activity to Entity
         Route::post('upload_bsp_assign_program', 'FileManagerController@fileUploadBSPAssignProgram');
 
         Route::post('upload_item', 'FileManagerController@fileUploadItem');
