@@ -18,7 +18,7 @@
 
     <v-nav-menu
       :navMenuItems = "navMenuItems"
-      title         = "Budget Planning System"
+      title         = "BPS"
       parent        = ".layout--main" />
 
     <div id="content-area" :class="[contentAreaClass, {'show-overlay': bodyOverlay}]">

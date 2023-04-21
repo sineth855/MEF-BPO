@@ -1,101 +1,438 @@
 <template>
-    <div>
-        <div class="flex justify-between flex-wrap mb-4">
-            <vs-button class="mt-4 mr-2 shadow-lg" type="gradient" color="#7367F0" gradient-color-secondary="#CE9FFC">{{$t("Download")}}</vs-button>
-            <vs-checkbox color="success" v-model="checkBox2">បានត្រួតពិនិត្យ</vs-checkbox>
-            <vs-button class="mt-4" type="border" color="#30c974"><feather-icon icon="PlusIcon" svgClasses="h-4 w-4" /> {{$t("AddNew")}}</vs-button>
-            </div>
+    <div class="flex items-center">
+        <d-table-list @clicked="initTableData" :api="api" ref="refInitPage" :allowDel="true" :title="title"
+            :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data" :formAttributes="formAttributes"
+            :rowDisplay="rowDisplay" @emitDataForm="initDataForm"></d-table-list>
             
-            <div class="flex items-center">
-            <!-- ###################### -->
-            <div>
-                <div class="clearfix"></div>
-                <div class="_container-inner">
-                    <center>
-                        <span class="font-mef2">
-                            ព្រះរាជាណាចក្រកម្ពុជា
-                            <br/>
-                            ជាតិ សាសនា ព្រះមហាក្សត្រ
-                            <br/><center>***</center>
-                        </span>
-                    </center>
-                    <div class="font-mef2" style="float: left;">
-                    <!-- <img width="120px" src="../../../../assets/images/logo/logo.png"/> -->
-                    ក្រសួងសេដ្ឋកិច្ច និងហិរញ្ញវត្ថុ<br/>
-                    អគ្គលេខាធិការដ្ឋានក្រសួងសេដ្ឋកិច្ចនិងហិរញ្ញវត្ថុ<br/>
-                    នាយកដា្ឋនរដ្ឋបាលនិងហិរញ្ញវត្ថុ<br/>
-                    ការិយាល័យផែនការថវិកា
-                    </div><br/><br/>
-                    <div class="clearfix"></div>
-                    <center>    
-                        <!-- <span class="font-mef2" style="color: #0d72a2; font-size: 12pt">
-                            បញ្ជីសរុប<br/>
-                        </span> -->
-                        <br/>
-                        <span class="font-mef2" style="color: #0d72a2; font-size: 12pt">
-                        តារាង១ៈ អនុកម្មវិធី អ្នកគ្រប់គ្រង និងអង្គភាពទទួលខុសត្រូវ
-                        </span>
-                        <div class="clearfix"></div>
-                        <br/>
-                    </center>
-                </div>
-                <div class="clearfix"></div>
-                <vs-table :data="[]">
+        <!-- <vs-table :data="[]">
 
-                <template slot="thead">
-                    <vs-th>ឈ្មោះគោលបំណងគោលនយោបាយ</vs-th>
-                    <vs-th>ឈ្មោះកម្មវិធី និងអនុកម្មវិធី</vs-th>
-                    <vs-th>អ្នកគ្រប់គ្រង</vs-th>
-                    <vs-th>អ្នកទទួលខុសត្រូវ</vs-th>
-                </template>
+            <template slot="thead">
+                <vs-th>ឈ្មោះគោលបំណងគោលនយោបាយ</vs-th>
+                <vs-th>ឈ្មោះកម្មវិធី និងអនុកម្មវិធី</vs-th>
+                <vs-th>អ្នកគ្រប់គ្រង</vs-th>
+                <vs-th>អ្នកទទួលខុសត្រូវ</vs-th>
+            </template>
 
-                <template>
-                    
-                    <vs-tr style="background-color: #28C76F; color: #ffffff; font-weight: bold;">
-                        <vs-td>គោលបំណងគោលនយោបាយទី១</vs-td>
-                        <vs-td>កម្មវិធីទី១ៈ ការគ្រប់គ្រងវិស័យសេដ្ឋកិច្ច</vs-td>
-                        <vs-td>ឯកឧត្តម/លោកជំទាវ</vs-td>
-                        <vs-td></vs-td>
-                    </vs-tr>
-                    
-                    <vs-tr :state="'warning'">
-                        <vs-td></vs-td>
-                        <vs-td>១.១. អនុកម្មវិធីទី១.១ : ការគ្រប់គ្រងគោលនយោបាយសេដ្ឋកិច្ច ហិរញ្ញវត្ថុ និងគោលនយោបាយតាមវិស័យផ្សេងៗ</vs-td>
-                        <vs-td>ឯកឧត្តម/លោកជំទាវ</vs-td>
-                        <vs-td>អគ្គនាយកដ្ឋានគោលនយោបាយ</vs-td>
-                    </vs-tr>
+            <template>
+                
+                <vs-tr style="background-color: #28C76F; color: #ffffff; font-weight: bold;">
+                    <vs-td>គោលបំណងគោលនយោបាយទី១</vs-td>
+                    <vs-td>កម្មវិធីទី១ៈ ការគ្រប់គ្រងវិស័យសេដ្ឋកិច្ច</vs-td>
+                    <vs-td>ឯកឧត្តម/លោកជំទាវ</vs-td>
+                    <vs-td></vs-td>
+                </vs-tr>
+                
+                <vs-tr :state="'warning'">
+                    <vs-td></vs-td>
+                    <vs-td>១.១. អនុកម្មវិធីទី១.១ : ការគ្រប់គ្រងគោលនយោបាយសេដ្ឋកិច្ច ហិរញ្ញវត្ថុ និងគោលនយោបាយតាមវិស័យផ្សេងៗ</vs-td>
+                    <vs-td>ឯកឧត្តម/លោកជំទាវ</vs-td>
+                    <vs-td>អគ្គនាយកដ្ឋានគោលនយោបាយ</vs-td>
+                </vs-tr>
 
-                    <vs-tr :state="'success'">
-                        <vs-td></vs-td>
-                        <vs-td>១.១.‌១.ចង្កោមសកម្មភាពទី១ៈ គាំទ្រសម្របសម្រួល និងគ្រប់គ្រងការងាររដ្ឋបាលរបស់នាយកដ្ឋាន</vs-td>
-                        <vs-td>លោក/លោកស្រី</vs-td>
-                        <vs-td>ការរិយាល័យ</vs-td>
-                    </vs-tr>
+                <vs-tr :state="'success'">
+                    <vs-td></vs-td>
+                    <vs-td>១.១.‌១.ចង្កោមសកម្មភាពទី១ៈ គាំទ្រសម្របសម្រួល និងគ្រប់គ្រងការងាររដ្ឋបាលរបស់នាយកដ្ឋាន</vs-td>
+                    <vs-td>លោក/លោកស្រី</vs-td>
+                    <vs-td>ការរិយាល័យ</vs-td>
+                </vs-tr>
 
-                    <vs-tr>
-                        <vs-td></vs-td>
-                        <vs-td style="text-indent: 30px;">១.១.‌១.១.សកម្មភាពទី១ៈ បំពេញមុខងារជាលេខាធិការដ្ឋនា</vs-td>
-                        <vs-td>លោក/លោកស្រី</vs-td>
-                        <vs-td>ការរិយាល័យ</vs-td>
-                    </vs-tr>
+                <vs-tr>
+                    <vs-td></vs-td>
+                    <vs-td style="text-indent: 30px;">១.១.‌១.១.សកម្មភាពទី១ៈ បំពេញមុខងារជាលេខាធិការដ្ឋនា</vs-td>
+                    <vs-td>លោក/លោកស្រី</vs-td>
+                    <vs-td>ការរិយាល័យ</vs-td>
+                </vs-tr>
 
-                    <vs-tr :state="'success'">
-                        <vs-td></vs-td>
-                        <vs-td>១.១.២. ចង្កោមសកម្មភាពទី២ : រៀបចំ កែលម្អ ត្រួតពិនិត្យ និងវាយតម្លៃគោលនយោបាយម៉ាក្រូសេដ្ឋកិច្ច និងសារពើពន្ធ</vs-td>
-                        <vs-td>លោក/លោកស្រី</vs-td>
-                        <vs-td>ការរិយាល័យ</vs-td>
-                    </vs-tr>
+                <vs-tr :state="'success'">
+                    <vs-td></vs-td>
+                    <vs-td>១.១.២. ចង្កោមសកម្មភាពទី២ : រៀបចំ កែលម្អ ត្រួតពិនិត្យ និងវាយតម្លៃគោលនយោបាយម៉ាក្រូសេដ្ឋកិច្ច និងសារពើពន្ធ</vs-td>
+                    <vs-td>លោក/លោកស្រី</vs-td>
+                    <vs-td>ការរិយាល័យ</vs-td>
+                </vs-tr>
 
-                    <vs-tr>
-                        <vs-td></vs-td>
-                        <vs-td style="text-indent: 30px;">១.១.‌១.១.សកម្មភាពទី១ៈ បំពេញមុខងារជាលេខាធិការដ្ឋនា</vs-td>
-                        <vs-td>លោក/លោកស្រី</vs-td>
-                        <vs-td>ការរិយាល័យ</vs-td>
-                    </vs-tr>
-                </template>
-                </vs-table>
-            </div>
-            <!-- ###################### -->
-        </div>
+                <vs-tr>
+                    <vs-td></vs-td>
+                    <vs-td style="text-indent: 30px;">១.១.‌១.១.សកម្មភាពទី១ៈ បំពេញមុខងារជាលេខាធិការដ្ឋនា</vs-td>
+                    <vs-td>លោក/លោកស្រី</vs-td>
+                    <vs-td>ការរិយាល័យ</vs-td>
+                </vs-tr>
+            </template>
+        </vs-table> -->
+        <!-- ###################### -->
     </div>
 </template>
+
+<script>
+    import axios from "@/axios.js"
+    import apiConfig from "@/apiConfig.js"
+    import { ref } from 'vue';
+
+    import DTableList from '@/views/form-builder/DTableList.vue'
+
+    export default {
+        data() {
+            return {
+                title: "bsp_heading_subpro_res_entity",
+                api: apiConfig._apiObjective,
+                dataAttributes: {
+                    tableStyle: 4,
+                    page_number: 1,
+                    offset: 0,
+                    dataGrid: "row",
+                    hasHeadingReport: true,
+                    headingReport: "bsp_heading_subpro_res_entity",
+                    actionButton: [
+                        {
+                            icon: "DollarSignIcon",
+                            path: "/module/budget-arrangement/budget-ceiling/list",
+                            method: "View"
+                        }
+                    ],
+                    popupFullscreen: true
+                },
+                dataHeaders: {
+                    header1: {
+                        width: 200,
+                        label: "bsp_title_objective",
+                        rowspan: 0,
+                        colspan: 0,
+                    },
+                    header2: {
+                        width: 350,
+                        label: "bsp_title_pro_subpro_title",
+                        rowspan: 0,
+                        colspan: 0,
+                    },
+                    header3: {
+                        label: "bsp_manager",
+                        rowspan: 0,
+                        colspan: 0,
+                    },
+                    header4: {
+                        label: "bsp_res_entity",
+                        rowspan: 0,
+                        colspan: 0,
+                    },
+                    header8: {
+                        label: "action",
+                        rowspan: 0,
+                        colspan: 0,
+                    }
+                },
+                data: {
+                    data: [
+                        {
+                            id: 1,
+                            name: "គោលបំណងគោលនយោបាយទី ១",
+                            name_kh: "គោលបំណងគោលនយោបាយទី ១",
+                            remark: "",
+                            status: 1,
+                            hasColspan: true,
+                            colspan: 5,
+                            rowspan: 0,
+                            order_level: "",
+                            indicators: [
+                                {
+                                    id: 1,
+                                    code: "",
+                                    indicator: "",
+                                    indicator_kh: "",
+                                    status: "active"
+                                }
+                            ],
+                            children: [
+                                {
+                                    id: 1,
+                                    name: "កម្មវិធីទី១ : ការគ្រប់គ្រងវិស័យសេដ្ឋកិច្ច",
+                                    name_kh: "កម្មវិធីទី១ : ការគ្រប់គ្រងវិស័យសេដ្ឋកិច្ច",
+                                    responsible_person: { id: 1, name: "បុគ្គលទទួលបន្ទុក", name: "បុគ្គលទទួលបន្ទុក" },
+                                    responsible_entity: { id: 1, name: "ឈ្មោះអង្គភាពទទួលបន្ទុក", name_kh: "ឈ្មោះអង្គភាពទទួលបន្ទុក" },
+                                    order_level: 1,
+                                    indicators: [
+                                        {
+                                            id: 1,
+                                            code: "",
+                                            indicator: "",
+                                            indicator_kh: "",
+                                            status: "active"
+                                        }
+                                    ],
+                                    children: [
+                                        {
+                                            id: 1,
+                                            name: "១.១. អនុកម្មវិធីទី១.១ : ការគ្រប់គ្រងគោលនយោបាយសេដ្ឋកិច្ច ហិរញ្ញវត្ថុ និងគោលនយោបាយតាមវិស័យផ្សេងៗ",
+                                            name_kh: "១.១. អនុកម្មវិធីទី១.១ : ការគ្រប់គ្រងគោលនយោបាយសេដ្ឋកិច្ច ហិរញ្ញវត្ថុ និងគោលនយោបាយតាមវិស័យផ្សេងៗ",
+                                            responsible_entity: { id: 1, name: "ឈ្មោះអង្គភាពទទួលបន្ទុក", name_kh: "ឈ្មោះអង្គភាពទទួលបន្ទុក" },
+                                            responsible_person: { id: 1, name: "បុគ្គលទទួលបន្ទុក", name: "បុគ្គលទទួលបន្ទុក" },
+                                            order_level: 1,
+                                            indicators: [
+                                                {
+                                                    id: 1,
+                                                    code: "",
+                                                    indicator: "",
+                                                    indicator_kh: "",
+                                                    status: "active"
+                                                }
+                                            ],
+                                            children: [
+                                                {
+                                                    id: 1,
+                                                    name: "១.១.១. ចង្កោមសកម្មភាពទី១ : គាំទ្រ សម្របសម្រួល និងគ្រប់គ្រងការងាររដ្ឋបាលរបស់អគ្គនាយកដ្ឋាន",
+                                                    name_kh: "១.១.១. ចង្កោមសកម្មភាពទី១ : គាំទ្រ សម្របសម្រួល និងគ្រប់គ្រងការងាររដ្ឋបាលរបស់អគ្គនាយកដ្ឋាន",
+                                                    responsible_entity: { id: 1, name: "ឈ្មោះអង្គភាពទទួលបន្ទុក", name_kh: "ឈ្មោះអង្គភាពទទួលបន្ទុក" },
+                                                    responsible_person: { id: 1, name: "បុគ្គលទទួលបន្ទុក", name: "បុគ្គលទទួលបន្ទុក" },
+                                                    order_level: 1,
+                                                    indicators: [
+                                                        {
+                                                            id: 1,
+                                                            code: "",
+                                                            indicator: "",
+                                                            indicator_kh: "",
+                                                            status: "active"
+                                                        }
+                                                    ],
+                                                    children: [
+                                                        {
+                                                            id: 1,
+                                                            name: "១.១.១.១. សកម្មភាពទី១ : បំពេញមុខជាលេខាធិការដ្ឋាន",
+                                                            name_kh: "១.១.១.១. សកម្មភាពទី១ : បំពេញមុខជាលេខាធិការដ្ឋាន",
+                                                            responsible_entity: { id: 1, name: "ឈ្មោះអង្គភាពទទួលបន្ទុក", name_kh: "ឈ្មោះអង្គភាពទទួលបន្ទុក" },
+                                                            responsible_person: { id: 1, name: "បុគ្គលទទួលបន្ទុក", name: "បុគ្គលទទួលបន្ទុក" },
+                                                            order_level: 1,
+                                                            indicators: [
+                                                                {
+                                                                    id: 1,
+                                                                    code: "",
+                                                                    indicator: "",
+                                                                    indicator_kh: "",
+                                                                    status: "active"
+                                                                }
+                                                            ],
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    objective_id: [
+                        {
+                            "label": "គោលបំណងទី១",
+                            "value": 1,
+                        },
+                        {
+                            "label": "គោលបំណងទី២",
+                            "value": 2,
+                        }
+                    ],
+                    entity_id: [
+                        {
+                            "label": "អង្គភាពទី១",
+                            "value": 1,
+                        },
+                        {
+                            "label": "អង្គភាពទី២",
+                            "value": 2,
+                        }
+                    ],
+                    entity_member_id: [
+                        {
+                            "label": "សមាជិកទី១",
+                            "value": 1,
+                        },
+                        {
+                            "label": "សមាជិកទី២",
+                            "value": 2,
+                        }
+                    ],
+                    program_id: [
+                        {
+                            "label": "កម្មវិធីទី១",
+                            "value": 1,
+                        },
+                        {
+                            "label": "កម្មវិធីទី២",
+                            "value": 2,
+                        }
+                    ],
+                    sub_program_id: [
+                        {
+                            "label": "អនុកម្មវិធីទី១",
+                            "value": 1,
+                        },
+                        {
+                            "label": "អនុកម្មវិធីទី២",
+                            "value": 2,
+                        }
+                    ],
+                    cluster_activity_id: [
+                        {
+                            "label": "ចង្កោមសកម្មភាពទី១",
+                            "value": 1,
+                        },
+                        {
+                            "label": "ចង្កោមសកម្មភាពទី២",
+                            "value": 2,
+                        }
+                    ],
+                    limit: 10,
+                    total: 3,
+                },
+                formAttributes: [
+                    {
+                        name: "objective_id",
+                        type: "select",
+                        required: true,
+                        options: []
+                    },
+                    {
+                        name: "program_id",
+                        type: "select",
+                        required: true,
+                        options: []
+                    },
+                    {
+                        name: "sub_program_id",
+                        type: "select",
+                        required: true,
+                        options: []
+                    },
+                    {
+                        name: "cluster_activity_id",
+                        type: "select",
+                        required: true,
+                        options: []
+                    },
+                    {
+                        name: "name_en",
+                        type: "text",
+                        required: true
+                    },
+                    {
+                        name: "name_kh",
+                        type: "text",
+                        required: true
+                    },
+                    {
+                        name: "entity_id",
+                        type: "select",
+                        required: true,
+                        options: [
+                            {
+                                "label": "អង្គភាពទី១",
+                                "value": 1,
+                            },
+                            {
+                                "label": "អង្គភាពទី២",
+                                "value": 2,
+                            }
+                        ],
+                    },
+                    {
+                        name: "entity_member_id",
+                        type: "select",
+                        required: true,
+                        options: [
+                            {
+                                "label": "បុគ្គលទិ១",
+                                "value": 1,
+                            },
+                            {
+                                "label": "បុគ្គលទិ២",
+                                "value": 2,
+                            }
+                        ],
+                    },
+                    {
+                        name: "order_level",
+                        type: "number",
+                        required: false
+                    },
+                    {
+                        name: "remark",
+                        type: "textarea",
+                        required: false
+                    },
+                ],
+                rowDisplay: "2grid", //1grid, 2grid, 3grid, 4grid
+                dataFields: []
+            }
+        },
+        components: {
+            DTableList,
+        },
+        methods: {
+            initDataForm() {
+                // alert("testing");
+            },
+            getDataTable(_search_criteria) {
+                let _params = {};
+                if (_search_criteria.search_field) {
+                    let _formAttribute = this.formAttributes;
+                    this.dataFields = [];
+                    this.formAttributes.forEach(_formAttribute => {
+                        if (_search_criteria.search_field[_formAttribute["name"]]) {
+                            let _d = {
+                                [_formAttribute["name"]]: _search_criteria.search_field[_formAttribute["name"]]
+                            }
+                            this.dataFields.push(_d);
+                        }
+
+                    });
+                    _params = {
+                        sort: _search_criteria.sort,
+                        order: _search_criteria.order,
+                        page_number: _search_criteria.page_number,
+                        search_field: this.dataFields,
+                    };
+                } else {
+                    _params = {
+                        sort: _search_criteria.sort,
+                        order: _search_criteria.order,
+                        page_number: _search_criteria.page_number,
+                    };
+                }
+
+                return new Promise((resolve, reject) => {
+                    axios.post(this.api + "/search", _params)
+                        .then((response) => {
+                            // this.data = response.data;
+                            this.data = this.data;
+                            this.$vs.loading.close();
+                        }).catch((error) => {
+                            // reject(error)
+                            this.$vs.loading.close();
+                        })
+                })
+            },
+            getData() {
+                let _search_criteria = {
+                    sort: "id",
+                    order: "",
+                    page_number: this.dataAttributes.page_number
+                }
+                this.getDataTable(_search_criteria);
+            },
+            initTableData(searchQuery) {
+                this.$vs.loading();
+                let _search_criteria = {
+                    sort: "id",
+                    order: "",
+                    page_number: searchQuery.pageNum,
+                    search_field: searchQuery.searchFields
+                }
+                this.getDataTable(_search_criteria);
+                return false;
+            }
+        },
+        created() {
+            this.$vs.loading();
+            this.getData();
+        },
+        watch: {
+        }
+    }
+</script>

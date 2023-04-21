@@ -1,15 +1,173 @@
-<!-- =========================================================================================
-  File Name: UserList.vue
-  Description: User List page
-  ----------------------------------------------------------------------------------------
-  Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
-  Author: Pixinvent
-  Author URL: http://www.themeforest.net/user/pixinvent
-========================================================================================== -->
-
 <template>
 
-  <div id="page-user-list">
+  <div id="page-user-list pt-6">
+    <div class="flex flex-wrap items-center justify-between">
+        <vx-input-group class="mb-base mr-3">
+          <vs-input :placeholder="$t('Search Area')" />
+
+          <template slot="append">
+            <div class="append-text btn-addon">
+              <vs-button type="border" class="whitespace-no-wrap">{{$t("Search")}}</vs-button>
+            </div>
+          </template>
+        </vx-input-group>
+        <div class="flex items-center">
+          
+          <div class="vx-row mr-1">
+            <div class="btn-add-new p-3 mr-2 rounded-sm cursor-pointer text-right flex items-center justify-center text-lg font-medium text-base text-primary border border-solid border-default">
+              <feather-icon icon="FilterIcon" svgClasses="h-4 w-4" />
+            </div>
+
+            <div class="btn-add-new p-3 mr-2 rounded-sm cursor-pointer text-right flex items-center justify-center text-lg font-medium text-base text-primary border border-solid border-default">
+              <feather-icon icon="FileIcon" svgClasses="h-4 w-4" />
+            </div>
+
+            <div class="btn-add-new p-3 mr-1 rounded-sm cursor-pointer text-right flex items-center justify-center text-lg font-medium text-base text-primary border border-solid border-primary">
+              <vx-tooltip color="success" text="បង្កើតគោលបំណង">
+              <!-- <vs-button color="success" type="border">Color success</vs-button> -->
+                <feather-icon icon="PlusIcon" svgClasses="h-4 w-4" />
+                <span class="ml-2 text-base text-primary">{{$t("AddNew")}}</span>
+              </vx-tooltip>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    <div class="vx-row mt-6">
+      <!-- Grid -->
+      <div class="vx-col w-full sm:w-1/4 md:w-1/4 lg:w-1/4 xl:w-1/4 mb-base">
+        <vx-card
+            title="Administrator(Default)"
+            title-color="#000000"
+            card-background="default"
+            content-color="#000000">
+            <center><h5 class="pb-4" style="line-height: 30px;">Total 5 users</h5></center>
+
+            <div class="flex justify-between">
+              <div class="flex items-center">
+                <!-- <div class="flex items-center"><feather-icon class="mr-2" icon="HeartIcon" svgClasses="h-5 w-5"></feather-icon> <span>{{ post.likes }}</span></div> -->
+                <ul class="users-liked user-list ml-3 sm:ml-6">
+                  <li v-for="(user, userIndex) in usersLiked" :key="userIndex">
+                    <vx-tooltip :text="user.name" position="bottom">
+                      <vs-avatar :src="user.img" size="30px" class="border-2 border-white border-solid -m-1"></vs-avatar>
+                    </vx-tooltip>
+                  </li>
+                </ul>
+                <!-- <small class="ml-2">+{{ post.likes - 5 }} more</small> -->
+              </div>
+
+              <div class="btn-add-new p-3 mr-2 rounded-sm cursor-pointer text-right flex items-center justify-center text-lg font-medium text-base text-primary border border-solid border-primary">
+                <feather-icon icon="EditIcon" svgClasses="h-4 w-4" />
+              </div>
+              <!-- <div class="flex items-center"><feather-icon class="mr-2" icon="MessageSquareIcon" svgClasses="h-5 w-5"></feather-icon> <span>{{ post.comments }}</span></div> -->
+            </div>
+            
+            <!-- <p class="mb-3​">
+              <center><vs-button class="mt-4 mr-2 shadow-lg" type="border" color="#ffffff" gradient-color-secondary="#CE9FFC">{{$t("Download")}}</vs-button></center>
+            </p> -->
+        </vx-card>
+      </div>
+      <!-- Grid -->
+      <div class="vx-col w-full sm:w-1/4 md:w-1/4 lg:w-1/4 xl:w-1/4 mb-base">
+        <vx-card
+            title="Supervisor"
+            title-color="#000000"
+            card-background="default"
+            content-color="#000000">
+            <center><h5 class="pb-4" style="line-height: 30px;">Total 5 users</h5></center>
+
+            <div class="flex justify-between">
+              <div class="flex items-center">
+                <!-- <div class="flex items-center"><feather-icon class="mr-2" icon="HeartIcon" svgClasses="h-5 w-5"></feather-icon> <span>{{ post.likes }}</span></div> -->
+                <ul class="users-liked user-list ml-3 sm:ml-6">
+                  <li v-for="(user, userIndex) in usersLiked" :key="userIndex">
+                    <vx-tooltip :text="user.name" position="bottom">
+                      <vs-avatar :src="user.img" size="30px" class="border-2 border-white border-solid -m-1"></vs-avatar>
+                    </vx-tooltip>
+                  </li>
+                </ul>
+                <!-- <small class="ml-2">+{{ post.likes - 5 }} more</small> -->
+              </div>
+
+              <div class="btn-add-new p-3 mr-2 rounded-sm cursor-pointer text-right flex items-center justify-center text-lg font-medium text-base text-primary border border-solid border-primary">
+                <feather-icon icon="EditIcon" svgClasses="h-4 w-4" />
+              </div>
+              <!-- <div class="flex items-center"><feather-icon class="mr-2" icon="MessageSquareIcon" svgClasses="h-5 w-5"></feather-icon> <span>{{ post.comments }}</span></div> -->
+            </div>
+            
+            <!-- <p class="mb-3​">
+              <center><vs-button class="mt-4 mr-2 shadow-lg" type="border" color="#ffffff" gradient-color-secondary="#CE9FFC">{{$t("Download")}}</vs-button></center>
+            </p> -->
+        </vx-card>
+      </div>
+      <!-- Grid -->
+      <div class="vx-col w-full sm:w-1/4 md:w-1/4 lg:w-1/4 xl:w-1/4 mb-base">
+        <vx-card
+            title="Monitoring"
+            title-color="#000000"
+            card-background="default"
+            content-color="#000000">
+            <center><h5 class="pb-4" style="line-height: 30px;">Total 5 users</h5></center>
+
+            <div class="flex justify-between">
+              <div class="flex items-center">
+                <!-- <div class="flex items-center"><feather-icon class="mr-2" icon="HeartIcon" svgClasses="h-5 w-5"></feather-icon> <span>{{ post.likes }}</span></div> -->
+                <ul class="users-liked user-list ml-3 sm:ml-6">
+                  <li v-for="(user, userIndex) in usersLiked" :key="userIndex">
+                    <vx-tooltip :text="user.name" position="bottom">
+                      <vs-avatar :src="user.img" size="30px" class="border-2 border-white border-solid -m-1"></vs-avatar>
+                    </vx-tooltip>
+                  </li>
+                </ul>
+                <!-- <small class="ml-2">+{{ post.likes - 5 }} more</small> -->
+              </div>
+
+              <div class="btn-add-new p-3 mr-2 rounded-sm cursor-pointer text-right flex items-center justify-center text-lg font-medium text-base text-primary border border-solid border-primary">
+                <feather-icon icon="EditIcon" svgClasses="h-4 w-4" />
+              </div>
+              <!-- <div class="flex items-center"><feather-icon class="mr-2" icon="MessageSquareIcon" svgClasses="h-5 w-5"></feather-icon> <span>{{ post.comments }}</span></div> -->
+            </div>
+            
+            <!-- <p class="mb-3​">
+              <center><vs-button class="mt-4 mr-2 shadow-lg" type="border" color="#ffffff" gradient-color-secondary="#CE9FFC">{{$t("Download")}}</vs-button></center>
+            </p> -->
+        </vx-card>
+      </div>
+      <!-- Grid -->
+      <div class="vx-col w-full sm:w-1/4 md:w-1/4 lg:w-1/4 xl:w-1/4 mb-base">
+        <vx-card
+            title="Editor"
+            title-color="#000000"
+            card-background="default"
+            content-color="#000000">
+            <center><h5 class="pb-4" style="line-height: 30px;">Total 5 users</h5></center>
+
+            <div class="flex justify-between">
+              <div class="flex items-center">
+                <!-- <div class="flex items-center"><feather-icon class="mr-2" icon="HeartIcon" svgClasses="h-5 w-5"></feather-icon> <span>{{ post.likes }}</span></div> -->
+                <ul class="users-liked user-list ml-3 sm:ml-6">
+                  <li v-for="(user, userIndex) in usersLiked" :key="userIndex">
+                    <vx-tooltip :text="user.name" position="bottom">
+                      <vs-avatar :src="user.img" size="30px" class="border-2 border-white border-solid -m-1"></vs-avatar>
+                    </vx-tooltip>
+                  </li>
+                </ul>
+                <!-- <small class="ml-2">+{{ post.likes - 5 }} more</small> -->
+              </div>
+
+              <div class="btn-add-new p-3 mr-2 rounded-sm cursor-pointer text-right flex items-center justify-center text-lg font-medium text-base text-primary border border-solid border-primary">
+                <feather-icon icon="EditIcon" svgClasses="h-4 w-4" />
+              </div>
+              <!-- <div class="flex items-center"><feather-icon class="mr-2" icon="MessageSquareIcon" svgClasses="h-5 w-5"></feather-icon> <span>{{ post.comments }}</span></div> -->
+            </div>
+            
+            <!-- <p class="mb-3​">
+              <center><vs-button class="mt-4 mr-2 shadow-lg" type="border" color="#ffffff" gradient-color-secondary="#CE9FFC">{{$t("Download")}}</vs-button></center>
+            </p> -->
+        </vx-card>
+      </div>
+    </div>
 
     <vx-card ref="filterCard" title="Filters" class="user-list-filters mb-8" actionButtons @refresh="resetColFilters" @remove="resetColFilters">
       <div class="vx-row">
@@ -168,7 +326,15 @@ export default {
   },
   data() {
     return {
-
+      usersLiked : [
+        { name: 'Trina Lynes',       img: require("@assets/images/portrait/small/avatar-s-1.jpg") },
+        { name: 'Lilian Nenez',      img: require("@assets/images/portrait/small/avatar-s-2.jpg") },
+        { name: 'Alberto Glotzbach', img: require("@assets/images/portrait/small/avatar-s-3.jpg") },
+        { name: 'George Nordick',    img: require("@assets/images/portrait/small/avatar-s-4.jpg") },
+        { name: 'Vennie Mostowy',    img: require("@assets/images/portrait/small/avatar-s-5.jpg") },
+        { name: 'George Nordick',    img: require("@assets/images/portrait/small/avatar-s-4.jpg") },
+        { name: 'Vennie Mostowy',    img: require("@assets/images/portrait/small/avatar-s-5.jpg") },
+      ],
       // Filter Options
       roleFilter: { label: 'All', value: 'all' },
       roleOptions: [

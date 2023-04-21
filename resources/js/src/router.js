@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import auth from "@/auth/authService";
-
 import firebase from 'firebase/app'
 import 'firebase/auth'
 
@@ -135,34 +134,6 @@ const router = new Router({
                         rule: 'editor'
                     },
                 },
-                {
-                    path: '/user/view/:userId',
-                    name: 'user-view',
-                    component: () => import('@/views/users/user-edit/UserSettings.vue'),
-                    meta: {
-                        breadcrumb: [
-                            { title: 'Home', url: '/' },
-                            { title: 'អ្នកប្រើប្រាស់', url: '/user/list'},
-                            { title: 'View', active: true },
-                        ],
-                        pageTitle: 'User View',
-                        rule: 'editor'
-                    },
-                },
-                {
-                    path: '/user/edit/:userId',
-                    name: 'user-edit',
-                    component: () => import('@/views/users/user-edit/UserSettings.vue'),
-                    meta: {
-                        breadcrumb: [
-                            { title: 'Home', url: '/' },
-                            { title: 'User', url: '/user/list'},
-                            { title: 'View', active: true },
-                        ],
-                        pageTitle: 'User View',
-                        rule: 'editor'
-                    },
-                },
                 // =============================================================================
                 // Role
                 // =============================================================================
@@ -198,7 +169,7 @@ const router = new Router({
                 // Program Management
                 // =============================================================================
                 {
-                    path: 'module/program-arragement',
+                    path: 'module/program-arrangement',
                     name: 'ProgramManagement',
                     component: () => import('./views/modules/program-management/Index.vue'),
                     meta: {
@@ -207,6 +178,88 @@ const router = new Router({
                             { title: 'ផ្ទាំងគ្រប់គ្រង', url: '/' },
                             { title: 'ផ្ទាំងគ្រប់គ្រង' },
                             { title: 'គ្រប់គ្រងកម្មវិធី', active: true },
+                        ],
+                        rule: 'editor',
+                    }
+                },
+                {
+                    path: '/module/program-arrangement/objective',
+                    name: "objective",
+                    component: () => import('./views/modules/program-management/_Objective.vue'),
+                    meta: {
+                        pageTitle: 'គោលបំណង',
+                        breadcrumb: [
+                            { title: 'ផ្ទាំងគ្រប់គ្រង', url: '/' },
+                            { title: 'ផ្ទាំងគ្រប់គ្រង' },
+                            { title: 'គោលបំណង', active: true },
+                        ],
+                        rule: 'editor',
+                    }
+                },
+                {
+                    path: '/module/program-arrangement/program',
+                    slug: 'program',
+                    name: "program",
+                    icon: "UserIcon",
+                    i18n: "Program",
+                    component: () => import('./views/modules/program-management/_Program.vue'),
+                    meta: {
+                        pageTitle: 'កម្មវិធី',
+                        breadcrumb: [
+                            { title: 'ផ្ទាំងគ្រប់គ្រង', url: '/' },
+                            { title: 'ផ្ទាំងគ្រប់គ្រង' },
+                            { title: 'កម្មវិធី', active: true },
+                        ],
+                        rule: 'editor',
+                    }
+                },
+                {
+                    path: '/module/program-arrangement/subprogram',
+                    slug: 'subprogram',
+                    name: "subprogram",
+                    icon: "UserIcon",
+                    i18n: "ProgramSubProgram",
+                    component: () => import('./views/modules/program-management/_SubProgram.vue'),
+                    meta: {
+                        pageTitle: 'អនុកម្មវិធី',
+                        breadcrumb: [
+                            { title: 'ផ្ទាំងគ្រប់គ្រង', url: '/' },
+                            { title: 'ផ្ទាំងគ្រប់គ្រង' },
+                            { title: 'អនុកម្មវិធី', active: true },
+                        ],
+                        rule: 'editor',
+                    }
+                },
+                {
+                    path: '/module/program-arrangement/cluster-activity',
+                    slug: 'cluster-activity',
+                    name: "cluster-activity",
+                    icon: "UserIcon",
+                    i18n: "ProgramClusterActivity",
+                    component: () => import('./views/modules/program-management/_ClusterActivity.vue'),
+                    meta: {
+                        pageTitle: 'ចង្កោមសកម្មភាព',
+                        breadcrumb: [
+                            { title: 'ផ្ទាំងគ្រប់គ្រង', url: '/' },
+                            { title: 'ផ្ទាំងគ្រប់គ្រង' },
+                            { title: 'ចង្កោមសកម្មភាព', active: true },
+                        ],
+                        rule: 'editor',
+                    }
+                },
+                {
+                    path: '/module/program-arrangement/activity',
+                    slug: 'activity',
+                    name: "activity",
+                    icon: "UserIcon",
+                    i18n: "ProgramActivity",
+                    component: () => import('./views/modules/program-management/_Activity.vue'),
+                    meta: {
+                        pageTitle: 'សកម្មភាព',
+                        breadcrumb: [
+                            { title: 'ផ្ទាំងគ្រប់គ្រង', url: '/' },
+                            { title: 'ផ្ទាំងគ្រប់គ្រង' },
+                            { title: 'សកម្មភាព', active: true },
                         ],
                         rule: 'editor',
                     }
@@ -445,20 +498,21 @@ const router = new Router({
                             ],
                             rule: 'editor'
                         }
-                    },{           
-                        path: 'report/pip',
-                        name: 'ReportPIP',
-                        component: () => import('@/views/reports/pip/Index.vue'),
-                        meta: {
-                            pageTitle: 'របាយការណ៍គម្រោងវិនិយោគ',
-                            breadcrumb: [
-                                { title: 'Home', url: '/' },
-                                { title: 'គ្រប់គ្រងរបាយការណ៍', url: '/report' },
-                                { title: 'របាយការណ៍គម្រោងវិនិយោគ', active: true },
-                            ],
-                            rule: 'editor'
-                        }
-                    },
+                }
+                // , {           
+                //         path: 'report/pip',
+                //         name: 'ReportPIP',
+                //         component: () => import('@/views/reports/pip/Index.vue'),
+                //         meta: {
+                //             pageTitle: 'របាយការណ៍គម្រោងវិនិយោគ',
+                //             breadcrumb: [
+                //                 { title: 'Home', url: '/' },
+                //                 { title: 'គ្រប់គ្រងរបាយការណ៍', url: '/report' },
+                //                 { title: 'របាយការណ៍គម្រោងវិនិយោគ', active: true },
+                //             ],
+                //             rule: 'editor'
+                //         }
+                //     },
                     ,{           
                         path: 'report/credit-movement',
                         name: 'ReportCreditMovement',
@@ -1434,7 +1488,7 @@ const router = new Router({
                 // =============================================================================
                 {
                     path: '/setting',
-                    name: 'data-user-form',
+                    name: 'setting',
                     component: () => import('@/views/settings/Setting.vue'),
                     meta: {
                         breadcrumb: [

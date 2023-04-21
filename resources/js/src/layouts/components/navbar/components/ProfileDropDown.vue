@@ -85,7 +85,7 @@ export default {
     }
   },
   created() {
-    console.log("profile info", JSON.parse(localStorage.getItem("userInfo")))
+    // console.log("profile info", JSON.parse(localStorage.getItem("userInfo")))
   },
   methods: {
     logout() {

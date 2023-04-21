@@ -52,8 +52,15 @@ body {
 div.login-font input, INPUT[type="password"]{
   font-family: Arial !important;
 }
-table tr td, th, input, footer, button, span.vs-button-text.vs-button--text{
-  font-family: 'Khmer MEF1';
+h2,
+h3,
+h4,
+h5,
+h6,select, input, span, label, table tr td, th, input, footer, button, span.vs-button-text.vs-button--text{
+  font-family: 'Khmer MEF1' !important;
+}
+label{
+  font-weight: bold;
 }
 .vs-table--thead {
   th {

@@ -1,11 +1,3 @@
-<!-- =========================================================================================
-    File Name: DashboardEcommerce.vue
-    Description: Dashboard - Ecommerce
-    ----------------------------------------------------------------------------------------
-    Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
-      Author: Pixinvent
-    Author URL: http://www.themeforest.net/user/pixinvent
-========================================================================================== -->
 <template>
     <div class="main-dashboard">
         <!-- <div style="float: left">
@@ -45,7 +37,7 @@
             <div class="vx-col w-1/2 md:w-1/3 xl:w-1/4 mb-6" style="line-height: 40px;font-size: 14px;">
                 <vx-card class="overflow-hidden">
                     <div class="main-dashboard" slot="no-body">
-                        <div class="p-6" :class="{
+                        <div class="p-6" style="color: #ffffff; background: #54f89e;" :class="{
                         'flex justify-between flex-row-reverse items-center': iconRight,
                         'text-center': !iconRight && hideChart,
                         'pb-0': !hideChart
@@ -64,7 +56,7 @@
             <div class="vx-col w-1/2 md:w-1/3 xl:w-1/4 mb-6" style="line-height: 40px;font-size: 14px;">
                 <vx-card class="overflow-hidden">
                     <div class="main-dashboard" slot="no-body">
-                        <div class="p-6" :class="{
+                        <div class="p-6" style="color: #ffffff; background: rgb(175, 200, 23);" :class="{
                         'flex justify-between flex-row-reverse items-center': iconRight,
                         'text-center': !iconRight && hideChart,
                         'pb-0': !hideChart
@@ -83,7 +75,7 @@
             <div class="vx-col w-1/2 md:w-1/3 xl:w-1/4 mb-6" style="line-height: 40px;font-size: 14px;">
                 <vx-card class="overflow-hidden">
                     <div class="main-dashboard" slot="no-body">
-                        <div class="p-6" :class="{
+                        <div class="p-6" style="color: #ffffff; background: rgb(191, 202, 239);" :class="{
                         'flex justify-between flex-row-reverse items-center': iconRight,
                         'text-center': !iconRight && hideChart,
                         'pb-0': !hideChart
@@ -102,7 +94,7 @@
             <div class="vx-col w-1/2 md:w-1/3 xl:w-1/4 mb-6" style="line-height: 40px;font-size: 14px;">
                 <vx-card class="overflow-hidden">
                     <div class="main-dashboard" slot="no-body">
-                        <div class="p-6" :class="{
+                        <div class="p-6" style="color: #ffffff; background: rgb(122, 151, 251);" :class="{
                         'flex justify-between flex-row-reverse items-center': iconRight,
                         'text-center': !iconRight && hideChart,
                         'pb-0': !hideChart
