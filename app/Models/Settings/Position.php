@@ -11,6 +11,8 @@ class Position extends Model
     protected $fillable = [
                             'name_en',
                             'name_kh',
+                            'order_level',
+                            'created_by',
                             'modified_by'
                           ];
     public $timestamps = true;

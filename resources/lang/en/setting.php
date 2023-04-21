@@ -7,4 +7,7 @@
         'entry_entity_title' => 'Entity',
         'entry_position_title' => 'មុខតំណែង',
         'entry_title' => 'ងារ',
+        'entry_planning' => 'រៀបចំផែនការ',
+        'entry_expenditure_group' => "ក្រុមចំណាយ",
+        'entry_expenditure_type' => "ប្រភេទចំណាយ",
     ];

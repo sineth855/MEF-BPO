@@ -29,8 +29,8 @@ export default {
                 header3: "name_kh",
                 // header4: "program",
                 header5: "indicator",
-                header5: "entity_id",
-                header6: "entity_member_id",
+                header5: "entity",
+                header6: "entity_member",
                 header7: "order_level"
             },
             data: {

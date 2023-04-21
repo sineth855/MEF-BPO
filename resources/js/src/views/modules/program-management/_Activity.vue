@@ -24,90 +24,62 @@ export default {
                 dataGrid: "row",
             },
             dataHeaders: {
-                header1: "code_activity",
+                header1: "code",
                 header2: "name_en",
                 header3: "name_kh",
-                header4: "cluster_activity",
-                header5: "responsible_person",
-                header6: "responsible_entity",
+                // header4: "program",
+                header5: "indicator",
+                header5: "entity",
+                header6: "entity_member",
                 header7: "order_level"
             },
             data: {
                 data: [
                     {
-                        id: 1,
-                        name_en: "ចង្កោមសកម្មភាពទី១",
-                        name_kh: "ចង្កោមសកម្មភាពទី១",
-                        children: [
-                            {
-                                id: 1,
-                                code_activity: "001",
-                                name_en: "សកម្មភាពទី១ ១",
-                                name_kh: "សកម្មភាពទី១ ១",
-                                cluster_activity: "ចង្កោមសកម្មភាព",
-                                responsible_person: "ឯកឧត្តម ទទួលបន្ទុក",
-                                responsible_entity: "ឈ្មោះអង្គភាពទទួលបន្ទុក",
-                                order_level: 1
-                            },
-                            {
-                                id: 2,
-                                code_activity: "002",
-                                name_en: "សកម្មភាពទី១ ១",
-                                name_kh: "សកម្មភាពទី១ ១",
-                                cluster_activity: "ចង្កោមសកម្មភាព",
-                                responsible_person: "ឯកឧត្តម ទទួលបន្ទុក",
-                                responsible_entity: "ឈ្មោះអង្គភាពទទួលបន្ទុក",
-                                order_level: 1
-                            },
-                            {
-                                id: 3,
-                                code_activity: "003",
-                                name_en: "សកម្មភាពទី១ ១",
-                                name_kh: "សកម្មភាពទី១ ១",
-                                cluster_activity: "ចង្កោមសកម្មភាព",
-                                responsible_person: "ឯកឧត្តម ទទួលបន្ទុក",
-                                responsible_entity: "ឈ្មោះអង្គភាពទទួលបន្ទុក",
-                                order_level: 1
-                            }
-                        ]
-                    },
-                    {
-                        id: 2,
-                        name_en: "ចង្កោមសកម្មភាពទី២",
-                        name_kh: "ចង្កោមសកម្មភាពទី២",
-                        children: [
-                            {
-                                id: 4,
-                                code_activity: "004",
-                                name_en: "សកម្មភាពទី១ ១",
-                                name_kh: "សកម្មភាពទី១ ១",
-                                cluster_activity: "ចង្កោមសកម្មភាព",
-                                responsible_person: "ឯកឧត្តម ទទួលបន្ទុក",
-                                responsible_entity: "ឈ្មោះអង្គភាពទទួលបន្ទុក",
-                                order_level: 1
-                            },
-                            {
-                                id: 5,
-                                code_activity: "005",
-                                name_en: "សកម្មភាពទី១ ១",
-                                name_kh: "សកម្មភាពទី១ ១",
-                                cluster_activity: "ចង្កោមសកម្មភាព",
-                                responsible_person: "ឯកឧត្តម ទទួលបន្ទុក",
-                                responsible_entity: "ឈ្មោះអង្គភាពទទួលបន្ទុក",
-                                order_level: 1
-                            },
-                            {
-                                id: 6,
-                                code_activity: "006",
-                                name_en: "សកម្មភាពទី១ ១",
-                                name_kh: "សកម្មភាពទី១ ១",
-                                cluster_activity: "ចង្កោមសកម្មភាព",
-                                responsible_person: "ឯកឧត្តម ទទួលបន្ទុក",
-                                responsible_entity: "ឈ្មោះអង្គភាពទទួលបន្ទុក",
-                                order_level: 1
-                            }
-                        ]
-                    },
+                        // id: 1,
+                        // code: "",
+                        // name_en: "#120 - ចង្កោមសកម្មភាព",
+                        // name_kh: "#120 - ចង្កោមសកម្មភាព",
+                        // children: [
+                        //     {
+                        //         id: 1,
+                        //         cluster_activity_id: 1,
+                        //         code: "001",
+                        //         name_en: "#001 - សកម្មភាពទី ១",
+                        //         name_kh: "#001 - សកម្មភាពទី ១",
+                        //         entity_id: 1,
+                        //         entity_member_id: 2,
+                        //         order_level: 1,
+                        //         indicator: {
+                        //             data: [
+                        //                 {
+                        //                     id: 1,
+                        //                     code: "#1.3.10-1",
+                        //                     kpi_name_en: "ឈ្មោះសូចនាករ",
+                        //                     kpi_name_kh: "ឈ្មោះសូចនាករ",
+                        //                     order_level: 1,
+                        //                     status: "Active"
+                        //                 }, {
+                        //                     id: 2,
+                        //                     code: "#1.3.10-2",
+                        //                     kpi_name_en: "ឈ្មោះសូចនាករ",
+                        //                     kpi_name_kh: "ឈ្មោះសូចនាករ",
+                        //                     order_level: 1,
+                        //                     status: "Active"
+                        //                 }, {
+                        //                     id: 3,
+                        //                     code: "#1.3.10-3",
+                        //                     kpi_name_en: "ឈ្មោះសូចនាករជាភាសាអង់គ្លេស",
+                        //                     kpi_name_kh: "ឈ្មោះសូចនាករជាភាសាអង់គ្លេស",
+                        //                     order_level: 1,
+                        //                     status: "InActive"
+                        //                 }
+                        //             ]
+                        //         },
+                        //     }
+
+                        // ]
+                    }
                 ],
                 cluster_activity_id: [
                     {
@@ -115,7 +87,7 @@ export default {
                         "value": 1,
                     },
                     {
-                        "label": "ចង្កោមសកម្មភាពទី២",
+                        "label": "អនុកម្មវិធីទី២",
                         "value": 2,
                     }
                 ],
@@ -147,16 +119,7 @@ export default {
                     name: "cluster_activity_id",
                     type: "select",
                     required: true,
-                    options: [
-                        {
-                            "label": "ចង្កោមសកម្មភាពទី១",
-                            "value": 1
-                        },
-                        {
-                            "label": "ចង្កោមសកម្មភាពទី២",
-                            "value": 2
-                        }
-                    ],
+                    options: [],
                 },
                 {
                     name: "name_en",
@@ -189,11 +152,11 @@ export default {
                     required: true,
                     options: [
                         {
-                            "label": "បុគ្គលទិ១",
+                            "label": "បុគ្គលទី១",
                             "value": 1,
                         },
                         {
-                            "label": "បុគ្គលទិ២",
+                            "label": "បុគ្គលទី២",
                             "value": 2,
                         }
                     ],

@@ -4,6 +4,8 @@ namespace App\Models\Modules\ProgramManagement;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Modules\ProgramManagement\SubProgram;
+use App\Models\Settings\Entity;
+use App\Models\Settings\EntityMember;
 
 class ClusterActivity extends Model
 {
@@ -22,6 +24,16 @@ class ClusterActivity extends Model
                             'modified_by'
                           ];
     public $timestamps = true;
+    
+    public function SubProgram(){
+      return $this->belongsTo(SubProgram::class,'sub_program_id');
+    }
+    public function Entity(){
+      return $this->belongsTo(Entity::class,'entity_id');
+    }
+    public function EntityMember(){
+      return $this->belongsTo(EntityMember::class,'entity_member_id');
+    }
 
     public static function getClusterActBySProgram($filter){
       $data = array();
@@ -49,11 +61,12 @@ class ClusterActivity extends Model
             'program_id' => $crow->program_id,
             'name_en' => $crow->name_en,
             'name_kh' => $crow->name_kh,
+            'entity' => $crow->Entity->name_kh,
             'entity_id' => $crow->entity_id,
+            'entity_member' => 'អ្នកទទួលបន្ទុក',//$crow->EntityMember->fullname,
             'entity_member_id' => $crow->entity_member_id,
             // 'remark' => $crow->remark,
             'order_level' => $crow->order_level,
-            
           'indicator' => $indicatorData,
           );
         }

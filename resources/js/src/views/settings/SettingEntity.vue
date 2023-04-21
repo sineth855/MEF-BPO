@@ -451,6 +451,10 @@
                     </vx-card> -->
             </vs-tab>
 
+            <vs-tab :label="$t('setting_entity_officer')">
+                <entity-officer></entity-officer>
+            </vs-tab>
+
         </vs-tabs>
     </div>
 </template>
@@ -460,6 +464,7 @@
 import moduleDataList from "@/store/data-list/moduleDataList.js"
 import Department from '@/views/settings/include_entity/_Department.vue';
 import Entity from '@/views/settings/include_entity/_Entity.vue';
+import EntityOfficer from '@/views/settings/include_entity/_EntityOfficer.vue';
 import Position from '@/views/settings/include_entity/_Position.vue';
 import Secretary from '@/views/settings/include_entity/_Secretary.vue';
 import Titles from '@/views/settings/include_entity/_Title.vue';
@@ -467,6 +472,7 @@ export default {
     components: {
         Department,
         Entity,
+        EntityOfficer,
         Position,
         Secretary,
         Titles,

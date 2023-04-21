@@ -15,7 +15,7 @@ export default {
     data() {
         return {
             title: "setting_product_service",
-            api: apiConfig._apiObjective,
+            api: apiConfig._apiItem,
             dataAttributes: {
                 tableStyle: 1,
                 page_number: 1,
@@ -30,48 +30,22 @@ export default {
                 ]
             },
             dataHeaders: {
-                // header1: "id",
-                header1: "code",
-                header2: "account_group",
-                // header3: "group_chapter",
-                header3: "account_type",
-                header4: "name",
-                header5: "unit",
-                // header7: "description",
-                // header8: "order_level",
+                header1: "category_id",
+                header2: "code",
+                header3: "title_en",
+                header4: "title_kh",
+                header5: "order_level",
             },
             data: {
                 data: [
                     {
+                        category_id: "",
                         code: "ITM0001",
-                        account_group: "ការទិញ",
-                        account_type: "សម្ភារៈផ្គត់ផ្គង់ថែទាំ->សម្ភារៈផ្គត់ផ្គង់និងអនាម័យ",
-                        name: "រាយនាមទំនិញ/សេវ៉ាកម្ម",
-                        unit: "ឯកតា",
-                        description: "",
+                        title_en: "សម្ភារៈផ្គត់ផ្គង់ថែទាំ->សម្ភារៈផ្គត់ផ្គង់និងអនាម័យ",
+                        title_kh: "សម្ភារៈផ្គត់ផ្គង់ថែទាំ->សម្ភារៈផ្គត់ផ្គង់និងអនាម័យ",
                         order_level: 1,
                         is_active: 1
-                    },
-                    {
-                        code: "ITM0001",
-                        account_group: "ការទិញ",
-                        account_type: "សម្ភារៈផ្គត់ផ្គង់ថែទាំ->សម្ភារៈផ្គត់ផ្គង់និងអនាម័យ",
-                        name: "រាយនាមទំនិញ/សេវ៉ាកម្ម",
-                        unit: "ឯកតា",
-                        description: "",
-                        order_level: 1,
-                        is_active: 1
-                    },
-                    {
-                        code: "ITM0001",
-                        account_group: "ការទិញ",
-                        account_type: "សម្ភារៈផ្គត់ផ្គង់ថែទាំ->សម្ភារៈផ្គត់ផ្គង់និងអនាម័យ",
-                        name: "រាយនាមទំនិញ/សេវ៉ាកម្ម",
-                        unit: "ឯកតា",
-                        description: "",
-                        order_level: 1,
-                        is_active: 1
-                    },
+                    }
                 ],
                 account_group_id: [
                     {
@@ -102,29 +76,23 @@ export default {
             },
             formAttributes: [
                 {
+                    name: "category_id",
+                    type: "select",
+                    required: true,
+                    options: [],
+                },
+                {
                     name: "code",
                     type: "text",
                     required: true
                 },
                 {
-                    name: "account_group_id",
-                    type: "select",
-                    required: true,
-                    options: [],
-                },
-                {
-                    name: "account_type_id",
-                    type: "select",
-                    required: true,
-                    options: [],
-                },
-                {
-                    name: "name_en",
+                    name: "title_en",
                     type: "text",
                     required: true
                 },
                 {
-                    name: "name_kh",
+                    name: "title_kh",
                     type: "text",
                     required: true
                 },
@@ -132,12 +100,7 @@ export default {
                     name: "order_level",
                     type: "number",
                     required: false
-                },
-                {
-                    name: "description",
-                    type: "textarea",
-                    required: false
-                },
+                }
             ],
             rowDisplay: "2grid", //1grid, 2grid, 3grid, 4grid
             dataFields: []
@@ -156,9 +119,6 @@ export default {
                     if (_search_criteria.search_field[_formAttribute["name"]]) {
                         let _d = {
                             [_formAttribute["name"]]: _search_criteria.search_field[_formAttribute["name"]]
-                        }
-                        if (this.form.attribute["name"]) {
-
                         }
                         this.dataFields.push(_d);
                     }
@@ -181,8 +141,11 @@ export default {
             return new Promise((resolve, reject) => {
                 axios.post(this.api + "/search", _params)
                     .then((response) => {
-                        // this.data = response.data;
-                        this.data = this.data;
+                        if (response.data) {
+                            this.data = response.data;
+                        } else {
+                            this.data = this.data;
+                        }
                         this.$vs.loading.close();
                     }).catch((error) => {
                         // reject(error)
@@ -209,7 +172,6 @@ export default {
             this.getDataTable(_search_criteria);
             return false;
         }
-
     },
     created() {
         this.$vs.loading();

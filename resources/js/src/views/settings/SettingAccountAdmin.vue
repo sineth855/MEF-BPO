@@ -2,6 +2,9 @@
     <vx-card :title="$t('setting_account_administration')" code-toggler>
         <div class="mt-5">
             <vs-tabs alignment="center">
+                <vs-tab :label="$t('setting_planning')">
+                    <planning></planning>
+                </vs-tab>
 
                 <vs-tab :label="$t('setting_group_chapter')">
                     <account-group></account-group>
@@ -219,6 +222,13 @@
                 </vx-card> -->
                 </vs-tab>
 
+                <vs-tab :label="$t('setting_unit')">
+                    <unit></unit>
+                </vs-tab>
+
+                <vs-tab :label="$t('setting_item_category')">
+                    <item-category></item-category>
+                </vs-tab>
 
                 <vs-tab :label="$t('setting_product_service')">
                     <product-service></product-service>
@@ -329,9 +339,6 @@
                     </vs-table>
                 </vx-card> -->
                 </vs-tab>
-
-
-
 
                 <vs-tab :label="$t('setting_cost_list')">
                     <price-list-type></price-list-type>
@@ -452,16 +459,22 @@
 
 <script>
 import moduleDataList from "@/store/data-list/moduleDataList.js";
+import Planning from '@/views/settings/_Planning.vue';
 import ProductService from '@/views/settings/_Product_Service.vue';
+import ItemCategory from '@/views/settings/_Item_Category.vue';
 import AccountGroup from '@/views/settings/_Account_Group.vue';
 import Account from '@/views/settings/_Account.vue';
+import Unit from '@/views/settings/_Unit.vue';
 import PriceListType from '@/views/settings/_Price_List_Type.vue';
 import BudgetTemplate from '@/views/settings/_Budget_Template.vue';
 export default {
     components: {
+        Planning,
+        ItemCategory,
         ProductService,
         AccountGroup,
         Account,
+        Unit,
         PriceListType,
         BudgetTemplate
     },

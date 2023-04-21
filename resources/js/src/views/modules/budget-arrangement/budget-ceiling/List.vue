@@ -2,8 +2,8 @@
     <div id="table-demo">
         <!-- <table-state></table-state> -->
         <d-table-list @clicked="initTableData" :api="api" ref="refInitPage" :allowDel="true" :title="title"
-            :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data"
-            :formAttributes="formAttributes" :rowDisplay="rowDisplay"></d-table-list>
+            :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data" :formAttributes="formAttributes"
+            :rowDisplay="rowDisplay"></d-table-list>
     </div>
 </template>
 
@@ -358,14 +358,20 @@ export default {
                     options: [],
                 },
                 {
-                    name: "target_type_id", // ប្រភេទមុខសញ្ញា
+                    name: "ceiling_exp_group", // ប្រភេទមុខសញ្ញា
                     type: "select",
                     required: true,
                     options: [],
                 },
                 {
-                    name: "rule_year", //ច្បាប់ឆ្នាំ
+                    name: "sub_program_id", // ប្រភេទមុខសញ្ញា
                     type: "select",
+                    required: true,
+                    options: [],
+                },
+                {
+                    name: "ceiling_rule", //ច្បាប់ពិដាន
+                    type: "text",
                     required: true,
                     options: [],
                 },
@@ -379,36 +385,37 @@ export default {
                     type: "text",
                     required: false,
                 },
+
                 {
-                    name: "tran_exp_ceiling_year_plus_1", // ពិដានចំណាយចរន្ត
+                    name: "ceiling_tran_year_0", // ពិដានចំណាយចរន្ត
                     type: "text",
                     required: false
                 },
                 {
-                    name: "tran_exp_ceiling_year_plus_2", // ពិដានចំណាយចរន្ត
+                    name: "ceiling_tran_year_1", // ពិដានចំណាយចរន្ត
                     type: "text",
                     required: false
                 },
                 {
-                    name: "tran_exp_ceiling_year_plus_3", // ពិដានចំណាយចរន្ត
+                    name: "ceiling_tran_year_2", // ពិដានចំណាយចរន្ត
                     type: "text",
                     required: false
                 },
                 {
-                    name: "annual_growth_rate_plus_1", // អត្រាកំណើនប្រចាំឆ្នាំ
+                    name: "increase_rate_year_0", // អត្រាកំណើនប្រចាំឆ្នាំ
                     type: "text",
                     required: false
                 },
                 {
-                    name: "annual_growth_rate_plus_2", // អត្រាកំណើនប្រចាំឆ្នាំ
+                    name: "increase_rate_year_1", // អត្រាកំណើនប្រចាំឆ្នាំ
                     type: "text",
                     required: false
                 },
                 {
-                    name: "annual_growth_rate_plus_3", // អត្រាកំណើនប្រចាំឆ្នាំ
+                    name: "increase_rate_year_2", // អត្រាកំណើនប្រចាំឆ្នាំ
                     type: "text",
                     required: false
-                },
+                }
             ],
             rowDisplay: "3grid", //1grid, 2grid, 3grid, 4grid
             dataFields: []

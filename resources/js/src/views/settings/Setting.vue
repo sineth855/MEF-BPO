@@ -1,6 +1,12 @@
 <template>
   <vs-tabs position="top" class="tabs-shadow-none" id="profile-tabs" :key="isSmallerScreen">
 
+    <vs-tab icon-pack="feather" icon="icon-edit" :label="!isSmallerScreen ? 'ព័ត៌មានរៀបចំថវិកា' : ''">
+      <div class="tab-general md:ml-4 md:mt-0 mt-4 ml-0">
+        <setting-budget-arrangement />
+      </div>
+    </vs-tab>
+
     <!-- 4 -->
     <vs-tab icon-pack="feather" icon="icon-settings" :label="!isSmallerScreen ? 'គណនេយ្យ និងរដ្ឋបាល' : ''">
       <div class="tab-text md:ml-4 md:mt-0 mt-4 ml-0">
@@ -14,6 +20,12 @@
         <vx-card>
           <setting-entity />
         </vx-card>
+      </div>
+    </vs-tab>
+
+    <vs-tab icon-pack="feather" icon="icon-edit" :label="!isSmallerScreen ? 'ព័ត៌មានរៀបចំថវិកា' : ''">
+      <div class="tab-general md:ml-4 md:mt-0 mt-4 ml-0">
+        <setting-budget-arrangement />
       </div>
     </vs-tab>
 
@@ -120,6 +132,7 @@ import SettingAccountAdmin from "./SettingAccountAdmin.vue"
 import SettingSocialLinks from "./SettingSocialLinks.vue"
 import SettingNotifications from "./SettingNotifications.vue"
 import SettingEntity from "./SettingEntity.vue"
+import SettingBudgetArrangement from "./SettingBudgetArrangement.vue"
 
 export default {
   components: {
@@ -132,7 +145,8 @@ export default {
     SettingRole,
     SettingSocialLinks,
     SettingNotifications,
-    SettingEntity
+    SettingEntity,
+    SettingBudgetArrangement
   },
   data() {
     return {

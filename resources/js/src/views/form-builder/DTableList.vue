@@ -80,11 +80,12 @@
                                     svgClasses="w-5 h-5 hover:text-primary stroke-current" /></center>
                         </td>
                     </vs-tr>
-                    <template v-if="ptr.children.length > 0">
+                    <template v-if="getDocumentSize(ptr.children) > 0">
                         <vs-tr :key="indextr" v-for="(tr, indextr) in ptr.children">
                             <vs-td>{{ calPageIncreaseNumber(dataTables.limit, indextr) }}</vs-td>
                             <vs-td v-for="header in dataHeaders" :key="header.indextr">
-                                <span v-if="tr[header].data">
+                                {{ tr[header] }}
+                                <!-- <span v-if="tr[header].data">
                                     <span v-if="getDocumentSize(tr[header].data) > 0">
                                         <div class="mb-2" :key="indexI" v-for="(dataRow, indexI) in tr[header].data">
                                             <vx-card>
@@ -102,56 +103,9 @@
                                 </span>
                                 <span v-else>
                                     {{ tr[header] }}
-                                </span>
-
-                                <!-- <span v-if="tr[header].data"> -->
-                                <!-- <span v-if="tr[header].data.length">
-                                        <div class="mb-2" :key="indexI" v-for="(dataRow, indexI) in tr[header].data">
-                                            <vx-card>
-                                                {{ dataRow["code"] }}-{{ dataRow["kpi_name_kh"] }}
-                                                <feather-icon style="cursor: pointer;" icon="EditIcon"
-                                                    svgClasses="mt-2 w-5 h-5 hover:text-primary stroke-current" />
-                                            </vx-card>
-                                        </div>
-                                    </span> -->
-                                <!-- If No Data Indicators will create new -->
-                                <!-- <span v-else>
-                                        <center>
-                                            {{ $t("msg_no_indicator") }}
-                                            <feather-icon style="cursor: pointer;" @click="openForm" icon="PlusIcon" svgClasses="w-5 h-5 hover:text-primary stroke-current" />
-                                        </center>
-                                    </span> -->
-                                <!-- </span> -->
-
-                                <!-- <span v-else>{{ tr[header] }}​</span> -->
-
-                                <!-- <span v-if="tr[header].data">
-                                    <span v-if="tr[header].data.length">
-                                        <div class="mb-2" :key="indexI" v-for="(dataRow, indexI) in tr[header].data">
-                                            <vx-card>
-                                                {{ dataRow["code"] }}-{{ dataRow["kpi_name_kh"] }}
-                                                <feather-icon style="cursor: pointer;" icon="EditIcon" svgClasses="mt-2 w-5 h-5 hover:text-primary stroke-current"/>
-                                            </vx-card>
-                                        </div>
-                                    </span> -->
-                                <!-- If No Data Indicators will create new -->
-                                <!-- <span v-else>
-                                        <center>
-                                            {{ $t("msg_no_indicator") }}
-                                            <feather-icon style="cursor: pointer;" @click="openForm" icon="PlusIcon" svgClasses="w-5 h-5 hover:text-primary stroke-current" />
-                                        </center>
-                                    </span>
-                                </span>
-                                
-                                <span v-else>{{ tr[header] }}​</span> -->
-
+                                </span> -->
                             </vs-td>
                             <vs-td>
-                                <!-- <template v-if="dataAttributes.actionButton">
-                                    <feather-icon style="cursor: pointer;" v-for="rowBtnAction in dataAttributes.actionButton"
-                                        :key="rowBtnAction.indextr" :icon="rowBtnAction.icon"
-                                        svgClasses="mr-2 w-5 h-5 hover:text-primary stroke-current" @click.stop="viewUrl(rowBtnAction)" />
-                                </template> -->
                                 <feather-icon style="cursor: pointer;" icon="EditIcon"
                                     svgClasses="w-5 h-5 hover:text-primary stroke-current" @click.stop="initEdit(tr)" />
                                 <feather-icon style="cursor: pointer;" v-if="allowDel" icon="TrashIcon"

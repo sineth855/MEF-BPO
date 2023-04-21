@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Modules\ProgramManagement;
 
 use App\Http\Controllers\Controller;
 use App\Models\Modules\ProgramManagement\Activity;
+use App\Models\Modules\ProgramManagement\ClusterActivity;
 use Illuminate\Http\Request;
 use Auth;
 use DB;
@@ -65,7 +66,7 @@ class ActivityController extends Controller
             "data_fields" => $this->dataFields(),
             "data" => $table,
             "limit" => LIMIT,
-            "total" => $this->db_table->count()
+            "total" => ClusterActivity::count()
         );
         return response()->json($data);
     }

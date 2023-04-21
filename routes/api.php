@@ -19,7 +19,6 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-
 Route::get("/users", function() {
     $users = factory(User::class, 100)->make();
     return $users;
@@ -72,14 +71,33 @@ Route::group([
         Route::post('module/program_management/objective/search', 'Modules\ProgramManagement\ObjectiveController@index');
         Route::post('module/program_management/program/search', 'Modules\ProgramManagement\ProgramController@index');
         Route::post('module/program_management/sub_program/search', 'Modules\ProgramManagement\SubProgramController@index');
-        Route::post('module/program_management/cluster_activity/search', 'Modules\ProgramManagement\ClusterActivityController@index');
         Route::post('module/program_management/activity/search', 'Modules\ProgramManagement\ActivityController@index');
-        // Setting
+        Route::post('module/program_management/cluster_activity/search', 'Modules\ProgramManagement\ClusterActivityController@index');
+        
         Route::resource('module/program_management/objective', 'Modules\ProgramManagement\ObjectiveController');
         Route::resource('module/program_management/program', 'Modules\ProgramManagement\ProgramController');
         Route::resource('module/program_management/sub_program', 'Modules\ProgramManagement\SubProgramController');
         Route::resource('module/program_management/cluster_activity', 'Modules\ProgramManagement\ClusterActivityController');
         Route::resource('module/program_management/activity', 'Modules\ProgramManagement\ActivityController');
+        // PIP
+        Route::post('module/budget_arrangement/ceiling_rule/search', 'Modules\BudgetArrangement\CeilingRuleController@index');
+        Route::resource('module/budget_arrangement/ceiling_rule', 'Modules\BudgetArrangement\CeilingRuleController');
+        Route::resource('module/budget_arrangement/ceiling_entity', 'Modules\BudgetArrangement\CeilingEntityController');
+        Route::post('module/budget_arrangement/pip/search', 'Modules\BudgetArrangement\PIPInvestmentController@index');
+        Route::resource('module/budget_arrangement/pip', 'Modules\BudgetArrangement\PIPInvestmentController');
+        // BPS
+        Route::post('module/budget_arrangement/bsp_program/search', 'Modules\BudgetArrangement\BSPProgramController@index');
+        Route::resource('module/budget_arrangement/bsp_program', 'Modules\BudgetArrangement\BSPProgramController');
+        // PB
+        Route::resource('module/budget_arrangement/pb_revenue', 'Modules\BudgetArrangement\PBRevenueController');
+        Route::resource('module/budget_arrangement/pb_expense', 'Modules\BudgetArrangement\PBExpenseController');
+        // Settings
+        // Expenditure Group
+        Route::post('setting/expenditure_group/search', 'Settings\ExpenditureGroupController@index');
+        Route::post('setting/expenditure_type/search', 'Settings\ExpenditureTypeController@index');
+
+        Route::resource('setting/expenditure_group', 'Settings\ExpenditureGroupController');
+        Route::resource('setting/expenditure_type', 'Settings\ExpenditureTypeController');
 
         Route::post('setting/account_group/search', 'Settings\AccountGroupController@index');
         Route::resource('setting/account_group', 'Settings\AccountGroupController');
@@ -90,13 +108,25 @@ Route::group([
         Route::post('setting/department/search', 'Settings\DepartmentController@index');
         Route::resource('setting/department', 'Settings\DepartmentController');
 
+        Route::post('setting/entity_member/search', 'Settings\EntityMemberController@index');
+        Route::resource('setting/entity_member', 'Settings\EntityMemberController');
+
         Route::post('setting/entity/search', 'Settings\EntityController@index');
         Route::resource('setting/entity', 'Settings\EntityController');
-
+        
         Route::post('setting/position/search', 'Settings\PositionController@index');
         Route::resource('setting/position', 'Settings\PositionController');
         Route::post('setting/title/search', 'Settings\TitleController@index');
         Route::resource('setting/title', 'Settings\TitleController');
+
+        Route::post('setting/unit/search', 'Settings\UnitController@index');
+        Route::resource('setting/unit', 'Settings\UnitController');
+
+        Route::post('setting/item/search', 'Settings\ItemController@index');
+        Route::resource('setting/item', 'Settings\ItemController');
+
+        Route::post('setting/item_category/search', 'Settings\ItemCategoryController@index');
+        Route::resource('setting/item_category', 'Settings\ItemCategoryController');
 
         Route::resource('setting/sector', 'Settings\SectorController');
         Route::resource('setting/duty', 'Settings\DutyController');
@@ -107,7 +137,19 @@ Route::group([
         Route::resource('setting/notificatoin_type', 'Settings\NotificationTypeController');
         Route::resource('setting/circular', 'Settings\CircularController');
         Route::resource('setting/incentive_officer', 'Settings\IncentiveOfficerController');
+        // Setting Budget Arrangement
+        Route::post('setting/planning/search', 'Settings\PlanningController@index');
+        Route::resource('setting/planning', 'Settings\PlanningController');
 
+        Route::post('setting/finance_resource/search', 'Settings\FinanceResourceController@index');
+        Route::post('setting/project_status/search', 'Settings\ProjectStatusController@index');
+        Route::post('setting/project_type/search', 'Settings\ProjectTypeController@index');
+
+        Route::resource('setting/finance_resource', 'Settings\FinanceResourceController');
+        Route::resource('setting/project_status', 'Settings\ProjectStatusController');
+        Route::resource('setting/project_type', 'Settings\ProjectTypeController');
+
+        // Officer
         Route::post('update_officer_user', 'IncentiveOfficerController@updateIncentiveOfficer');
         Route::post('incentive/officer_by_bank', 'IncentiveController@getIncentiveOfficerByBanks');
         Route::resource('incentive', 'IncentiveController');
@@ -143,6 +185,8 @@ Route::group([
         Route::get('officer_group_by_entities', 'IncentiveOfficerController@getOfficerGroupByEntities');
         Route::get('officer_by_entities', 'IncentiveOfficerController@getOfficerByEntities');
         Route::get('officer_list_by_entities', 'IncentiveOfficerController@getOfficerListByEntities');
+        // Upload Postion
+        Route::post('upload_position', 'FileManagerController@fileUploadPosition');
         // Upload File
         Route::post('upload_objective', 'FileManagerController@fileUploadObjective');
         Route::post('upload_program', 'FileManagerController@fileUploadProgram');
@@ -152,8 +196,22 @@ Route::group([
         Route::post('upload_account', 'FileManagerController@fileUploadAccount');
         Route::post('upload_sub_account', 'FileManagerController@fileUploadSubAccount');
         Route::post('upload_account_group', 'FileManagerController@fileUploadAccountGroup');
-
+        Route::post('upload_entity_member', 'FileManagerController@fileUploadEntityMember');
         Route::post('upload_entity', 'FileManagerController@fileUploadEntity');
+        Route::post('upload_ceiling_entity', 'FileManagerController@fileUploadCeilingEntity');
+        Route::post('upload_ceiling_data_entity', 'FileManagerController@fileUploadCeilingDataEntity');
+        // PIP 
+        Route::post('upload_pip_investment', 'FileManagerController@fileUploadPIPInvestment');
+        Route::post('upload_pip_inv_detail', 'FileManagerController@fileUploadPIPInvDetail');
+        // PB
+        Route::post('upload_pb_revenue', 'FileManagerController@fileUploadPBRevenue');
+        Route::post('upload_pb_expense', 'FileManagerController@fileUploadPBExpense');
+        // BSP
+        // Import Assign SubProgram, Cluster Activity, Activity to Entity
+        Route::post('upload_bsp_assign_program', 'FileManagerController@fileUploadBSPAssignProgram');
+
+        Route::post('upload_item', 'FileManagerController@fileUploadItem');
+        Route::post('upload_unit', 'FileManagerController@fileUploadUnit');
 
         Route::post('file_upload', 'FileManagerController@fileUploadService');
         Route::post('file_officer_upload', 'FileManagerController@fileUploadOfficer');

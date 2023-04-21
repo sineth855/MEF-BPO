@@ -22,6 +22,7 @@ class AccountImport implements ToModel,WithHeadingRow
         if(!$queryCheck){
             Account::insert([
                 "id"=>$row["id"],
+                "account_group_id"=>$row["account_group_id"],
                 "parent_id"=>$row["parent_id"],
                 "code"=>$row["code"],
                 "name_en"=>$row["name_en"],

@@ -1,14 +1,17 @@
 <template>
     <div class="demo-alignment">
-        <vs-popup v-if="dataAttributes.popupFullscreen" fullscreen classContent="popup-example" :title="title" :active.sync="showModalForm">
-            <d-form @clickForm="initTableData" ref="refModalForm" :data="data" :dataInfo="dataInfo" :formAttributes="formAttributes"
-                :api="api" :rowDisplay="rowDisplay"></d-form>
-            <d-indicator v-if="dataAttributes.hasIndicator" :dataInfo="dataInfo" :dataAttributes="dataAttributes"></d-indicator>
+        <vs-popup v-if="dataAttributes.popupFullscreen" fullscreen classContent="popup-example" :title="title"
+            :active.sync="showModalForm">
+            <d-form @clickForm="initTableData" ref="refModalForm" :data="data" :dataInfo="dataInfo"
+                :formAttributes="formAttributes" :api="api" :rowDisplay="rowDisplay"></d-form>
+            <d-indicator v-if="dataAttributes.hasIndicator" :dataInfo="dataInfo"
+                :dataAttributes="dataAttributes"></d-indicator>
         </vs-popup>
         <vs-popup v-else classContent="popup-example" :title="title" :active.sync="showModalForm">
             <d-form @clickForm="initTableData" ref="refModalForm" :data="data" :dataInfo="dataInfo"
                 :formAttributes="formAttributes" :api="api" :rowDisplay="rowDisplay"></d-form>
-            <d-indicator v-if="dataAttributes.hasIndicator" :dataInfo="dataInfo" :dataAttributes="dataAttributes"></d-indicator>
+            <d-indicator v-if="dataAttributes.hasIndicator" :dataInfo="dataInfo"
+                :dataAttributes="dataAttributes"></d-indicator>
         </vs-popup>
     </div>
 </template>
@@ -58,7 +61,7 @@ export default {
         openNewFormByParent(obj) {
             this.dataInfo = {};
             this.showModalForm = true;
-            this.$refs.refModalForm.showNewFormByParent(obj); 
+            this.$refs.refModalForm.showNewFormByParent(obj);
         },
         initForm(data) {
             this.showModalForm = true;

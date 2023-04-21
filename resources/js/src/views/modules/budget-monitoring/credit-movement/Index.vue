@@ -1,327 +1,340 @@
 <template>
-    <vx-card title="ចុះលទ្ធផលអនុវត្តចំណូល" code-toggler>
-      <div class="flex flex-wrap-reverse items-center data-list-btn-container">
-
-          <!-- ACTION - DROPDOWN -->
-          <vs-dropdown vs-trigger-click class="dd-actions cursor-pointer mr-4 mb-4">
-
-            <div class="p-4 shadow-drop rounded-lg d-theme-dark-bg cursor-pointer flex items-center justify-center text-lg font-medium w-32 w-full">
-              <span class="mr-2">{{$t("Action")}}</span>
-              <feather-icon icon="ChevronDownIcon" svgClasses="h-4 w-4" />
-            </div>
-
-            <vs-dropdown-menu>
-
-              <vs-dropdown-item>
-                <span class="flex items-center">
-                  <feather-icon icon="TrashIcon" svgClasses="h-4 w-4" class="mr-2" />
-                  <span>Delete</span>
-                </span>
-              </vs-dropdown-item>
-
-              <vs-dropdown-item>
-                <span class="flex items-center">
-                  <feather-icon icon="ArchiveIcon" svgClasses="h-4 w-4" class="mr-2" />
-                  <span>Archive</span>
-                </span>
-              </vs-dropdown-item>
-
-              <vs-dropdown-item>
-                <span class="flex items-center">
-                  <feather-icon icon="FileIcon" svgClasses="h-4 w-4" class="mr-2" />
-                  <span>Print</span>
-                </span>
-              </vs-dropdown-item>
-
-              <vs-dropdown-item>
-                <span class="flex items-center">
-                  <feather-icon icon="SaveIcon" svgClasses="h-4 w-4" class="mr-2" />
-                  <span>Another Action</span>
-                </span>
-              </vs-dropdown-item>
-
-            </vs-dropdown-menu>
-          </vs-dropdown>
-
-          <!-- ADD NEW -->
-          <div class="btn-add-new p-3 mb-4 mr-4 rounded-lg cursor-pointer flex items-center justify-center text-lg font-medium text-base text-primary border border-solid border-primary" @click="addNewData">
-            <feather-icon icon="PlusIcon" svgClasses="h-4 w-4" />
-            <span class="ml-2 text-base text-primary">{{$t("AddNew")}}</span>
-          </div>
-        </div>
-
-         <div id="popup-demo">
-          <popup-fullscreen></popup-fullscreen>
-        </div>
-
-      <vs-table :data="users" style="overflow: scroll">
-          <template>
-            
-            <vs-tr style="background-color: rgb(183 255 215)">
-              <vs-td>ជំពូក</vs-td>
-              <vs-td>ឆ្នាំ</vs-td>
-              <vs-td>អនុកម្មវិធី</vs-td>
-              <vs-td>លេខប្រកាស</vs-td>
-              <vs-td>កាលបរិច្ឆេទ</vs-td>
-              <vs-td>ប្រភេទចលនាឥណទាន</vs-td>
-              <vs-td>ប្រភេទចំណាយ</vs-td>
-              <vs-td>អនុគណនី</vs-td>
-              <vs-td>ចង្កោមសកម្មភាព</vs-td>
-              <vs-td>កើន</vs-td>
-              <vs-td>ថយ</vs-td>
-
-              <vs-td>កើន</vs-td>
-              <vs-td>ថយ</vs-td>
-
-              <vs-td>ចលនា</vs-td>
-              <vs-td>កូដ ESE</vs-td>
-              <vs-td>លេខកូដ</vs-td>
-              <vs-td>ចលនា</vs-td>
-
-              <vs-td>ចលនា1119</vs-td>
-              <vs-td>ប្រភេទចំណាយ</vs-td>
-            </vs-tr>
-
-            <vs-tr style="min-height: 20px; font-size: 11px;" :state="'Warning'">
-              <vs-td>Chapter</vs-td>
-              <vs-td>Year</vs-td>
-              <vs-td>SubProgram</vs-td>
-              <vs-td>#DOC</vs-td>
-              <vs-td>Date</vs-td>
-              <vs-td>Budget Movement</vs-td>
-              <vs-td>Expense Type</vs-td>
-              <vs-td>SubAccount</vs-td>
-              <vs-td>ECACode</vs-td>
-              <vs-td>Increase</vs-td>
-              <vs-td>Decrease</vs-td>
-
-              <vs-td>+</vs-td>
-              <vs-td>-</vs-td>
-
-              <vs-td>=</vs-td>
-              <vs-td>Code ESE</vs-td>
-              <vs-td>Entry Code</vs-td>
-              <vs-td>Dif</vs-td>
-
-              <vs-td>Dif_1119</vs-td>
-              <vs-td>Expense Type</vs-td>
-            </vs-tr>
-
-            <vs-tr>
-              <vs-td>60</vs-td>
-              <vs-td>2022</vs-td>
-              <vs-td>104</vs-td>
-              <vs-td>001 សហវ. អថ 3/6/2022</vs-td>
-              <vs-td>វិចារណៈកម្មចំណាយ</vs-td>
-              <vs-td></vs-td>
-              <vs-td>60015</vs-td>
-              <vs-td>1</vs-td>
-              <vs-td></vs-td>
-              <vs-td></vs-td>
-              <vs-td>0.00</vs-td>
-
-              <vs-td></vs-td>
-              <vs-td>0.00</vs-td>
-
-              <vs-td>0.00</vs-td>
-              <vs-td>160015</vs-td>
-              <vs-td></vs-td>
-              <vs-td>0.00</vs-td>
-
-              <vs-td>0.00</vs-td>
-              <vs-td></vs-td>
-            </vs-tr>
-
-            <vs-tr>
-              <vs-td>60</vs-td>
-              <vs-td>2022</vs-td>
-              <vs-td>104</vs-td>
-              <vs-td>001 សហវ. អថ 3/6/2022</vs-td>
-              <vs-td>វិចារណៈកម្មចំណាយ</vs-td>
-              <vs-td></vs-td>
-              <vs-td>60015</vs-td>
-              <vs-td>1</vs-td>
-              <vs-td></vs-td>
-              <vs-td></vs-td>
-              <vs-td>0.00</vs-td>
-
-              <vs-td></vs-td>
-              <vs-td>0.00</vs-td>
-
-              <vs-td>0.00</vs-td>
-              <vs-td>160015</vs-td>
-              <vs-td></vs-td>
-              <vs-td>0.00</vs-td>
-
-              <vs-td>0.00</vs-td>
-              <vs-td></vs-td>
-            </vs-tr>
-
-            <vs-tr>
-              <vs-td>60</vs-td>
-              <vs-td>2022</vs-td>
-              <vs-td>104</vs-td>
-              <vs-td>001 សហវ. អថ 3/6/2022</vs-td>
-              <vs-td>វិចារណៈកម្មចំណាយ</vs-td>
-              <vs-td></vs-td>
-              <vs-td>60015</vs-td>
-              <vs-td>1</vs-td>
-              <vs-td></vs-td>
-              <vs-td></vs-td>
-              <vs-td>0.00</vs-td>
-
-              <vs-td></vs-td>
-              <vs-td>0.00</vs-td>
-
-              <vs-td>0.00</vs-td>
-              <vs-td>160015</vs-td>
-              <vs-td></vs-td>
-              <vs-td>0.00</vs-td>
-
-              <vs-td>0.00</vs-td>
-              <vs-td></vs-td>
-            </vs-tr>
-
-            <vs-tr>
-              <vs-td>60</vs-td>
-              <vs-td>2022</vs-td>
-              <vs-td>104</vs-td>
-              <vs-td>001 សហវ. អថ 3/6/2022</vs-td>
-              <vs-td>វិចារណៈកម្មចំណាយ</vs-td>
-              <vs-td></vs-td>
-              <vs-td>60015</vs-td>
-              <vs-td>1</vs-td>
-              <vs-td></vs-td>
-              <vs-td></vs-td>
-              <vs-td>0.00</vs-td>
-
-              <vs-td></vs-td>
-              <vs-td>0.00</vs-td>
-
-              <vs-td>0.00</vs-td>
-              <vs-td>160015</vs-td>
-              <vs-td></vs-td>
-              <vs-td>0.00</vs-td>
-
-              <vs-td>0.00</vs-td>
-              <vs-td></vs-td>
-            </vs-tr>
-
-            <vs-tr>
-              <vs-td>60</vs-td>
-              <vs-td>2022</vs-td>
-              <vs-td>104</vs-td>
-              <vs-td>001 សហវ. អថ 3/6/2022</vs-td>
-              <vs-td>វិចារណៈកម្មចំណាយ</vs-td>
-              <vs-td></vs-td>
-              <vs-td>60015</vs-td>
-              <vs-td>1</vs-td>
-              <vs-td></vs-td>
-              <vs-td></vs-td>
-              <vs-td>0.00</vs-td>
-
-              <vs-td></vs-td>
-              <vs-td>0.00</vs-td>
-
-              <vs-td>0.00</vs-td>
-              <vs-td>160015</vs-td>
-              <vs-td></vs-td>
-              <vs-td>0.00</vs-td>
-
-              <vs-td>0.00</vs-td>
-              <vs-td></vs-td>
-            </vs-tr>
-
-            <vs-tr>
-              <vs-td>60</vs-td>
-              <vs-td>2022</vs-td>
-              <vs-td>104</vs-td>
-              <vs-td>001 សហវ. អថ 3/6/2022</vs-td>
-              <vs-td>វិចារណៈកម្មចំណាយ</vs-td>
-              <vs-td></vs-td>
-              <vs-td>60015</vs-td>
-              <vs-td>1</vs-td>
-              <vs-td></vs-td>
-              <vs-td></vs-td>
-              <vs-td>0.00</vs-td>
-
-              <vs-td></vs-td>
-              <vs-td>0.00</vs-td>
-
-              <vs-td>0.00</vs-td>
-              <vs-td>160015</vs-td>
-              <vs-td></vs-td>
-              <vs-td>0.00</vs-td>
-
-              <vs-td>0.00</vs-td>
-              <vs-td></vs-td>
-            </vs-tr>
-
-            <vs-tr>
-              <vs-td>60</vs-td>
-              <vs-td>2022</vs-td>
-              <vs-td>104</vs-td>
-              <vs-td>001 សហវ. អថ 3/6/2022</vs-td>
-              <vs-td>វិចារណៈកម្មចំណាយ</vs-td>
-              <vs-td></vs-td>
-              <vs-td>60015</vs-td>
-              <vs-td>1</vs-td>
-              <vs-td></vs-td>
-              <vs-td></vs-td>
-              <vs-td>0.00</vs-td>
-
-              <vs-td></vs-td>
-              <vs-td>0.00</vs-td>
-
-              <vs-td>0.00</vs-td>
-              <vs-td>160015</vs-td>
-              <vs-td></vs-td>
-              <vs-td>0.00</vs-td>
-
-              <vs-td>0.00</vs-td>
-              <vs-td></vs-td>
-            </vs-tr>
-
-          </template>
-      </vs-table>
-
-    </vx-card>
+  <d-table-list @clicked="initTableData" :api="api" ref="refInitPage" :allowDel="true" :title="title"
+    :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data" :formAttributes="formAttributes"
+    :rowDisplay="rowDisplay"></d-table-list>
 </template>
 
 <script>
+import axios from "@/axios.js";
+import apiConfig from "@/apiConfig.js";
+import { ref } from 'vue';
+
+import DTableList from '@/views/form-builder/DTableList.vue';
+
 export default {
-    data() {
-        return {
-           
-        }
+  data() {
+    return {
+      title: "income_implementing_result",
+      api: apiConfig._apiActivity,
+      dataAttributes: {
+        backgroundColor: "warning",
+        tableStyle: 2,
+        page_number: 1,
+        offset: 0,
+        dataGrid: "row",
+      },
+      dataHeaders: {
+        header1: "chapter",
+        header2: "year",
+        header3: "sub_program",
+        header5: "doc",
+        header6: "date",
+        header7: "credit_movement_type",
+        header8: "expense_type",
+        header9: "sub_account",
+        header10: "cluster_activity_code",
+        header11: "increase",
+        header12: "decrease",
+      },
+      data: {
+        data: [
+          {
+            // id: 1,
+            // code: "",
+            // name_en: "#120 - ចង្កោមសកម្មភាព",
+            // name_kh: "#120 - ចង្កោមសកម្មភាព",
+            // children: [
+            //     {
+            //         id: 1,
+            //         credit_movement_type: 1,
+            //         code: "001",
+            //         name_en: "#001 - សកម្មភាពទី ១",
+            //         name_kh: "#001 - សកម្មភាពទី ១",
+            //         entity_id: 1,
+            //         entity_member_id: 2,
+            //         order_level: 1,
+            //         indicator: {
+            //             data: [
+            //                 {
+            //                     id: 1,
+            //                     code: "#1.3.10-1",
+            //                     kpi_name_en: "ឈ្មោះសូចនាករ",
+            //                     kpi_name_kh: "ឈ្មោះសូចនាករ",
+            //                     order_level: 1,
+            //                     status: "Active"
+            //                 }, {
+            //                     id: 2,
+            //                     code: "#1.3.10-2",
+            //                     kpi_name_en: "ឈ្មោះសូចនាករ",
+            //                     kpi_name_kh: "ឈ្មោះសូចនាករ",
+            //                     order_level: 1,
+            //                     status: "Active"
+            //                 }, {
+            //                     id: 3,
+            //                     code: "#1.3.10-3",
+            //                     kpi_name_en: "ឈ្មោះសូចនាករជាភាសាអង់គ្លេស",
+            //                     kpi_name_kh: "ឈ្មោះសូចនាករជាភាសាអង់គ្លេស",
+            //                     order_level: 1,
+            //                     status: "InActive"
+            //                 }
+            //             ]
+            //         },
+            //     }
+
+            // ]
+          }
+        ],
+        cluster_activity: [
+          {
+            "label": "ផ្ទេរឥណទានពី៦៩",
+            "value": 1,
+          },
+          {
+            "label": "បំពេញបន្ថែម",
+            "value": 2,
+          },
+          {
+            "label": "និយ័តភាព",
+            "value": 3,
+          },
+          {
+            "label": "កែឧបសម្ព័ន្ធរជ្ជទេយ្យបុរេប្រទាន",
+            "value": 4,
+          },
+        ],
+        credit_movement_type: [
+          {
+            "label": "ផ្ទេរឥណទានពី៦៩",
+            "value": 1,
+          },
+          {
+            "label": "បំពេញបន្ថែម",
+            "value": 2,
+          },
+          {
+            "label": "និយ័តភាព",
+            "value": 3,
+          },
+          {
+            "label": "កែឧបសម្ព័ន្ធរជ្ជទេយ្យបុរេប្រទាន",
+            "value": 4,
+          },
+        ],
+        account_group: [
+          {
+            "label": "ការទិញ",
+            "value": 1,
+          },
+          {
+            "label": "អចលកម្មរូបី",
+            "value": 2,
+          },
+          {
+            "label": "ទ្រព្យសម្បត្តិវិនិយោគរយៈពេលវែង",
+            "value": 3,
+          },
+          {
+            "label": "ការវិនិយោគ",
+            "value": 4,
+          },
+        ],
+        sub_program: [
+          {
+            "label": "ការទិញ",
+            "value": 1,
+          },
+          {
+            "label": "អចលកម្មរូបី",
+            "value": 2,
+          },
+          {
+            "label": "ទ្រព្យសម្បត្តិវិនិយោគរយៈពេលវែង",
+            "value": 3,
+          },
+          {
+            "label": "ការវិនិយោគ",
+            "value": 4,
+          },
+        ],
+        account: [
+          {
+            "label": "សោហ៊ុយលើការសិក្សាស្រាវជ្រាវនិងអភិវឌ្ឍន៍",
+            "value": 1,
+          },
+          {
+            "label": "ដីធ្លី ដីរ៉ែ និងសម្បត្តិធម្មជាតិផ្សេងៗ",
+            "value": 2,
+          },
+          {
+            "label": "ឋបនកម្មបច្ចេកទេស សម្ភារ និងហត្ថូបករណ៍",
+            "value": 3,
+          },
+          {
+            "label": "អចលកម្មរូបីផ្សេងទៀត",
+            "value": 4,
+          },
+        ],
+        entity_id: [
+          {
+            "label": "អង្គភាពទី១",
+            "value": 1,
+          },
+          {
+            "label": "អង្គភាពទី២",
+            "value": 2,
+          }
+        ],
+        entity_member_id: [
+          {
+            "label": "សមាជិកទី១",
+            "value": 1,
+          },
+          {
+            "label": "សមាជិកទី២",
+            "value": 2,
+          }
+        ],
+        limit: 10,
+        total: 3
+      },
+      formAttributes: [
+        {
+          name: "credit_movement_type",
+          type: "select",
+          required: true,
+          options: [],
+        },
+        {
+          name: "account_group",
+          type: "select",
+          required: true,
+          options: [],
+        },
+        {
+          name: "cluster_activity",
+          type: "select",
+          required: true,
+          options: [],
+        },
+        {
+          name: "sub_program",
+          type: "text",
+          required: true
+        },
+        {
+          name: "year",
+          type: "date",
+          required: true
+        },
+        {
+          name: "account",
+          type: "text",
+          required: true
+        },
+        {
+          name: "doc",
+          type: "text",
+          required: true
+        },
+        {
+          name: "date",
+          type: "credit_movement_type",
+          required: true
+        },
+        {
+          name: "increase",
+          type: "number",
+          required: false
+        },
+        {
+          name: "decrease",
+          type: "number",
+          required: false
+        },
+        {
+          name: "remark",
+          type: "textarea",
+          required: false
+        },
+
+      ],
+      rowDisplay: "2grid", //1grid, 2grid, 3grid, 4grid
+      dataFields: []
+    }
+  },
+  components: {
+    DTableList,
+  },
+  methods: {
+    getDataTable(_search_criteria) {
+      let _params = {};
+      if (_search_criteria.search_field) {
+        let _formAttribute = this.formAttributes;
+        this.dataFields = [];
+        this.formAttributes.forEach(_formAttribute => {
+          if (_search_criteria.search_field[_formAttribute["name"]]) {
+            let _d = {
+              [_formAttribute["name"]]: _search_criteria.search_field[_formAttribute["name"]]
+            }
+            this.dataFields.push(_d);
+          }
+
+        });
+        _params = {
+          sort: _search_criteria.sort,
+          order: _search_criteria.order,
+          page_number: _search_criteria.page_number,
+          search_field: this.dataFields,
+        };
+      } else {
+        _params = {
+          sort: _search_criteria.sort,
+          order: _search_criteria.order,
+          page_number: _search_criteria.page_number,
+        };
+      }
+
+      return new Promise((resolve, reject) => {
+        axios.post(this.api + "/search", _params)
+          .then((response) => {
+            // if (response.data) {
+            //   this.data = response.data;
+            // } else {
+            this.data = this.data;
+            // }
+            this.$vs.loading.close();
+          }).catch((error) => {
+            // reject(error)
+            this.$vs.loading.close();
+          })
+      })
     },
+    getData() {
+      let _search_criteria = {
+        sort: "id",
+        order: "",
+        page_number: this.dataAttributes.page_number
+      }
+      this.getDataTable(_search_criteria);
+    },
+    initTableData(searchQuery) {
+      this.$vs.loading();
+      let _search_criteria = {
+        sort: "id",
+        order: "",
+        page_number: searchQuery.pageNum,
+        search_field: searchQuery.searchFields
+      }
+      this.getDataTable(_search_criteria);
+      return false;
+    }
+
+  },
+  created() {
+    this.$vs.loading();
+    this.getData();
+  },
+  watch: {
+  }
 }
 </script>
-
-<style>
-  th.th-width-300{
-    min-width: 260px !important;
-  }
-  td.td-width-150{
-    min-width: 150px !important;
-  }
-  table tr td, th{
-    border: 1px solid #d7d7d7;
-    font-size: 12px;
-    min-width: 100px;
-    text-align: center;
-  }
-  th{
-    text-align: center !important;
-    /* display: inline; */
-  }
-  th.rotate{
-    transform: rotate(-90deg)
-  }
-.vs-table--thead th .vs-table-text {
-    text-transform: uppercase;
-    font-weight: 600;
-    text-align: center;
-    display: inline !important;
-}
-</style>

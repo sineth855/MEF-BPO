@@ -23,6 +23,8 @@ class SubProgramImport implements ToModel,WithHeadingRow
                 "program_id"=>$row["program_id"],
                 "code"=>$row["code"],
                 "sub_code"=>$row["sub_code"],
+                "structure_name_en"=>$row["structure_name_en"],
+                "structure_name_kh"=>$row["structure_name_kh"],
                 "entity_id"=>$row["entity_id"],
                 "entity_member_id"=>$row["entity_member_id"],
                 "name_en"=>$row["name_en"],

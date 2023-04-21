@@ -17,7 +17,7 @@ export default {
   data() {
     return {
       title: "pip_form_title",
-      api: apiConfig._apiObjective,
+      api: apiConfig._apiPIP,
       dataAttributes: {
         tableStyle: 3,
         popupFullscreen: true,
@@ -40,22 +40,24 @@ export default {
       dataHeaders: {
         header1: {
           width: 350,
-          label: "ឈ្មោះកម្មវិធី/ ឈ្មោះអនុកម្មវិធី /ឈ្មោះគម្រោង",
+          label: "sub_program_id",
+          // label: "ឈ្មោះកម្មវិធី/ ឈ្មោះអនុកម្មវិធី /ឈ្មោះគម្រោង",
           rowspan: 2,
           colspan: 0,
         },
         header2: {
-          label: "លេខ PIP",
+          label: "pip_no",
           rowspan: 2,
           colspan: 0,
         },
         header3: {
-          label: "ស្ថានភាពគម្រោង",
+          label: "project_status_id",
+          // label: "ស្ថានភាពគម្រោង",
           rowspan: 2,
           colspan: 0,
         },
         header4: {
-          label: "ប្រភេទគម្រោង",
+          label: "project_type_id",
           rowspan: 2,
           colspan: 0,
         },
@@ -93,18 +95,6 @@ export default {
       },
       data: {
         dataHeaders: {
-          // sheader1: "២០២៣",
-          // sheader2: "២០២៤",
-          // sheader3: "២០២៥",
-          // sheader4: "សរុប៣ឆ្នាំ",
-          // sheader5: "២០២៣",
-          // sheader6: "២០២៤",
-          // sheader7: "២០២៥",
-          // sheader8: "សរុប៣ឆ្នាំ",
-          // sheader9: "២០២៣",
-          // sheader10: "២០២៤",
-          // sheader11: "២០២៥",
-          // sheader12: "សរុប៣ឆ្នាំ"
           header1: {
             label: "២០២៣",
             rowspan: 0,
@@ -125,7 +115,6 @@ export default {
             rowspan: 0,
             colspan: 0,
           },
-
           header5: {
             label: "២០២៣",
             rowspan: 0,
@@ -146,7 +135,6 @@ export default {
             rowspan: 0,
             colspan: 0,
           },
-
           header9: {
             label: "២០២៣",
             rowspan: 0,
@@ -169,7 +157,7 @@ export default {
           },
         },
         dataSubHeaders: {
-          
+
         },
         data: [
           {
@@ -193,7 +181,7 @@ export default {
                   name: "អនុកម្មវិធី ៣.១ ៖ អគ្គនាយកដ្ឋានគយ និងរដ្ឋាករកម្ពុជា",
                   values: [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, "", ""],
                   data: [
-                    
+
                   ],
                   dataDetails: [
                     {
@@ -202,7 +190,7 @@ export default {
                       entity: {},
                       values: ["659", "គម្រោងស្នើសុំថ្មី", "វិនិយោគជាទុន", 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, "", ""],
                       data: [
-                        
+
                       ]
                     },
                     {
@@ -211,7 +199,7 @@ export default {
                       entity: {},
                       values: [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, "", ""],
                       data: [
-                        
+
                       ]
                     },
                   ]
@@ -248,56 +236,10 @@ export default {
             }
           }
         ],
-        status: [
-          {
-            label: "កំពុងដំណើរការ",
-            value: 1
-          },
-          {
-            label: "គម្រោងថ្មី",
-            value: 2,
-          }
-        ],
-        pip_project_type: [
-          {
-            label: "គម្រោងវិនិយោគជាទុន",
-            value: 1
-          },
-          {
-            label: "គម្រោងជំនួយបច្ចេកទេស",
-            value: 2,
-          }
-        ],
-        sub_program_id: [
-          {
-            "label": "អនុកម្មវិធីទី១",
-            "value": 1,
-          },
-          {
-            "label": "អនុកម្មវិធីទី២",
-            "value": 2,
-          }
-        ],
-        entity_id: [
-          {
-            "label": "អង្គភាពទី១",
-            "value": 1,
-          },
-          {
-            "label": "អង្គភាពទី២",
-            "value": 2,
-          }
-        ],
-        entity_member_id: [
-          {
-            "label": "សមាជិកទី១",
-            "value": 1,
-          },
-          {
-            "label": "សមាជិកទី២",
-            "value": 2,
-          }
-        ],
+        project_type_id: [],
+        project_status_id: [],
+        sub_program_id: [],
+        entity_id: [],
         limit: 10,
         total: 3,
       },
@@ -319,7 +261,13 @@ export default {
           required: true
         },
         {
-          name: "pip_project_type",
+          name: "project_type_id",
+          type: "select",
+          required: true,
+          options: [],
+        },
+        {
+          name: "project_status_id",
           type: "select",
           required: true,
           options: [],
@@ -465,8 +413,11 @@ export default {
       return new Promise((resolve, reject) => {
         axios.post(this.api + "/search", _params)
           .then((response) => {
-            // this.data = response.data;
-            this.data = this.data;
+            if (response.data) {
+              this.data = response.data;
+            } else {
+              this.data = this.data;
+            }
             this.$vs.loading.close();
           }).catch((error) => {
             // reject(error)

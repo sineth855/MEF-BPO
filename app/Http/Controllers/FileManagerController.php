@@ -5,22 +5,29 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Incentive;
 use App\Models\FileManager;
-
 use App\Imports\ObjectiveImport;
 use App\Imports\ProgramImport;
 use App\Imports\SubProgramImport;
 use App\Imports\ClusterActivityImport;
-
 use App\Imports\AccountGroupImport;
 use App\Imports\AccountImport;
-
-
+use App\Imports\CeilingEntityImport;
+use App\Imports\CeilingDataEntityImport;
+use App\Imports\PIPInvestmentImport;
+use App\Imports\PIPInvDetailImport;
+use App\Imports\BSPAssignProgramImport;
+use App\Imports\PBRevenueImport;
+use App\Imports\PBExpenseImport;
+use App\Imports\ItemImport;
+use App\Imports\UnitImport;
+use App\Imports\PositionImport;
 use App\Imports\CsvImport;
 use App\Imports\OfficerImport;
 use App\Imports\OfficerExpenseIncentiveImport;
 use App\Imports\IncomeImport;
 use App\Imports\OutcomeImport;
 use App\Imports\EntityImport;
+use App\Imports\EntityMemberImport;
 use Auth;
 // use Excel;
 use Maatwebsite\Excel\Facades\Excel;
@@ -154,9 +161,9 @@ class FileManagerController extends Controller
         $path = $request->file('file')->getRealPath();
         $rows = Excel::import(new AccountGroupImport, $path);
         if($rows){
-            return response()->json(['success'=>true,'message'=>'File uploaded successfully.'], 200);
+            return response()->json(['success'=>true, 'message'=>'File uploaded successfully.'], 200);
         }else{
-            return response()->json(['success'=>false,'message'=>'File upload is failed!'], 500);
+            return response()->json(['success'=>false, 'message'=>'File upload is failed!'], 500);
         }
     }
     public function fileUploadAccount(Request $request){
@@ -188,6 +195,80 @@ class FileManagerController extends Controller
         }
     }
 
+    public function fileUploadEntityMember(Request $request){
+        $path = $request->file('file')->getRealPath();
+        $rows = Excel::import(new EntityMemberImport, $path);
+        if($rows){
+            return response()->json(['success'=>true,'message'=>'File uploaded successfully.'], 200);
+        }else{
+            return response()->json(['success'=>false,'message'=>'File upload is failed!'], 500);
+        }
+    }
+
+    public function fileUploadCeilingEntity(Request $request){
+        $path = $request->file('file')->getRealPath();
+        $rows = Excel::import(new CeilingEntityImport, $path);
+        if($rows){
+            return response()->json(['success'=>true,'message'=>'File uploaded successfully.'], 200);
+        }else{
+            return response()->json(['success'=>false,'message'=>'File upload is failed!'], 500);
+        }
+    }
+    public function fileUploadCeilingDataEntity(Request $request){
+        $path = $request->file('file')->getRealPath();
+        $rows = Excel::import(new CeilingDataEntityImport, $path);
+        if($rows){
+            return response()->json(['success'=>true,'message'=>'File uploaded successfully.'], 200);
+        }else{
+            return response()->json(['success'=>false,'message'=>'File upload is failed!'], 500);
+        }
+    }
+    public function fileUploadPIPInvestment(Request $request){
+        $path = $request->file('file')->getRealPath();
+        $rows = Excel::import(new PIPInvestmentImport, $path);
+        if($rows){
+            return response()->json(['success'=>true,'message'=>'File uploaded successfully.'], 200);
+        }else{
+            return response()->json(['success'=>false,'message'=>'File upload is failed!'], 500);
+        }
+    }
+    public function fileUploadPIPInvDetail(Request $request){
+        $path = $request->file('file')->getRealPath();
+        $rows = Excel::import(new PIPInvDetailImport, $path);
+        if($rows){
+            return response()->json(['success'=>true,'message'=>'File uploaded successfully.'], 200);
+        }else{
+            return response()->json(['success'=>false,'message'=>'File upload is failed!'], 500);
+        }
+    }
+    public function fileUploadPBRevenue(Request $request){
+        $path = $request->file('file')->getRealPath();
+        $rows = Excel::import(new PBRevenueImport, $path);
+        if($rows){
+            return response()->json(['success'=>true,'message'=>'File uploaded successfully.'], 200);
+        }else{
+            return response()->json(['success'=>false,'message'=>'File upload is failed!'], 500);
+        }
+    }
+    public function fileUploadPBExpense(Request $request){
+        $path = $request->file('file')->getRealPath();
+        $rows = Excel::import(new PBExpenseImport, $path);
+        if($rows){
+            return response()->json(['success'=>true,'message'=>'File uploaded successfully.'], 200);
+        }else{
+            return response()->json(['success'=>false,'message'=>'File upload is failed!'], 500);
+        }
+    }
+    public function fileUploadBSPAssignProgram(Request $request){
+        // dd($request->all());
+        $path = $request->file('file')->getRealPath();
+        $rows = Excel::import(new BSPAssignProgramImport, $path);
+        if($rows){
+            return response()->json(['success'=>true,'message'=>'File uploaded successfully.'], 200);
+        }else{
+            return response()->json(['success'=>false,'message'=>'File upload is failed!'], 500);
+        }
+    }
     // 
     public function fileUploadOfficer(Request $request){
         $path = $request->file('file')->getRealPath();
@@ -223,6 +304,37 @@ class FileManagerController extends Controller
     public function fileOutcomeUploadService(Request $request){
         $path = $request->file('file')->getRealPath();
         $rows = Excel::import(new OutcomeImport, $path);
+        if($rows){
+            return response()->json(['success'=>true,'message'=>'File uploaded successfully.'], 200);
+        }else{
+            return response()->json(['success'=>false,'message'=>'File upload is failed!'], 500);
+        }
+    }
+
+    public function fileUploadItem(Request $request){
+        $path = $request->file('file')->getRealPath();
+        $rows = Excel::import(new ItemImport, $path);
+        if($rows){
+            return response()->json(['success'=>true,'message'=>'File uploaded successfully.'], 200);
+        }else{
+            return response()->json(['success'=>false,'message'=>'File upload is failed!'], 500);
+        }
+    }
+
+    public function fileUploadUnit(Request $request){
+        $path = $request->file('file')->getRealPath();
+        $rows = Excel::import(new UnitImport, $path);
+        if($rows){
+            return response()->json(['success'=>true,'message'=>'File uploaded successfully.'], 200);
+        }else{
+            return response()->json(['success'=>false,'message'=>'File upload is failed!'], 500);
+        }
+    }
+
+    public function fileUploadPosition(Request $request){
+        
+        $path = $request->file('file')->getRealPath();
+        $rows = Excel::import(new PositionImport, $path);
         if($rows){
             return response()->json(['success'=>true,'message'=>'File uploaded successfully.'], 200);
         }else{

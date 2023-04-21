@@ -1,34 +1,71 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Settings;
 
+use App\Http\Controllers\Controller;
+use App\Models\Settings\Role;
 use Illuminate\Http\Request;
-use App\Models\Role;
 use Auth;
+use DB;
 
 class RoleController extends Controller
 {
+    protected $db_table;
+    public $path = "admin/setting";
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->view_title = $this->path.'.entry_account_title';
+        $this->db_table = new Role;
+        $this->lang_path = $this->path;
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+    public function dataFields(){
+        // Loop Data Field From Table to put in array for mapping data field to search data table
+        $data["tables"] = DB::select('show columns from '.env("DB_PREFIX").($this->db_table)->getTable());
+        $str = "";
+        for($i=0; $i < count($data["tables"]); $i++){
+            $str .= $data["tables"][$i]->Field.",";
+        }
+        $newArr = explode(",", $str);
+        array_pop($newArr);
+        $dataFields = $newArr;
+        return $dataFields;
+    }
     public function index(Request $request)
     {
         $input = $request->all();
+        $dataFields = $this->dataFields();
         $filter = array(
-            "offset" => isset($input["offset"]) ? $input["offset"] : OFFSET,
+            // "offset" => isset($input["offset"]) ? $input["offset"] : OFFSET,
             "limit" => isset($input["limit"]) ? $input["limit"] : LIMIT,
             "sort" => isset($input["sort"]) ? $input["sort"] : SORT,
             "order" => isset($input["order"]) ? $input["order"] : ORDER
         );
-        $table = Role::orderBy($filter["sort"], $filter["order"])
-                                ->offset($filter["offset"])
-                                ->limit($filter["limit"])
-                                ->get();
+        $query = $this->db_table::orderBy($filter["sort"], $filter["order"]);
+        $whereClause = $query;
+        $whereClause->offset(($input["page_number"] - 1) * $filter["limit"]);       
+        $whereClause->limit($filter["limit"]);
+        if(isset($input["search_field"])){
+            for($i=0 ; $i < count($input["search_field"]); $i++){
+                $field = array_key_first($input["search_field"][$i]); //array('key1', 'key2', 'key3');
+                if (in_array($field, $dataFields)) {
+                    $whereClause->orWhere($field, "Like","%".$input["search_field"][$i][$field]."%");
+                }
+            }
+        }
+        
+        $table = collect($whereClause->get());
         $data = array(
+            "data_fields" => $this->dataFields(),
             "data" => $table,
-            "total" => count($table)
+            "limit" => $filter["limit"],
+            "total" => $this->db_table->count()
         );
         return response()->json($data);
     }
@@ -40,7 +77,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -52,16 +89,16 @@ class RoleController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
-        $input["modified_by"] = Auth::user()->id;
-        $table = Role::create($input);
+        $dataFields = $this->dataForm($input);
+        $table = $this->db_table::create($dataFields);
         if($table){
             $status = 200;
             $boolen = true;
-            $message = trans('role.message_success');
+            $message = trans('common.msg_save_successfully');
         }else{
             $status = 500;
             $boolen = false;
-            $message = trans('role.message_error');
+            $message = trans('common.error_msg');
         }
         $data = array(
             "success" => $boolen,
@@ -79,7 +116,7 @@ class RoleController extends Controller
      */
     public function show($id)
     {
-        $table = Role::find($id);
+        $table = $this->db_table::find($id);
         $data = array(
             "data" => $table
         );
@@ -107,23 +144,34 @@ class RoleController extends Controller
     public function update(Request $request, $id)
     {
         $input = $request->all();
-        $input["modified_by"] = Auth::user()->id;
-        $table = Role::where('id', $id)->update($input);
+        $dataFields = $this->dataForm($input);
+        $table = $this->db_table::where('id', $id)->update($dataFields);
         if($table){
             $status = 200;
             $boolen = true;
-            $message = trans('role.message_update');
+            $message = trans('common.msg_update_successfully');
         }else{
             $status = 500;
             $boolen = false;
-            $message = trans('role.message_error');
+            $message = trans('common.message_error');
         }
         $data = array(
             "success" => $boolen,
             "message" => $message,
-            "data" => Role::findOrFail($id)
+            "data" => $this->db_table::findOrFail($id)
         );
         return response()->json($data, $status);
+    }
+
+    public function dataForm($input){
+        $dataFields = array(
+            "code" => isset($input[0]["code"])?$input[0]["code"]:null,
+            "name_en" => isset($input[1]["name_en"])?$input[1]["name_en"]:null,
+            "name_kh" => isset($input[2]["name_kh"])?$input[2]["name_kh"]:null,
+            "order_level" => isset($input[3]["order_level"])?$input[3]["order_level"]:0,
+            "description" => isset($input[4]["description"])?$input[4]["description"]:null,
+        );
+        return $dataFields;
     }
 
     /**
@@ -134,15 +182,15 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        $table = Role::where('id', $id)->delete();
+        $table = $this->db_table::where('id', $id)->delete();
         if($table){
             $status = 200;
             $boolen = true;
-            $message = trans('role.message_delete');
+            $message = trans('common.msg_delete_successfully');
         }else{
             $status = 500;
             $boolen = false;
-            $message = trans('role.message_error');
+            $message = trans('common.error_msg');
         }
         $data = array(
             "success" => $boolen,
