@@ -32,7 +32,7 @@ export default {
                 page_number: 1,
                 offset: 0,
                 dataGrid: "row",
-                popupFullscreen: false
+                popupFullscreen: true
             },
             dataHeaders: {
                 header1: "code",
@@ -41,50 +41,50 @@ export default {
                 // header4: "objective_id",
                 // header5: "entity_id",
                 // header6: "entity_member_id",
-                header5: "entity_id",
-                header6: "entity_member_id",
+                header5: "entity",
+                header6: "entity_member",
                 header7: "order_level"
             },
             // data: "",
             data: {
                 data: [
-                    {
-                        id: 1,
-                        name_en: "#120 - គោលបំណងទី១",
-                        name_kh: "#120 - គោលបំណងទី១",
-                        children: [
-                            {
-                                id: 1,
-                                code: "001",
-                                name_en: "កម្មវិធីទី១",
-                                name_kh: "កម្មវិធីទី១",
-                                // objective: "គោលបំណងគោលនយោបាយទី១",
-                                entity_id: "ឯកឧត្តម ទទួលបន្ទុក",
-                                entity_member_id: "ឈ្មោះអង្គភាពទទួលបន្ទុក",
-                                order_level: 1
-                            },
-                            {
-                                id: 2,
-                                code: "002",
-                                name_en: "កម្មវិធីទី១",
-                                name_kh: "កម្មវិធីទី១",
-                                // objective: "គោលបំណងគោលនយោបាយទី១",
-                                entity_id: "ឯកឧត្តម ទទួលបន្ទុក",
-                                entity_member_id: "ឈ្មោះអង្គភាពទទួលបន្ទុក",
-                                order_level: 1
-                            },
-                            {
-                                id: 3,
-                                code: "003",
-                                name_en: "កម្មវិធីទី១",
-                                name_kh: "កម្មវិធីទី១",
-                                // objective: "គោលបំណងគោលនយោបាយទី១",
-                                entity_id: "ឈ្មោះអង្គភាពទទួលបន្ទុក",
-                                entity_member_id: "ឯកឧត្តម ទទួលបន្ទុក",
-                                order_level: 1
-                            },
-                        ]
-                    }
+                    // {
+                    //     id: 1,
+                    //     name_en: "#120 - គោលបំណងទី១",
+                    //     name_kh: "#120 - គោលបំណងទី១",
+                    //     children: [
+                    //         {
+                    //             id: 1,
+                    //             code: "001",
+                    //             name_en: "កម្មវិធីទី១",
+                    //             name_kh: "កម្មវិធីទី១",
+                    //             // objective: "គោលបំណងគោលនយោបាយទី១",
+                    //             entity_id: "ឯកឧត្តម ទទួលបន្ទុក",
+                    //             entity_member_id: "ឈ្មោះអង្គភាពទទួលបន្ទុក",
+                    //             order_level: 1
+                    //         },
+                    //         {
+                    //             id: 2,
+                    //             code: "002",
+                    //             name_en: "កម្មវិធីទី១",
+                    //             name_kh: "កម្មវិធីទី១",
+                    //             // objective: "គោលបំណងគោលនយោបាយទី១",
+                    //             entity_id: "ឯកឧត្តម ទទួលបន្ទុក",
+                    //             entity_member_id: "ឈ្មោះអង្គភាពទទួលបន្ទុក",
+                    //             order_level: 1
+                    //         },
+                    //         {
+                    //             id: 3,
+                    //             code: "003",
+                    //             name_en: "កម្មវិធីទី១",
+                    //             name_kh: "កម្មវិធីទី១",
+                    //             // objective: "គោលបំណងគោលនយោបាយទី១",
+                    //             entity_id: "ឈ្មោះអង្គភាពទទួលបន្ទុក",
+                    //             entity_member_id: "ឯកឧត្តម ទទួលបន្ទុក",
+                    //             order_level: 1
+                    //         },
+                    //     ]
+                    // }
                 ],
                 objective_id: [
                     {

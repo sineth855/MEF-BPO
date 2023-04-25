@@ -2,6 +2,10 @@
 	
 	namespace App\Services;
 	use App\Http\Controllers\Controller;
+	use App\Models\Modules\ProgramManagement\Program;
+	use App\Models\Modules\ProgramManagement\Objective;
+	use App\Models\Settings\Entity;
+	use App\Models\Settings\EntityMember;
 	use Carbon\Carbon;
 	use DB;
 	use Validator;
@@ -10,7 +14,19 @@
 	use DateTime;
 
 	class Common{
-	
+		
+		public static function getLen($var){
+			$tmp = explode('.', $var);
+			if(count($tmp)>1){
+				return strlen($tmp[1]);
+			}
+		}
+		public static function formatDoubleNum($num){
+			// $n = floor(($num*100))/100;//floor(number_format($num));
+			$n = number_format($num, Common::getLen($num));
+			return $n;
+		}
+
 		public static function getReilFraction(){
 			$Currency = Currency::Where('id',2)->Select('exchange_rate')->first();
 			return $Currency->exchange_rate;
@@ -373,8 +389,19 @@
 		//  }
 		//  return $newKhmerNumber;
 		return $data;
-	}
-	
-	
+		}
+
+		public static function getFilter($obj){
+			$filter = array(
+				// "offset" => isset($obj["offset"]) ? $obj["offset"] : OFFSET,
+				"limit" => isset($obj["limit"]) ? $obj["limit"] : LIMIT,
+				"sort" => isset($obj["sort"]) ? $obj["sort"] : SORT,
+				"order" => isset($obj["order"]) ? $obj["order"] : ORDER,
+				"page_number" => isset($obj["page_number"]) ? $obj["page_number"] : ORDER,
+				"search_field" => isset($obj["search_field"]) ? $obj["search_field"] : "",
+			);
+			return $filter;
+		}
+		
 	}
 ?>

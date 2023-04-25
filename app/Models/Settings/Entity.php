@@ -33,4 +33,16 @@ class Entity extends Model
     }
 
     public $timestamps = true;
+
+    public static function getEntities(){
+      $query = Entity::where("is_active", 1)->orderBy("order_level")->get();
+      $data = array();
+      foreach($query as $row){
+        $data[] = array(
+          "label" => $row->code.'-'.$row->name_kh,
+          "value" => $row->id,
+        );
+      }
+      return $data;
+    }
 }

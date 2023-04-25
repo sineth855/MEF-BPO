@@ -19,6 +19,7 @@ class Activity extends Model
                             'name_en',
                             'name_kh',
                             'remark',
+                            'is_active',
                             'order_level',
                             'created_by',
                             'modified_by'
@@ -37,11 +38,50 @@ class Activity extends Model
 
     public static function getActByCluster($filter){
       $data = array();
-      $query = ClusterActivity::orderBy("order_level")->get();
+      $queryObj = ClusterActivity::orderBy($filter["sort"], $filter["order"]);
+      $whereClause = $queryObj;
+      $whereClause->where("is_active", 1);
+      $whereClause->offset(($filter["page_number"] - 1) * $filter["limit"]);       
+      $whereClause->limit($filter["limit"]);
+
+      if($filter["search_field"]){
+        $arraySingle = call_user_func_array('array_merge', $filter["search_field"]);
+        $dataFields = $arraySingle;
+        if (array_key_exists('cluster_activity_id', $dataFields)) {
+          $whereClause->Where("id", $dataFields["cluster_activity_id"]["value"]);
+        }
+        if (array_key_exists('entity_id', $dataFields)) {
+          $whereClause->Where("id", $dataFields["entity_id"]["value"]);
+        }
+      }
+      $query = collect($whereClause->get());
+
       foreach($query as $row){
         $parentId = $row->id;
         $cdata = array(); //cdata = children data
-        $result = Activity::where("cluster_activity_id", $parentId)->orderBy("order_level")->get();
+        $queryAct = Activity::orderBy("order_level");
+        $whereClauseAct = $queryAct;
+        $whereClauseAct->where("cluster_activity_id", $parentId);
+
+        if($filter["search_field"]){
+          $arraySingle = call_user_func_array('array_merge', $filter["search_field"]);
+          $dataFields = $arraySingle;
+          if (array_key_exists('code', $dataFields)) {
+            $whereClauseAct->Where("id", $dataFields["code"]);
+          }
+          if (array_key_exists('entity_id', $dataFields)) {
+            $whereClauseAct->Where("id", $dataFields["entity_id"]["value"]);
+          }
+          if (array_key_exists('name_en', $dataFields)) {
+            $whereClauseAct->Where("name_en", "Like", "%".$dataFields["name_en"]."%");
+          }
+          if (array_key_exists('name_kh', $dataFields)) {
+            $whereClauseAct->Where("name_kh", "Like", "%".$dataFields["name_kh"]."%");
+          }
+        }
+        
+        $result = collect($whereClauseAct->get());
+
         if(count($result) > 0){
           foreach($result as $crow){
             $indicators = array(

@@ -26,14 +26,13 @@ class PIPInvestmentImport implements ToModel,WithHeadingRow
                     "sub_program_id"=>$row["sub_program_id"],
                     "cluster_activity_id"=>isset($row["cluster_activity_id"])?$row["cluster_activity_id"]:0,
                     "pip_no"=>$row["pip_no"],
-                    "project_status"=>$row["project_status"],
-                    "project_type"=>$row["project_type"],
+                    "project_status_id"=>$row["project_status"],
+                    "project_type_id"=>$row["project_type"],
                     "project_name_en"=>$row["project_name_en"],
                     "project_name_kh"=>$row["project_name_kh"],
                     "currency_exchange_id"=>1,
                     "exchange_rate"=>4000,
                     "column_type"=>null,
-                    "finance_resource_id"=>$row["finance_resource_id"],
                     "status"=>1,
                     "est_costing_year_0"=>$row["est_costing_year_0"],
                     "est_costing_year_1"=>$row["est_costing_year_1"],
@@ -41,7 +40,11 @@ class PIPInvestmentImport implements ToModel,WithHeadingRow
                     "s_fin_year_0"=>$row["s_fin_year_0"],
                     "s_fin_year_1"=>$row["s_fin_year_1"],
                     "s_fin_year_2"=>$row["s_fin_year_2"],
+                    "add_req_fin_year_0"=>$row["add_req_fin_year_0"],
+                    "add_req_fin_year_1"=>$row["add_req_fin_year_1"],
+                    "add_req_fin_year_2"=>$row["add_req_fin_year_2"],
                     "grading_no" => $row["grading_no"],
+                    "finance_resource_id"=>$row["finance_resource_id"],
                     "created_by"=>Auth::user()->id
                 ]);
             }

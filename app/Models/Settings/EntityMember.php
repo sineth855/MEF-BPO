@@ -54,4 +54,16 @@ class EntityMember extends Model
     }
     return $data;
   }
+
+  public static function getMembers(){
+      $query = EntityMember::where("is_active", 1)->orderBy("order_level")->get();
+      $data = array();
+      foreach($query as $row){
+        $data[] = array(
+          "label" => $row->fullname,
+          "value" => $row->id,
+        );
+      }
+      return $data;
+    }
 }
