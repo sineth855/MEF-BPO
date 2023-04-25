@@ -5,9 +5,12 @@ namespace App\Http\Controllers\Modules\ProgramManagement;
 use App\Http\Controllers\Controller;
 use App\Models\Modules\ProgramManagement\Activity;
 use App\Models\Modules\ProgramManagement\ClusterActivity;
+use App\Models\Settings\Entity;
+use App\Models\Settings\EntityMember;
 use Illuminate\Http\Request;
 use Auth;
 use DB;
+use CommonService;
 
 class ActivityController extends Controller
 {
@@ -42,31 +45,20 @@ class ActivityController extends Controller
     {
         $input = $request->all();
         $dataFields = $this->dataFields();
-        $filter = array(
-            // "offset" => isset($input["offset"]) ? $input["offset"] : OFFSET,
-            "limit" => isset($input["limit"]) ? $input["limit"] : LIMIT,
-            "sort" => isset($input["sort"]) ? $input["sort"] : SORT,
-            "order" => isset($input["order"]) ? $input["order"] : ORDER
-        );
-        $query = $this->db_table::orderBy($filter["sort"], $filter["order"]);
-        $whereClause = $query;
-        $whereClause->offset(($input["page_number"] - 1) * LIMIT);       
-        $whereClause->limit($filter["limit"]);
-        if(isset($input["search_field"])){
-            for($i=0 ; $i < count($input["search_field"]); $i++){
-                $field = array_key_first($input["search_field"][$i]); //array('key1', 'key2', 'key3');
-                if (in_array($field, $dataFields)) {
-                    $whereClause->orWhere($field, "Like","%".$input["search_field"][$i][$field]."%");
-                }
-            }
-        }
+        $filter = CommonService::getFilter($input);
         
-        $table = collect($whereClause->get());
+        $clusterActivities = ClusterActivity::getClusterActs();
+        $entities = Entity::getEntities();
+        $entity_members = EntityMember::getMembers();
+
         $data = array(
             "data_fields" => $this->dataFields(),
-            "data" => $table,
+            "data" => $this->db_table::getActByCluster($filter),
+            "cluster_activity_id" => $clusterActivities,
+            "entity_id" => $entities,
+            "entity_member_id" => $entity_members,
             "limit" => LIMIT,
-            "total" => ClusterActivity::count()
+            "total" => ClusterActivity::getCount($filter)
         );
         return response()->json($data);
     }
@@ -167,19 +159,22 @@ class ActivityController extends Controller
     }
 
     public function dataForm($input){
-        $dataFields = array(
-            "code" => isset($input["code"])?$input["code"]:"",
-            "cluster_activity_id" => isset($input[0]["cluster_activity_id"])?$input[0]["cluster_activity_id"]:null,
-            "entity_id" => isset($input[3]["entity_id"])?$input[3]["entity_id"]:null,
-            "entity_member_id" => isset($input[4]["entity_member_id"])?$input[4]["entity_member_id"]:null,
-            "name_en" => isset($input[1]["name_en"])?$input[1]["name_en"]:null,
-            "name_kh" => isset($input[2]["name_kh"])?$input[2]["name_kh"]:null,
-            "remark" => isset($input[6]["remark"])?$input[6]["remark"]:null,
-            "order_level" => isset($input[5]["order_level"])?$input[5]["order_level"]:0,
-            "is_active" => isset($input[7]["is_active"])?$input[7]["is_active"]:1,
-            "created_by" => Auth::user()->id
-        );
+        $arraySingle = call_user_func_array('array_merge', $input);
+        $dataFields = $arraySingle;
         return $dataFields;
+        // $dataFields = array(
+        //     "code" => isset($input["code"])?$input["code"]:"",
+        //     "cluster_activity_id" => isset($input[0]["cluster_activity_id"])?$input[0]["cluster_activity_id"]:null,
+        //     "entity_id" => isset($input[3]["entity_id"])?$input[3]["entity_id"]:null,
+        //     "entity_member_id" => isset($input[4]["entity_member_id"])?$input[4]["entity_member_id"]:null,
+        //     "name_en" => isset($input[1]["name_en"])?$input[1]["name_en"]:null,
+        //     "name_kh" => isset($input[2]["name_kh"])?$input[2]["name_kh"]:null,
+        //     "remark" => isset($input[6]["remark"])?$input[6]["remark"]:null,
+        //     "order_level" => isset($input[5]["order_level"])?$input[5]["order_level"]:0,
+        //     "is_active" => isset($input[7]["is_active"])?$input[7]["is_active"]:1,
+        //     "created_by" => Auth::user()->id
+        // );
+        // return $dataFields;
     }
 
     /**

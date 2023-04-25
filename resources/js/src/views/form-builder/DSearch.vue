@@ -20,19 +20,21 @@
                 <!-- Form Select -->
                 <template v-if="formAttribute.type == 'select' && formAttribute.required">
                     <label>{{ $t(formAttribute.name) }}</label>
-                    <v-select size="small" v-model="form.attribute[formAttribute.name]" :options="data[formAttribute.name]" :dir="$vs.rtl ? 'rtl' : 'ltr'" class="mt-2 w-full"/>
+                    <v-select size="small" v-model="form.attribute[formAttribute.name]" :options="data[formAttribute.name]"
+                        :dir="$vs.rtl ? 'rtl' : 'ltr'" class="mt-2 w-full" />
                 </template>
 
                 <!-- Form Textarea -->
                 <template v-if="formAttribute.type == 'textarea' && formAttribute.required">
                     <label>{{ $t(formAttribute.name) }}</label>
-                    <vs-textarea label="Label in Textarea" v-model="form.attribute[formAttribute.name]" class="mt-2 w-full"/>
+                    <vs-textarea label="Label in Textarea" v-model="form.attribute[formAttribute.name]"
+                        class="mt-2 w-full" />
                 </template>
-                
+
                 <!-- Form Checkbox -->
                 <template v-if="formAttribute.type == 'checkbox' && formAttribute.required">
                     <label>{{ $t(formAttribute.name) }}</label>
-                    <vs-checkbox v-model="form.attribute[formAttribute.name]"> {{$t(formAttribute.name)}}</vs-checkbox>
+                    <vs-checkbox v-model="form.attribute[formAttribute.name]"> {{ $t(formAttribute.name) }}</vs-checkbox>
                 </template>
 
                 <!-- Form Date -->
@@ -41,16 +43,16 @@
                     <span v-if="formAttribute.required">
                         <!-- <flat-pickr :name="formAttribute.name" v-model="form.attribute[formAttribute.name]"
                             class="w-full" /> -->
-                        <vs-input :placeholder="$t(formAttribute.name)" v-model="form.attribute[formAttribute.name]" :name="formAttribute.name"
-                            size="small" class="mt-2 w-full" />
+                        <vs-input :placeholder="$t(formAttribute.name)" v-model="form.attribute[formAttribute.name]"
+                            :name="formAttribute.name" size="small" class="mt-2 w-full" />
                     </span>
                 </div>
-    
+
             </div>
-    
+
         </div>
         <span class="pull-right">
-            <vs-button type="filled" @click.prevent="initSearch" class="mt-2 block">{{$t("btn_search")}}</vs-button>
+            <vs-button type="filled" @click.prevent="initSearch" class="mt-2 block">{{ $t("btn_search") }}</vs-button>
         </span>
     </vx-card>
 </template>
@@ -73,7 +75,7 @@ export default {
         },
         rowDisplay: { type: String }
     },
-    
+
     components: {
         AgGridVue,
         vSelect,
@@ -88,7 +90,7 @@ export default {
         }
     },
     watch: {
-        
+
     },
     computed: {
         usersData() {
@@ -124,7 +126,7 @@ export default {
         }
     },
     mounted() {
-        
+
     },
     created() {
         if (this.rowDisplay == "1grid") {
@@ -154,5 +156,4 @@ export default {
             transform: translateY(-58%);
         }
     }
-}
-</style>
+}</style>

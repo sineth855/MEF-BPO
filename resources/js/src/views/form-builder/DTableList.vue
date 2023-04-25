@@ -30,9 +30,10 @@
         <d-search v-if="!dataAttributes.hideSearchBar" @searchQuery="searchQuery" @clicked="initTableData"
             :data="dataTables" :api="api" :formAttributes="formAttributes" :rowDisplay="'4grid'" :dataInfo="''"></d-search>
 
-        <h3>
+        <h3 class="mb-2">
             <center>{{ $t(title) }}</center>
         </h3>
+
         <vs-table v-if="dataTables.data && dataTables.data.length && dataAttributes.tableStyle == 1"
             :max-items="dataTables.limit" :data="dataTables.data">
             <template slot-scope="{data}">
@@ -61,7 +62,7 @@
             </template>
         </vs-table>
 
-        <vs-table v-else-if="dataTables.data && dataTables.data.length && dataAttributes.tableStyle == 2"
+        <vs-table v-if="dataTables.data && dataTables.data.length && dataAttributes.tableStyle == 2"
             :max-items="dataTables.limit" :data="dataTables.data">
             <template slot="thead">
                 <vs-th style="background-color: #28C76F; color: #ffffff; font-weight: bold;">{{ $t("no") }}</vs-th>
@@ -237,33 +238,37 @@
                     <template v-if="ptr.children" v-for="(row, index) in ptr.children">
 
                         <vs-tr style="background: #b2ffd9">
-                            <td></td>
+                            <!-- <td></td> -->
                             <td>{{ row.name }}</td>
                             <td>{{ row.responsible_entity.name }}</td>
                             <td>{{ row.responsible_person.name }}</td>
                             <td>
-                                <center><feather-icon style="cursor: pointer;" @click="openForm" icon="PlusIcon"
-                                        svgClasses="w-5 h-5 hover:text-primary stroke-current" /></center>
+                                <!-- <center><feather-icon style="cursor: pointer;" @click="openForm" icon="PlusIcon"
+                                        svgClasses="w-5 h-5 hover:text-primary stroke-current" /></center> -->
                             </td>
                         </vs-tr>
 
                         <template v-if="row.children" v-for="row in row.children">
 
                             <vs-tr style="background-color: #f3edf5">
-                                <td></td>
+                                <!-- <td></td> -->
                                 <td>{{ row.name }}</td>
                                 <td>{{ row.responsible_entity.name }}</td>
                                 <td>{{ row.responsible_person.name }}</td>
                                 <td>
-                                    <center><feather-icon style="cursor: pointer;" @click="openForm" icon="PlusIcon"
-                                            svgClasses="w-5 h-5 hover:text-primary stroke-current" /></center>
+                                    <!-- <center><feather-icon style="cursor: pointer;" @click="openForm" icon="PlusIcon"
+                                            svgClasses="w-5 h-5 hover:text-primary stroke-current" /></center> -->
                                 </td>
                             </vs-tr>
 
                             <template v-if="row.children" v-for="row in row.children">
                                 <vs-tr style="background-color: #fffde5">
-                                    <td></td>
-                                    <td>{{ row.name }}</td>
+                                    <!-- <td></td> -->
+                                    <td>
+                                        {{ row.name }}
+                                        <center><feather-icon style="cursor: pointer;" @click="openForm" icon="PlusIcon"
+                                                svgClasses="w-5 h-5 hover:text-primary stroke-current" /></center>
+                                    </td>
                                     <td>{{ row.responsible_entity.name }}</td>
                                     <td>{{ row.responsible_person.name }}</td>
                                     <td>
@@ -274,7 +279,7 @@
 
                                 <template v-for="row in row.children">
                                     <vs-tr style="background-color: ">
-                                        <td></td>
+                                        <!-- <td></td> -->
                                         <td>{{ row.name }}</td>
                                         <td>{{ row.responsible_entity.name }}</td>
                                         <td>{{ row.responsible_person.name }}</td>
@@ -956,6 +961,108 @@
             </template>
         </vs-table>
 
+        <vs-table v-if="dataTables.data && dataTables.data.length && dataAttributes.tableStyle == 10"
+            :max-items="dataTables.limit" :data="dataTables.data" style="overflow: scroll">
+            <template slot-scope="{data}">
+                <vs-tr>
+                    <vs-td :style="style(header)" :key="i" v-for="(header, i) in dataHeaders" :colspan="colspan(header)"
+                        :rowspan="rowspan(header)">
+                        <span v-if="header.label">
+                            <center>{{ $t(header.label) }} </center>
+                        </span>
+                        <span v-else>
+                            <center>{{ $t(header.label) }}</center>
+                        </span>
+                    </vs-td>
+                </vs-tr>
+
+                <vs-tr v-if="dataTables.dataHeaders" style="background-color: #28C76F; color: #ffffff; font-weight: bold;">
+                    <vs-td :key="j" v-for="(header, j) in dataTables.dataHeaders" :colspan="colspan(header)"
+                        :rowspan="rowspan(header)">{{ $t(header.label) }} </vs-td>
+                </vs-tr>
+
+                <vs-tr v-if="dataTables.dataSubHeaders"
+                    style="background-color: rgb(158 158 158); color: #ffffff; font-weight: bold;">
+                    <vs-td :key="k" v-for="(header, k) in dataTables.dataSubHeaders" :colspan="colspan(header)"
+                        :rowspan="rowspan(header)">
+                        <center><small>{{ $t(header.label) }}</small></center>
+                    </vs-td>
+                </vs-tr>
+
+                <tbody :key="pindextr" v-for="(ptr, pindextr) in data">
+                    <vs-tr :state="'success'">
+                        <template v-if="ptr.hasColspan == false">
+                            <td>{{ ptr.name }}</td>
+                            <td :key="index" v-for="(row, index) in ptr.values">{{ row }}</td>
+                        </template>
+                        <td v-else :colspan="ptr.colspan">{{ ptr.name }}</td>
+                    </vs-tr>
+
+                    <template v-for="row in ptr.data">
+                        <vs-tr :state="'primary'">
+                            <td>{{ row.summary.name }}</td>
+                            <td :key="index" v-for="(row, index) in row.summary.values">{{ row }}</td>
+                            <td></td>
+                        </vs-tr>
+
+                        <template v-for="row in row.children">
+                            <vs-tr :state="'warning'">
+                                <td>{{ row.name }} <feather-icon style="cursor: pointer;" @click="openForm" icon="PlusIcon"
+                                        svgClasses="w-5 h-5 hover:text-primary stroke-current" /></td>
+                                <td :key="index1" v-for="(row, index1) in row.values">{{ row }} </td>
+                                <td>
+                                    <center><feather-icon style="cursor: pointer;" @click="openForm" icon="PlusIcon"
+                                            svgClasses="w-5 h-5 hover:text-primary stroke-current" /></center>
+                                </td>
+                            </vs-tr>
+                            <vs-tr :key="index" v-for="(row2, index) in row.data">
+                                <td>{{ row2.name }}</td>
+                                <td :key="index3" v-for="(row, index3) in row2.values">{{ row }}</td>
+                                <td></td>
+                            </vs-tr>
+
+                            <template v-for="row3 in row.dataDetails">
+                                <vs-tr style="background-color: #fffde5">
+                                    <td>
+                                        {{ row3.name }}
+                                        <template v-if="dataAttributes.actionButton">
+                                            <feather-icon style="cursor: pointer;"
+                                                v-for="rowBtnAction in dataAttributes.actionButton"
+                                                :key="rowBtnAction.indextr" :icon="rowBtnAction.icon"
+                                                svgClasses="mr-2 w-5 h-5 hover:text-primary stroke-current"
+                                                @click.stop="initAction(row3, rowBtnAction.method)" />
+                                        </template>
+                                        <!-- <feather-icon style="cursor: pointer;" icon="EditIcon"
+                            svgClasses="w-5 h-5 hover:text-primary stroke-current" @click.stop="initEdit(tr)" /> -->
+                                    </td>
+                                    <td :key="index4" v-for="(row, index4) in row3.values">{{ row }}</td>
+                                    <td>
+                                        <!-- <center><feather-icon style="cursor: pointer;" icon="EditIcon"
+                                                svgClasses="w-5 h-5 hover:text-primary stroke-current"
+                                                @click.stop="initEdit(row3)" /></center> -->
+                                        <template v-if="dataAttributes.actionButton">
+                                            <feather-icon style="cursor: pointer;"
+                                                v-for="rowBtnAction in dataAttributes.actionButton"
+                                                :key="rowBtnAction.indextr" :icon="rowBtnAction.icon"
+                                                svgClasses="mr-2 w-5 h-5 hover:text-primary stroke-current"
+                                                @click.stop="viewUrl(rowBtnAction)" />
+                                        </template>
+                                    </td>
+                                </vs-tr>
+
+                                <vs-tr :key="index" v-for="(row4, index) in row3.data">
+                                    <td>{{ row4.name }}</td>
+                                    <td :key="index3" v-for="(row, index3) in row4.values">{{ row }}</td>
+                                    <td></td>
+                                </vs-tr>
+                            </template>
+                        </template>
+                    </template>
+
+                </tbody>
+            </template>
+        </vs-table>
+
 
         <div class="my-5">
             <vs-pagination :total="calPaginNumber(dataTables.total / dataTables.limit)"
@@ -1158,6 +1265,10 @@ export default {
             })
         },
         initEdit(data) {
+            this.$refs.refModalForm.initForm(data);
+        },
+
+        initAction(data, method) {
             this.$refs.refModalForm.initForm(data);
         }
 

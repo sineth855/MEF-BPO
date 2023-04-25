@@ -37,12 +37,52 @@ class ClusterActivity extends Model
 
     public static function getClusterActBySProgram($filter){
       $data = array();
-      $query = SubProgram::orderBy("order_level")->get();
+      $queryObj = SubProgram::orderBy($filter["sort"], $filter["order"]);
+      $whereClause = $queryObj;
+      $whereClause->where("is_active", 1);
+      $whereClause->offset(($filter["page_number"] - 1) * $filter["limit"]);       
+      $whereClause->limit($filter["limit"]);
+
+      if($filter["search_field"]){
+        $arraySingle = call_user_func_array('array_merge', $filter["search_field"]);
+        $dataFields = $arraySingle;
+        if (array_key_exists('sub_program_id', $dataFields)) {
+          $whereClause->Where("id", $dataFields["sub_program_id"]["value"]);
+        }
+        if (array_key_exists('entity_id', $dataFields)) {
+          $whereClause->Where("id", $dataFields["entity_id"]["value"]);
+        }
+      }
+      $query = collect($whereClause->get());
+
       foreach($query as $row){
         $parentId = $row->id;
-        $cdata = array(); //cdata = children data
-        $result = ClusterActivity::where("sub_program_id", $parentId)->orderBy("order_level")->get();
-        foreach($result as $crow){
+        $cdata = array();
+        // $result = ClusterActivity::where("sub_program_id", $parentId)->orderBy("order_level")->get();
+
+        $queryClusAct = ClusterActivity::orderBy("order_level");
+        $whereClauseClusAct = $queryClusAct;
+        $whereClauseClusAct->where("sub_program_id", $parentId);
+
+        if($filter["search_field"]){
+          $arraySingle = call_user_func_array('array_merge', $filter["search_field"]);
+          $dataFields = $arraySingle;
+          if (array_key_exists('code', $dataFields)) {
+            $whereClauseClusAct->Where("id", $dataFields["code"]);
+          }
+          if (array_key_exists('entity_id', $dataFields)) {
+            $whereClauseClusAct->Where("id", $dataFields["entity_id"]["value"]);
+          }
+          if (array_key_exists('name_en', $dataFields)) {
+            $whereClauseClusAct->Where("name_en", "Like", "%".$dataFields["name_en"]."%");
+          }
+          if (array_key_exists('name_kh', $dataFields)) {
+            $whereClauseClusAct->Where("name_kh", "Like", "%".$dataFields["name_kh"]."%");
+          }
+        }
+        
+        $queryClusActProgs = collect($whereClauseClusAct->get());
+        foreach($queryClusActProgs as $crow){
           $indicators = array(
             "id" => "id",
             "code" => "code",
@@ -83,5 +123,33 @@ class ClusterActivity extends Model
         );
       }
       return $data;
+    }
+
+    public static function getClusterActs(){
+      $query = ClusterActivity::where("is_active", 1)->orderBy("order_level")->get();
+      $data = array();
+      foreach($query as $row){
+        $data[] = array(
+          "label" => $row->code.'-'.$row->name_kh,
+          "value" => $row->id,
+        );
+      }
+      return $data;
+    }
+
+    public static function getCount($filter){
+      $query = ClusterActivity::orderBy($filter["sort"], $filter["order"]);
+      $whereClause = $query;
+      $whereClause->where("is_active", 1);
+      if($filter["search_field"]){
+        $arraySingle = call_user_func_array('array_merge', $filter["search_field"]);
+        $dataFields = $arraySingle;
+        if (array_key_exists('cluster_activity_id', $dataFields)) {
+          $whereClause->Where("id", $dataFields["cluster_activity_id"]["value"]);
+        }
+      }
+
+      $total = collect($whereClause->count());
+      return $total;
     }
 }

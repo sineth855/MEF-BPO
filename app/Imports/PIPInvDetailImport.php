@@ -21,7 +21,6 @@ class PIPInvDetailImport implements ToModel,WithHeadingRow
             // if(!$queryCheck){
                 PIPInvDetail::insert([
                     "pip_inv_id"=>$row["pip_inv_id"],
-                    "entity_id"=>$row["entity_id"],
                     "attribute_en"=>$row["project_name_en"],
                     "attribute_kh"=>$row["project_name_kh"],
                     "est_costing_year_0"=>$row["est_costing_year_0"],
@@ -30,6 +29,9 @@ class PIPInvDetailImport implements ToModel,WithHeadingRow
                     "s_fin_year_0"=>$row["s_fin_year_0"],
                     "s_fin_year_1"=>$row["s_fin_year_1"],
                     "s_fin_year_2"=>$row["s_fin_year_2"],
+                    "add_req_fin_year_0"=>$row["add_req_fin_year_0"],
+                    "add_req_fin_year_1"=>$row["add_req_fin_year_1"],
+                    "add_req_fin_year_2"=>$row["add_req_fin_year_2"],
                 ]);
             // }
         }

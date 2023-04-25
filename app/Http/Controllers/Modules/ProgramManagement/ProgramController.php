@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Modules\ProgramManagement;
 
 use App\Http\Controllers\Controller;
-use App\Models\Modules\ProgramManagement\Objective;
 use App\Models\Modules\ProgramManagement\Program;
+use App\Models\Modules\ProgramManagement\Objective;
+use App\Models\Settings\Entity;
+use App\Models\Settings\EntityMember;
 use Illuminate\Http\Request;
+use CommonService;
 use Auth;
 use DB;
 
@@ -38,16 +41,28 @@ class ProgramController extends Controller
         $dataFields = $newArr;
         return $dataFields;
     }
+
     public function index(Request $request)
     {
         $input = $request->all();
         $dataFields = $this->dataFields();
-        $filter = array(
-            // "offset" => isset($input["offset"]) ? $input["offset"] : OFFSET,
-            "limit" => isset($input["limit"]) ? $input["limit"] : LIMIT,
-            "sort" => isset($input["sort"]) ? $input["sort"] : SORT,
-            "order" => isset($input["order"]) ? $input["order"] : ORDER
+        $filter = CommonService::getFilter($input);
+
+        $objectives = Objective::getObjectives();
+        $entities = Entity::getEntities();
+        $entity_members = EntityMember::getMembers();
+
+        $data = array(
+            "data_fields" => $this->dataFields(),
+            "data" => $this->db_table::getProgramByObj($filter),
+            "objective_id" => $objectives,
+            "entity_id" => $entities,
+            "entity_member_id" => $entity_members,
+            "limit" => $filter["limit"],
+            "total" => Objective::getCountObjective($filter)
         );
+        return response()->json($data);
+
         // $query = $this->db_table::orderBy($filter["sort"], $filter["order"]);
         // $whereClause = $query;
         // $whereClause->offset(($input["page_number"] - 1) * $filter["limit"]);       
@@ -61,71 +76,6 @@ class ProgramController extends Controller
         //     }
         // }
         // $table = collect($whereClause->get());
-        // dd(Objective::getProgramByObj());
-        $table = array(
-            [
-                "id" => 1,
-                "name_en" => "#120 - គោលបំណងទី១",
-                "name_kh" => "#120 - គោលបំណងទី១",
-                "children" => array(
-                    [
-                        "id" => 1,
-                        "code" => "001",
-                        "name_en" => "កម្មវិធីទី១",
-                        "name_kh" => "កម្មវិធីទី១",
-                        // "objective" => "គោលបំណងគោលនយោបាយទី១",
-                        "responsible_person" => "ឯកឧត្តម ទទួលបន្ទុក",
-                        "responsible_entity" => "ឈ្មោះអង្គភាពទទួលបន្ទុក",
-                        "order_level" => 1
-                    ]
-                )
-            ]
-        );
-        
-        $programs = array(
-            [
-                "label" => "កម្មវិធីទី១",
-                "value" => 1,
-            ],
-            [
-                "label" => "កម្មវិធីទី២",
-                "value" => 2,
-            ],
-            [
-                "label" => "កម្មវិធីទី៣",
-                "value" => 3,
-            ]
-        );
-        $entities = array(
-            [
-                "label" => "អង្គភាពទី២២១",
-                "value" => 1,
-            ],
-            [
-                "label" => "អង្គភាពទី២២២",
-                "value" => 2,
-            ]
-        );
-        $entity_members = array(
-            [
-                "label" => "សមាជិកទី១",
-                "value" => 1,
-            ],
-            [
-                "label" => "សមាជិកទី២",
-                "value" => 2,
-            ]
-        );
-        $data = array(
-            "data_fields" => $this->dataFields(),
-            "data" => Objective::getProgramByObj($filter),
-            // "objective_id" => ,
-            "entity_id" => $entities,
-            "entity_member_id" => $entity_members,
-            "limit" => $filter["limit"],
-            "total" => $this->db_table->count()
-        );
-        return response()->json($data);
     }
 
     public function _index(Request $request)
@@ -180,8 +130,8 @@ class ProgramController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
-        $input["code"] = "001";
-        $input["created_by"] = Auth::user()->id;    
+        // $input["code"] = "001";
+        // $input["created_by"] = Auth::user()->id;    
         $dataFields = $this->dataForm($input);
 
         $table = $this->db_table::create($dataFields);
@@ -239,6 +189,7 @@ class ProgramController extends Controller
     {
         $input = $request->all();
         $dataFields = $this->dataForm($input);
+        // return false;
         $table = $this->db_table::where('id', $id)->update($dataFields);
         if($table){
             $status = 200;
@@ -258,18 +209,21 @@ class ProgramController extends Controller
     }
 
     public function dataForm($input){
-        $dataFields = array(
-            "code" => isset($input["code"])?$input["code"]:null,
-            "objective_id" => isset($input[0]["objective_id"])?$input[0]["objective_id"]:null,
-            "entity_id" => isset($input[3]["entity_id"])?$input[3]["entity_id"]:null,
-            "entity_member_id" => isset($input[4]["entity_member_id"])?$input[4]["entity_member_id"]:null,
-            "name_en" => isset($input[1]["name_en"])?$input[1]["name_en"]:null,
-            "name_kh" => isset($input[2]["name_kh"])?$input[2]["name_kh"]:null,
-            "remark" => isset($input[6]["remark"])?$input[6]["remark"]:null,
-            "order_level" => isset($input[5]["order_level"])?$input[5]["order_level"]:0,
-            "created_by" => Auth::user()->id
-        );
+        $arraySingle = call_user_func_array('array_merge', $input);
+        $dataFields = $arraySingle;
         return $dataFields;
+        // dd($arraySingle);
+        // $dataFields = array(
+        //     "objective_id" => isset($input[0]["objective_id"])?$input[0]["objective_id"]:null,
+        //     "code" => isset($input["code"])?$input["code"]:null,
+        //     "entity_id" => isset($input[3]["entity_id"])?$input[3]["entity_id"]:null,
+        //     "entity_member_id" => isset($input[4]["entity_member_id"])?$input[4]["entity_member_id"]:null,
+        //     "name_en" => isset($input[1]["name_en"])?$input[1]["name_en"]:null,
+        //     "name_kh" => isset($input[2]["name_kh"])?$input[2]["name_kh"]:null,
+        //     "remark" => isset($input[6]["remark"])?$input[6]["remark"]:null,
+        //     "order_level" => isset($input[5]["order_level"])?$input[5]["order_level"]:0,
+        //     "created_by" => Auth::user()->id
+        // );
     }
 
     /**

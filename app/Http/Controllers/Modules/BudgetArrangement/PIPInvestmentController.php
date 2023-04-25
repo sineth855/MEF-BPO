@@ -4,13 +4,16 @@ namespace App\Http\Controllers\Modules\BudgetArrangement;
 
 use App\Http\Controllers\Controller;
 use App\Models\Modules\BudgetArrangement\PIPInvestment;
+use App\Models\Modules\ProgramManagement\Program;
 use App\Models\Modules\ProgramManagement\SubProgram;
 use App\Models\Settings\ProjectType;
 use App\Models\Settings\ProjectStatus;
+use App\Models\Settings\FinanceResource;
 use App\Models\Settings\Entity;
 use Illuminate\Http\Request;
 use Auth;
 use DB;
+use CommonService;
 
 class PIPInvestmentController extends Controller
 {
@@ -45,53 +48,177 @@ class PIPInvestmentController extends Controller
     {
         $input = $request->all();
         $dataFields = $this->dataFields();
-        $filter = array(
-            // "offset" => isset($input["offset"]) ? $input["offset"] : OFFSET,
-            "limit" => isset($input["limit"]) ? $input["limit"] : LIMIT,
-            "sort" => isset($input["sort"]) ? $input["sort"] : SORT,
-            "order" => isset($input["order"]) ? $input["order"] : ORDER
+        $filter = CommonService::getFilter($input);
+
+        $dataHeaders = array(
+            "header1" => array(
+                "label" =>  "pip_year_2023",
+                "rowspan" => 0,
+                "colspan" => 0,
+            ),
+            "header2" => array(
+                "label" =>  "pip_year_2024",
+                "rowspan" => 0,
+                "colspan" => 0,
+            ),
+            "header3" => array(
+                "label" =>  "pip_year_2025",
+                "rowspan" => 0,
+                "colspan" => 0,
+            ),
+            "header4" => array(
+                "label" =>  "pip_total_year",
+                "rowspan" => 0,
+                "colspan" => 0,
+            ),
+            "header5" => array(
+                "label" =>  "pip_year_2023",
+                "rowspan" => 0,
+                "colspan" => 0,
+            ),
+            "header6" => array(
+                "label" =>  "pip_year_2024",
+                "rowspan" => 0,
+                "colspan" => 0,
+            ),
+            "header7" => array(
+                "label" =>  "pip_year_2025",
+                "rowspan" => 0,
+                "colspan" => 0,
+            ),
+            "header8" => array(
+                "label" =>  "pip_total_year",
+                "rowspan" => 0,
+                "colspan" => 0,
+            ),
+            "header9" => array(
+                "label" =>  "pip_year_2023",
+                "rowspan" => 0,
+                "colspan" => 0,
+            ),
+            "header10" => array(
+                "label" =>  "pip_year_2024",
+                "rowspan" => 0,
+                "colspan" => 0,
+            ),
+            "header11" => array(
+                "label" =>  "pip_year_2025",
+                "rowspan" => 0,
+                "colspan" => 0,
+            ),
+            "header12" => array(
+                "label" =>  "pip_total_year",
+                "rowspan" => 0,
+                "colspan" => 0,
+            ),
         );
-        $query = $this->db_table::orderBy($filter["sort"], $filter["order"]);
-        $whereClause = $query;
-        $whereClause->offset(($input["page_number"] - 1) * LIMIT);       
-        $whereClause->limit($filter["limit"]);
-        if(isset($input["search_field"])){
-            for($i=0 ; $i < count($input["search_field"]); $i++){
-                $field = array_key_first($input["search_field"][$i]); //array('key1', 'key2', 'key3');
-                if (in_array($field, $dataFields)) {
-                    $whereClause->orWhere($field, "Like","%".$input["search_field"][$i][$field]."%");
-                }
-            }
-        }
-        // $table = collect($whereClause->get());
-        $table = PIPInvestment::getPIPInvestment();
-        // dd($table);
-        // $data = array(
-        //     "data_fields" => $this->dataFields(),
-        //     "data" => $table,
-        //     "limit" => LIMIT,
-        //     "total" => $this->db_table->count()
-        // );
-        // $status = array(
-        //     [
-        //         "label" => "មិនទាន់ដំណើរការ",
-        //         "value" => "មិនទាន់ដំណើរការ",
-        //     ],
-        //     [
-        //         "label" => "បានបញ្ចប់",
-        //         "value" => "បានបញ្ចប់",
-        //     ],
-        //     [
-        //         "label" => "បានអនុម័ត",
-        //         "value" => "បានអនុម័ត",
-        //     ]
-        // );
+        $dataSubHeaders = array(
+            "header1"=> array(
+                "label" => "1",
+                "rowspan" => 0,
+                "colspan" => 0,
+            ),
+            "header2"=> array(
+                "label" => "2",
+                "rowspan" => 0,
+                "colspan" => 0,
+            ),
+            "header3"=> array(
+                "label" => "3",
+                "rowspan" => 0,
+                "colspan" => 0,
+            ),
+            "header4"=> array(
+                "label" => "4",
+                "rowspan" => 0,
+                "colspan" => 0,
+            ),
+            "header5"=> array(
+                "label" => "5",
+                "rowspan" => 0,
+                "colspan" => 0,
+            ),
+            "header6"=> array(
+                "label" => "6",
+                "rowspan" => 0,
+                "colspan" => 0,
+            ),
+            "header7"=> array(
+                "label" => "7",
+                "rowspan" => 0,
+                "colspan" => 0,
+            ),
+            "header8"=> array(
+                "label" => "8",
+                "rowspan" => 0,
+                "colspan" => 0,
+            ),
+            "header9"=> array(
+                "label" => "9",
+                "rowspan" => 0,
+                "colspan" => 0,
+            ),
+            "header10"=> array(
+                "label" => "10",
+                "rowspan" => 0,
+                "colspan" => 0,
+            ),
+            "header11"=> array(
+                "label" => "11",
+                "rowspan" => 0,
+                "colspan" => 0,
+            ),
+            "header12"=> array(
+                "label" => "12",
+                "rowspan" => 0,
+                "colspan" => 0,
+            ),
+            "header13"=> array(
+                "label" => "13",
+                "rowspan" => 0,
+                "colspan" => 0,
+            ),
+            "header14"=> array(
+                "label" => "14",
+                "rowspan" => 0,
+                "colspan" => 0,
+            ),
+            "header15"=> array(
+                "label" => "15",
+                "rowspan" => 0,
+                "colspan" => 0,
+            ),
+            "header16"=> array(
+                "label" => "16",
+                "rowspan" => 0,
+                "colspan" => 0,
+            ),
+            "header17"=> array(
+                "label" => "17",
+                "rowspan" => 0,
+                "colspan" => 0,
+            ),
+            "header18"=> array(
+                "label" => "18",
+                "rowspan" => 0,
+                "colspan" => 0,
+            ),
+            "header19"=> array(
+                "label" => "19",
+                "rowspan" => 0,
+                "colspan" => 0,
+            ),
+        );
         $data = array(
             "data_fields" => $this->dataFields(),
-            "data" => $table,
+            "data" => $this->db_table::getPIPInvestment($filter),
+            "dataHeaders" => $dataHeaders,
+            "dataSubHeaders" => $dataSubHeaders,
+            "program_id" => Program::getPrograms(),
+            "sub_program_id" => SubProgram::getSubPrograms(),
             "project_type_id" => ProjectType::getProjectTypes(),
             "project_status_id" => ProjectStatus::getProjectStatus(),
-            "sub_program_id" => SubProgram::getSubPrograms(),
+            "finance_resource_id" => FinanceResource::getFinanceResource(),
             "entity_id" => Entity::getEntities(),
             "limit" => LIMIT,
             "total" => $this->db_table::count()
@@ -118,7 +245,6 @@ class PIPInvestmentController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
-
         $dataFields = $this->dataForm($input);
 
         $table = $this->db_table::create($dataFields);
@@ -195,14 +321,21 @@ class PIPInvestmentController extends Controller
     }
 
     public function dataForm($input){
-        $dataFields = array(
-            "name_en" => isset($input[0]["name_en"])?$input[0]["name_en"]:null,
-            "name_kh" => isset($input[1]["name_kh"])?$input[1]["name_kh"]:null,
-            "issue_date" => isset($input[2]["issue_date"])?$input[2]["issue_date"]:null,
-            "status" => isset($input[3]["status"])?$input[3]["status"]:1,
-            "created_by" => Auth::user()->id
-        );
-        return $dataFields;
+        $arr = $input;
+        $push_array = array("created_by" => Auth::user()->id);
+        array_push($arr, $push_array);
+        $arraySingle = call_user_func_array('array_merge', $arr);
+        $dataFields = $arraySingle;
+        return $input;
+        // dd($dataFields);
+        // $dataFields = array(
+        //     "name_en" => isset($input[0]["name_en"])?$input[0]["name_en"]:null,
+        //     "name_kh" => isset($input[1]["name_kh"])?$input[1]["name_kh"]:null,
+        //     "issue_date" => isset($input[2]["issue_date"])?$input[2]["issue_date"]:null,
+        //     "status" => isset($input[3]["status"])?$input[3]["status"]:1,
+        //     "created_by" => Auth::user()->id
+        // );
+        // return $dataFields;
     }
 
     /**

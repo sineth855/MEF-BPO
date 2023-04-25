@@ -1,6 +1,5 @@
 <template>
   <div id="table-demo">
-    <!-- <table-state></table-state> -->
     <d-table-list @clicked="initTableData" :api="api" ref="refInitPage" :allowDel="true" :title="title"
       :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data" :formAttributes="formAttributes"
       :rowDisplay="rowDisplay"></d-table-list>
@@ -19,32 +18,44 @@ export default {
       title: "pip_form_title",
       api: apiConfig._apiPIP,
       dataAttributes: {
-        tableStyle: 3,
+        tableStyle: 10,
+        customizeForm: true,
         popupFullscreen: true,
         page_number: 1,
         offset: 0,
         dataGrid: "row",
         actionButton: [
           {
-            icon: "EditIcon",
+            icon: "ViewIcon",
             path: "/module/budget-arrangement/budget-ceiling/list",
             method: "Edit"
+          },
+          {
+            icon: "EditIcon",
+            path: "/module/budget-arrangement/budget-ceiling/list",
+            method: "View"
           },
           {
             icon: "TrashIcon",
             path: "/module/budget-arrangement/budget-ceiling/list",
             method: "Delete"
-          }
+          },
         ]
       },
       dataHeaders: {
         header1: {
           width: 350,
-          label: "sub_program_id",
-          // label: "ឈ្មោះកម្មវិធី/ ឈ្មោះអនុកម្មវិធី /ឈ្មោះគម្រោង",
+          label: "group_parent_program",
           rowspan: 2,
           colspan: 0,
         },
+        // header1: {
+        //   width: 350,
+        //   label: "sub_program_id",
+        //   // label: "ឈ្មោះកម្មវិធី/ ឈ្មោះអនុកម្មវិធី /ឈ្មោះគម្រោង",
+        //   rowspan: 2,
+        //   colspan: 0,
+        // },
         header2: {
           label: "pip_no",
           rowspan: 2,
@@ -62,33 +73,33 @@ export default {
           colspan: 0,
         },
         header5: {
-          label: "ចំណាត់ថ្នាក់ប៉ាន់ស្ថានសរុប",
+          label: "pip_estimate_classification", //ចំណាត់ថ្នាក់ប៉ាន់ស្ថានសរុប
           rowspan: 0,
           colspan: 4,
         },
         header6: {
-          label: "ហិរញ្ញប្បទានសន្យាផ្តល់",
+          label: "pip_sponsor_finance", //ហិរញ្ញប្បទានសន្យាផ្តល់
           rowspan: 0,
           colspan: 4,
         },
         header7: {
-          label: "តម្រូវការហិរញ្ញប្បទានបំពេញបន្ថែម",
+          label: "pip_adjustment_budget", // តម្រូវការហិរញ្ញប្បទានបំពេញបន្ថែម
           rowspan: 0,
           colspan: 4,
         },
         header8: {
-          label: "ប្រភពហិរញ្ញប្បទាន",
+          label: "pip_source_funding", //ប្រភពហិរញ្ញប្បទាន
           rowspan: 2,
           colspan: 0,
         },
         header9: {
-          label: "សម្គាល់",
+          label: "remark", // សម្គាល់
           rowspan: 2,
           colspan: 0,
         },
         header10: {
           width: 80,
-          label: "ប៊ូតុងសកម្ម",
+          label: "action_button", //ប៊ូតុងសកម្ម
           rowspan: 2,
           colspan: 0,
         }
@@ -96,68 +107,87 @@ export default {
       data: {
         dataHeaders: {
           header1: {
-            label: "២០២៣",
+            label: "pip_year_2023",
             rowspan: 0,
             colspan: 0,
           },
           header2: {
-            label: "២០២៤",
+            label: "pip_year_2024",
             rowspan: 0,
             colspan: 0,
           },
           header3: {
-            label: "២០២៥",
+            label: "pip_year_2025",
             rowspan: 0,
             colspan: 0,
           },
           header4: {
-            label: "សរុប៣ឆ្នាំ",
+            label: "pip_total_year", //សរុប៣ឆ្នាំ
             rowspan: 0,
             colspan: 0,
           },
           header5: {
-            label: "២០២៣",
+            label: "pip_year_2023",
             rowspan: 0,
             colspan: 0,
           },
           header6: {
-            label: "២០២៤",
+            label: "pip_year_2024",
             rowspan: 0,
             colspan: 0,
           },
           header7: {
-            label: "២០២៥",
+            label: "pip_year_2025",
             rowspan: 0,
             colspan: 0,
           },
           header8: {
-            label: "សរុប៣ឆ្នាំ",
+            label: "pip_total_year",
             rowspan: 0,
             colspan: 0,
           },
           header9: {
-            label: "២០២៣",
+            label: "pip_year_2023",
             rowspan: 0,
             colspan: 0,
           },
           header10: {
-            label: "២០២៤",
+            label: "pip_year_2024",
             rowspan: 0,
             colspan: 0,
           },
           header11: {
-            label: "២០២៥",
+            label: "pip_year_2025",
             rowspan: 0,
             colspan: 0,
           },
           header12: {
-            label: "សរុប៣ឆ្នាំ",
+            label: "pip_total_year",
             rowspan: 0,
             colspan: 0,
           },
         },
         dataSubHeaders: {
-
+          header1: {
+            label: "សរុប",
+            rowspan: 0,
+            colspan: 0,
+          },
+          header2: {
+            label: "%ច្ប.២២",
+            rowspan: 0,
+            colspan: 0,
+          },
+          header3: {
+            label: "សរុប​",
+            rowspan: 0,
+            colspan: 0,
+          },
+          header4: {
+            label: "%ច្ប.២២",
+            rowspan: 0,
+            colspan: 0,
+          }
         },
         data: [
           {
@@ -169,71 +199,48 @@ export default {
             order_level: "",
             hasColspan: false,
             values: [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, "", ""],
-            data: {
-              summary: {
-                id: 1,
-                name: "កម្មវិធីទី១៖ ការគ្រប់គ្រងចំណូលសាធារណៈ និងទ្រព្យសម្បត្តិរដ្ឋ",
-                values: [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, "", ""],
-              },
-              children: [
-                {
+            data: [
+              {
+                summary: {
                   id: 1,
-                  name: "អនុកម្មវិធី ៣.១ ៖ អគ្គនាយកដ្ឋានគយ និងរដ្ឋាករកម្ពុជា",
+                  name: "កម្មវិធីទី១៖ ការគ្រប់គ្រងចំណូលសាធារណៈ និងទ្រព្យសម្បត្តិរដ្ឋ",
                   values: [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, "", ""],
-                  data: [
-
-                  ],
-                  dataDetails: [
-                    {
-                      id: 1,
-                      name: "១២២. គម្រោងសាងសង់អគារសាខាពន្ធដារខណ្ឌចំនួន០១ និងអគារការិយាល័យពន្ធដារស្រុកស្ទឹងហាវ ០១",
-                      entity: {},
-                      values: ["659", "គម្រោងស្នើសុំថ្មី", "វិនិយោគជាទុន", 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, "", ""],
-                      data: [
-
-                      ]
-                    },
-                    {
-                      id: 2,
-                      name: "២. គម្រោងជួសជុលនិងកែលម្អអគារសាខាពន្ធដារខណ្ឌចំនួន០១ ការិយាល័យពន្ធដារក្រុងចំនួន០១ និងស្រុកចំនួន ០១  ",
-                      entity: {},
-                      values: [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, "", ""],
-                      data: [
-
-                      ]
-                    },
-                  ]
                 },
-                {
-                  id: 1,
-                  name: "អនុកម្មវិធី ៣.២ ៖ អគ្គនាយកដ្ឋានពន្ធដារ",
-                  values: [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, "", ""],
-                  data: [
-
-                  ],
-                  dataDetails: [
-                    {
-                      id: 1,
-                      name: "១. គម្រោងសាងសង់អគារសាខាពន្ធដារខណ្ឌចំនួន០១ និងអគារការិយាល័យពន្ធដារស្រុកស្ទឹងហាវ ០១",
-                      entity: {},
-                      values: [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, "", ""],
-                      data: [
-
-                      ]
-                    },
-                    {
-                      id: 2,
-                      name: "២. គម្រោងជួសជុលនិងកែលម្អអគារសាខាពន្ធដារខណ្ឌចំនួន០១ ការិយាល័យពន្ធដារក្រុងចំនួន០១ និងស្រុកចំនួន ០១  ",
-                      entity: {},
-                      values: [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, "", ""],
-                      data: [
-
-                      ]
-                    },
-                  ]
-                },
-              ]
-            }
+                children: [
+                  {
+                    id: 1,
+                    name: "អនុកម្មវិធី ៣.១ ៖ អគ្គនាយកដ្ឋានគយ និងរដ្ឋាករកម្ពុជា",
+                    values: [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, "", ""],
+                    data: [
+                    ],
+                    dataDetails: [
+                      {
+                        id: 1,
+                        name: "១២២. គម្រោងសាងសង់អគារសាខាពន្ធដារខណ្ឌចំនួន០១ និងអគារការិយាល័យពន្ធដារស្រុកស្ទឹងហាវ ០១",
+                        entity: {},
+                        values: ["659", "គម្រោងស្នើសុំថ្មី", "វិនិយោគជាទុន", 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, "", ""],
+                        data: [
+                          {
+                            id: 1,
+                            name: "- Element",
+                            entity: {},
+                            values: ["659", "គម្រោងស្នើសុំថ្មី", "វិនិយោគជាទុន", 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, "", ""],
+                          }
+                        ]
+                      },
+                      {
+                        id: 2,
+                        name: "២. គម្រោងជួសជុលនិងកែលម្អអគារសាខាពន្ធដារខណ្ឌចំនួន០១ ការិយាល័យពន្ធដារក្រុងចំនួន០១ និងស្រុកចំនួន ០១  ",
+                        entity: {},
+                        values: [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, "", ""],
+                        data: [
+                        ]
+                      },
+                    ]
+                  },
+                ]
+              }
+            ]
           }
         ],
         project_type_id: [],
@@ -244,6 +251,23 @@ export default {
         total: 3,
       },
       formAttributes: [
+        {
+          name: "entity_id",
+          type: "select",
+          options: [],
+          required: true
+        },
+        {
+          name: "program_id",
+          type: "select",
+          required: true,
+          // hasDefault: true,
+          // defaultOptions: {
+          //   label: "គោលបំណងទី១",
+          //   value: 1,
+          // },
+          options: [],
+        },
         {
           name: "sub_program_id",
           type: "select",
@@ -256,15 +280,9 @@ export default {
           options: [],
         },
         {
-          name: "pip_code",
+          name: "pip_no",
           type: "text",
           required: true
-        },
-        {
-          name: "project_type_id",
-          type: "select",
-          required: true,
-          options: [],
         },
         {
           name: "project_status_id",
@@ -273,26 +291,31 @@ export default {
           options: [],
         },
         {
-          name: "name_en",
+          name: "project_type_id",
+          type: "select",
+          required: true,
+          options: [],
+        },
+        {
+          name: "finance_resource_id",
+          type: "select",
+          required: true,
+          options: [],
+        },
+        {
+          name: "project_name_en",
           type: "text",
           required: true
         },
         {
-          name: "name_kh",
+          name: "project_name_kh",
           type: "text",
           required: true
         },
         {
-          name: "entity_id",
-          type: "select",
-          options: [],
-          required: true
-        },
-        {
-          name: "entity_member_id",
-          type: "select",
-          options: [],
-          required: true
+          name: "grading_no",
+          type: "text",
+          required: false
         },
         {
           name: "order_level",
@@ -300,86 +323,151 @@ export default {
           required: false
         },
         {
-          name: "pip_source_funding",
-          type: "checkbox",
-          required: false,
-          attributes: [
-            {
-              name: "ថវិកាជាតិ",
-              value: "1"
-            },
-            {
-              name: "ជំនួយឥតសំណង",
-              value: "2"
-            },
-            {
-              name: "ឥណទានមិនមែនសម្បទាន",
-              value: "3"
-            }
-          ]
-        },
-
-        {
-          name: "មុំនៃគោលនយោបាយក្នុងយុទ្ធសាស្រ្តចតុកោណ ដំណាក់កាលទី៤ ដែលគម្រោងស្ថិតនៅ៖ ",
-          type: "textarea",
+          name: "pip_total_est_expense", //ចំណាយប៉ាន់ស្មានសរុប",
+          type: "grid",
           required: false
         },
         {
-          name: "ការចូលរួមចំណែករបស់គម្រោងក្នុងការសម្រេចបានគោលនយោបាយអាទិភាពខាងលើ ",
+          name: "pip_year_2023",
+          type: "number",
+          required: false
+        },
+        {
+          name: "pip_year_2024",
+          type: "number",
+          required: false
+        },
+        {
+          name: "pip_year_2025",
+          type: "number",
+          required: false
+        },
+        {
+          name: "pip_sponsor_finance",
+          type: "grid",
+          required: false
+        },
+        {
+          name: "pip_year_2023",
+          type: "number",
+          required: false
+        },
+        {
+          name: "pip_year_2024",
+          type: "number",
+          required: false
+        },
+        {
+          name: "pip_year_2025",
+          type: "number",
+          required: false
+        },
+        {
+          name: "pip_adjustment_budget",
+          type: "grid",
+          required: false
+        },
+        {
+          name: "pip_year_2023",
+          type: "number",
+          required: false
+        },
+        {
+          name: "pip_year_2024",
+          type: "number",
+          required: false
+        },
+        {
+          name: "pip_year_2025",
+          type: "number",
+          required: false
+        },
+        {
+          name: "pip_data_detail", //ទិន្នន័យលម្អិត",
+          type: "grid",
+          required: false
+        },
+        // {
+        //   name: "pip_source_funding",
+        //   type: "checkbox",
+        //   required: false,
+        //   attributes: [
+        //     {
+        //       name: "pip_national_budget",//ថវិកាជាតិ",
+        //       value: "1"
+        //     },
+        //     {
+        //       name: "pip_non_refund_budget",//ជំនួយឥតសំណង",
+        //       value: "2"
+        //     },
+        //     {
+        //       name: "pip_non_refund_credit",//ឥណទានមិនមែនសម្បទាន",
+        //       value: "3"
+        //     }
+        //   ]
+        // },
+        {
+          name: "pip_4_strategy",//មុំនៃគោលនយោបាយក្នុងយុទ្ធសាស្រ្តចតុកោណ ដំណាក់កាលទី៤ ដែលគម្រោងស្ថិតនៅ៖ ",
+          type: "textarea",
+          required: false
+        },
+        {
+          name: "pip_participant_project",//ការចូលរួមចំណែករបស់គម្រោងក្នុងការសម្រេចបានគោលនយោបាយអាទិភាពខាងលើ ",
+          type: "textarea",
+          required: false
+        },
+        {
+          name: "pip_field",//វិស័យ (សូមប្រើវិស័យ អនុវិស័យ ដែលមានចែងក្នុង ផ.យ.អ.ជ. ២០១៩-២០២៣)",
           type: "textarea",
           required: false
         }, {
-          name: "វិស័យ (សូមប្រើវិស័យ អនុវិស័យ ដែលមានចែងក្នុង ផ.យ.អ.ជ. ២០១៩-២០២៣) ",
+          name: "pip_subproject_location",//ទីតាំងអនុវត្តគម្រោង (ពិពណ៌នាពីទីតាំងដែលត្រូវអនុវត្តគម្រោង- ឈ្មោះខេត្ត)",
           type: "textarea",
           required: false
         }, {
-          name: "ទីតាំងអនុវត្តគម្រោង (ពិពណ៌នាពីទីតាំងដែលត្រូវអនុវត្តគម្រោង- ឈ្មោះខេត្ត)",
+          name: "pip_project_aim",//គោលបំណងរបស់គម្រោង (ពិពណ៌នាគោលបំណងចម្បងៗរបស់គម្រោង)",
           type: "textarea",
           required: false
         }, {
-          name: "គោលបំណងរបស់គម្រោង (ពិពណ៌នាគោលបំណងចម្បងៗរបស់គម្រោង)",
+          name: "pip_project_description",//ការពិពណ៌នាអំពីគម្រោង (ពិពណ៌នាអំពីសមាសភាគទាំងអស់របស់គម្រោង)",
           type: "textarea",
           required: false
         }, {
-          name: "ការពិពណ៌នាអំពីគម្រោង (ពិពណ៌នាអំពីសមាសភាគទាំងអស់របស់គម្រោង)",
+          name: "pip_resonable_project",//យុត្តិកម្មលើគម្រោង (សូមផ្តល់ហេតុផលដែលគម្រោងនេះត្រូវបានចាត់ទុកថាមានប្រយោជន៍)",
           type: "textarea",
           required: false
         }, {
-          name: "យុត្តិកម្មលើគម្រោង (សូមផ្តល់ហេតុផលដែលគម្រោងនេះត្រូវបានចាត់ទុកថាមានប្រយោជន៍)",
+          name: "pip_benefit_project", //ផលប្រយោជន៍របស់គម្រោង (រៀបរាប់ពីអ្នកដែលនឹងទទួលប្រយោជន៍ផ្ទាល់និងមិនផ្ទាល់ពីការអនុវត្តគម្រោង)",
           type: "textarea",
           required: false
         }, {
-          name: "ផលប្រយោជន៍របស់គម្រោង (រៀបរាប់ពីអ្នកដែលនឹងទទួលប្រយោជន៍ផ្ទាល់និងមិនផ្ទាល់ពីការអនុវត្តគម្រោង)",
+          name: "pip_effectivenes_environment", //ផលប៉ះពាល់ផ្នែកបរិស្ថាននិងសង្គម (ពណ៌នាសង្ខេបពីផលប៉ះពាល់របស់គម្រោងលើប្រជាជននិងបរិស្ថានជុំវិញ ប្រសិនបើមាន។ តើគម្រោងនេះនឹងជួយដល់ការកាត់បន្ថយភាពក្រីក្រដែរឬទេ?)",
           type: "textarea",
           required: false
         }, {
-          name: "ផលប៉ះពាល់ផ្នែកបរិស្ថាននិងសង្គម (ពណ៌នាសង្ខេបពីផលប៉ះពាល់របស់គម្រោងលើប្រជាជននិងបរិស្ថានជុំវិញ ប្រសិនបើមាន។ តើគម្រោងនេះនឹងជួយដល់ការកាត់បន្ថយភាពក្រីក្រដែរឬទេ?)",
+          name: "pip_gender_analysis",//ការវិភាគយេនឌ័រ (តើគម្រោងនេះមានផលប៉ះពាល់ដល់តួនាទីរបស់បុរសនិងស្រ្តីក្នុងទីតាំងរបស់គម្រោងនេះដូចម្តេច? តើស្រ្តីនឹងត្រូវចូលរួមយ៉ាងសកម្មក្នុងការអនុវត្តគម្រោងនេះដែរឬទេ?)",
           type: "textarea",
           required: false
         }, {
-          name: "ការវិភាគយេនឌ័រ (តើគម្រោងនេះមានផលប៉ះពាល់ដល់តួនាទីរបស់បុរសនិងស្រ្តីក្នុងទីតាំងរបស់គម្រោងនេះដូចម្តេច? តើស្រ្តីនឹងត្រូវចូលរួមយ៉ាងសកម្មក្នុងការអនុវត្តគម្រោងនេះដែរឬទេ?)",
+          name: "pip_project_imple_capacity",//សមត្ថភាពអនុវត្តគម្រោង (តើក្រសួងមានជំនាញនិងបទពិសោធន៍គ្រប់គ្រាន់សម្រាប់អនុវត្តគម្រោងដែរឬទេ?)",
           type: "textarea",
           required: false
         }, {
-          name: "សមត្ថភាពអនុវត្តគម្រោង (តើក្រសួងមានជំនាញនិងបទពិសោធន៍គ្រប់គ្រាន់សម្រាប់អនុវត្តគម្រោងដែរឬទេ?)",
+          name: "pip_project_imple_status",//ស្ថានភាពនៃការអនុវត្តគម្រោង (ពិពណ៌នាសង្ខេបអំពីវឌ្ឍនភាពរបស់គម្រោងនិងបង្ហាញអំពីភាពប្រឈមនានាដែលបណ្តាលឲ្យមានការពន្យារពេលក្នុងការអនុវត្តគម្រោង។)",
           type: "textarea",
           required: false
         }, {
-          name: "ស្ថានភាពនៃការអនុវត្តគម្រោង (ពិពណ៌នាសង្ខេបអំពីវឌ្ឍនភាពរបស់គម្រោងនិងបង្ហាញអំពីភាពប្រឈមនានាដែលបណ្តាលឲ្យមានការពន្យារពេលក្នុងការអនុវត្តគម្រោង។)",
-          type: "textarea",
-          required: false
-        }, {
-          name: "ការចូលរួមរបស់ដៃគូអភិវឌ្ឍ (ផ្តល់ព័ត៌មានអំពីដៃគូអភិវឌ្ឍសក្តានុពល ដែលពាក់ព័ន្ធនឹងគម្រោងនេះ)",
+          name: "pip_partner_participation",//ការចូលរួមរបស់ដៃគូអភិវឌ្ឍ (ផ្តល់ព័ត៌មានអំពីដៃគូអភិវឌ្ឍសក្តានុពល ដែលពាក់ព័ន្ធនឹងគម្រោងនេះ)",
           type: "textarea",
           required: false
         },
       ],
-      rowDisplay: "2grid", //1grid, 2grid, 3grid, 4grid
+      rowDisplay: "3grid", //1grid, 2grid, 3grid, 4grid
       dataFields: []
     }
   },
   components: {
-    DTableList
+    DTableList,
   },
   methods: {
     getDataTable(_search_criteria) {
