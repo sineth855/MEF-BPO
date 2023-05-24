@@ -368,10 +368,24 @@ export default {
 		bsp_source_income_group: "ក្រុមប្រភពចំណូល",
 		bsp_source_income: "ប្រភពចំណូល",
 		bsp_source_income_level: "ប្រភពចំណូលតាមកម្រិត",
+		bsp_prepare_budget_strategy_plan: "រៀបចំផែនការយុទ្ធសាស្ត្រថវិកា",
+		bsp_verify_printing: "ការផ្ទៀងផ្ទាត់ និងធ្វើការបោះពុម្ភ",
+		bsp_text_annual_budget_plan: "គម្រោងថវិកា​ឆ្នាំ២០២៣(លានរៀល)",
+		bsp_text_performance_indicator_target: "គោលដៅសូចនាករសមិទ្ធកម្ម",
+		bsp_text_printing: "បោះពុម្ភ",
+		bsp_text_budget_strategy_plan: "ផែនការយុទ្ធសាស្ត្រថវិកា",
+		bsp_text_indicator_description: "សេចក្តីពិព័ណ៌នា (បន្ថែមជួរដេកមួយសម្រាប់សូចនាករលទ្ធផលនីមួយៗ)",
+		bsp_text_object_pro_sub_clusact_act: "គោលបំណង/កម្មវិធី/អនុកម្មវិធី/ចង្កោមសកម្មភាព/សកម្មភាព",
+		bsp_text_subprogram: "អនុកម្មវិធី អ្នកគ្រប់គ្រង និងអង្គភាពទទួលខុសត្រូវ",
+		bsp_text_define_indicator: "ការកំណត់សូចនាករ និងគោលដៅសូចនាករ នៃអនុកម្មវិធី សង្កោមសកម្មភាព និងសកម្មភាព",
+		bsp_text_income_plan: "ការគ្រោងចំណូល",
+		bsp_text_expense_demand: "ការកំណត់តម្រូវការចំណាយសម្រាប់អនុកម្មវិធី",
 		// PB
 		pb_step_prepare_annual_budget: "រៀបចំគម្រោងថវិកាប្រចាំឆ្នាំ",
+		pb_annual_budget_paln: "គម្រោងថវិកាប្រចាំឆ្នាំ",
 		pb_verify: "ផ្ទៀងផ្ទាត់",
 		pb_heading_pb_revenue: "គម្រោងចំណូលថវិកាតាមចំណាត់ថ្នាក់សេដ្ឋកិច្ច(PB Revenue)",
+		pb_heading_costing: "ការគណនាតម្រូវការចំណាយលម្អិត",
 		pb_heading_pb_expense: "គម្រោងចំណាយថវិកាតាមចំណាត់ថ្នាក់សេដ្ឋកិច្ច(PB Expense)",
 		pb_heading_staff_expense: "តារាងគណនាគម្រោងចំណាយបន្ទុកបុគ្គលិក",
 		pb_heading_target_indicator: "សូចនាករ និងគោលដៅសូចនាករ",
@@ -451,6 +465,7 @@ export default {
 		
 		// General Text
 		text_search: "ស្វែងរក",
+		text_download_sample: "ទាញយកទម្រង់គំរូ",
 		// Button
 		btn_search: "ស្វែងរក",
 		btn_save: "រក្សាទុក",
@@ -504,6 +519,7 @@ export default {
 		required_project_name_en: "បំពេញឈ្មោះគម្រោង(ភាសាអង់គ្លេស)",
 		required_project_name_kh: "បំពេញឈ្មោះគម្រោង(ភាសាខ្មែរ)",
 
+		no_kpi: "ពុំមានសូចនាករ!",
 		// Button
 		button_add_more: "​​បន្ថែមថ្មី",
 		// #Error
@@ -803,6 +819,7 @@ export default {
 		pb_step_prepare_annual_budget: "Prepare an annual budget",
 		pb_verify: "Verify",
 		pb_heading_pb_revenue: "PB Revenue",
+		pb_heading_costing: "Costing Expense Demand Calculation",//"ការគណនាតម្រូវការចំណាយលម្អិត",
 		pb_heading_pb_expense: "Economic Classification (PB Expense)",
 		pb_heading_staff_expense: "Staffing Expense Schedule",
 		pb_heading_target_indicator: "Indicators and Target Indicators",

@@ -18,7 +18,7 @@ class AccountImport implements ToModel,WithHeadingRow
     public function model(array $row)
     {
         // dd($row);
-        $queryCheck = Account::where("id", (int)$row["id"])->first();
+        $queryCheck = Account::where("id", (int)$row["id"])->where("code", $row["code"])->first();
         if(!$queryCheck){
             Account::insert([
                 "id"=>$row["id"],

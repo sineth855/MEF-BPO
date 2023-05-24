@@ -203,7 +203,7 @@
 // ======================================================================================
 
 .con-vs-dialog {
-  z-index: 52005;
+  z-index: 99999;
 
   .vs-dialog {
     header {
@@ -474,7 +474,7 @@
 
 .con-vs-popup {
   z-index: 53000;
-
+  // z-index: 99999;
   .vs-popup--content {
     padding: 1rem;
     font-size: 1rem;

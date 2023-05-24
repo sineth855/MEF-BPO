@@ -7,6 +7,7 @@ use App\Models\Modules\ProgramManagement\Objective;
 use Illuminate\Http\Request;
 use Auth;
 use DB;
+use CommonService;
 
 class ObjectiveController extends Controller
 {
@@ -41,31 +42,13 @@ class ObjectiveController extends Controller
     {
         $input = $request->all();
         $dataFields = $this->dataFields();
-        $filter = array(
-            // "offset" => isset($input["offset"]) ? $input["offset"] : OFFSET,
-            "limit" => isset($input["limit"]) ? $input["limit"] : LIMIT,
-            "sort" => isset($input["sort"]) ? $input["sort"] : SORT,
-            "order" => isset($input["order"]) ? $input["order"] : ORDER
-        );
-        $query = $this->db_table::orderBy($filter["sort"], $filter["order"]);
-        $whereClause = $query;
-        $whereClause->offset(($input["page_number"] - 1) * $filter["limit"]);       
-        $whereClause->limit($filter["limit"]);
-        if(isset($input["search_field"])){
-            for($i=0 ; $i < count($input["search_field"]); $i++){
-                $field = array_key_first($input["search_field"][$i]); //array('key1', 'key2', 'key3');
-                if (in_array($field, $dataFields)) {
-                    $whereClause->orWhere($field, "Like","%".$input["search_field"][$i][$field]."%");
-                }
-            }
-        }
-        
-        $table = collect($whereClause->get());
+        $filter = CommonService::getFilter($input);
+
         $data = array(
             "data_fields" => $this->dataFields(),
-            "data" => $table,
+            "data" => $this->db_table::getAllClusterPrograms($filter),
             "limit" => $filter["limit"],
-            "total" => $this->db_table->count()
+            "total" => Objective::getCount($filter)
         );
         return response()->json($data);
     }

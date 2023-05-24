@@ -5,6 +5,9 @@ export default {
     _apiSubProgram: "/api/v1/module/program_management/sub_program",
     _apiClusterActivity: "/api/v1/module/program_management/cluster_activity",
     _apiActivity: "/api/v1/module/program_management/activity",
+    
+    // Indicator
+    _apiIndicatorSubPro: "/api/v1/module/program_management/kpi_sub_program",
     // Setting
     _apiAccountGroup: "/api/v1/setting/account_group",
     _apiAccount: "/api/v1/setting/account",

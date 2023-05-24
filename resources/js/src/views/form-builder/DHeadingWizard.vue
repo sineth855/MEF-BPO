@@ -1,9 +1,9 @@
 <template>
     <div>
         <div class="flex justify-between flex-wrap mb-4">
-            <vs-button class="mt-4 mr-2 shadow-lg" type="gradient" color="#7367F0"
-                gradient-color-secondary="#CE9FFC" @click.prevent="downloadDoc(item)">{{ $t("ទាញយកទម្រង់គំរូ") }}</vs-button>
-            <vs-checkbox color="success">{{ $t("controlled")  }}</vs-checkbox>
+            <!-- <vs-button class="mt-4 mr-2 shadow-lg" type="gradient" color="#7367F0" gradient-color-secondary="#CE9FFC"
+                @click.prevent="downloadDoc(item)">{{ $t("text_download_sample") }}</vs-button> -->
+            <!-- <vs-checkbox color="success">{{ $t("controlled") }}</vs-checkbox> -->
             <!-- <vs-button class="mt-4" type="border" color="#30c974"><feather-icon icon="PlusIcon" svgClasses="h-4 w-4" />
                 {{ $t("AddNew") }}</vs-button> -->
         </div>
@@ -40,19 +40,19 @@
 </template>
 
 <script>
-    export default {
-        props: {
-            dataAttributes: {
-                required: true,
-            }
-        },
-        data() {
-            return {
-                
-            }
-        },
-        methods() {
-            
+export default {
+    props: {
+        dataAttributes: {
+            required: true,
         }
+    },
+    data() {
+        return {
+
+        }
+    },
+    methods() {
+
     }
+}
 </script>

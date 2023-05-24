@@ -1,65 +1,79 @@
 <template>
-  <vx-card title="" code-toggler>
-    <div class="mt-5">
-      <form-wizard color="rgba(var(--vs-primary), 1)" errorColor="rgba(var(--vs-danger), 1)" :title="null" :subtitle="null" finishButtonText="Submit">
-        <tab-content :title="$t('pb_step_prepare_annual_budget')" class="mb-5" icon="feather icon-home" :before-change="validateStep1">
+    <vx-card title="" code-toggler>
+        <step-costing></step-costing>
+        <div class="mt-5">
+            <form-wizard color="rgba(var(--vs-primary), 1)" errorColor="rgba(var(--vs-danger), 1)" :title="null"
+                :subtitle="null" finishButtonText="Submit">
+                <tab-content :title="$t('pb_step_prepare_annual_budget')" class="mb-5" icon="feather icon-home"
+                    :before-change="validateStep1">
 
-          <vx-card title="គម្រោងថវិកាប្រចាំឆ្នាំ" code-toggler>
-            <div class="mt-5">
+                    <vx-card :title="$t('pb_annual_budget_paln')" code-toggler>
+                        <div class="mt-5">
 
-                <vs-collapse>
-                  <vs-collapse-item>
-                    <div slot="header" style="color: #fff; background-color:#28c76f; padding: 10px;">
-                      {{ $t("pb_heading_pb_revenue") }}
-                    </div>
-                    <step-revenue></step-revenue>
-                  </vs-collapse-item>
+                            <vs-collapse>
+                                <vs-collapse-item>
+                                    <div slot="header" style="color: #fff; background-color:#28c76f; padding: 10px;">
+                                        {{ $t("pb_heading_pb_revenue") }}
+                                    </div>
+                                    <step-revenue></step-revenue>
+                                </vs-collapse-item>
 
-                  <vs-collapse-item _disabled>
-                    <div slot="header" style="color: #fff; background-color:#C0C9C4; padding: 10px;">គម្រោងចំណាយថវិកាតាមចំណាត់ថ្នាក់សេដ្ឋកិច្ច(PB Expense)</div>
-                    <step-expense></step-expense>
-                  </vs-collapse-item>
+                                <vs-collapse-item _disabled>
+                                    <div slot="header" style="color: #fff; background-color:#C0C9C4; padding: 10px;">
+                                        {{ $t("pb_heading_pb_expense") }}
+                                        <!-- គម្រោងចំណាយថវិកាតាមចំណាត់ថ្នាក់សេដ្ឋកិច្ច(PB Expense) -->
+                                    </div>
+                                    <!-- <step-expense></step-expense> -->
+                                </vs-collapse-item>
 
-                  <vs-collapse-item>
-                    <div slot="header" style="color: #fff; background-color:#C0C9C4; padding: 10px;">តារាងគណនាគម្រោងចំណាយបន្ទុកបុគ្គលិក</div>
-                    <step-staff-costing></step-staff-costing>
-                  </vs-collapse-item>
+                                <vs-collapse-item>
+                                    <div slot="header" style="color: #fff; background-color:#C0C9C4; padding: 10px;">
+                                        {{ $t("pb_heading_staff_expense") }}
+                                        <!-- តារាងគណនាគម្រោងចំណាយបន្ទុកបុគ្គលិក -->
+                                    </div>
+                                    <!-- <step-staff-costing></step-staff-costing> -->
+                                </vs-collapse-item>
 
-                  <vs-collapse-item>
-                    <div slot="header" style="color: #fff; background-color:#C0C9C4; padding: 10px;">សូចនាករ និងគោលដៅសូចនាករ</div>
-                    <step-indicator></step-indicator>
-                  </vs-collapse-item>
+                                <vs-collapse-item>
+                                    <div slot="header" style="color: #fff; background-color:#C0C9C4; padding: 10px;">
+                                        {{ $t("pb_heading_target_indicator") }}
+                                        <!-- សូចនាករ និងគោលដៅសូចនាករ -->
+                                    </div>
+                                    <!-- <step-indicator></step-indicator> -->
+                                </vs-collapse-item>
 
-                  <!-- <vs-collapse-item>
-                    <div slot="header" style="color: #fff; background-color:#C0C9C4; padding: 10px;">ចំណាយមិនប្រចាំ</div>
-                    Data Under Controll
-                    <br><br>
-                    Data Under Controll
-                    <br><br>
-                    Data Under Controll
-                  </vs-collapse-item> -->
+                                <vs-collapse-item>
+                                    <div slot="header" style="color: #fff; background-color:#C0C9C4; padding: 10px;">
+                                        {{ $t("pb_heading_costing") }}
+                                        <!-- សូចនាករ និងគោលដៅសូចនាករ -->
+                                    </div>
+                                    <step-costing></step-costing>
+                                </vs-collapse-item>
 
-                </vs-collapse>
-            </div>
-          </vx-card>
-        </tab-content>
+                            </vs-collapse>
+                        </div>
+                    </vx-card>
+                </tab-content>
 
-        <!-- tab 2 content -->
-        <tab-content :title="$t('pb_verify')" class="mb-5" icon="feather icon-briefcase" :before-change="validateStep2">
-          <center><h2>Page is under construction</h2></center>
-        </tab-content>
+                <!-- tab 2 content -->
+                <tab-content :title="$t('pb_verify')" class="mb-5" icon="feather icon-briefcase"
+                    :before-change="validateStep2">
+                    <center>
+                        <h2>Page is under construction</h2>
+                    </center>
+                </tab-content>
 
-      </form-wizard>
-    </div>
+            </form-wizard>
+        </div>
 
-  </vx-card>
+    </vx-card>
 </template>
 
 <script>
 import { FormWizard, TabContent } from 'vue-form-wizard'
 import 'vue-form-wizard/dist/vue-form-wizard.min.css'
 import StepIndicator from "./_StepIndicator.vue"
-import StepCostingBudget from "./_StepCostingBudget.vue"
+import StepCosting from "./_StepCosting.vue"
 import StepStaffCosting from "./_StepStaffCosting.vue"
 import StepRevenue from "./_StepRevenue.vue"
 import StepExpense from "./_StepExpense.vue"
@@ -167,13 +181,13 @@ export default {
         }
     },
     components: {
-      FormWizard,
-      TabContent,
-      StepIndicator,
-      StepCostingBudget,
-      StepStaffCosting,
-      StepRevenue,
-      StepExpense
+        FormWizard,
+        TabContent,
+        StepIndicator,
+        StepCosting,
+        StepStaffCosting,
+        StepRevenue,
+        StepExpense
     }
 }
 </script>

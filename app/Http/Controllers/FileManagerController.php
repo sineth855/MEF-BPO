@@ -22,6 +22,11 @@ use App\Imports\PIPInvDetailImport;
 
 use App\Imports\BSPAssignProgramImport;
 
+// PB
+use App\Imports\PBCostingImport;
+use App\Imports\PBRevenueImport;
+use App\Imports\PBExpenditureImport;
+
 use App\Imports\ItemImport;
 use App\Imports\UnitImport;
 
@@ -302,7 +307,7 @@ class FileManagerController extends Controller
             return response()->json(['success'=>false,'message'=>'File upload is failed!'], 500);
         }
     }
-
+    
     public function fileUploadItem(Request $request){
         $path = $request->file('file')->getRealPath();
         $rows = Excel::import(new ItemImport, $path);
@@ -316,6 +321,37 @@ class FileManagerController extends Controller
     public function fileUploadUnit(Request $request){
         $path = $request->file('file')->getRealPath();
         $rows = Excel::import(new UnitImport, $path);
+        if($rows){
+            return response()->json(['success'=>true,'message'=>'File uploaded successfully.'], 200);
+        }else{
+            return response()->json(['success'=>false,'message'=>'File upload is failed!'], 500);
+        }
+    }
+
+    // PB
+    public function fileUploadPBCosting(Request $request){
+        $path = $request->file('file')->getRealPath();
+        $rows = Excel::import(new PBCostingImport, $path);
+        if($rows){
+            return response()->json(['success'=>true,'message'=>'File uploaded successfully.'], 200);
+        }else{
+            return response()->json(['success'=>false,'message'=>'File upload is failed!'], 500);
+        }
+    }
+
+    public function fileUploadPBRevenue(Request $request){
+        $path = $request->file('file')->getRealPath();
+        $rows = Excel::import(new PBRevenueImport, $path);
+        if($rows){
+            return response()->json(['success'=>true,'message'=>'File uploaded successfully.'], 200);
+        }else{
+            return response()->json(['success'=>false,'message'=>'File upload is failed!'], 500);
+        }
+    }
+
+    public function fileUploadPBExpenditure(Request $request){
+        $path = $request->file('file')->getRealPath();
+        $rows = Excel::import(new PBExpenditureImport, $path);
         if($rows){
             return response()->json(['success'=>true,'message'=>'File uploaded successfully.'], 200);
         }else{

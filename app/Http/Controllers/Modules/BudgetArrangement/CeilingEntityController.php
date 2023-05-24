@@ -7,6 +7,7 @@ use App\Models\Modules\BudgetArrangement\CeilingEntity;
 use Illuminate\Http\Request;
 use Auth;
 use DB;
+use CommonService;
 
 class CeilingEntityController extends Controller
 {
@@ -41,32 +42,8 @@ class CeilingEntityController extends Controller
     {
         $input = $request->all();
         $dataFields = $this->dataFields();
-        $filter = array(
-            // "offset" => isset($input["offset"]) ? $input["offset"] : OFFSET,
-            "limit" => isset($input["limit"]) ? $input["limit"] : LIMIT,
-            "sort" => isset($input["sort"]) ? $input["sort"] : SORT,
-            "order" => isset($input["order"]) ? $input["order"] : ORDER
-        );
-        $query = $this->db_table::orderBy($filter["sort"], $filter["order"]);
-        $whereClause = $query;
-        $whereClause->offset(($input["page_number"] - 1) * LIMIT);       
-        $whereClause->limit($filter["limit"]);
-        if(isset($input["search_field"])){
-            for($i=0 ; $i < count($input["search_field"]); $i++){
-                $field = array_key_first($input["search_field"][$i]); //array('key1', 'key2', 'key3');
-                if (in_array($field, $dataFields)) {
-                    $whereClause->orWhere($field, "Like","%".$input["search_field"][$i][$field]."%");
-                }
-            }
-        }
+        $filter = CommonService::getFilter($input);
         
-        $table = collect($whereClause->get());
-        // $data = array(
-        //     "data_fields" => $this->dataFields(),
-        //     "data" => $table,
-        //     "limit" => LIMIT,
-        //     "total" => $this->db_table->count()
-        // );
         $objectives = array(
             [
                 "label" => "គោលបំណងទី១",
@@ -104,11 +81,11 @@ class CeilingEntityController extends Controller
         
         $data = array(
             "data_fields" => $this->dataFields(),
-            "data" => $table,
+            "data" => CeilingEntity::getCeilingEntities($filter),
             "entity_id" => $entities,
             "entity_member_id" => $entity_members,
             "limit" => LIMIT,
-            "total" => $this->db_table::count()
+            "total" => 0//$this->db_table::count()
         );
         return response()->json($data);
     }
@@ -209,19 +186,12 @@ class CeilingEntityController extends Controller
     }
 
     public function dataForm($input){
-        $dataFields = array(
-            "code" => isset($input["code"])?$input["code"]:"",
-            "sub_program_id" => isset($input[0]["sub_program_id"])?$input[0]["sub_program_id"]:null,
-            "entity_id" => isset($input[3]["entity_id"])?$input[3]["entity_id"]:null,
-            "entity_member_id" => isset($input[4]["entity_member_id"])?$input[4]["entity_member_id"]:null,
-            "name_en" => isset($input[1]["name_en"])?$input[1]["name_en"]:null,
-            "name_kh" => isset($input[2]["name_kh"])?$input[2]["name_kh"]:null,
-            "remark" => isset($input[6]["remark"])?$input[6]["remark"]:null,
-            "order_level" => isset($input[5]["order_level"])?$input[5]["order_level"]:0,
-            "is_active" => isset($input[7]["is_active"])?$input[7]["is_active"]:1,
-            "created_by" => Auth::user()->id
-        );
-        return $dataFields;
+        $arr = $input;
+        $push_array = array("created_by" => Auth::user()->id);
+        array_push($arr, $push_array);
+        $arraySingle = call_user_func_array('array_merge', $arr);
+        $dataFields = $arraySingle;
+        return $input;
     }
 
     /**

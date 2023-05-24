@@ -1,108 +1,8 @@
-<template>        
+<template>
     <div class="flex">
         <d-table-list @clicked="initTableData" :api="api" ref="refInitPage" :allowDel="true" :title="title"
-            :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data"
-            :formAttributes="formAttributes" :rowDisplay="rowDisplay" @emitDataForm="initDataForm"></d-table-list>
-        
-        <!-- <vs-table :data="[]">
-
-            <template>
-            
-                <vs-tr>
-                    <vs-td rowspan="2">ការគ្រោងចំណូល <br/> តាមប្រភេទចំណូល</vs-td>
-                    <vs-td colspan="2">ច្បាប់ហិរញ្ញវត្ថុឆ្នាំ២០២២</vs-td>
-                    <vs-td colspan="2">គ្រោងឆ្នាំ២០២៣</vs-td>
-                    <vs-td colspan="2">គ្រោងឆ្នាំ២០២៤</vs-td>
-                    <vs-td colspan="2">គ្រោងឆ្នាំ២០២៥</vs-td>
-                </vs-tr>
-
-                <vs-tr>
-                    <vs-td>ថវិការដ្ឋ</vs-td>
-                    <vs-td>ថវិកាដៃគូអភិវឌ្ឍន៍</vs-td>
-                    
-                    <vs-td>ថវិការដ្ឋ</vs-td>
-                    <vs-td>ថវិកាដៃគូអភិវឌ្ឍន៍</vs-td>
-
-                    <vs-td>ថវិការដ្ឋ</vs-td>
-                    <vs-td>ថវិកាដៃគូអភិវឌ្ឍន៍</vs-td>
-
-                    <vs-td>ថវិការដ្ឋ</vs-td>
-                    <vs-td>ថវិកាដៃគូអភិវឌ្ឍន៍</vs-td>
-                </vs-tr>
-
-                <vs-tr :state="'warning'">
-                    <vs-td><center>សរុបរួម</center></vs-td>
-                    <vs-td>0.0</vs-td>
-                    <vs-td>0.0</vs-td>
-
-                    <vs-td>0.0</vs-td>
-                    <vs-td>0.0</vs-td>
-                    <vs-td>0.0</vs-td>
-                    <vs-td>0.0</vs-td>
-
-                    <vs-td>0.0</vs-td>
-                    <vs-td>0.0</vs-td>
-                </vs-tr>
-
-                <vs-tr :state="'danger'">
-                    <vs-td><center>១.ចំណូលពីប្រភពក្នុងស្រុក</center></vs-td>
-                    <vs-td>0.0</vs-td>
-                    <vs-td>0.0</vs-td>
-
-                    <vs-td>0.0</vs-td>
-                    <vs-td>0.0</vs-td>
-                    <vs-td>0.0</vs-td>
-                    <vs-td>0.0</vs-td>
-
-                    <vs-td>0.0</vs-td>
-                    <vs-td>0.0</vs-td>
-                </vs-tr>
-
-                <vs-tr>
-                    <vs-td><center>ចំណូលសារពើពន្ធ</center></vs-td>
-                    <vs-td>0.0</vs-td>
-                    <vs-td>0.0</vs-td>
-
-                    <vs-td>0.0</vs-td>
-                    <vs-td>0.0</vs-td>
-                    <vs-td>0.0</vs-td>
-                    <vs-td>0.0</vs-td>
-
-                    <vs-td>0.0</vs-td>
-                    <vs-td>0.0</vs-td>
-                </vs-tr>
-
-                <vs-tr>
-                    <vs-td><center>ចំណូលមិនមែនសារពើពន្ធ</center></vs-td>
-                    <vs-td>0.0</vs-td>
-                    <vs-td>0.0</vs-td>
-
-                    <vs-td>0.0</vs-td>
-                    <vs-td>0.0</vs-td>
-                    <vs-td>0.0</vs-td>
-                    <vs-td>0.0</vs-td>
-
-                    <vs-td>0.0</vs-td>
-                    <vs-td>0.0</vs-td>
-                </vs-tr>
-                
-                <vs-tr>
-                    <vs-td><center>ចំណូលមូលធនក្នុងស្រុក (កម្ចីបន្ត)</center></vs-td>
-                    <vs-td>0.0</vs-td>
-                    <vs-td>0.0</vs-td>
-
-                    <vs-td>0.0</vs-td>
-                    <vs-td>0.0</vs-td>
-                    <vs-td>0.0</vs-td>
-                    <vs-td>0.0</vs-td>
-
-                    <vs-td>0.0</vs-td>
-                    <vs-td>0.0</vs-td>
-                </vs-tr>
-
-            </template>
-        </vs-table> -->
-
+            :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data" :formAttributes="formAttributes"
+            :rowDisplay="rowDisplay" @emitDataForm="initDataForm"></d-table-list>
     </div>
 </template>
 
@@ -111,7 +11,6 @@
 import axios from "@/axios.js"
 import apiConfig from "@/apiConfig.js"
 import { ref } from 'vue';
-
 import DTableList from '@/views/form-builder/DTableList.vue'
 
 export default {
@@ -124,6 +23,7 @@ export default {
                 page_number: 1,
                 offset: 0,
                 dataGrid: "row",
+                popupFullscreen: true,
                 hasHeadingReport: true,
                 headingReport: "bsp_heading_revenue_plan",
                 actionButton: [
@@ -418,7 +318,7 @@ export default {
                     options: [],
                 }
             ],
-            rowDisplay: "2grid", //1grid, 2grid, 3grid, 4grid
+            rowDisplay: "3grid", //1grid, 2grid, 3grid, 4grid
             dataFields: []
         }
     },

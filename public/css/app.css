@@ -4266,6 +4266,10 @@ i.wizard-icon {
   border-bottom: 1px solid #dae1e7;
 }
 
+input.vs-inputx.vs-input--input.small.hasValue {
+  font-size: 15px !important;
+}
+
 /*=========================================================================================
   File Name: _fixesVuesax.scss
   Description: Partial - Fixes/Add vuesax framework styles
@@ -4427,7 +4431,7 @@ i.wizard-icon {
 }
 
 .con-vs-dialog {
-  z-index: 52005;
+  z-index: 99999;
 }
 
 .con-vs-dialog .vs-dialog header .dialog-title {

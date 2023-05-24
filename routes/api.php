@@ -80,6 +80,10 @@ Route::group([
         Route::resource('module/program_management/sub_program', 'Modules\ProgramManagement\SubProgramController');
         Route::resource('module/program_management/cluster_activity', 'Modules\ProgramManagement\ClusterActivityController');
         Route::resource('module/program_management/activity', 'Modules\ProgramManagement\ActivityController');
+
+        // KPI
+        Route::post('module/program_management/kpi_sub_program/search', 'Modules\ProgramManagement\KPISubProgramController@index');
+        Route::resource('module/program_management/kpi_sub_program', 'Modules\ProgramManagement\KPISubProgramController');
         // PIP
         Route::post('module/budget_arrangement/ceiling_rule/search', 'Modules\BudgetArrangement\CeilingRuleController@index');
         Route::resource('module/budget_arrangement/ceiling_rule', 'Modules\BudgetArrangement\CeilingRuleController');
@@ -89,7 +93,10 @@ Route::group([
         // BPS
         Route::post('module/budget_arrangement/bsp_program/search', 'Modules\BudgetArrangement\BSPProgramController@index');
         Route::resource('module/budget_arrangement/bsp_program', 'Modules\BudgetArrangement\BSPProgramController');
-
+        // PB
+        Route::resource('module/budget_arrangement/pb_costing', 'Modules\BudgetArrangement\PBCostingController');
+        Route::resource('module/budget_arrangement/pb_revenue', 'Modules\BudgetArrangement\PBRevenueController');
+        Route::resource('module/budget_arrangement/pb_expenditure', 'Modules\BudgetArrangement\PBExpenditureController');
         // Settings
 
         // Expenditure Group
@@ -202,8 +209,12 @@ Route::group([
         Route::post('upload_pip_investment', 'FileManagerController@fileUploadPIPInvestment');
         Route::post('upload_pip_inv_detail', 'FileManagerController@fileUploadPIPInvDetail');
         // BSP
-            // Import Assign SubProgram, Cluster Activity, Activity to Entity
+        // Import Assign SubProgram, Cluster Activity, Activity to Entity
         Route::post('upload_bsp_assign_program', 'FileManagerController@fileUploadBSPAssignProgram');
+        // PB
+        Route::post('upload_pb_costing', 'FileManagerController@fileUploadPBCosting');
+        Route::post('upload_pb_revenue', 'FileManagerController@fileUploadPBRevenue');
+        Route::post('upload_pb_expenditure', 'FileManagerController@fileUploadPBExpenditure');
 
         Route::post('upload_item', 'FileManagerController@fileUploadItem');
         Route::post('upload_unit', 'FileManagerController@fileUploadUnit');

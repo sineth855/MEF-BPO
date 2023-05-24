@@ -4,6 +4,7 @@ namespace App\Models\Modules\ProgramManagement;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Modules\ProgramManagement\Program;
+use App\Models\Modules\ProgramManagement\KPISubProgram;
 use App\Models\Settings\Entity;
 use App\Models\Settings\EntityMember;
 
@@ -87,10 +88,10 @@ class SubProgram extends Model
           $arraySingle = call_user_func_array('array_merge', $filter["search_field"]);
           $dataFields = $arraySingle;
           if (array_key_exists('code', $dataFields)) {
-            $whereClauseSPro->Where("id", $dataFields["code"]);
+            $whereClauseSPro->Where("code", "Like", "%".$dataFields["code"]."%");
           }
           if (array_key_exists('entity_id', $dataFields)) {
-            $whereClauseSPro->Where("id", $dataFields["entity_id"]["value"]);
+            $whereClauseSPro->Where("entity_id", $dataFields["entity_id"]["value"]);
           }
           if (array_key_exists('name_en', $dataFields)) {
             $whereClauseSPro->Where("name_en", "Like", "%".$dataFields["name_en"]."%");
@@ -101,44 +102,54 @@ class SubProgram extends Model
         }
         $querySubPrograms = collect($whereClauseSPro->get());
         foreach($querySubPrograms as $crow){
-          $indicators = array(
-            "id" => "id",
-            "code" => "code",
-            "kpi_name_en" => "kpi_name_en",
-            "kpi_name_kh" => "kpi_name_kh",
-            "order_level" => "order_level",
-            "status" => "status",
-          );
-          $indicatorData = array(
-            "data" => $indicators
-          );
+          $subProId = $crow->id;
+          $indicatorArr = array();
+          $kpis = KPISubProgram::where("is_active", 1)->where("sub_program_id", $subProId)->get();
+          foreach($kpis as $kpi){
+            $indicatorArr[] = array(
+              "id" => $kpi->id,
+              "code" => $kpi->code,
+              "kpi_name_en" => $kpi->kpi_name_en,
+              "kpi_name_kh" => $kpi->kpi_name_kh,
+              "order_level" => $kpi->order_level,
+              "status" => $kpi->status,
+            );
+          }
+          // if(count($indicatorArr) > 0){
+          //   $indicatorData = array(
+          //     "data" => $indicatorArr
+          //   );
+          // }
 
           $cdata[] = array(
             'id' => $crow->id,
             'code' => $crow->code,
             'program_id' => $crow->program_id,
-            'name_en' => $crow->name_en,
-            'name_kh' => $crow->name_kh,
+            'name' => $crow->code."-".$crow->structure_name_en.":".$crow->name_kh,
+            'name_en' => $crow->code."-".$crow->structure_name_en.":".$crow->name_en,
+            'name_kh' => $crow->code."-".$crow->structure_name_kh.":".$crow->name_kh,
             'entity' => isset($crow->Entity)?$crow->Entity->name_kh:"",
             'entity_id' => $crow->entity_id,
             'entity_member_id' => $crow->entity_member_id,
             'entity_member' => isset($crow->EntityMember)?$crow->EntityMember->name_kh:"",
             'remark' => $crow->remark,
             'order_level' => $crow->order_level,
-            'indicator' => $indicatorData,
+            'indicator' => $indicatorArr,
           );
         }
-        
-        $data[] = array(
-          'id' => $row->id,
-          'code' => $row->code,
-          'name_en' => $row->name_en,
-          'name_kh' => $row->name_kh,
-          'field' => 'program_id',
-          // 'remark' => $row->remark,
-          // 'order_level' => $row->order_level,
-          'children' => $cdata
-        );
+        if(count($cdata) > 0){
+          $data[] = array(
+            'id' => $row->id,
+            'code' => $row->code,
+            'name' => $row->name_kh,
+            'name_en' => $row->name_en,
+            'name_kh' => $row->name_kh,
+            'field' => 'program_id',
+            // 'remark' => $row->remark,
+            // 'order_level' => $row->order_level,
+            'children' => $cdata
+          );
+        }
       }
       return $data;
     }

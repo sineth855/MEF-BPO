@@ -3,25 +3,22 @@
 namespace App\Http\Controllers\Modules\ProgramManagement;
 
 use App\Http\Controllers\Controller;
-use App\Models\Modules\ProgramManagement\Program;
-use App\Models\Modules\ProgramManagement\Objective;
-use App\Models\Settings\Entity;
-use App\Models\Settings\EntityMember;
+use App\Models\Modules\ProgramManagement\KPISubProgram;
 use Illuminate\Http\Request;
 use CommonService;
 use Auth;
 use DB;
 
-class ProgramController extends Controller
+class KPISubProgramController extends Controller
 {
     protected $db_table;
-    public $path = "admin/modules/program";
+    public $path = "admin/modules/kpi_sub_program";
 
     public function __construct()
     {
         $this->middleware('auth');
         $this->view_title = $this->path.'.entry_title';
-        $this->db_table = new Program;
+        $this->db_table = new KPISubProgram;
         $this->lang_path = $this->path;
     }
     /**
@@ -41,59 +38,18 @@ class ProgramController extends Controller
         $dataFields = $newArr;
         return $dataFields;
     }
-
     public function index(Request $request)
     {
         $input = $request->all();
+        // dd($input);
         $dataFields = $this->dataFields();
         $filter = CommonService::getFilter($input);
-
-        $objectives = Objective::getObjectives();
-        $entities = Entity::getEntities();
-        $entity_members = EntityMember::getMembers();
-
-        $data = array(
-            "data_fields" => $this->dataFields(),
-            "data" => $this->db_table::getProgramByObj($filter),
-            "objective_id" => $objectives,
-            "entity_id" => $entities,
-            "entity_member_id" => $entity_members,
-            "limit" => $filter["limit"],
-            "total" => Objective::getCount($filter)
-        );
-        return response()->json($data);
-
-        // $query = $this->db_table::orderBy($filter["sort"], $filter["order"]);
-        // $whereClause = $query;
-        // $whereClause->offset(($input["page_number"] - 1) * $filter["limit"]);       
-        // $whereClause->limit($filter["limit"]);
-        // if(isset($input["search_field"])){
-        //     for($i=0 ; $i < count($input["search_field"]); $i++){
-        //         $field = array_key_first($input["search_field"][$i]); //array('key1', 'key2', 'key3');
-        //         if (in_array($field, $dataFields)) {
-        //             $whereClause->orWhere($field, "Like","%".$input["search_field"][$i][$field]."%");
-        //         }
-        //     }
-        // }
-        // $table = collect($whereClause->get());
-    }
-
-    public function _index(Request $request)
-    {
-        $input = $request->all();
-        $dataFields = $this->dataFields();
-        $filter = CommonService::getFilter($input);
-
-        $programs = Objective::getPrograms();
         
         $data = array(
             "data_fields" => $this->dataFields(),
-            "data" => $this->db_table::getSubProgramByProgram($filter),
-            "program_id" => $programs,
-            "entity_id" => $entities,
-            "entity_member_id" => $entity_members,
+            "data" => $this->db_table::getKPISubProgram($filter),
             "limit" => $filter["limit"],
-            "total" => Program::getCount($filter)
+            "total" => $this->db_table::getCount($filter)
         );
         return response()->json($data);
     }
@@ -117,8 +73,7 @@ class ProgramController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
-        // $input["code"] = "001";
-        // $input["created_by"] = Auth::user()->id;    
+
         $dataFields = $this->dataForm($input);
 
         $table = $this->db_table::create($dataFields);
@@ -176,7 +131,6 @@ class ProgramController extends Controller
     {
         $input = $request->all();
         $dataFields = $this->dataForm($input);
-        // return false;
         $table = $this->db_table::where('id', $id)->update($dataFields);
         if($table){
             $status = 200;
@@ -199,18 +153,6 @@ class ProgramController extends Controller
         $arraySingle = call_user_func_array('array_merge', $input);
         $dataFields = $arraySingle;
         return $dataFields;
-        // dd($arraySingle);
-        // $dataFields = array(
-        //     "objective_id" => isset($input[0]["objective_id"])?$input[0]["objective_id"]:null,
-        //     "code" => isset($input["code"])?$input["code"]:null,
-        //     "entity_id" => isset($input[3]["entity_id"])?$input[3]["entity_id"]:null,
-        //     "entity_member_id" => isset($input[4]["entity_member_id"])?$input[4]["entity_member_id"]:null,
-        //     "name_en" => isset($input[1]["name_en"])?$input[1]["name_en"]:null,
-        //     "name_kh" => isset($input[2]["name_kh"])?$input[2]["name_kh"]:null,
-        //     "remark" => isset($input[6]["remark"])?$input[6]["remark"]:null,
-        //     "order_level" => isset($input[5]["order_level"])?$input[5]["order_level"]:0,
-        //     "created_by" => Auth::user()->id
-        // );
     }
 
     /**

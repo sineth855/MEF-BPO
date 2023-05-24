@@ -1,9 +1,8 @@
 <template>
     <div id="table-demo">
-        <!-- <table-state></table-state> -->
         <d-table-list @clicked="initTableData" :api="api" ref="refInitPage" :allowDel="true" :title="title"
-            :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data"
-            :formAttributes="formAttributes" :rowDisplay="rowDisplay"></d-table-list>
+            :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data" :formAttributes="formAttributes"
+            :rowDisplay="rowDisplay"></d-table-list>
     </div>
 </template>
 
@@ -24,7 +23,8 @@ export default {
                 page_number: 1,
                 offset: 0,
                 dataGrid: "row",
-                hasHeadingReport: true,
+                hasHeadingReport: false,
+                popupFullscreen: true,
                 headingReport: "pb_heading_pb_revenue",
                 actionButton: [
                     {
@@ -42,41 +42,48 @@ export default {
             dataHeaders: {
                 header1: {
                     label: "ជំពូក",
+                    width: 10,
                     rowspan: 3,
                     colspan: 0,
                 },
                 header2: {
                     label: "គណនី",
+                    width: 10,
                     rowspan: 3,
                     colspan: 0,
                 },
                 header3: {
                     label: "អនុគណនី",
+                    width: 10,
                     rowspan: 3,
                     colspan: 0,
                 },
                 header4: {
-                    label: "ចំណាត់ថ្នាក់ចំណាយ(តាមតារាងមាតិកាថវិកា) ",
+                    label: "ចំណាត់ថ្នាក់ចំណាយ(តាមតារាងមាតិកាថវិកា)",
+                    width: "200",
                     rowspan: 3,
                     colspan: 0,
                 },
                 header5: {
-                    label: "ចំណូលឆ្នាំ២០២១(អនុវត្ត) ",
+                    label: "ចំណូលឆ្នាំ(អនុវត្ត)",
+                    flag: "y_n_minus_1",
                     rowspan: 3,
                     colspan: 0,
                 },
                 header6: {
-                    label: "ច្បាប់ហិរញ្ញវត្ថុឆ្នាំ២០២២",
+                    label: "ច្បាប់ហិរញ្ញវត្ថុឆ្នាំ",
+                    flag: "y_n",
                     rowspan: 0,
                     colspan: 3,
                 },
                 header7: {
-                    label: "ប៉ាន់ស្មាន​អនុវត្ត​ឆ្នាំ​២០២២",
+                    label: "ប៉ាន់ស្មាន​អនុវត្ត​ឆ្នាំ",
                     rowspan: 0,
                     colspan: 4,
                 },
                 header8: {
                     label: "គម្រោង​ឆ្នាំ​២០២៣",
+                    flag: "y_n_1",
                     rowspan: 0,
                     colspan: 4,
                 }
@@ -169,7 +176,7 @@ export default {
                     field15: "f_plan_total_income",
                     field16: "f_plan_percentage_year_n"
                 },
-                group_fields: { field1: "rev_group", field2: "rev_type"},
+                group_fields: { field1: "rev_group", field2: "rev_type" },
                 summary: [
                     {
                         chapter: "",
@@ -523,54 +530,98 @@ export default {
             },
             formAttributes: [
                 {
-                    name: "objective",
+                    name: "entity_id",
                     type: "select",
                     required: true,
-                    data: [
-                        {
-                            "id": 1,
-                            "name": "គោលបំណងទី១",
-                            "name_kh": ""
-                        },
-                        {
-                            "id": 2,
-                            "name": "គោលបំណងទី២",
-                            "name_kh": ""
-                        }
-                    ],
+                    data: [],
                 },
                 {
-                    name: "name",
+                    name: "group_chapter",
+                    type: "select",
+                    required: true,
+                    data: [],
+                },
+                {
+                    name: "account_id",
+                    type: "select",
+                    required: true,
+                    data: [],
+                },
+                {
+                    name: "sub_account_id",
+                    type: "select",
+                    required: true,
+                    data: [],
+                },
+                {
+                    name: "ច្បាប់ហិរញ្ញវត្ថុ",
+                    type: "grid",
+                    flag: "y_n_minus_1",
+                    required: false,
+                },
+                {
+                    name: "មូលដ្ឋានគិតចំណូល",
                     type: "text",
-                    required: true
+                    required: false,
                 },
                 {
-                    name: "name_kh",
+                    name: "បរិមាណ",
                     type: "text",
-                    required: true
+                    required: false,
                 },
                 {
-                    name: "responsible_person",
+                    name: "សរុប​ឥណទានថវិកា",
                     type: "text",
-                    required: true
+                    required: false,
                 },
                 {
-                    name: "responsible_entity",
+                    name: "ប៉ាន់ស្មាន​អនុវត្ត​ឆ្នាំ",
+                    type: "grid",
+                    required: false,
+                },
+                {
+                    name: "មូលដ្ឋានគិតចំណូល",
                     type: "text",
-                    required: true
+                    required: false,
                 },
                 {
-                    name: "order_level",
-                    type: "number",
-                    required: false
-                },
-                {
-                    name: "remark",
+                    name: "បរិមាណ",
                     type: "text",
-                    required: false
+                    required: false,
+                },
+                {
+                    name: "សរុប​ឥណទានថវិកា",
+                    type: "text",
+                    required: false,
+                },
+                {
+                    name: "គម្រោង​ឆ្នាំ",
+                    type: "grid",
+                    flag: "y_n_1",
+                    required: false,
+                },
+                {
+                    name: "មូលដ្ឋានគិតចំណូល",
+                    type: "text",
+                    required: false,
+                },
+                {
+                    name: "បរិមាណ",
+                    type: "text",
+                    required: false,
+                },
+                {
+                    name: "សរុប​",
+                    type: "text",
+                    required: false,
+                },
+                {
+                    name: "%ច្ប.២២",
+                    type: "text",
+                    required: false,
                 }
             ],
-            rowDisplay: "2grid", //1grid, 2grid, 3grid, 4grid
+            rowDisplay: "3grid", //1grid, 2grid, 3grid, 4grid
             dataFields: []
         }
     },

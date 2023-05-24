@@ -33,9 +33,13 @@
         <h3 class="mb-2">
             <center>{{ $t(title) }}</center>
         </h3>
+        <div class="sub_title" v-if="sub_title">
+            <center>{{ sub_title }}</center>
+        </div>
 
-        <vs-table v-if="dataTables.data && dataTables.data.length && dataAttributes.tableStyle == 1"
-            :max-items="dataTables.limit" :data="dataTables.data">
+        <!-- & dataTables.data.length -->
+        <vs-table v-if="dataTables.data && dataAttributes.tableStyle == 1" :max-items="dataTables.limit"
+            :data="dataTables.data">
             <template slot-scope="{data}">
                 <vs-tr style="background-color: #28C76F; color: #ffffff; font-weight: bold;">
                     <vs-td>{{ $t("no") }}</vs-td>
@@ -62,8 +66,9 @@
             </template>
         </vs-table>
 
-        <vs-table v-if="dataTables.data && dataTables.data.length && dataAttributes.tableStyle == 2"
-            :max-items="dataTables.limit" :data="dataTables.data">
+        <vs-table v-if="dataTables.data && dataAttributes.tableStyle == 2" :max-items="dataTables.limit"
+            :data="dataTables.data">
+
             <template slot="thead">
                 <vs-th style="background-color: #28C76F; color: #ffffff; font-weight: bold;">{{ $t("no") }}</vs-th>
                 <vs-th style="background-color: #28C76F; color: #ffffff; font-weight: bold;" :key="i"
@@ -81,46 +86,70 @@
                                     svgClasses="w-5 h-5 hover:text-primary stroke-current" /></center>
                         </td>
                     </vs-tr>
-                    <template v-if="getDocumentSize(ptr.children) > 0">
-                        <vs-tr :key="indextr" v-for="(tr, indextr) in ptr.children">
-                            <vs-td>{{ calPageIncreaseNumber(dataTables.limit, indextr) }}</vs-td>
-                            <vs-td v-for="header in dataHeaders" :key="header.indextr">
+                    <!-- <template v-if="getDocumentSize(ptr.children) > 0"> -->
+                    <vs-tr :key="indextr" v-for="(tr, indextr) in ptr.children">
+                        <vs-td>{{ calPageIncreaseNumber(dataTables.limit, indextr) }}</vs-td>
+                        <vs-td v-for="(value, name, index) in dataHeaders" :key="name.indextr">
+                            <!-- <vs-td v-for="header in dataHeaders" :key="header.indextr"> -->
+                            <!-- { tr[header] }} -->
+                            <template v-if="name == 'indicator'">
+                                <template v-if="tr[name].length > 0">
+                                    <div class="mb-2" :key="indexI" v-for="(dataRow, indexI) in tr[name]">
+                                        <vx-card>
+                                            {{ dataRow["code"] }}-{{ dataRow["kpi_name_kh"] }}
+                                        </vx-card>
+                                    </div>
+                                </template>
+                                <template v-else>
+                                    {{ $t("no_kpi") }}
+                                </template>
+                            </template>
+                            <template v-if="name != 'indicator'">
+                                {{ tr[value] }}
+                            </template>
+                            <!-- <span v-if="tr[header].data.length > 0"> -->
+                            <!-- <span v-if="getDocumentSize(tr[header].data) > 0">
+                                <div class="mb-2" :key="indexI" v-for="(dataRow, indexI) in tr[header].data">
+                                    <vx-card>
+                                        {{ dataRow["code"] }}-{{ dataRow["kpi_name_kh"] }}
+                                    </vx-card>
+                                </div>
+                            </span>
+                            <span v-else>
+                                <center>
+                                    {{ $t("msg_no_indicator") }}
+                                    <feather-icon style="cursor: pointer;" @click="openForm" icon="PlusIcon"
+                                        svgClasses="w-5 h-5 hover:text-primary stroke-current" />
+                                </center>
+                            </span> -->
+                            <!-- </span>
+                            <span v-else>
                                 {{ tr[header] }}
-                                <!-- <span v-if="tr[header].data">
-                                    <span v-if="getDocumentSize(tr[header].data) > 0">
-                                        <div class="mb-2" :key="indexI" v-for="(dataRow, indexI) in tr[header].data">
-                                            <vx-card>
-                                                {{ dataRow["code"] }}-{{ dataRow["kpi_name_kh"] }}
-                                            </vx-card>
-                                        </div>
-                                    </span>
-                                    <span v-else>
-                                        <center>
-                                            {{ $t("msg_no_indicator") }}
-                                            <feather-icon style="cursor: pointer;" @click="openForm" icon="PlusIcon"
-                                                svgClasses="w-5 h-5 hover:text-primary stroke-current" />
-                                        </center>
-                                    </span>
-                                </span>
-                                <span v-else>
-                                    {{ tr[header] }}
-                                </span> -->
-                            </vs-td>
-                            <vs-td>
-                                <feather-icon style="cursor: pointer;" icon="EditIcon"
-                                    svgClasses="w-5 h-5 hover:text-primary stroke-current" @click.stop="initEdit(tr)" />
-                                <feather-icon style="cursor: pointer;" v-if="allowDel" icon="TrashIcon"
-                                    svgClasses="w-5 h-5 hover:text-danger stroke-current" class="ml-2"
-                                    @click.stop="initDel(tr.id)" />
-                            </vs-td>
-                        </vs-tr>
-                    </template>
+                            </span> -->
+                        </vs-td>
+                        <vs-td>
+                            <template v-if="dataAttributes.actionButton">
+                                <template v-for="rowBtnAction in dataAttributes.actionButton">
+                                    <feather-icon v-if="rowBtnAction.allow" style="cursor: pointer;"
+                                        :icon="rowBtnAction.icon"
+                                        svgClasses="mr-2 w-5 h-5 hover:text-primary stroke-current"
+                                        @click.stop="initAction(tr, rowBtnAction.method)" />
+                                </template>
+                            </template>
+                            <!-- <feather-icon style="cursor: pointer;" icon="EditIcon"
+                                svgClasses="w-5 h-5 hover:text-primary stroke-current" @click.stop="initEdit(tr)" />
+                            <feather-icon style="cursor: pointer;" v-if="allowDel" icon="TrashIcon"
+                                svgClasses="w-5 h-5 hover:text-danger stroke-current" class="ml-2"
+                                @click.stop="initDel(tr.id)" /> -->
+                        </vs-td>
+                    </vs-tr>
+                    <!-- </template> -->
                 </tbody>
             </template>
         </vs-table>
 
-        <vs-table v-if="dataTables.data && dataTables.data.length && dataAttributes.tableStyle == 3"
-            :max-items="dataTables.limit" :data="dataTables.data" style="overflow: scroll">
+        <vs-table v-if="dataTables.data && dataAttributes.tableStyle == 3" :max-items="dataTables.limit"
+            :data="dataTables.data" style="overflow: scroll">
             <template slot-scope="{data}">
                 <vs-tr>
                     <vs-td :style="style(header)" :key="i" v-for="(header, i) in dataHeaders" :colspan="colspan(header)"
@@ -203,8 +232,8 @@
             </template>
         </vs-table>
 
-        <vs-table v-if="dataTables.data && dataTables.data.length && dataAttributes.tableStyle == 4"
-            :max-items="dataTables.limit" :data="dataTables.data" style="overflow: scroll">
+        <vs-table v-if="dataTables.data && dataAttributes.tableStyle == 4" :max-items="dataTables.limit"
+            :data="dataTables.data" style="overflow: scroll">
             <template slot-scope="{data}">
                 <vs-tr>
                     <vs-td :style="style(header)" :key="i" v-for="(header, i) in dataHeaders" :colspan="colspan(header)"
@@ -240,8 +269,8 @@
                         <vs-tr style="background: #b2ffd9">
                             <!-- <td></td> -->
                             <td>{{ row.name }}</td>
-                            <td>{{ row.responsible_entity.name }}</td>
-                            <td>{{ row.responsible_person.name }}</td>
+                            <td>{{ row.entity }}</td>
+                            <td>{{ row.entity_member }}</td>
                             <td>
                                 <!-- <center><feather-icon style="cursor: pointer;" @click="openForm" icon="PlusIcon"
                                         svgClasses="w-5 h-5 hover:text-primary stroke-current" /></center> -->
@@ -253,8 +282,8 @@
                             <vs-tr style="background-color: #f3edf5">
                                 <!-- <td></td> -->
                                 <td>{{ row.name }}</td>
-                                <td>{{ row.responsible_entity.name }}</td>
-                                <td>{{ row.responsible_person.name }}</td>
+                                <td>{{ row.entity }}</td>
+                                <td>{{ row.entity_member }}</td>
                                 <td>
                                     <!-- <center><feather-icon style="cursor: pointer;" @click="openForm" icon="PlusIcon"
                                             svgClasses="w-5 h-5 hover:text-primary stroke-current" /></center> -->
@@ -269,8 +298,8 @@
                                         <center><feather-icon style="cursor: pointer;" @click="openForm" icon="PlusIcon"
                                                 svgClasses="w-5 h-5 hover:text-primary stroke-current" /></center>
                                     </td>
-                                    <td>{{ row.responsible_entity.name }}</td>
-                                    <td>{{ row.responsible_person.name }}</td>
+                                    <td>{{ row.entity }}</td>
+                                    <td>{{ row.entity_member }}</td>
                                     <td>
                                         <center><feather-icon style="cursor: pointer;" @click="openForm" icon="PlusIcon"
                                                 svgClasses="w-5 h-5 hover:text-primary stroke-current" /></center>
@@ -281,8 +310,8 @@
                                     <vs-tr style="background-color: ">
                                         <!-- <td></td> -->
                                         <td>{{ row.name }}</td>
-                                        <td>{{ row.responsible_entity.name }}</td>
-                                        <td>{{ row.responsible_person.name }}</td>
+                                        <td>{{ row.entity }}</td>
+                                        <td>{{ row.entity_member }}</td>
                                         <td></td>
                                     </vs-tr>
                                 </template>
@@ -301,8 +330,8 @@
             </template>
         </vs-table>
 
-        <vs-table v-if="dataTables.data && dataTables.data.length && dataAttributes.tableStyle == 5"
-            :max-items="dataTables.limit" :data="dataTables.data" style="overflow: scroll">
+        <vs-table v-if="dataTables.data && dataAttributes.tableStyle == 5" :max-items="dataTables.limit"
+            :data="dataTables.data" style="overflow: scroll">
 
             <template slot-scope="{data}">
 
@@ -450,8 +479,8 @@
             </template>
         </vs-table>
 
-        <vs-table v-if="dataTables.data && dataTables.data.length && dataAttributes.tableStyle == 6"
-            :max-items="dataTables.limit" :data="dataTables.data" style="overflow: scroll">
+        <vs-table v-if="dataTables.data && dataAttributes.tableStyle == 6" :max-items="dataTables.limit"
+            :data="dataTables.data" style="overflow: scroll">
             <template slot-scope="{data}">
 
                 <vs-tr>
@@ -479,29 +508,30 @@
 
                 <tbody :key="pindextr" v-for="(ptr, pindextr) in data">
 
-                    <vs-tr :key="cindex" v-for="(cusField, cindex) in dataTables.group_fields" style="color: #f00;">
+                    <vs-tr :key="cindex" v-for="(cusField, cindex) in dataTables.group_fields"
+                        style="background-color: rgb(240 240 240);">
                         <td :key="scindex" v-for="(scfield, scindex) in ptr[cusField]">
                             <center>{{ scfield }}</center>
                         </td>
                     </vs-tr>
 
                     <template v-for="parent in ptr.children">
-                        <vs-tr>
+                        <vs-tr style="background-color: rgb(178, 255, 217);">
                             <vs-td :key="sindex" v-for="(dataField, sindex) in dataTables.dataFillables">
-                                <center>{{ parent[dataField] }} </center>
+                                {{ parent[dataField] }}
                             </vs-td>
                         </vs-tr>
 
                         <template v-for="child in parent.children">
-                            <vs-tr>
+                            <vs-tr style="background-color: rgb(255, 253, 229);">
                                 <vs-td :key="sindex" v-for="(dataField, sindex) in dataTables.dataFillables">
-                                    <center>{{ child[dataField] }} </center>
+                                    {{ child[dataField] }}
                                 </vs-td>
                             </vs-tr>
 
                             <vs-tr :key="sindex" v-for="(schild, sindex) in child.children">
                                 <vs-td :key="sindex" v-for="(dataField, sindex) in dataTables.dataFillables">
-                                    <center>{{ schild[dataField] }} </center>
+                                    {{ schild[dataField] }}
                                 </vs-td>
                             </vs-tr>
                         </template>
@@ -510,8 +540,8 @@
             </template>
         </vs-table>
 
-        <vs-table v-if="dataTables.data && dataTables.data.length && dataAttributes.tableStyle == 7"
-            :max-items="dataTables.limit" :data="dataTables.data" style="overflow: scroll">
+        <vs-table v-if="dataTables.data && dataAttributes.tableStyle == 7" :max-items="dataTables.limit"
+            :data="dataTables.data" style="overflow: scroll">
             <template slot-scope="{data}">
                 <vs-tr>
                     <vs-td :style="style(header)" :key="i" v-for="(header, i) in dataHeaders" :colspan="colspan(header)"
@@ -573,8 +603,8 @@
         </vs-table>
 
         <!-- Income Form -->
-        <vs-table v-if="dataTables.data && dataTables.data.length && dataAttributes.tableStyle == 8"
-            :max-items="dataTables.limit" :data="dataTables.data" style="overflow: scroll">
+        <vs-table v-if="dataTables.data && dataAttributes.tableStyle == 8" :max-items="dataTables.limit"
+            :data="dataTables.data" style="overflow: scroll">
             <template slot-scope="{data}">
 
                 <vs-tr>
@@ -795,8 +825,8 @@
         </vs-table>
 
         <!-- Expense Form  -->
-        <vs-table v-if="dataTables.data && dataTables.data.length && dataAttributes.tableStyle == 9"
-            :max-items="dataTables.limit" :data="dataTables.data" style="overflow: scroll">
+        <vs-table v-if="dataTables.data && dataAttributes.tableStyle == 9" :max-items="dataTables.limit"
+            :data="dataTables.data" style="overflow: scroll">
             <template slot-scope="{data}">
 
                 <vs-tr>
@@ -961,8 +991,8 @@
             </template>
         </vs-table>
 
-        <vs-table v-if="dataTables.data && dataTables.data.length && dataAttributes.tableStyle == 10"
-            :max-items="dataTables.limit" :data="dataTables.data" style="overflow: scroll">
+        <vs-table v-if="dataTables.data && dataAttributes.tableStyle == 10" :max-items="dataTables.limit"
+            :data="dataTables.data" style="overflow: scroll">
             <template slot-scope="{data}">
                 <vs-tr>
                     <vs-td :style="style(header)" :key="i" v-for="(header, i) in dataHeaders" :colspan="colspan(header)"
@@ -1063,7 +1093,6 @@
             </template>
         </vs-table>
 
-
         <div class="my-5">
             <vs-pagination :total="calPaginNumber(dataTables.total / dataTables.limit)"
                 v-model="current_page"></vs-pagination>
@@ -1114,7 +1143,7 @@ export default {
             currentx: 0,
             current_page: 1,
             dataId: 0,
-            // Remove Data Info Obj just for testing 
+            // Remove Data Info Obj just for testing
             dataInfo: {
                 indicator: {
                     data: {
@@ -1269,7 +1298,25 @@ export default {
         },
 
         initAction(data, method) {
-            this.$refs.refModalForm.initForm(data);
+            if (method == "View") {
+                this.$refs.refModalForm.initForm(data);
+            }
+            if (method == "Edit") {
+                this.$refs.refModalForm.initForm(data);
+            }
+            if (method == "Delete") {
+                this.dataId = data.id;
+                this.$vs.dialog({
+                    type: 'confirm',
+                    color: 'danger',
+                    title: `Confirm`,
+                    text: 'តើអ្នកពិតជាចង់ធ្វើការលុបទិន្នន័យនេះជារៀងរហូត?',
+                    accept: this.acceptAlert
+                })
+            }
+            if (method == "Indicator") {
+                this.$refs.refModalForm.initForm(data);
+            }
         }
 
     },

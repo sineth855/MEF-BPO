@@ -31,19 +31,6 @@
                         icon-inc="expand_less" icon-dec="expand_more" class="w-full" />
                 </div>
 
-                <!-- <div v-if="formAttribute.type == 'select'" :class="styleClass" dclass="mt-4">
-                    <label class="mb-2">{{ $t(formAttribute.name) }}</label>
-                    <span v-if="formAttribute.required">
-                        <v-select :name="formAttribute.name" v-model="form.attribute[formAttribute.name]" :options="formAttribute.options" :dir="$vs.rtl ? 'rtl' : 'ltr'"
-                            v-validate="'required'" />
-                        <span class="text-danger text-sm" v-show="errors.has(formAttribute.name)">{{ $t("required_"+formAttribute.name)
-                        }}</span>
-                    </span>
-                    <span v-else>
-                        <v-select v-model="form.attribute[formAttribute.name]" @v-blur="onChange($event)" :options="formAttribute.options" :clearable="false" :dir="$vs.rtl ? 'rtl' : 'ltr'" class="w-full"></v-select>
-                    </span>
-                </div> -->
-
                 <div v-if="formAttribute.type == 'select'" :class="styleClass" dclass="mt-4">
                     <label class="mb-2">{{ $t(formAttribute.name) }}</label>
                     <span v-if="formAttribute.required">
@@ -252,10 +239,7 @@
                     }}</span></div>
                     <!-- </vs-alert> -->
                 </div>
-
             </template>
-
-
         </div>
         <span class="pull-right">
             <vs-button type="filled" @click.prevent="submitForm" class="mt-5 block">{{ $t("btn_save") }}</vs-button>
@@ -342,8 +326,6 @@ export default {
             // for (let i = 0; i < _formAttribute.length; i++) {
             //     this.form.attribute[_formAttribute[i]["name"]] = data[_formAttribute[i]["name"]];// "I got all";
             // }
-            // alert("test");
-            console.log("form attribute", this.formAttributes);
             this.formAttributes.forEach(_formAttribute => {
                 if (_formAttribute["type"] == "select") {
                     this.form.attribute[_formAttribute["name"]] = data[_formAttribute["name"]];

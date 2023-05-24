@@ -1,14 +1,16 @@
 <?php
 
 namespace App\Models\Modules\BudgetArrangement;
-
+use App\Models\Modules\Settings\AccountGroup;
+use App\Models\Modules\Settings\Account;
 use Illuminate\Database\Eloquent\Model;
 
-class PBExpense extends Model
+class PBExpenditure extends Model
 {
-  protected $table = 'mef_expense';
+  protected $table = 'mef_expenditure';
   protected $fillable = [
                           'planning_id',
+                          'entity_id',
                           'account_group_id',
                           'account_id',
                           'sub_account_id',
@@ -30,10 +32,41 @@ class PBExpense extends Model
                           'description_inc_dec',
                           'is_delete',
                           'created_by',
-                          'modified_by',
-                          'created_at',
-                          'updated_at'
+                          'modified_by'
                         ];
                         
   public $timestamps = true;
+
+  public static function getSumaryExpeditures($filters){
+
+  }
+
+  public static function getExpenditures($filters){
+    $accGroupArr = array();
+    $queryAccountGroups = AccountGroup::where("group", 2)->orderBy("order_level")->get();
+    foreach($queryAccountGroups as $accGroup){
+      $accArr = array();
+      $accGroupId = $accGroup->id;
+      $queryAccounts = Account::where("account_group_id", $accGroupId)->orderBy("order_level")->get();
+      foreach($queryAccounts as $acc){
+        $subAccArr = array();
+        $accId = $acc->id;
+        $querySubAccounts = Account::where("parent_id", $accId)->orderBy("order_level")->get();
+        foreach($querySubAccounts as $subAcc){
+          $subAccArr[] = array(
+            "code" => ""
+          );
+        }
+        $accArr[] = array(
+          "code" => ""
+        );
+      }
+      $accGroupArr[] = array(
+        "code" => ""
+      );
+    }
+
+    return $accGroupArr;
+  }
+
 }

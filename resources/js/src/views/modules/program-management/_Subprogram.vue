@@ -23,14 +23,33 @@ export default {
                 page_number: 1,
                 offset: 0,
                 dataGrid: "row",
-                hasIndicator: true,
+                hasIndicatorSubPro: true,
                 allowDel: true,
                 actionButton: [
                     {
                         icon: "ListIcon",
-                        path: "/module/budget-arrangement/budget-ceiling/list",
-                        method: "View"
-                    }
+                        path: "#",
+                        method: "Indicator",
+                        allow: true
+                    },
+                    {
+                        icon: "ViewIcon",
+                        path: "#",
+                        method: "View",
+                        allow: true
+                    },
+                    {
+                        icon: "EditIcon",
+                        path: "#",
+                        method: "Edit",
+                        allow: true
+                    },
+                    {
+                        icon: "TrashIcon",
+                        path: "#",
+                        method: "Delete",
+                        allow: true
+                    },
                 ]
             },
             dataHeaders: {
@@ -39,7 +58,7 @@ export default {
                 header2: "name_en",
                 header3: "name_kh",
                 // header4: "program",
-                // header5: "indicator",
+                indicator: "indicator",
                 header6: "entity",
                 header7: "entity_member",
                 header8: "order_level"
@@ -258,8 +277,6 @@ export default {
                         } else {
                             this.data = this.data;
                         }
-                        console.log("data sub program", response.data);
-                        console.log("data sub program2", this.data);
                         // this.data = this.data;
                         this.$vs.loading.close();
                     }).catch((error) => {

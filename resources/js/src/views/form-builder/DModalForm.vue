@@ -4,14 +4,19 @@
             :active.sync="showModalForm">
             <d-form @clickForm="initTableData" ref="refModalForm" :data="data" :dataInfo="dataInfo"
                 :formAttributes="formAttributes" :api="api" :rowDisplay="rowDisplay"></d-form>
-            <d-indicator v-if="dataAttributes.hasIndicator" :dataInfo="dataInfo"
-                :dataAttributes="dataAttributes"></d-indicator>
+            <!-- <d-indicator v-if="dataAttributes.hasIndicatorSubPro" :dataInfo="dataInfo"
+                :dataAttributes="dataAttributes"></d-indicator> -->
+            <modal-indicator-sub-program v-if="dataAttributes.hasIndicatorSubPro" :dataInfo="dataInfo"
+                ref="refInitRequest"></modal-indicator-sub-program>
         </vs-popup>
+
         <vs-popup v-else classContent="popup-example" :title="title" :active.sync="showModalForm">
             <d-form @clickForm="initTableData" ref="refModalForm" :data="data" :dataInfo="dataInfo"
                 :formAttributes="formAttributes" :api="api" :rowDisplay="rowDisplay"></d-form>
-            <d-indicator v-if="dataAttributes.hasIndicator" :dataInfo="dataInfo"
-                :dataAttributes="dataAttributes"></d-indicator>
+            <!-- <d-indicator v-if="dataAttributes.hasIndicator" :dataInfo="dataInfo"
+                :dataAttributes="dataAttributes"></d-indicator> -->
+            <modal-indicator-sub-program v-if="dataAttributes.hasIndicatorSubPro" :dataInfo="dataInfo"
+                ref="refInitRequest"></modal-indicator-sub-program>
         </vs-popup>
     </div>
 </template>
@@ -21,6 +26,7 @@ import apiConfig from "@/apiConfig.js"
 import DForm from '@/views/form-builder/DForm.vue'
 import { ref } from 'vue';
 import DIndicator from '@/views/form-builder/DIndicator.vue';
+import ModalIndicatorSubProgram from '@/views/modules/program-management/indicator/_modal_indicator_subprogram.vue';
 
 export default {
     props: {
@@ -39,7 +45,7 @@ export default {
             required: true,
         }
     },
-    components: { DForm, DIndicator },
+    components: { DForm, ModalIndicatorSubProgram },
     data() {
         return {
             showModalForm: false,
@@ -68,6 +74,7 @@ export default {
             this.dataInfo = data;
             console.log("Edit", this.dataInfo);
             this.$refs.refModalForm.showDataForm(data);
+            this.$refs.refInitRequest.showRequestData(data);
         },
         initTableData() {
             this.$emit('clicked');

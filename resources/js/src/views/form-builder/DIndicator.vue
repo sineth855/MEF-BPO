@@ -1,23 +1,34 @@
  <!-- ###### If data attribute has indicator mean can be able to allow create form data  -->
 <template>
-    <div class="mt-6">
+    <div class="mt-6" v-if="dataInfo.indicator.data">
         <h3>{{ $t("indicator") }}</h3>
         <!-- ADD NEW -->
+        <vs-popup v-if="dataAttributes.popupFullscreen" fullscreen classContent="popup-example" :title="title"
+            :active.sync="showModalForm">
+            <d-form @clickForm="initTableData" ref="refModalForm" :data="data" :dataInfo="dataInfo"
+                :formAttributes="formAttributes" :api="api" :rowDisplay="rowDisplay"></d-form>\
+        </vs-popup>
+        <vs-popup v-else classContent="popup-example" :title="title" :active.sync="showModalForm">
+            <d-form @clickForm="initTableData" ref="refModalForm" :data="data" :dataInfo="dataInfo"
+                :formAttributes="formAttributes" :api="api" :rowDisplay="rowDisplay"></d-form>\
+        </vs-popup>
+
         <div v-if="!dataInfo.indicator || dataInfo.indicator"
             class="flex flex-wrap-reverse items-center data-list-btn-container">
             <div class="btn-add-new p-3 mb-4 mr-4 rounded-lg cursor-pointer flex items-center justify-center text-lg font-medium text-base text-primary border border-solid border-primary"
-                @click="openIndicatorForm">
+                @click="openForm">
                 <feather-icon icon="PlusIcon" svgClasses="h-4 w-4" />
                 <span class="ml-2 text-base text-primary">{{ $t("AddNew") }}</span>
             </div>
         </div>
 
-        <template v-if="showIndicatorForm">
+        <!-- <template v-if="showIndicatorForm">
             <d-form @clickForm="initTableData" ref="refModalForm" :data="data" :dataInfo="dataInfo"
                 :formAttributes="formAttributes" :api="api" :rowDisplay="rowDisplay"></d-form>
-        </template>
+        </template> -->
 
-        <vs-table v-if="dataInfo.indicator" :data="dataInfo.indicator.data">
+        <!-- <vs-table v-if="dataInfo.indicator" :data="dataInfo.indicator.data"> -->
+        <vs-table>
             <template slot="thead">
                 <vs-th style="background-color: #28C76F; color: #ffffff; font-weight: bold;">{{ $t("no") }}</vs-th>
                 <vs-th style="background-color: #28C76F; color: #ffffff; font-weight: bold;" :key="i"
@@ -25,7 +36,6 @@
                 <vs-th style="background-color: #28C76F; color: #ffffff; font-weight: bold;">{{ $t("Action") }}</vs-th>
             </template>
             <template slot-scope="{data}" v-if="dataInfo.indicator.data.length > 0">
-
                 <template>
                     <vs-tr :key="indextr" v-for="(tr, indextr) in data">
                         <vs-td>{{ indextr + 1 }}</vs-td>
@@ -45,17 +55,15 @@
                         </vs-td>
                     </vs-tr>
                 </template>
-
-            <!-- <vs-tr>
+                <!-- <vs-tr>
                     <vs-td :colspan="(Object.keys(data[0]).length)"></vs-td>
                     <vs-td>
                         <feather-icon style="cursor: pointer;" icon="PlusIcon" @click="addRow()"
                             svgClasses="mr-2 w-5 h-5 hover:text-primary stroke-current" /> {{ $t("button_add_more") }}
                     </vs-td>
-                            </vs-tr> -->
-
+                </vs-tr> -->
             </template>
-        <!-- <template v-else>
+            <!-- <template v-else>
                 <vs-tr>
                     <vs-td :colspan="(Object.keys(data[0]).length)"></vs-td>
                     <vs-td>
@@ -63,7 +71,7 @@
                             svgClasses="mr-2 w-5 h-5 hover:text-primary stroke-current" /> {{ $t("button_add_more") }}
                     </vs-td>
                 </vs-tr>
-                        </template> -->
+            </template> -->
         </vs-table>
     </div>
 </template>
@@ -86,7 +94,7 @@ export default {
     data() {
         return {
             title: "inidicator",
-            api: apiConfig._apiIndicator,
+            api: apiConfig._apiIndicatorSubPro,
             dataHeaders: {
                 header1: "code",
                 header2: "kpi_name_en",
@@ -94,6 +102,7 @@ export default {
                 header4: "order_level",
                 header5: "status"
             },
+            showModalForm: false,
             data: {
                 data: [{}],
                 limit: 10,
@@ -143,7 +152,8 @@ export default {
             this.showIndicatorForm = true;
         },
         openForm() {
-            this.$refs.refModalForm.openNewForm();
+            this.showModalForm = true;
+            // this.$refs.refModalForm.openNewForm();
             this.$emit("emitDataForm", "test change form attribute");
         },
         getDataTable(_search_criteria) {

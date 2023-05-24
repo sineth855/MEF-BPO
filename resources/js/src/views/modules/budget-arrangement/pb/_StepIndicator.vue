@@ -4,81 +4,6 @@
     <d-table-list @clicked="initTableData" :api="api" ref="refInitPage" :allowDel="true" :title="title"
       :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data" :formAttributes="formAttributes"
       :rowDisplay="rowDisplay"></d-table-list>
-
-      <!-- <vs-table :data="[]" style="overflow: scroll">
-      
-        <template slot="thead">
-          <vs-th>កូដកម្មវិធី</vs-th>
-          <vs-th :rowspan="3">សេចក្ដីពណ៌នា</vs-th>
-          <vs-th>កូដសូចនាករ</vs-th>
-          <vs-th>គម្រោងថវិកា<br />ឆ្នាំ២០២៣<br />(លានរៀល)</vs-th>
-          <vs-th>គោលដៅសូចនាករសមិទ្ធកម្ម</vs-th>
-          <vs-th></vs-th>
-          <vs-th></vs-th>
-          <vs-th></vs-th>
-          <vs-th></vs-th>
-        </template>
-      
-        <vs-tr :state="'warning'">
-          <vs-td></vs-td>
-          <vs-td></vs-td>
-          <vs-td></vs-td>
-          <vs-td>ឆ្នាំមុន-២០២១(អនុវត្តរួច)</vs-td>
-          <vs-td>ឆ្នាំបច្ចុប្បន្ន-២០២២(កំពុងអនុវត្ត)</vs-td>
-          <vs-td>ឆ្នាំគ្រោងថវិកា-២០២៣</vs-td>
-          <vs-td>ឆ្នាំគ្រោងថវិកា​២០២៤</vs-td>
-          <vs-td>ឆ្នាំគ្រោងថវិកា​២០២៥</vs-td>
-          <vs-td></vs-td>
-        </vs-tr>
-      
-        <vs-tr :state="'warning'">
-          <vs-td></vs-td>
-          <vs-td></vs-td>
-          <vs-td></vs-td>
-          <vs-td></vs-td>
-          <vs-td></vs-td>
-          <vs-td>គោលដៅ</vs-td>
-          <vs-td>មូលហេតុផ្លាស់ប្ដូរ (ធៀបឆ្នាំ២០២២)</vs-td>
-          <vs-td></vs-td>
-          <vs-td></vs-td>
-        </vs-tr>
-      
-        <vs-tr :state="'primary'">
-          <vs-td></vs-td>
-          <vs-td>១.១. អនុកម្មវិធីទី១.១ : ការគ្រប់គ្រងគោលនយោបាយសេដ្ឋកិច្ច ហិរញ្ញវត្ថុ និងគោលនយោបាយតាមវិស័យផ្សេងៗ</vs-td>
-          <vs-td></vs-td>
-          <vs-td>0.0</vs-td>
-          <vs-td></vs-td>
-          <vs-th></vs-th>
-          <vs-th></vs-th>
-          <vs-th></vs-th>
-          <vs-th></vs-th>
-        </vs-tr>
-      
-        <vs-tr>
-          <vs-td></vs-td>
-          <vs-td>-សូចនាករទី១ : ... </vs-td>
-          <vs-td>PI-1011</vs-td>
-          <vs-td></vs-td>
-          <vs-td></vs-td>
-          <vs-th></vs-th>
-          <vs-th></vs-th>
-          <vs-th></vs-th>
-          <vs-th></vs-th>
-        </vs-tr>
-      
-        <vs-tr>
-          <vs-td></vs-td>
-          <vs-td>-សូចនាករទី២ : ... </vs-td>
-          <vs-td>PI-1011</vs-td>
-          <vs-td></vs-td>
-          <vs-td></vs-td>
-          <vs-th></vs-th>
-          <vs-th></vs-th>
-          <vs-th></vs-th>
-          <vs-th></vs-th>
-        </vs-tr>
-      </vs-table> -->
   </div>
 </template>
 
@@ -87,7 +12,6 @@ import axios from "@/axios.js"
 import apiConfig from "@/apiConfig.js"
 import { ref } from 'vue';
 import DTableList from '@/views/form-builder/DTableList.vue'
-
 
 export default {
   data() {
@@ -174,7 +98,7 @@ export default {
             status: 1,
             order_level: "",
             implementing_year: "",
-            current_year: "",            
+            current_year: "",
             children: [
               {
                 name: "សូចនាករទី១",
@@ -300,7 +224,7 @@ export default {
           page_number: _search_criteria.page_number,
           search_field: this.dataFields,
         };
-      }else{
+      } else {
         _params = {
           sort: _search_criteria.sort,
           order: _search_criteria.order,
@@ -310,14 +234,14 @@ export default {
 
       return new Promise((resolve, reject) => {
         axios.post(this.api + "/search", _params)
-        .then((response) => {
-          // this.data = response.data;
-          this.data = this.data;
-          this.$vs.loading.close();
-        }).catch((error) => {
-          // reject(error)
-          this.$vs.loading.close();
-        })
+          .then((response) => {
+            // this.data = response.data;
+            this.data = this.data;
+            this.$vs.loading.close();
+          }).catch((error) => {
+            // reject(error)
+            this.$vs.loading.close();
+          })
       })
     },
     getData() {

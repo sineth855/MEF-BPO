@@ -1,8 +1,7 @@
 <template>
   <div>
     <vx-card title="" code-toggler>
-      <component :is="selectedComponent3"></component>
-      <!-- <step-indicator></step-indicator> -->
+      <step-indicator></step-indicator>
       <div class="mt-5">
         <form-wizard color="rgba(var(--vs-primary), 1)" errorColor="rgba(var(--vs-danger), 1)" :title="null"
           :subtitle="null" finishButtonText="Submit">
@@ -13,35 +12,31 @@
             <vx-card :title="$t('bsp_text_budget_strategy_plan')" code-toggler>
               <div class="mt-5">
                 <vs-collapse>
-                  <vs-collapse-item @click.native="() => selectedComponent(1, 'StepSubprogram')">
+                  <vs-collapse-item>
                     <div slot="header" style="color: #fff; background-color:#28c76f; padding: 10px;">{{
                       $t("bsp_text_subprogram") }}</div>
-                    <!-- <step-subprogram v-if="showSubPro"></step-subprogram> -->
-                    <component :is="selectedComponent1" ref="ref"></component>
+                    <step-subprogram></step-subprogram>
                   </vs-collapse-item>
 
-                  <vs-collapse-item @click="() => selectedComponent(2, 'StepIndicator')">
+                  <vs-collapse-item>
                     <div slot="header" style="color: #fff; background-color:#C0C9C4; padding: 10px;">
                       {{ $t("bsp_text_define_indicator") }}</div>
-                    <component :is="selectedComponent2"></component>
-                    <!-- <step-indicator v-if="showIndicator"></step-indicator> -->
+                    <step-indicator></step-indicator>
                   </vs-collapse-item>
 
-                  <vs-collapse-item _disabled @click="() => selectedComponent(3, 'StepIncomePlan')">
+                  <vs-collapse-item _disabled>
                     <div slot="header" style="color: #fff; background-color:#C0C9C4; padding: 10px;">
                       {{ $t("bsp_text_income_plan") }}</div>
                     <!-- ###################### -->
-                    <component :is="selectedComponent3"></component>
-                    <!-- <step-income-plan v-if="showIncomePlan"></step-income-plan> -->
+                    <step-income-plan></step-income-plan>
                     <!-- ###################### -->
                   </vs-collapse-item>
 
-                  <vs-collapse-item @click="() => selectedComponent(4, 'StepExpenseDemand')">
+                  <vs-collapse-item>
                     <div slot="header" style="color: #fff; background-color:#C0C9C4; padding: 10px;">
                       {{ $t("bsp_text_expense_demand") }}</div>
                     <!-- ###################### -->
-                    <component :is="selectedComponent4"></component>
-                    <!-- <step-expense-demand v-if="showExpense"></step-expense-demand> -->
+                    <step-expense-demand></step-expense-demand>
                     <!-- ###################### -->
                   </vs-collapse-item>
                 </vs-collapse>
@@ -50,6 +45,37 @@
           </tab-content>
 
           <!-- tab 2 content -->
+          <!-- <tab-content title="រៀបចំកញ្ចប់ថវិកា" class="mb-5" icon="feather icon-briefcase" :before-change="validateStep2">
+            <vs-collapse>
+              <vs-collapse-item>
+                <div slot="header" style="color: #fff; background-color:#C0C9C4; padding: 10px;">
+                  <vs-alert color="primary" icon="new_releases" active="true" class="mt-5">
+                  គម្រោងថវិកាចំណាយតាមចំណាត់ថ្នាក់សេដ្ឋកិច្ច
+                  </vs-alert>
+                </div>
+                <step-economic-exppb></step-economic-exppb>
+              </vs-collapse-item>
+
+              <vs-collapse-item>
+                <div slot="header" style="color: #fff; background-color:#C0C9C4; padding: 10px;">គោលបំណង
+                  និងការទទួលខុសត្រូវលើអនុកម្មវិធី សង្កោមសកម្មភាព និងសកម្មភាព</div>
+                <step-objective-sub-program></step-objective-sub-program>
+              </vs-collapse-item>
+
+              <vs-collapse-item _disabled>
+                <div slot="header" style="color: #fff; background-color:#C0C9C4; padding: 10px;">វឌ្ឍនភាពសូចនាករ
+                  និងគោលដៅសូចនាករនៃកម្មវិធី សង្កោមសកម្មភាព និងសកម្មភាព</div>
+                <step-KPI-progress></step-KPI-progress>
+              </vs-collapse-item>
+
+              <vs-collapse-item>
+                <div slot="header" style="color: #fff; background-color:#C0C9C4; padding: 10px;">សូចនាករ និងគោលដៅសូចនាករ</div>
+                <step-KPI></step-KPI>
+              </vs-collapse-item>
+            </vs-collapse>
+          </tab-content> -->
+
+          <!-- tab 3 content -->
           <tab-content :title="$t('bsp_text_printing')" class="mb-5" icon="feather icon-image"
             :before-change="validateStep3">
             <vs-navbar text-color="rgba(255,255,255,.6)" active-text-color="rgba(255,255,255,1)" :type="type"
@@ -181,14 +207,6 @@ export default {
     return {
       type: "",
       activeItem: true,
-      showSubPro: false,
-      showIndicator: false,
-      showIncomePlan: false,
-      showExpense: false,
-      selectedComponent1: 'StepSubprogram',
-      selectedComponent2: 'StepIndicator',
-      selectedComponent3: 'StepIncomePlan',
-      selectedComponent4: 'StepExpenseDemand',
       firstName: "",
       lastName: "",
       email: "",
@@ -219,21 +237,6 @@ export default {
     }
   },
   methods: {
-    selectedComponent(index, component) {
-      if (index == 1) {
-        this.$refs.ref.getRequestData();
-        this.selectedComponent1 = component;
-      }
-      if (index == 2) {
-        this.selectedComponent2 = component;
-      }
-      if (index == 3) {
-        this.selectedComponent3 = component;
-      }
-      if (index == 4) {
-        this.selectedComponent4 = component;
-      }
-    },
     validateStep1() {
       return new Promise((resolve, reject) => {
         this.$validator.validateAll('step-1').then(result => {
