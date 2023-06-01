@@ -227,12 +227,18 @@ export default {
                     name: "program_id",
                     type: "select",
                     required: true,
+                    hasFilter: true,
+                    filterObj: "sub_program_id",
+                    api: apiConfig._apiSubProgramByPro,
                     options: []
                 },
                 {
                     name: "sub_program_id",
                     type: "select",
                     required: true,
+                    hasFilter: true,
+                    filterObj: "cluster_activity_id",
+                    api: apiConfig._apiSubProgramByPro,
                     options: []
                 },
                 {

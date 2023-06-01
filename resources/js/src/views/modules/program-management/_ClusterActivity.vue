@@ -18,10 +18,26 @@ export default {
             api: apiConfig._apiClusterActivity,
             dataAttributes: {
                 backgroundColor: "warning",
+                popupFullscreen: true,
                 tableStyle: 2,
                 page_number: 1,
                 offset: 0,
                 dataGrid: "row",
+                allowDel: false,
+                actionButton: [
+                    {
+                        icon: "ViewIcon",
+                        path: "#",
+                        method: "View",
+                        allow: true
+                    },
+                    {
+                        icon: "EditIcon",
+                        path: "#",
+                        method: "Edit",
+                        allow: true
+                    },
+                ]
             },
             dataHeaders: {
                 header1: "code",
@@ -173,31 +189,16 @@ export default {
                     name: "entity_id",
                     type: "select",
                     required: true,
-                    options: [
-                        {
-                            "label": "អង្គភាពទី១",
-                            "value": 1,
-                        },
-                        {
-                            "label": "អង្គភាពទី២",
-                            "value": 2,
-                        }
-                    ],
+                    hasFilter: true,
+                    filterObj: "entity_member_id",
+                    api: apiConfig._apiMemberByEntity,
+                    options: [],
                 },
                 {
                     name: "entity_member_id",
                     type: "select",
                     required: true,
-                    options: [
-                        {
-                            "label": "បុគ្គលទី១",
-                            "value": 1,
-                        },
-                        {
-                            "label": "បុគ្គលទី២",
-                            "value": 2,
-                        }
-                    ],
+                    options: [],
                 },
                 {
                     name: "order_level",

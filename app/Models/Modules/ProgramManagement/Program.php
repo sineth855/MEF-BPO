@@ -7,6 +7,7 @@ use App\Models\Modules\ProgramManagement\Objective;
 use App\Models\Modules\ProgramManagement\SubProgram;
 use App\Models\Settings\Entity;
 use App\Models\Settings\EntityMember;
+use DB;
 
 class Program extends Model
 {
@@ -118,8 +119,11 @@ class Program extends Model
         if (array_key_exists('code', $dataFields)) {
           $whereClausePro->Where("id", $dataFields["code"]);
         }
+        if (array_key_exists('program_id', $dataFields)) {
+          $whereClausePro->Where("id", $dataFields["program_id"]["value"]);
+        }
         if (array_key_exists('entity_id', $dataFields)) {
-          $whereClausePro->Where("id", $dataFields["entity_id"]["value"]);
+          $whereClausePro->Where("entity_id", $dataFields["entity_id"]["value"]);
         }
         if (array_key_exists('name_en', $dataFields)) {
           $whereClausePro->Where("name_en", "Like", "%".$dataFields["name_en"]."%");
@@ -134,13 +138,24 @@ class Program extends Model
         $cdata[] = array(
           'id' => $crow->id,
           'code' => $crow->code,
-          'objective_id' => $crow->objective_id,
+          'objective' => $row->name_kh,
+          'objective_id' => array(
+            "label" => $row->name_kh,
+            "value" => $row->id,
+          ),
+          //$crow->objective_id,
           'name_en' => $crow->name_en,
           'name_kh' => $crow->name_kh,
           'entity' => isset($crow->Entity)?$crow->Entity->name_kh:"",
-          'entity_id' => $crow->entity_id,
-          'entity_member_id' => $crow->entity_member_id,
-          'entity_member' => isset($crow->EntityMember)?$crow->EntityMember->name_kh:"",
+          'entity_id' => array(
+            "label" => isset($crow->Entity)?$crow->Entity->code."-".$crow->Entity->name_kh:"",
+            "value" => isset($crow->Entity)?$crow->Entity->id:"",
+          ),
+          'entity_member' => isset($crow->EntityMember)?$crow->EntityMember->fullname:"",
+          'entity_member_id' => array(
+            "label" => isset($crow->EntityMember)?$crow->EntityMember->fullname:"",
+            "value" => isset($crow->EntityMember)?$crow->EntityMember->id:"",
+          ),
           'remark' => $crow->remark,
           'order_level' => $crow->order_level,
         );
@@ -150,6 +165,10 @@ class Program extends Model
         'code' => $row->code,
         'name_en' => $row->name_en,
         'name_kh' => $row->name_kh,
+        'objective_id' => array(
+          "label" => $row->name_kh,
+          "value" => $row->id
+        ),
         'field' => 'objective_id',
         // 'remark' => $row->remark,
         // 'order_level' => $row->order_level,

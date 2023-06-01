@@ -7,31 +7,51 @@
         <form-wizard color="rgba(var(--vs-primary), 1)" errorColor="rgba(var(--vs-danger), 1)" :title="null"
           :subtitle="null" finishButtonText="Submit">
           <!-- Tab 1  -->
-          <tab-content :title="$t('bsp_text_subprogram')" class="mb-5" icon="feather icon-home"
-            :before-change="validateStep2">
-            <step-subprogram></step-subprogram>
+          <tab-content :title="$t('bsp_prepare_budget_strategy_plan')" class="mb-5" icon="feather icon-home"
+            :before-change="validateStep1">
+            <!-- tab 1 content -->
+            <vx-card :title="$t('bsp_text_budget_strategy_plan')" code-toggler>
+              <div class="mt-5">
+                <vs-collapse>
+                  <vs-collapse-item @click.native="() => selectedComponent(1, 'StepSubprogram')">
+                    <div slot="header" style="color: #fff; background-color:#28c76f; padding: 10px;">{{
+                      $t("bsp_text_subprogram") }}</div>
+                    <!-- <step-subprogram v-if="showSubPro"></step-subprogram> -->
+                    <component :is="selectedComponent1" ref="ref"></component>
+                  </vs-collapse-item>
+
+                  <vs-collapse-item @click="() => selectedComponent(2, 'StepIndicator')">
+                    <div slot="header" style="color: #fff; background-color:#C0C9C4; padding: 10px;">
+                      {{ $t("bsp_text_define_indicator") }}</div>
+                    <component :is="selectedComponent2"></component>
+                    <!-- <step-indicator v-if="showIndicator"></step-indicator> -->
+                  </vs-collapse-item>
+
+                  <vs-collapse-item _disabled @click="() => selectedComponent(3, 'StepIncomePlan')">
+                    <div slot="header" style="color: #fff; background-color:#C0C9C4; padding: 10px;">
+                      {{ $t("bsp_text_income_plan") }}</div>
+                    <!-- ###################### -->
+                    <component :is="selectedComponent3"></component>
+                    <!-- <step-income-plan v-if="showIncomePlan"></step-income-plan> -->
+                    <!-- ###################### -->
+                  </vs-collapse-item>
+
+                  <vs-collapse-item @click="() => selectedComponent(4, 'StepExpenseDemand')">
+                    <div slot="header" style="color: #fff; background-color:#C0C9C4; padding: 10px;">
+                      {{ $t("bsp_text_expense_demand") }}</div>
+                    <!-- ###################### -->
+                    <component :is="selectedComponent4"></component>
+                    <!-- <step-expense-demand v-if="showExpense"></step-expense-demand> -->
+                    <!-- ###################### -->
+                  </vs-collapse-item>
+                </vs-collapse>
+              </div>
+            </vx-card>
           </tab-content>
 
-          <!-- Tab 2  -->
-          <tab-content :title="$t('bsp_text_define_indicator')" class="mb-5" icon="feather icon-home"
+          <!-- tab 2 content -->
+          <tab-content :title="$t('bsp_text_printing')" class="mb-5" icon="feather icon-image"
             :before-change="validateStep3">
-            <step-indicator ref="refInitCalRequestIndicator"></step-indicator>
-          </tab-content>
-
-          <!-- Tab 3  -->
-          <tab-content :title="$t('bsp_text_income_plan')" class="mb-5" icon="feather icon-home"
-            :before-change="validateStep4">
-            <step-income-plan ref="refInitCalRequestIncomePlan"></step-income-plan>
-          </tab-content>
-
-          <!-- Tab 4  -->
-          <tab-content :title="$t('bsp_text_expense_demand')" class="mb-5" icon="feather icon-home"
-            :before-change="validateStep5">
-            <step-expense-demand ref="refInitCalRequestExpDemand"></step-expense-demand>
-          </tab-content>
-
-          <!-- tab 5 -->
-          <tab-content :title="$t('bsp_text_printing')" class="mb-5" icon="feather icon-image">
             <vs-navbar text-color="rgba(255,255,255,.6)" active-text-color="rgba(255,255,255,1)" :type="type"
               color="#F4F4F4" v-model="activeItem" style="box-shadow: 1px 5px 15px;" class="p-2 mb-6">
 
@@ -214,9 +234,18 @@ export default {
         this.selectedComponent4 = component;
       }
     },
-
+    validateStep1() {
+      return new Promise((resolve, reject) => {
+        this.$validator.validateAll('step-1').then(result => {
+          if (result) {
+            resolve(true)
+          } else {
+            reject("correct all values");
+          }
+        })
+      })
+    },
     validateStep2() {
-      this.$refs.refInitCalRequestIndicator.initRequest();
       return new Promise((resolve, reject) => {
         this.$validator.validateAll("step-2").then(result => {
           if (result) {
@@ -228,33 +257,10 @@ export default {
       })
     },
     validateStep3() {
-      this.$refs.refInitCalRequestIncomePlan.initRequest();
       return new Promise((resolve, reject) => {
         this.$validator.validateAll("step-3").then(result => {
           if (result) {
-            resolve(true)
-          } else {
-            reject("correct all values");
-          }
-        })
-      })
-    },
-    validateStep4() {
-      this.$refs.refInitCalRequestExpDemand.initRequest();
-      return new Promise((resolve, reject) => {
-        this.$validator.validateAll("step-3").then(result => {
-          if (result) {
-            resolve(true)
-          } else {
-            reject("correct all values");
-          }
-        })
-      })
-    },
-    validateStep5() {
-      return new Promise((resolve, reject) => {
-        this.$validator.validateAll("step-3").then(result => {
-          if (result) {
+            alert("Form submitted!");
             resolve(true)
           } else {
             reject("correct all values");

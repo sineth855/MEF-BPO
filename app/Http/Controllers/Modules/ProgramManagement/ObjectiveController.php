@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Modules\ProgramManagement;
 
 use App\Http\Controllers\Controller;
 use App\Models\Modules\ProgramManagement\Objective;
+use App\Models\Modules\ProgramManagement\Program;
 use Illuminate\Http\Request;
 use Auth;
 use DB;
@@ -44,9 +45,14 @@ class ObjectiveController extends Controller
         $dataFields = $this->dataFields();
         $filter = CommonService::getFilter($input);
 
+        $objectives = Objective::getObjectives();
+        $programs = Program::getPrograms();
+
         $data = array(
             "data_fields" => $this->dataFields(),
             "data" => $this->db_table::getAllClusterPrograms($filter),
+            "objective_id" => $objectives,
+            "program_id" => $programs,
             "limit" => $filter["limit"],
             "total" => Objective::getCount($filter)
         );

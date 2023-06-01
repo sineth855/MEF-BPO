@@ -326,6 +326,10 @@ export default {
         DTableList,
     },
     methods: {
+        initRequest() {
+            this.$vs.loading();
+            this.getData();
+        },
         initDataForm() {
             // alert("testing");
         },
@@ -390,8 +394,8 @@ export default {
         }
     },
     created() {
-        this.$vs.loading();
-        this.getData();
+        // this.$vs.loading();
+        // this.getData();
     },
     watch: {
     }

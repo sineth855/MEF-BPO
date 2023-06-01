@@ -3,7 +3,7 @@
 namespace App\Models\Settings;
 
 use Illuminate\Database\Eloquent\Model;
-
+use DB;
 class Entity extends Model
 {
     protected $table = 'entity';

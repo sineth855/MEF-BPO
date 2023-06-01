@@ -117,6 +117,35 @@ class Objective extends Model
             $cluActArr[] = array(
               "id" => $clusAct->id,
               "name" => $clusAct->code.": ".$clusAct->name_kh,
+
+              'objective_id' => array(
+                "label" => $row->code.'-'.$row->name_kh,
+                "value" => $row->id
+              ),
+              'program_id' => array(
+                "label" => $pro->code.'-'.$pro->name_kh,
+                "value" => $pro->id
+              ),
+              'sub_program_id' => array(
+                "label" => $subPro->code.'-'.$subPro->name_kh,
+                "value" => $subPro->id
+              ),
+
+              'cluster_activity_id' => array(
+                "label" => $clusAct->name_kh,
+                "value" => $clusAct->id,
+              ),
+
+              'entity' => isset($clusAct->Entity)?$clusAct->Entity->name_kh:"",
+              'entity_id' => array(
+                "label" => isset($clusAct->Entity)?$clusAct->Entity->code."-".$clusAct->Entity->name_kh:"",
+                "value" => isset($clusAct->Entity)?$clusAct->Entity->id:"",
+              ),
+              'entity_member' => isset($clusAct->EntityMember)?$clusAct->EntityMember->fullname:"",
+              'entity_member_id' => array(
+                "label" => isset($clusAct->EntityMember)?$clusAct->EntityMember->fullname:"",
+                "value" => isset($clusAct->EntityMember)?$clusAct->EntityMember->id:"",
+              ),
               "order_level" => $clusAct->order_level,
               "indicator" => $clusActIndArr,
               "children"=> $actArr
@@ -125,6 +154,16 @@ class Objective extends Model
           $subProArr[] = array(
             "id" => $subPro->id,
             "name" => $subPro->code."-".$subPro->structure_name_kh.":".$subPro->name_kh,
+            'entity' => isset($subPro->Entity)?$subPro->Entity->name_kh:"",
+            'entity_id' => array(
+              "label" => isset($subPro->Entity)?$subPro->Entity->code."-".$subPro->Entity->name_kh:"",
+              "value" => isset($subPro->Entity)?$subPro->Entity->id:"",
+            ),
+            'entity_member' => isset($subPro->EntityMember)?$subPro->EntityMember->fullname:"",
+            'entity_member_id' => array(
+              "label" => isset($subPro->EntityMember)?$subPro->EntityMember->fullname:"",
+              "value" => isset($subPro->EntityMember)?$subPro->EntityMember->id:"",
+            ),
             "order_level" => $subPro->order_level,
             "indicator" => $subProInd,
             "children"=> $cluActArr
@@ -133,6 +172,16 @@ class Objective extends Model
         $proArr[] = array(
           "id" => $pro->id,
           "name" => $pro->code.': '.$pro->name_kh,
+          'entity' => isset($pro->Entity)?$pro->Entity->name_kh:"",
+          'entity_id' => array(
+            "label" => isset($pro->Entity)?$pro->Entity->code."-".$pro->Entity->name_kh:"",
+            "value" => isset($pro->Entity)?$pro->Entity->id:"",
+          ),
+          'entity_member' => isset($pro->EntityMember)?$pro->EntityMember->fullname:"",
+          'entity_member_id' => array(
+            "label" => isset($pro->EntityMember)?$pro->EntityMember->fullname:"",
+            "value" => isset($pro->EntityMember)?$pro->EntityMember->id:"",
+          ),
           "order_level" => $pro->order_level,
           "indicator" => $proIndArr,
           "children"=> $subProArr

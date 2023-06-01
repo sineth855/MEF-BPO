@@ -24,6 +24,15 @@
                 <span class="ml-2 text-base text-primary">{{ $t("AddNew") }}</span>
             </div>
         </div>
+        <!-- If has private button -->
+        <div v-if="dataAttributes.hasPrivateButton" class="flex flex-wrap-reverse items-center data-list-btn-container">
+            <!-- ADD NEW -->
+            <div class="btn-add-new p-3 mb-4 mr-4 rounded-lg cursor-pointer flex items-center justify-center text-lg font-medium text-base text-primary border border-solid border-primary"
+                @click="openPrivateForm">
+                <feather-icon icon="PlusIcon" svgClasses="h-4 w-4" />
+                <span class="ml-2 text-base text-primary">{{ $t("AddNew") }}</span>
+            </div>
+        </div>
 
         <d-heading-wizard v-if="dataAttributes.hasHeadingReport" :dataAttributes="dataAttributes"></d-heading-wizard>
 
@@ -33,9 +42,9 @@
         <h3 class="mb-2">
             <center>{{ $t(title) }}</center>
         </h3>
-        <div class="sub_title" v-if="sub_title">
+        <!-- <div class="sub_title" v-if="sub_title">
             <center>{{ sub_title }}</center>
-        </div>
+        </div> -->
 
         <!-- & dataTables.data.length -->
         <vs-table v-if="dataTables.data && dataAttributes.tableStyle == 1" :max-items="dataTables.limit"
@@ -1037,12 +1046,15 @@
 
                         <template v-for="row in row.children">
                             <vs-tr :state="'warning'">
-                                <td>{{ row.name }} <feather-icon style="cursor: pointer;" @click="openForm" icon="PlusIcon"
-                                        svgClasses="w-5 h-5 hover:text-primary stroke-current" /></td>
+                                <td>{{ row.name }} <feather-icon style="cursor: pointer;"
+                                        @click.stop="initAction(row, 'Edit')" icon="PlusIcon"
+                                        svgClasses="w-5 h-5 hover:text-primary stroke-current" />
+                                </td>
                                 <td :key="index1" v-for="(row, index1) in row.values">{{ row }} </td>
                                 <td>
-                                    <center><feather-icon style="cursor: pointer;" @click="openForm" icon="PlusIcon"
-                                            svgClasses="w-5 h-5 hover:text-primary stroke-current" /></center>
+                                    <center><feather-icon style="cursor: pointer;" @click.stop="initAction(row, 'Edit')"
+                                            icon="PlusIcon" svgClasses="w-5 h-5 hover:text-primary stroke-current" />
+                                    </center>
                                 </td>
                             </vs-tr>
                             <vs-tr :key="index" v-for="(row2, index) in row.data">
@@ -1089,6 +1101,71 @@
                         </template>
                     </template>
 
+                </tbody>
+            </template>
+        </vs-table>
+
+        <vs-table v-if="dataTables.data && dataAttributes.tableStyle == 11" :max-items="dataTables.limit"
+            :data="dataTables.data" style="overflow: scroll">
+            <template slot-scope="{data}">
+
+                <vs-tr>
+                    <vs-td :style="style(header)" :key="i" v-for="(header, i) in dataHeaders" :colspan="colspan(header)"
+                        :rowspan="rowspan(header)">
+                        <span v-if="header.label">
+                            <center><span v-html="$t(header.label)"></span></center>
+                        </span>
+                        <span v-else>
+                            <center><span v-html="$t(header.label)"></span></center>
+                        </span>
+                    </vs-td>
+                </vs-tr>
+
+                <vs-tr v-if="dataTables.dataHeaders" style="background-color: #28C76F; color: #ffffff; font-weight: bold;">
+                    <vs-td :style="style(header)" :key="j" v-for="(header, j) in dataTables.dataHeaders"
+                        :colspan="colspan(header)" :rowspan="rowspan(header)">{{ header.label }} </vs-td>
+                </vs-tr>
+
+                <vs-tr v-if="dataTables.dataSubHeaders"
+                    style="background-color: #28C76F; color: #ffffff; font-weight: bold;">
+                    <vs-td :key="k" v-for="(header, k) in dataTables.dataSubHeaders" :colspan="colspan(header)"
+                        :rowspan="rowspan(header)"><small>{{ header.label }}</small></vs-td>
+                </vs-tr>
+
+                <tbody :key="pindextr" v-for="(ptr, pindextr) in data">
+
+                    <vs-tr :key="cindex" v-for="(cusField, cindex) in dataTables.group_fields"
+                        style="background-color: rgb(240 240 240);">
+                        <td :key="scindex" v-for="(scfield, scindex) in ptr[cusField]">
+                            <center>{{ scfield }}</center>
+                        </td>
+                    </vs-tr>
+
+                    <template v-for="parent in ptr.children">
+                        <vs-tr style="background-color: rgb(178, 255, 217);">
+                            <vs-td v-if="parent.colspan" :key="sindex" v-for="(dataField, sindex) in dataTables.dataFillables"
+                                :colspan="parent.colspan">
+                                {{ parent[dataField] }}
+                            </vs-td>
+                            <vs-td v-else :key="sindex" v-for="(dataField, sindex) in dataTables.dataFillables">
+                                {{ parent[dataField] }}
+                            </vs-td>
+                        </vs-tr>
+
+                        <template v-for="child in parent.children">
+                            <vs-tr style="background-color: rgb(255, 253, 229);">
+                                <vs-td :key="sindex" v-for="(dataField, sindex) in dataTables.dataFillables">
+                                    {{ child[dataField] }}
+                                </vs-td>
+                            </vs-tr>
+
+                            <vs-tr :key="sindex" v-for="(schild, sindex) in child.children">
+                                <vs-td :key="sindex" v-for="(dataField, sindex) in dataTables.dataFillables">
+                                    {{ schild[dataField] }}
+                                </vs-td>
+                            </vs-tr>
+                        </template>
+                    </template>
                 </tbody>
             </template>
         </vs-table>
@@ -1212,6 +1289,9 @@ export default {
                 this.dataElements.push(_obj);
             });
         },
+        openPrivateForm() {
+            this.$emit('clickPricateForm');
+        },
         openForm() {
             this.$refs.refModalForm.openNewForm();
             this.$emit("emitDataForm", "test change form attribute");
@@ -1298,6 +1378,7 @@ export default {
         },
 
         initAction(data, method) {
+            console.log("data", data);
             if (method == "View") {
                 this.$refs.refModalForm.initForm(data);
             }

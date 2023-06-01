@@ -32,7 +32,34 @@ export default {
                 page_number: 1,
                 offset: 0,
                 dataGrid: "row",
-                popupFullscreen: true
+                popupFullscreen: true,
+                allowDel: false,
+                actionButton: [
+                    // {
+                    //     icon: "ListIcon",
+                    //     path: "#",
+                    //     method: "Indicator",
+                    //     allow: true
+                    // },
+                    {
+                        icon: "ViewIcon",
+                        path: "#",
+                        method: "View",
+                        allow: true
+                    },
+                    {
+                        icon: "EditIcon",
+                        path: "#",
+                        method: "Edit",
+                        allow: true
+                    },
+                    // {
+                    //     icon: "TrashIcon",
+                    //     path: "#",
+                    //     method: "Delete",
+                    //     allow: true
+                    // },
+                ]
             },
             dataHeaders: {
                 header1: "code",
@@ -43,7 +70,7 @@ export default {
                 // header6: "entity_member_id",
                 header5: "entity",
                 header6: "entity_member",
-                header7: "order_level"
+                header7: "order_level",
             },
             // data: "",
             data: {
@@ -144,6 +171,9 @@ export default {
                 {
                     name: "entity_id",
                     type: "select",
+                    hasFilter: true,
+                    filterObj: "entity_member_id",
+                    api: apiConfig._apiMemberByEntity,
                     required: true,
                     options: [
                         {

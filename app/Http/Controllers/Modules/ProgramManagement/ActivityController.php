@@ -49,7 +49,7 @@ class ActivityController extends Controller
         
         $clusterActivities = ClusterActivity::getClusterActs();
         $entities = Entity::getEntities();
-        $entity_members = EntityMember::getMembers();
+        $entity_members = [];
 
         $data = array(
             "data_fields" => $this->dataFields(),
@@ -159,22 +159,12 @@ class ActivityController extends Controller
     }
 
     public function dataForm($input){
-        $arraySingle = call_user_func_array('array_merge', $input);
+        $arr = $input;
+        $push_array = array("created_by" => Auth::user()->id);
+        array_push($arr, $push_array);
+        $arraySingle = call_user_func_array('array_merge', $arr);
         $dataFields = $arraySingle;
         return $dataFields;
-        // $dataFields = array(
-        //     "code" => isset($input["code"])?$input["code"]:"",
-        //     "cluster_activity_id" => isset($input[0]["cluster_activity_id"])?$input[0]["cluster_activity_id"]:null,
-        //     "entity_id" => isset($input[3]["entity_id"])?$input[3]["entity_id"]:null,
-        //     "entity_member_id" => isset($input[4]["entity_member_id"])?$input[4]["entity_member_id"]:null,
-        //     "name_en" => isset($input[1]["name_en"])?$input[1]["name_en"]:null,
-        //     "name_kh" => isset($input[2]["name_kh"])?$input[2]["name_kh"]:null,
-        //     "remark" => isset($input[6]["remark"])?$input[6]["remark"]:null,
-        //     "order_level" => isset($input[5]["order_level"])?$input[5]["order_level"]:0,
-        //     "is_active" => isset($input[7]["is_active"])?$input[7]["is_active"]:1,
-        //     "created_by" => Auth::user()->id
-        // );
-        // return $dataFields;
     }
 
     /**

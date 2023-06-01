@@ -191,7 +191,7 @@ class CeilingEntityController extends Controller
         array_push($arr, $push_array);
         $arraySingle = call_user_func_array('array_merge', $arr);
         $dataFields = $arraySingle;
-        return $input;
+        return $dataFields;
     }
 
     /**

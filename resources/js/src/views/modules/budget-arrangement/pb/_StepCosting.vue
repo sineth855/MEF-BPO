@@ -19,7 +19,7 @@ export default {
             title: "pb_heading_costing",
             api: apiConfig._apiObjective,
             dataAttributes: {
-                tableStyle: 6,
+                tableStyle: 11,
                 page_number: 1,
                 offset: 0,
                 dataGrid: "row",
@@ -40,6 +40,14 @@ export default {
                 ]
             },
             dataHeaders: {
+
+                header8: {
+                    label: "បរិយាយមុខសញ្ញា",
+                    width: "200",
+                    // flag: "y_n_1",
+                    rowspan: 0,
+                    colspan: 0,
+                },
                 header1: {
                     label: "កូដកម្មវិធី",
                     width: 0,
@@ -78,13 +86,6 @@ export default {
                 },
                 header7: {
                     label: "អនុគណនី",
-                    rowspan: 0,
-                    colspan: 0,
-                },
-                header8: {
-                    label: "បរិយាយមុខសញ្ញា",
-                    width: "200",
-                    // flag: "y_n_1",
                     rowspan: 0,
                     colspan: 0,
                 },
@@ -142,6 +143,13 @@ export default {
             },
             data: {
                 dataHeaders: {
+
+                    header8: {
+                        label: "item_description",
+                        // flag: "y_n_1",
+                        rowspan: 0,
+                        colspan: 0,
+                    },
                     header1: {
                         label: "",
                         width: 0,
@@ -180,12 +188,6 @@ export default {
                     },
                     header7: {
                         label: "Sub-Account",
-                        rowspan: 0,
-                        colspan: 0,
-                    },
-                    header8: {
-                        label: "item_description",
-                        // flag: "y_n_1",
                         rowspan: 0,
                         colspan: 0,
                     },
@@ -342,6 +344,7 @@ export default {
                     }
                 },
                 dataFillables: {
+                    field8: "desc",
                     field1: "chapter",
                     field2: "account",
                     field3: "sub_account",
@@ -349,7 +352,6 @@ export default {
                     field5: "line",
                     field6: "code_cluster_activity",
                     field7: "code_activity",
-                    field8: "item_name",
                     field9: "expense_type",
                     field10: "unit",
                     field11: "quantity",
@@ -458,6 +460,7 @@ export default {
                         // },
                         children: [
                             {
+                                desc: "អនុកម្មវិធីទី១.១ : អគ្គនាយកដ្ឋានគោលនយោបាយ",
                                 chapter: "",
                                 account: "",
                                 sub_account: "",
@@ -466,7 +469,6 @@ export default {
                                 code_prog_act: "10101",
                                 code_cluster_activity: "",
                                 code_activity: "",
-                                item_name: "អនុកម្មវិធីទី១.១ : អគ្គនាយកដ្ឋានគោលនយោបាយ",
                                 expense_type: "",
                                 unit: "",
                                 quantity: "",
@@ -478,8 +480,10 @@ export default {
                                 expense_type: "",
                                 remark: "",
                                 has_child: true,
+                                colspan: 8,
                                 children: [
                                     {
+                                        desc: "ចង្កោមសកម្មភាពទី១៖ លេខាធិការដ្ឋាន",
                                         chapter: "",
                                         account: "",
                                         sub_account: "",
@@ -488,7 +492,6 @@ export default {
                                         code_prog_act: "101010101",
                                         code_cluster_activity: "",
                                         code_activity: "",
-                                        item_name: "ចង្កោមសកម្មភាពទី១៖ លេខាធិការដ្ឋាន",
                                         expense_type: "",
                                         unit: "",
                                         quantity: "",
@@ -502,6 +505,7 @@ export default {
                                         has_child: true,
                                         children: [
                                             {
+                                                desc: "សកម្មភាពទី១ នៃចង្កោមសកម្មភាពទី១៖ បំពេញមុខងារជាលេខាធិការដ្ឋាន",
                                                 chapter: "",
                                                 account: "",
                                                 sub_account: "",
@@ -510,28 +514,6 @@ export default {
                                                 code_prog_act: "",
                                                 code_cluster_activity: "",
                                                 code_activity: "",
-                                                item_name: "សកម្មភាពទី១ នៃចង្កោមសកម្មភាពទី១៖ បំពេញមុខងារជាលេខាធិការដ្ឋាន",
-                                                expense_type: "",
-                                                unit: "",
-                                                quantity: "",
-                                                unit_price: "",
-                                                total_amount: "",
-                                                time_year: "",
-                                                annual_amount: "",
-                                                month: "",
-                                                expense_type: "",
-                                                remark: "",
-                                            },
-                                            {
-                                                chapter: "",
-                                                account: "",
-                                                sub_account: "",
-                                                no: "",
-                                                line: "",
-                                                code_prog_act: "",
-                                                code_cluster_activity: "",
-                                                code_activity: "",
-                                                item_name: "",
                                                 expense_type: "",
                                                 unit: "",
                                                 quantity: "",
@@ -556,6 +538,18 @@ export default {
             formAttributes: [
                 {
                     name: "entity_id",
+                    type: "select",
+                    required: true,
+                    data: [],
+                },
+                {
+                    name: "sub_program_id",
+                    type: "select",
+                    required: true,
+                    data: [],
+                },
+                {
+                    name: "cluster_activity_id",
                     type: "select",
                     required: true,
                     data: [],

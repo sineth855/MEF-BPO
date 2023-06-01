@@ -75,12 +75,14 @@ Route::group([
         Route::post('module/program_management/activity/search', 'Modules\ProgramManagement\ActivityController@index');
         Route::post('module/program_management/cluster_activity/search', 'Modules\ProgramManagement\ClusterActivityController@index');
         
+        Route::post('module/program_management/entity_by_subprog', 'Modules\ProgramManagement\SubProgramController@getEntityBySubprog');
+        Route::post('module/program_management/sub_program_by_prog', 'Modules\ProgramManagement\SubProgramController@getSubProgByProg');
+        
         Route::resource('module/program_management/objective', 'Modules\ProgramManagement\ObjectiveController');
         Route::resource('module/program_management/program', 'Modules\ProgramManagement\ProgramController');
         Route::resource('module/program_management/sub_program', 'Modules\ProgramManagement\SubProgramController');
         Route::resource('module/program_management/cluster_activity', 'Modules\ProgramManagement\ClusterActivityController');
         Route::resource('module/program_management/activity', 'Modules\ProgramManagement\ActivityController');
-
         // KPI
         Route::post('module/program_management/kpi_sub_program/search', 'Modules\ProgramManagement\KPISubProgramController@index');
         Route::resource('module/program_management/kpi_sub_program', 'Modules\ProgramManagement\KPISubProgramController');
@@ -88,6 +90,7 @@ Route::group([
         Route::post('module/budget_arrangement/ceiling_rule/search', 'Modules\BudgetArrangement\CeilingRuleController@index');
         Route::resource('module/budget_arrangement/ceiling_rule', 'Modules\BudgetArrangement\CeilingRuleController');
         Route::resource('module/budget_arrangement/ceiling_entity', 'Modules\BudgetArrangement\CeilingEntityController');
+        Route::post('module/budget_arrangement/pip/pip_info', 'Modules\BudgetArrangement\PIPInvestmentController@getPipInfo');
         Route::post('module/budget_arrangement/pip/search', 'Modules\BudgetArrangement\PIPInvestmentController@index');
         Route::resource('module/budget_arrangement/pip', 'Modules\BudgetArrangement\PIPInvestmentController');
         // BPS
@@ -115,6 +118,7 @@ Route::group([
         Route::post('setting/department/search', 'Settings\DepartmentController@index');
         Route::resource('setting/department', 'Settings\DepartmentController');
 
+        Route::post('setting/get_member_by_entity', 'Settings\EntityMemberController@getMemberByEntity');
         Route::post('setting/entity_member/search', 'Settings\EntityMemberController@index');
         Route::resource('setting/entity_member', 'Settings\EntityMemberController');
 
@@ -215,6 +219,9 @@ Route::group([
         Route::post('upload_pb_costing', 'FileManagerController@fileUploadPBCosting');
         Route::post('upload_pb_revenue', 'FileManagerController@fileUploadPBRevenue');
         Route::post('upload_pb_expenditure', 'FileManagerController@fileUploadPBExpenditure');
+        // BM
+        Route::post('upload_rev_program', 'FileManagerController@fileUploadBMRevProgramImport');
+        Route::post('upload_exp_program', 'FileManagerController@fileUploadBMExpProgramImport');
 
         Route::post('upload_item', 'FileManagerController@fileUploadItem');
         Route::post('upload_unit', 'FileManagerController@fileUploadUnit');

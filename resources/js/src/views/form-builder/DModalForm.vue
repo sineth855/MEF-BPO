@@ -65,6 +65,7 @@ export default {
             this.$refs.refModalForm.showNewForm();
         },
         openNewFormByParent(obj) {
+            console.log("t", obj);
             this.dataInfo = {};
             this.showModalForm = true;
             this.$refs.refModalForm.showNewFormByParent(obj);

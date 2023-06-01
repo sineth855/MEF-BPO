@@ -3,6 +3,8 @@ export default {
     _apiObjective: "/api/v1/module/program_management/objective",
     _apiProgram: "/api/v1/module/program_management/program",
     _apiSubProgram: "/api/v1/module/program_management/sub_program",
+    _apiSubProgramByPro: "/api/v1/module/program_management/sub_program_by_prog",
+    _apiEntityBySubPro: "/api/v1/module/program_management/entity_by_subprog",
     _apiClusterActivity: "/api/v1/module/program_management/cluster_activity",
     _apiActivity: "/api/v1/module/program_management/activity",
     
@@ -14,6 +16,7 @@ export default {
     _apiDepartment: "/api/v1/setting/department",
     _apiEntity: "/api/v1/setting/entity",
     _apiEntityMember: "/api/v1/setting/entity_member",
+    _apiMemberByEntity: "/api/v1/setting/get_member_by_entity",
     _apiTitle: "/api/v1/setting/title",
     _apiPosition: "/api/v1/setting/position",
     _apiUnit: "/api/v1/setting/unit",

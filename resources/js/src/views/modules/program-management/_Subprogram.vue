@@ -145,7 +145,7 @@ export default {
             },
             formAttributes: [
                 {
-                    name: "program_id",
+                    name: "sub_program_id",
                     type: "select",
                     required: true,
                     hasDefault: false,
@@ -180,31 +180,16 @@ export default {
                     name: "entity_id",
                     type: "select",
                     required: true,
-                    options: [
-                        {
-                            "label": "អង្គភាពទី១",
-                            "value": 1,
-                        },
-                        {
-                            "label": "អង្គភាពទី២",
-                            "value": 2,
-                        }
-                    ],
+                    hasFilter: true,
+                    filterObj: "entity_member_id",
+                    api: apiConfig._apiMemberByEntity,
+                    options: [],
                 },
                 {
                     name: "entity_member_id",
                     type: "select",
                     required: true,
-                    options: [
-                        {
-                            "label": "បុគ្គលទិ១",
-                            "value": 1,
-                        },
-                        {
-                            "label": "បុគ្គលទិ២",
-                            "value": 2,
-                        }
-                    ],
+                    options: [],
                 },
                 {
                     name: "order_level",

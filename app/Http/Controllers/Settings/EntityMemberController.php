@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Settings;
 
 use App\Http\Controllers\Controller;
+use App\Models\Settings\Entity;
 use App\Models\Settings\EntityMember;
 use Illuminate\Http\Request;
+use CommonService;
 use Auth;
 use DB;
 
@@ -47,43 +49,15 @@ class EntityMemberController extends Controller
     {
         $input = $request->all();
         $dataFields = $this->dataFields();
-        $filter = array(
-            // "offset" => isset($input["offset"]) ? $input["offset"] : OFFSET,
-            "limit" => isset($input["limit"]) ? $input["limit"] : LIMIT,
-            "sort" => isset($input["sort"]) ? $input["sort"] : SORT,
-            "order" => isset($input["order"]) ? $input["order"] : ORDER
-        );
-        $query = $this->db_table::orderBy($filter["sort"], $filter["order"]);
-        $whereClause = $query;
-        $whereClause->offset(($input["page_number"] - 1) * $filter["limit"]);       
-        $whereClause->limit($filter["limit"]);
-        if(isset($input["search_field"])){
-            for($i=0 ; $i < count($input["search_field"]); $i++){
-                $field = array_key_first($input["search_field"][$i]); //array('key1', 'key2', 'key3');
-                if (in_array($field, $dataFields)) {
-                    $whereClause->orWhere($field, "Like","%".$input["search_field"][$i][$field]."%");
-                }
-            }
-        }
-        
-        $entities = array(
-            [
-                "label" => "អង្គភាពទី២២១",
-                "value" => 1,
-            ],
-            [
-                "label" => "អង្គភាពទី២២២",
-                "value" => 2,
-            ]
-        );
+        $filter = CommonService::getFilter($input);
+        $entities = Entity::getEntities();
 
-        $table = collect($whereClause->get());
         $data = array(
             "data_fields" => $this->dataFields(),
-            "data" => EntityMember::getMemberByEntity($filter),
+            "data" => $this->db_table::getMemberByEntity($filter),
             "entity_id" => $entities,
             "limit" => $filter["limit"],
-            "total" => $this->db_table->count()
+            "total" => $this->db_table::getCount($filter)
         );
         return response()->json($data);
     }
@@ -93,6 +67,15 @@ class EntityMemberController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function getMemberByEntity(Request $request){
+        $paramId = $request->all();
+        $data = array(
+            "data" => $this->db_table::getMemberByEntityID($paramId),
+        );
+        return response()->json($data);
+    }
+
     public function create()
     {
         

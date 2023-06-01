@@ -1,9 +1,10 @@
 <template>
     <div id="table-demo">
-        <!-- <table-state></table-state> -->
-        <d-table-list @clicked="initTableData" :api="api" ref="refInitPage" :allowDel="true" :title="title"
-            :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data" :formAttributes="formAttributes"
-            :rowDisplay="rowDisplay"></d-table-list>
+        <!-- Here to create popup form for ceiling data by entity -->
+        <Form ref="refOpenPrivatePopupForm"></Form>
+        <d-table-list @clickPricateForm="initPopupPrivateForm" @clicked="initTableData" :api="api" ref="refInitPage"
+            :allowDel="true" :title="title" :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data"
+            :formAttributes="formAttributes" :rowDisplay="rowDisplay"></d-table-list>
     </div>
 </template>
 
@@ -11,7 +12,7 @@
 import axios from "@/axios.js"
 import apiConfig from "@/apiConfig.js"
 import { ref } from 'vue';
-
+import Form from '@/views/modules/budget-arrangement/budget-ceiling/_Form.vue';
 import TableState from './TableState.vue'
 import DTableList from '@/views/form-builder/DTableList.vue'
 
@@ -27,6 +28,8 @@ export default {
                 offset: 0,
                 dataGrid: "row",
                 popupFullscreen: true,
+                enableToggleForm: true,
+                hasPrivateButton: true,
                 actionButton: [
                     {
                         icon: "EditIcon",
@@ -101,17 +104,17 @@ export default {
                         colspan: 0,
                     },
                     header4: {
-                        label: "២០២៦",
+                        label: "២០២៣",
                         rowspan: 0,
                         colspan: 0,
                     },
                     header5: {
-                        label: "២០២៧",
+                        label: "២០២៤",
                         rowspan: 0,
                         colspan: 0,
                     },
                     header6: {
-                        label: "២០២៨",
+                        label: "២០២៥",
                         rowspan: 0,
                         colspan: 0,
                     },
@@ -424,6 +427,7 @@ export default {
     components: {
         DTableList,
         TableState,
+        Form
     },
     methods: {
         getDataTable(_search_criteria) {
@@ -484,7 +488,11 @@ export default {
             }
             this.getDataTable(_search_criteria);
             return false;
-        }
+        },
+        initPopupPrivateForm() {
+            this.$refs.refOpenPrivatePopupForm.showNewForm();
+            // alert("welcome back");
+        },
 
     },
     created() {

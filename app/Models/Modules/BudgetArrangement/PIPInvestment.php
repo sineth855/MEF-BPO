@@ -15,6 +15,7 @@ class PIPInvestment extends Model
     protected $fillable = [
                             'entity_id',
                             'planning_id',
+                            'program_id',
                             'sub_program_id',
                             'cluster_activity_id',
                             'pip_no',
@@ -37,6 +38,20 @@ class PIPInvestment extends Model
                             'add_req_fin_year_2',
                             'finance_resource_id',
                             'grading_no',
+                            'order_level',
+                            "pip_4_strategy",
+                            "pip_participant_project",
+                            "pip_field",
+                            "pip_subproject_location",
+                            "pip_project_aim",
+                            "pip_project_description",
+                            "pip_resonable_project",
+                            "pip_benefit_project",
+                            "pip_effectivenes_environment",
+                            "pip_gender_analysis",
+                            "pip_project_imple_capacity",
+                            "pip_project_imple_status",
+                            "pip_partner_participation",
                             'created_by',
                             'modified_by'
                         ];
@@ -118,31 +133,44 @@ class PIPInvestment extends Model
 
                 foreach($resultSubPro as $subProgram){
                     $subProgramId = $subProgram->id;
-                    $queryPIPInv = PIPInvestment::orderBy("order_level");
+                    $queryPIPInv = DB::table("mef_pip_investment as pip")
+                                        ->select("pip.*", "fr.id as finance_resource_id", "fr.name_kh as finance_resource", "pt.id as project_type_id", "pt.name_kh as project_type", "ps.id as project_status_id", "ps.name_kh as project_status", "e.code as entity_code","e.id as entity_id", "e.name_kh as entity")
+                                        ->join("entity as e", "e.id", "=", "pip.entity_id")
+                                        ->join("mef_project_status as ps", "ps.id", "=", "pip.project_status_id")
+                                        ->join("mef_project_type as pt", "pt.id", "=", "pip.project_type_id")
+                                        ->join("mef_finance_resource as fr", "fr.id", "=", "pip.finance_resource_id");
+                    
+                    // PIPInvestment::orderBy("order_level");
                     $clausePIPInv = $queryPIPInv;
-                    $clausePIPInv->where("sub_program_id", $subProgramId);
-                    $clausePIPInv->where("planning_id", PLANNING_YEAR);
+                    $clausePIPInv->where("pip.sub_program_id", $subProgramId);
+                    $clausePIPInv->where("pip.planning_id", PLANNING_YEAR);
 
                     if($filter["search_field"]){
                         $arraySingle = call_user_func_array('array_merge', $filter["search_field"]);
                         $dataFields = $arraySingle;
                         if (array_key_exists('project_name_en', $dataFields)) {
-                            $clausePIPInv->Where("project_name_en", "Like", "%".$dataFields["project_name_en"]."%");
+                            $clausePIPInv->where("pip.project_name_en", "Like", "%".$dataFields["project_name_en"]."%");
                         }
                         if (array_key_exists('project_name_kh', $dataFields)) {
-                            $clausePIPInv->Where("project_name_kh", "Like", "%".$dataFields["project_name_kh"]."%");
+                            $clausePIPInv->where("pip.project_name_kh", "Like", "%".$dataFields["project_name_kh"]."%");
                         }
                         if (array_key_exists('pip_no', $dataFields)) {
-                            $clausePIPInv->Where("pip_no", "Like", "%".$dataFields["pip_no"]."%");
+                            $clausePIPInv->where("pip.pip_no", "Like", "%".$dataFields["pip_no"]."%");
                         }
                         if (array_key_exists('sub_program_id', $dataFields)) {
-                            $clausePIPInv->Where("sub_program_id", $dataFields["sub_program_id"]["value"]);
+                            $clausePIPInv->where("pip.sub_program_id", $dataFields["sub_program_id"]["value"]);
                         }
                         if (array_key_exists('entity_id', $dataFields)) {
-                            $clausePIPInv->Where("entity_id", $dataFields["entity_id"]["value"]);
+                            $clausePIPInv->where("pip.entity_id", $dataFields["entity_id"]["value"]);
+                        }
+                        if (array_key_exists('project_status_id', $dataFields)) {
+                            $clausePIPInv->where("pip.project_status_id", $dataFields["project_status_id"]["value"]);
+                        }
+                        if (array_key_exists('finance_resource_id', $dataFields)) {
+                            $clausePIPInv->where("pip.finance_resource_id", $dataFields["finance_resource_id"]["value"]);
                         }
                     }
-
+                    
                     $resultPIPInv = collect($clausePIPInv->get());
                     $pipInvPros = array();
                     
@@ -178,25 +206,25 @@ class PIPInvestment extends Model
                             $pipInvestmentData[] = array(
                                 "name" => $pipInvProDetail->attribute_kh,
                                 "values" => array(
-                                                    "", 
-                                                    "", 
-                                                    "", 
-                                                    CommonService::formatDoubleNum($pipInvProDetail->est_costing_year_0),
-                                                    CommonService::formatDoubleNum($pipInvProDetail->est_costing_year_1),
-                                                    CommonService::formatDoubleNum($pipInvProDetail->est_costing_year_2),
-                                                    CommonService::formatDoubleNum($pipInvProDetail->est_costing_year_0 + $pipInvProDetail->est_costing_year_1 + $pipInvProDetail->est_costing_year_2),
-                                                    CommonService::formatDoubleNum($pipInvProDetail->s_fin_year_0),
-                                                    CommonService::formatDoubleNum($pipInvProDetail->s_fin_year_1),
-                                                    CommonService::formatDoubleNum($pipInvProDetail->s_fin_year_2),
-                                                    CommonService::formatDoubleNum($pipInvProDetail->s_fin_year_0 + $pipInvProDetail->s_fin_year_1 + $pipInvProDetail->s_fin_year_2), 
-                                                    CommonService::formatDoubleNum($pipInvProDetail->add_req_fin_year_0),
-                                                    CommonService::formatDoubleNum($pipInvProDetail->add_req_fin_year_1),
-                                                    CommonService::formatDoubleNum($pipInvProDetail->add_req_fin_year_2),
-                                                    CommonService::formatDoubleNum($pipInvProDetail->add_req_fin_year_0 + $pipInvProDetail->add_req_fin_year_1 + $pipInvProDetail->add_req_fin_year_2),
-                                                    "", 
-                                                    ""
-                                                ),
-                                            );
+                                    "", 
+                                    "", 
+                                    "", 
+                                    CommonService::formatDoubleNum($pipInvProDetail->est_costing_year_0),
+                                    CommonService::formatDoubleNum($pipInvProDetail->est_costing_year_1),
+                                    CommonService::formatDoubleNum($pipInvProDetail->est_costing_year_2),
+                                    CommonService::formatDoubleNum($pipInvProDetail->est_costing_year_0 + $pipInvProDetail->est_costing_year_1 + $pipInvProDetail->est_costing_year_2),
+                                    CommonService::formatDoubleNum($pipInvProDetail->s_fin_year_0),
+                                    CommonService::formatDoubleNum($pipInvProDetail->s_fin_year_1),
+                                    CommonService::formatDoubleNum($pipInvProDetail->s_fin_year_2),
+                                    CommonService::formatDoubleNum($pipInvProDetail->s_fin_year_0 + $pipInvProDetail->s_fin_year_1 + $pipInvProDetail->s_fin_year_2), 
+                                    CommonService::formatDoubleNum($pipInvProDetail->add_req_fin_year_0),
+                                    CommonService::formatDoubleNum($pipInvProDetail->add_req_fin_year_1),
+                                    CommonService::formatDoubleNum($pipInvProDetail->add_req_fin_year_2),
+                                    CommonService::formatDoubleNum($pipInvProDetail->add_req_fin_year_0 + $pipInvProDetail->add_req_fin_year_1 + $pipInvProDetail->add_req_fin_year_2),
+                                    "", 
+                                    ""
+                                ),
+                            );
                         }
 
                         $pipInvPros[] = array(
@@ -204,38 +232,73 @@ class PIPInvestment extends Model
                             "name" => $pipInvestment->project_name_kh,
                             "project_name_en" => $pipInvestment->project_name_en,
                             "project_name_kh" => $pipInvestment->project_name_kh,
-                            "entity_id" => $pipInvestment->entity_id,
-                            "program_id" => $programId,
-                            "sub_program_id" => $pipInvestment->sub_program_id,
+                            "entity_id" => array(
+                                "label" => $pipInvestment->entity_code."-".$pipInvestment->entity,
+                                "value" => $pipInvestment->entity_id
+                            ),//$pipInvestment->entity_id,
+                            "program_id" => array(
+                                "label" => $program->code."-".$program->name_kh,
+                                "value" => $programId
+                            ),//$programId,
+                            "sub_program_id" => array(
+                                "label" => $subProgram->code."-".$subProgram->name_kh,
+                                "value" => $subProgram->id
+                            ),// $pipInvestment->sub_program_id,
                             "pip_no" => $pipInvestment->pip_no,
-                            "project_status_id" => $pipInvestment->project_status_id,
-                            "project_type_id" => $pipInvestment->project_type_id,
-                            "finance_resource_id" => $pipInvestment->finance_resource_id,
+                            "project_status_id" => array(
+                                "label" => $pipInvestment->project_status,
+                                "value" => $pipInvestment->project_status_id
+                            ),//$pipInvestment->project_status_id,
+                            "project_type_id" => array(
+                                "label" => $pipInvestment->project_type,
+                                "value" => $pipInvestment->project_type_id
+                            ),//$pipInvestment->project_type_id,
+                            // "finance_resource" => $pipInvestment->finance_resource,
+                            "finance_resource_id" => array(
+                                "label" => $pipInvestment->finance_resource,
+                                "value" => $pipInvestment->finance_resource_id
+                            ),//$pipInvestment->finance_resource_id,
                             "data" => $pipInvestmentData,
                             "values" => array(
-                                                $pipInvestment->pip_no,
-                                                $pipInvestment->project_status_id,
-                                                $pipInvestment->project_type_id,
-                                                CommonService::formatDoubleNum($pipInvestment->est_costing_year_0),
-                                                CommonService::formatDoubleNum($pipInvestment->est_costing_year_1),
-                                                CommonService::formatDoubleNum($pipInvestment->est_costing_year_2),
-                                                CommonService::formatDoubleNum($pipInvestment->est_costing_year_0 + $pipInvestment->est_costing_year_1 + $pipInvestment->est_costing_year_2),
-                                                CommonService::formatDoubleNum($pipInvestment->s_fin_year_0),
-                                                CommonService::formatDoubleNum($pipInvestment->s_fin_year_1),
-                                                CommonService::formatDoubleNum($pipInvestment->s_fin_year_2),
-                                                CommonService::formatDoubleNum(($pipInvestment->s_fin_year_0 + $pipInvestment->s_fin_year_1 + $pipInvestment->s_fin_year_2)), 
-                                                CommonService::formatDoubleNum($pipInvestment->add_req_fin_year_0),
-                                                CommonService::formatDoubleNum($pipInvestment->add_req_fin_year_1),
-                                                CommonService::formatDoubleNum($pipInvestment->add_req_fin_year_2),
-                                                CommonService::formatDoubleNum(($pipInvestment->add_req_fin_year_0 + $pipInvestment->add_req_fin_year_1 + $pipInvestment->add_req_fin_year_2)),
-                                                "", 
-                                                ""
-                                            ),
+                                            $pipInvestment->pip_no,
+                                            $pipInvestment->project_status,
+                                            $pipInvestment->project_type,
+                                            CommonService::formatDoubleNum($pipInvestment->est_costing_year_0),
+                                            CommonService::formatDoubleNum($pipInvestment->est_costing_year_1),
+                                            CommonService::formatDoubleNum($pipInvestment->est_costing_year_2),
+                                            CommonService::formatDoubleNum($pipInvestment->est_costing_year_0 + $pipInvestment->est_costing_year_1 + $pipInvestment->est_costing_year_2),
+                                            CommonService::formatDoubleNum($pipInvestment->s_fin_year_0),
+                                            CommonService::formatDoubleNum($pipInvestment->s_fin_year_1),
+                                            CommonService::formatDoubleNum($pipInvestment->s_fin_year_2),
+                                            CommonService::formatDoubleNum(($pipInvestment->s_fin_year_0 + $pipInvestment->s_fin_year_1 + $pipInvestment->s_fin_year_2)), 
+                                            CommonService::formatDoubleNum($pipInvestment->add_req_fin_year_0),
+                                            CommonService::formatDoubleNum($pipInvestment->add_req_fin_year_1),
+                                            CommonService::formatDoubleNum($pipInvestment->add_req_fin_year_2),
+                                            CommonService::formatDoubleNum(($pipInvestment->add_req_fin_year_0 + $pipInvestment->add_req_fin_year_1 + $pipInvestment->add_req_fin_year_2)),
+                                            "", 
+                                            ""
+                                        ),
                         );
                     }
                     if(count($pipInvPros) > 0){
                         $subProgs[] = array(
-                            "id" => $subProgram->id,
+                            // "id" => $subProgram->id,
+                            // "entity_id" => $subProgram->entity_id,
+                            // "program_id" => $programId,
+                            // "sub_program_id" => $subProgram->id,
+                            "entity_id" => array(
+                                "label" => $pipInvestment->entity_code."-".$pipInvestment->entity,
+                                "value" => $pipInvestment->entity_id
+                            ),$pipInvestment->entity_id,
+                            "program_id" => array(
+                                "label" => $program->code."-".$program->name_kh,
+                                "value" => $programId
+                            ),//$programId,
+                            "sub_program_id" => array(
+                                "label" => $subProgram->code."-".$subProgram->name_kh,
+                                "value" => $subProgram->id
+                            ),// $pipInvestment->sub_program_id,
+
                             "name" => $subProgram->structure_name_kh."-".$subProgram->name_kh,
                             "dataDetails" => $pipInvPros,
                             "values" => array(

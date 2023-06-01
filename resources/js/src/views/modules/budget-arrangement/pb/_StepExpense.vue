@@ -2,8 +2,8 @@
     <div id="table-demo">
         <!-- <table-state></table-state> -->
         <d-table-list @clicked="initTableData" :api="api" ref="refInitPage" :allowDel="true" :title="title"
-            :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data"
-            :formAttributes="formAttributes" :rowDisplay="rowDisplay"></d-table-list>
+            :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data" :formAttributes="formAttributes"
+            :rowDisplay="rowDisplay"></d-table-list>
     </div>
 </template>
 
@@ -424,6 +424,10 @@ export default {
         DTableList
     },
     methods: {
+        initRequest() {
+            this.$vs.loading();
+            this.getData();
+        },
         getDataTable(_search_criteria) {
             let _params = {};
             if (_search_criteria.search_field) {
@@ -486,8 +490,8 @@ export default {
 
     },
     created() {
-        this.$vs.loading();
-        this.getData();
+        // this.$vs.loading();
+        // this.getData();
     },
     watch: {
     }

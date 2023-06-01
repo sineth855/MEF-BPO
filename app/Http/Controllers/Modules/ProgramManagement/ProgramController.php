@@ -51,13 +51,15 @@ class ProgramController extends Controller
         $objectives = Objective::getObjectives();
         $entities = Entity::getEntities();
         $entity_members = EntityMember::getMembers();
+        $programs = Program::getPrograms();
 
         $data = array(
             "data_fields" => $this->dataFields(),
             "data" => $this->db_table::getProgramByObj($filter),
             "objective_id" => $objectives,
+            "program_id" => $programs,
             "entity_id" => $entities,
-            "entity_member_id" => $entity_members,
+            "entity_member_id" => [],
             "limit" => $filter["limit"],
             "total" => Objective::getCount($filter)
         );
@@ -196,21 +198,12 @@ class ProgramController extends Controller
     }
 
     public function dataForm($input){
-        $arraySingle = call_user_func_array('array_merge', $input);
+        $arr = $input;
+        $push_array = array("created_by" => Auth::user()->id);
+        array_push($arr, $push_array);
+        $arraySingle = call_user_func_array('array_merge', $arr);
         $dataFields = $arraySingle;
         return $dataFields;
-        // dd($arraySingle);
-        // $dataFields = array(
-        //     "objective_id" => isset($input[0]["objective_id"])?$input[0]["objective_id"]:null,
-        //     "code" => isset($input["code"])?$input["code"]:null,
-        //     "entity_id" => isset($input[3]["entity_id"])?$input[3]["entity_id"]:null,
-        //     "entity_member_id" => isset($input[4]["entity_member_id"])?$input[4]["entity_member_id"]:null,
-        //     "name_en" => isset($input[1]["name_en"])?$input[1]["name_en"]:null,
-        //     "name_kh" => isset($input[2]["name_kh"])?$input[2]["name_kh"]:null,
-        //     "remark" => isset($input[6]["remark"])?$input[6]["remark"]:null,
-        //     "order_level" => isset($input[5]["order_level"])?$input[5]["order_level"]:0,
-        //     "created_by" => Auth::user()->id
-        // );
     }
 
     /**

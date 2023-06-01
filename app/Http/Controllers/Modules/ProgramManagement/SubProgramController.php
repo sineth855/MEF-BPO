@@ -49,7 +49,7 @@ class SubProgramController extends Controller
 
         $programs = Program::getPrograms();
         $entities = Entity::getEntities();
-        $entity_members = EntityMember::getMembers();
+        $entity_members = [];
         
         $data = array(
             "data_fields" => $this->dataFields(),
@@ -59,6 +59,24 @@ class SubProgramController extends Controller
             "entity_member_id" => $entity_members,
             "limit" => $filter["limit"],
             "total" => Program::getCount($filter)
+        );
+        return response()->json($data);
+    }
+
+    public function getSubProgByProg(Request $request){
+        $paramId = $request->all();
+        $data = array(
+            "data" => $this->db_table::getSubProgramsByProgs($paramId),
+            // "total" => Program::getCount($filter)
+        );
+        return response()->json($data);
+    }
+
+    public function getEntityBySubprog(Request $request){
+        $paramId = $request->all();
+        $data = array(
+            "data" => $this->db_table::getEntityBySubProg($paramId),
+            // "total" => Program::getCount($filter)
         );
         return response()->json($data);
     }
@@ -159,7 +177,10 @@ class SubProgramController extends Controller
     }
 
     public function dataForm($input){
-        $arraySingle = call_user_func_array('array_merge', $input);
+        $arr = $input;
+        $push_array = array("created_by" => Auth::user()->id);
+        array_push($arr, $push_array);
+        $arraySingle = call_user_func_array('array_merge', $arr);
         $dataFields = $arraySingle;
         return $dataFields;
     }

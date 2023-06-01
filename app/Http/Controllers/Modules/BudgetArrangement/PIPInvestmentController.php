@@ -49,7 +49,6 @@ class PIPInvestmentController extends Controller
         $input = $request->all();
         $dataFields = $this->dataFields();
         $filter = CommonService::getFilter($input);
-
         $dataHeaders = array(
             "header1" => array(
                 "label" =>  "pip_year_2023",
@@ -208,22 +207,28 @@ class PIPInvestmentController extends Controller
                 "rowspan" => 0,
                 "colspan" => 0,
             ),
-        );
+        );        
+
         $data = array(
             "data_fields" => $this->dataFields(),
             "data" => $this->db_table::getPIPInvestment($filter),
             "dataHeaders" => $dataHeaders,
             "dataSubHeaders" => $dataSubHeaders,
             "program_id" => Program::getPrograms(),
-            "sub_program_id" => SubProgram::getSubPrograms(),
+            "sub_program_id" => [],//SubProgram::getSubProgramsByPro(),
+            "entity_id" => [],//Entity::getBySubProgEntities($filter),
             "project_type_id" => ProjectType::getProjectTypes(),
             "project_status_id" => ProjectStatus::getProjectStatus(),
             "finance_resource_id" => FinanceResource::getFinanceResource(),
-            "entity_id" => Entity::getEntities(),
             "limit" => LIMIT,
             "total" => $this->db_table::count()
         );
         return response()->json($data);
+    }
+
+    public function getPipInfo(Request $request){
+        $progId = $input["program_id"];
+        $subProId = $input["sub_program_id"];
     }
 
     /**
@@ -322,11 +327,11 @@ class PIPInvestmentController extends Controller
 
     public function dataForm($input){
         $arr = $input;
-        $push_array = array("created_by" => Auth::user()->id);
+        $push_array = array("created_by" => Auth::user()->id, "planning_id" => PLANNING_YEAR);
         array_push($arr, $push_array);
         $arraySingle = call_user_func_array('array_merge', $arr);
         $dataFields = $arraySingle;
-        return $input;
+        return $dataFields;
         // dd($dataFields);
         // $dataFields = array(
         //     "name_en" => isset($input[0]["name_en"])?$input[0]["name_en"]:null,

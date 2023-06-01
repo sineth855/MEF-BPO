@@ -26,6 +26,9 @@ use App\Imports\BSPAssignProgramImport;
 use App\Imports\PBCostingImport;
 use App\Imports\PBRevenueImport;
 use App\Imports\PBExpenditureImport;
+// BM = Budget Monitoring
+use App\Imports\BMRevProgramImport;
+use App\Imports\BMExpProgramImport;
 
 use App\Imports\ItemImport;
 use App\Imports\UnitImport;
@@ -352,6 +355,26 @@ class FileManagerController extends Controller
     public function fileUploadPBExpenditure(Request $request){
         $path = $request->file('file')->getRealPath();
         $rows = Excel::import(new PBExpenditureImport, $path);
+        if($rows){
+            return response()->json(['success'=>true,'message'=>'File uploaded successfully.'], 200);
+        }else{
+            return response()->json(['success'=>false,'message'=>'File upload is failed!'], 500);
+        }
+    }
+
+    public function fileUploadBMRevProgramImport(Request $request){
+        $path = $request->file('file')->getRealPath();
+        $rows = Excel::import(new BMRevProgramImport, $path);
+        if($rows){
+            return response()->json(['success'=>true,'message'=>'File uploaded successfully.'], 200);
+        }else{
+            return response()->json(['success'=>false,'message'=>'File upload is failed!'], 500);
+        }
+    }
+
+    public function fileUploadBMExpProgramImport(Request $request){
+        $path = $request->file('file')->getRealPath();
+        $rows = Excel::import(new BMExpProgramImport, $path);
         if($rows){
             return response()->json(['success'=>true,'message'=>'File uploaded successfully.'], 200);
         }else{

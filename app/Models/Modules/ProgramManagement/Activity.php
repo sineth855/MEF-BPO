@@ -102,10 +102,16 @@ class Activity extends Model
               'cluster_activity_id' => $crow->cluster_activity_id,
               'name_en' => $crow->name_en,
               'name_kh' => $crow->name_kh,
-              'entity' => $crow->Entity?$crow->Entity->name_kh:'',
-              'entity_id' => $crow->entity_id,
-              'entity_member' => 'អ្នកទទួលបន្ទុក',//$crow->EntityMember->fullname,
-              'entity_member_id' => $crow->entity_member_id,
+              'entity' => isset($crow->Entity)?$crow->Entity->name_kh:"",
+              'entity_id' => array(
+                "label" => isset($crow->Entity)?$crow->Entity->code."-".$crow->Entity->name_kh:"",
+                "value" => isset($crow->Entity)?$crow->Entity->id:"",
+              ),
+              'entity_member' => isset($crow->EntityMember)?$crow->EntityMember->fullname:"",
+              'entity_member_id' => array(
+                "label" => isset($crow->EntityMember)?$crow->EntityMember->fullname:"",
+                "value" => isset($crow->EntityMember)?$crow->EntityMember->id:"",
+              ),
               // 'remark' => $crow->remark,
               'order_level' => $crow->order_level,
               'indicator' => $indicatorData,
@@ -117,6 +123,10 @@ class Activity extends Model
             'code' => $row->code,
             'name_en' => $row->name_en,
             'name_kh' => $row->name_kh,
+            'cluster_activity_id' => array(
+              "label" => $row->code.'-'.$row->name_kh,
+              "value" => $row->id
+            ),
             'field' => 'cluster_activity_id',
             // 'remark' => $row->remark,
             // 'order_level' => $row->order_level,

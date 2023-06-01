@@ -22,6 +22,21 @@ export default {
                 page_number: 1,
                 offset: 0,
                 dataGrid: "row",
+                allowDel: false,
+                actionButton: [
+                    {
+                        icon: "ViewIcon",
+                        path: "#",
+                        method: "View",
+                        allow: true
+                    },
+                    {
+                        icon: "EditIcon",
+                        path: "#",
+                        method: "Edit",
+                        allow: true
+                    },
+                ]
             },
             dataHeaders: {
                 header1: "code",
@@ -148,16 +163,7 @@ export default {
                     name: "cluster_activity_id",
                     type: "select",
                     required: true,
-                    options: [
-                        {
-                            "label": "កម្មវិធីទី១",
-                            "value": 1,
-                        },
-                        {
-                            "label": "កម្មវិធីទី២",
-                            "value": 2
-                        }
-                    ],
+                    options: [],
                 },
                 {
                     name: "name_en",
@@ -168,6 +174,21 @@ export default {
                     name: "name_kh",
                     type: "text",
                     required: true
+                },
+                {
+                    name: "entity_id",
+                    type: "select",
+                    required: true,
+                    hasFilter: true,
+                    filterObj: "entity_member_id",
+                    api: apiConfig._apiMemberByEntity,
+                    options: [],
+                },
+                {
+                    name: "entity_member_id",
+                    type: "select",
+                    required: true,
+                    options: [],
                 },
                 {
                     name: "order_level",

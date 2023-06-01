@@ -252,15 +252,12 @@ export default {
       },
       formAttributes: [
         {
-          name: "entity_id",
-          type: "select",
-          options: [],
-          required: true
-        },
-        {
           name: "program_id",
           type: "select",
           required: true,
+          hasFilter: true,
+          filterObj: "sub_program_id",
+          api: apiConfig._apiSubProgramByPro,
           // hasDefault: true,
           // defaultOptions: {
           //   label: "គោលបំណងទី១",
@@ -272,6 +269,9 @@ export default {
           name: "sub_program_id",
           type: "select",
           required: true,
+          hasFilter: true,
+          filterObj: "entity_id",
+          api: apiConfig._apiEntityBySubPro,
           // hasDefault: true,
           // defaultOptions: {
           //   label: "គោលបំណងទី១",
@@ -279,6 +279,23 @@ export default {
           // },
           options: [],
         },
+        {
+          name: "entity_id",
+          type: "select",
+          required: true,
+          options: [],
+        },
+        {
+          name: "project_name_en",
+          type: "text",
+          required: true
+        },
+        {
+          name: "project_name_kh",
+          type: "text",
+          required: true
+        },
+
         {
           name: "pip_no",
           type: "text",
@@ -302,16 +319,7 @@ export default {
           required: true,
           options: [],
         },
-        {
-          name: "project_name_en",
-          type: "text",
-          required: true
-        },
-        {
-          name: "project_name_kh",
-          type: "text",
-          required: true
-        },
+
         {
           name: "grading_no",
           type: "text",
@@ -328,17 +336,17 @@ export default {
           required: false
         },
         {
-          name: "pip_year_2023",
+          name: "est_costing_year_0",
           type: "number",
           required: false
         },
         {
-          name: "pip_year_2024",
+          name: "est_costing_year_1",
           type: "number",
           required: false
         },
         {
-          name: "pip_year_2025",
+          name: "est_costing_year_2",
           type: "number",
           required: false
         },
@@ -348,17 +356,17 @@ export default {
           required: false
         },
         {
-          name: "pip_year_2023",
+          name: "s_fin_year_0",
           type: "number",
           required: false
         },
         {
-          name: "pip_year_2024",
+          name: "s_fin_year_1",
           type: "number",
           required: false
         },
         {
-          name: "pip_year_2025",
+          name: "s_fin_year_2",
           type: "number",
           required: false
         },
@@ -368,17 +376,17 @@ export default {
           required: false
         },
         {
-          name: "pip_year_2023",
+          name: "add_req_fin_year_0",
           type: "number",
           required: false
         },
         {
-          name: "pip_year_2024",
+          name: "add_req_fin_year_1",
           type: "number",
           required: false
         },
         {
-          name: "pip_year_2025",
+          name: "add_req_fin_year_2",
           type: "number",
           required: false
         },
@@ -532,7 +540,6 @@ export default {
       this.getDataTable(_search_criteria);
       return false;
     }
-
   },
   created() {
     this.$vs.loading();

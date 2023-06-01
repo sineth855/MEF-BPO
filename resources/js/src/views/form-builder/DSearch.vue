@@ -13,15 +13,46 @@
                 <!-- Form Input Number -->
                 <template v-if="formAttribute.type == 'number' && formAttribute.required">
                     <label>{{ $t(formAttribute.name) }}</label>
-                    <vs-input :placeholder="$t(formAttribute.name)" v-model="form.attribute[formAttribute.name]"
-                        :name="formAttribute.name" size="small" class="mt-2 w-full" />
+                    <vs-input type="number" :placeholder="$t(formAttribute.name)"
+                        v-model="form.attribute[formAttribute.name]" :name="formAttribute.name" size="small"
+                        class="mt-2 w-full" />
                 </template>
 
                 <!-- Form Select -->
-                <template v-if="formAttribute.type == 'select' && formAttribute.required">
-                    <label>{{ $t(formAttribute.name) }}</label>
-                    <v-select size="small" v-model="form.attribute[formAttribute.name]" :options="data[formAttribute.name]"
-                        :dir="$vs.rtl ? 'rtl' : 'ltr'" class="mt-2 w-full" />
+                <template v-if="formAttribute.type == 'select'" :class="styleClass" dclass="mt-2 w-full">
+                    <label class="mb-2">{{ $t(formAttribute.name) }} <span v-if="formAttribute.required">*</span></label>
+                    <span v-if="formAttribute.required">
+                        <template v-if="formAttribute.hasFilter">
+                            <v-select size="small"
+                                v-on:input="onInitChange($event, formAttribute.filterObj, formAttribute.name, formAttribute.api)"
+                                v-validate="''" v-model="form.attribute[formAttribute.name]" :name="formAttribute.name"
+                                :options="data[formAttribute.name]" :dir="$vs.rtl ? 'rtl' : 'ltr'" class="mt-2 w-full" />
+                            <span class="text-danger text-sm" v-show="errors.has(formAttribute.name)">{{
+                                $t("required_" + formAttribute.name)
+                            }}</span>
+                        </template>
+                        <template v-else>
+                            <v-select size="small" v-validate="''" :name="formAttribute.name"
+                                v-model="form.attribute[formAttribute.name]" :options="data[formAttribute.name]"
+                                :dir="$vs.rtl ? 'rtl' : 'ltr'" class="mt-2 w-full" />
+                            <span class="text-danger text-sm" v-show="errors.has(formAttribute.name)">{{
+                                $t("required_" + formAttribute.name)
+                            }}</span>
+                        </template>
+                    </span>
+                    <span v-else>
+                        <template v-if="formAttribute.hasFilter">
+                            <v-select size="small" v-validate="''"
+                                v-on:input="onInitChange($event, formAttribute.filterObj, formAttribute.name, formAttribute.api)"
+                                v-model="form.attribute[formAttribute.name]" :name="formAttribute.name"
+                                :options="data[formAttribute.name]" :dir="$vs.rtl ? 'rtl' : 'ltr'" class="mt-2 w-full" />
+                        </template>
+                        <template v-else>
+                            <v-select size="small" v-validate="''" :name="formAttribute.name"
+                                v-model="form.attribute[formAttribute.name]" :options="data[formAttribute.name]"
+                                :dir="$vs.rtl ? 'rtl' : 'ltr'" class="mt-2 w-full" />
+                        </template>
+                    </span>
                 </template>
 
                 <!-- Form Textarea -->
@@ -59,6 +90,7 @@
 
 <script>
 
+import axios from "@/axios.js"
 import DForm from '@/views/form-builder/DForm.vue'
 import { AgGridVue } from "ag-grid-vue"
 import '@sass/vuexy/extraComponents/agGridStyleOverride.scss'
@@ -93,6 +125,9 @@ export default {
 
     },
     computed: {
+        validateForm() {
+            return !this.errors.any()
+        },
         usersData() {
             return this.$store.state.userManagement.users
         },
@@ -115,6 +150,65 @@ export default {
         }
     },
     methods: {
+        onInitChange($event, _formAttribute, _formName, _apiRequest) {
+            // if (!this.validateForm) return
+            // alert("testing");
+            let _data = {
+                param: this.form.attribute[_formName]
+            };
+            this.form.attribute[_formAttribute] = null;
+            this.data[_formAttribute] = [];
+            // alert(this.form.attribute[_formName]);
+            return new Promise((resolve, reject) => {
+                axios.post(_apiRequest, _data)
+                    .then((response) => {
+                        this.$vs.notify({
+                            title: 'Message',
+                            text: response.data.message,
+                            iconPack: 'feather',
+                            icon: 'icon-check-circle',
+                            color: 'primary',
+                            position: 'top-right'
+                        });
+                        for (let i = 0; i < response["data"]["data"].length; i++) {
+                            let _d = {
+                                "label": response["data"]["data"][i]["label"],
+                                "value": response["data"]["data"][i]["value"],
+                            }
+                            this.data[_formAttribute].push(_d);
+                        }
+                        // response["data"].forEach(_formAttribute => {
+                        //     alert("testing");
+                        //     // let _d = {
+                        //     //     [_formAttribute["name"]]: this.form.attribute[_formAttribute["name"]]
+                        //     // }
+                        //     // this.data[_formAttribute].push(_d);
+                        // });
+                        // this.data[_formAttribute] = [
+                        //     {
+                        //         "label": "tet",
+                        //         "value": 1,
+                        //     },
+                        //     {
+                        //         "label": "tet2",
+                        //         "value": 3
+                        //     },
+                        // ];
+                    }).catch((error) => {
+                        reject(error)
+                        this.$vs.notify({
+                            title: 'Message',
+                            text: "មិនអាចដំណើរកាបានទេ,​ សូមត្រួតពិនិត្យពត៌មានឡើងវិញ។",
+                            iconPack: 'feather',
+                            icon: 'icon-check-circle',
+                            color: 'danger',
+                            position: 'top-right'
+                        })
+                        this.$vs.loading.close();
+                    })
+            })
+
+        },
         initSearch() {
             this._search_fields = [];
             let _formAttribute = this.form.attribute;
@@ -156,4 +250,5 @@ export default {
             transform: translateY(-58%);
         }
     }
-}</style>
+}
+</style>

@@ -98,16 +98,25 @@ class ClusterActivity extends Model
           $cdata[] = array(
             'id' => $crow->id,
             'code' => $crow->code,
-            'program_id' => $crow->program_id,
+            'sub_program_id' => array(
+              "label" => isset($crow->SubProgram)?$crow->SubProgram->name_kh:"",
+              "value" => isset($crow->SubProgram)?$crow->SubProgram->id:"",
+            ),
             'name_en' => $crow->name_en,
             'name_kh' => $crow->name_kh,
-            'entity' => $crow->Entity->name_kh,
-            'entity_id' => $crow->entity_id,
-            'entity_member' => 'អ្នកទទួលបន្ទុក',//$crow->EntityMember->fullname,
-            'entity_member_id' => $crow->entity_member_id,
-            // 'remark' => $crow->remark,
+            'entity' => isset($crow->Entity)?$crow->Entity->name_kh:"",
+            'entity_id' => array(
+              "label" => isset($crow->Entity)?$crow->Entity->code."-".$crow->Entity->name_kh:"",
+              "value" => isset($crow->Entity)?$crow->Entity->id:"",
+            ),
+            'entity_member' => isset($crow->EntityMember)?$crow->EntityMember->fullname:"",
+            'entity_member_id' => array(
+              "label" => isset($crow->EntityMember)?$crow->EntityMember->fullname:"",
+              "value" => isset($crow->EntityMember)?$crow->EntityMember->id:"",
+            ),
+            'remark' => $crow->remark,
             'order_level' => $crow->order_level,
-          'indicator' => $indicatorData,
+            'indicator' => $indicatorData,
           );
         }
         
@@ -116,7 +125,11 @@ class ClusterActivity extends Model
           'code' => $row->code,
           'name_en' => $row->name_en,
           'name_kh' => $row->name_kh,
-          'field' => 'program_id',
+          'sub_program_id' => array(
+            "label" => $row->code.'-'.$row->structure_name_kh.':'.$row->name_kh,
+            "value" => $row->id
+          ),
+          'field' => 'sub_program_id',
           // 'remark' => $row->remark,
           // 'order_level' => $row->order_level,
           'children' => $cdata

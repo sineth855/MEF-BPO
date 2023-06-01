@@ -7,6 +7,7 @@ use App\Models\Modules\ProgramManagement\Program;
 use App\Models\Modules\ProgramManagement\KPISubProgram;
 use App\Models\Settings\Entity;
 use App\Models\Settings\EntityMember;
+use DB;
 
 class SubProgram extends Model
 {
@@ -32,7 +33,7 @@ class SubProgram extends Model
     public $timestamps = true;
     
     public function Program(){
-      return $this->belongsTo(Program::class,'objective_id');
+      return $this->belongsTo(Program::class,'program_id');
     }
     public function Entity(){
       return $this->belongsTo(Entity::class,'entity_id');
@@ -47,6 +48,36 @@ class SubProgram extends Model
       foreach($query as $row){
         $data[] = array(
           "label" => $row->code.'-'.$row->structure_name_kh.":".$row->name_kh,
+          "value" => $row->id,
+        );
+      }
+      return $data;
+    }
+
+    public static function getSubProgramsByProgs($param){
+      $query = SubProgram::where("is_active", 1)->where("program_id", $param["param"]["value"])->orderBy("order_level")->get();
+      // $query = SubProgram::where("is_active", 1)->where("program_id", $param["param"]["value"])->orderBy("order_level")->get();
+      $data = array();
+      foreach($query as $row){
+        $data[] = array(
+          "label" => $row->code.'-'.$row->structure_name_kh.":".$row->name_kh,
+          "value" => $row->id,
+        );
+      }
+      return $data;
+    }
+
+    public static function getEntityBySubProg($param){
+      $query = DB::table("mef_subprogram as sp")
+                ->select("e.id", "e.code", "e.name_kh", "e.name_en")
+                ->join("entity as e", "e.id", "=", "sp.entity_id")
+                ->where("sp.id", $param["param"]["value"])
+                ->get();
+                
+      $data = array();
+      foreach($query as $row){
+        $data[] = array(
+          "label" => $row->code.'-'.$row->name_kh,
           "value" => $row->id,
         );
       }
@@ -124,14 +155,23 @@ class SubProgram extends Model
           $cdata[] = array(
             'id' => $crow->id,
             'code' => $crow->code,
-            'program_id' => $crow->program_id,
-            'name' => $crow->code."-".$crow->structure_name_en.":".$crow->name_kh,
-            'name_en' => $crow->code."-".$crow->structure_name_en.":".$crow->name_en,
-            'name_kh' => $crow->code."-".$crow->structure_name_kh.":".$crow->name_kh,
+            'program_id' => array(
+              "label" => isset($crow->Program)?$crow->Program->name_kh:"",
+              "value" => isset($crow->Program)?$crow->Program->id:"",
+            ),
+            'name' => $crow->name_kh,
+            'name_en' => $crow->name_en,
+            'name_kh' => $crow->name_kh,
             'entity' => isset($crow->Entity)?$crow->Entity->name_kh:"",
-            'entity_id' => $crow->entity_id,
-            'entity_member_id' => $crow->entity_member_id,
-            'entity_member' => isset($crow->EntityMember)?$crow->EntityMember->name_kh:"",
+            'entity_id' => array(
+              "label" => isset($crow->Entity)?$crow->Entity->code."-".$crow->Entity->name_kh:"",
+              "value" => isset($crow->Entity)?$crow->Entity->id:"",
+            ),
+            'entity_member' => isset($crow->EntityMember)?$crow->EntityMember->fullname:"",
+            'entity_member_id' => array(
+              "label" => isset($crow->EntityMember)?$crow->EntityMember->fullname:"",
+              "value" => isset($crow->EntityMember)?$crow->EntityMember->id:"",
+            ),
             'remark' => $crow->remark,
             'order_level' => $crow->order_level,
             'indicator' => $indicatorArr,
@@ -144,6 +184,10 @@ class SubProgram extends Model
             'name' => $row->name_kh,
             'name_en' => $row->name_en,
             'name_kh' => $row->name_kh,
+            'program_id' => array(
+              "label" => $row->name_kh,
+              "value" => $row->id
+            ),
             'field' => 'program_id',
             // 'remark' => $row->remark,
             // 'order_level' => $row->order_level,
@@ -180,11 +224,17 @@ class SubProgram extends Model
             'program_id' => $crow->program_id,
             'name_en' => $crow->name_en,
             'name_kh' => $crow->name_kh,
-            'entity' => $crow->Entity?$crow->Entity->name_kh:'',
-            'entity_id' => $crow->entity_id,
-            'entity_member' => 'អ្នកទទួលបន្ទុក',//$crow->EntityMember->fullname,
-            'entity_member_id' => $crow->entity_member_id,
-            // 'remark' => $crow->remark,
+            'entity' => isset($crow->Entity)?$crow->Entity->name_kh:"",
+            'entity_id' => array(
+              "label" => isset($crow->Entity)?$crow->Entity->code."-".$crow->Entity->name_kh:"",
+              "value" => isset($crow->Entity)?$crow->Entity->id:"",
+            ),
+            'entity_member' => isset($crow->EntityMember)?$crow->EntityMember->fullname:"",
+            'entity_member_id' => array(
+              "label" => isset($crow->EntityMember)?$crow->EntityMember->fullname:"",
+              "value" => isset($crow->EntityMember)?$crow->EntityMember->id:"",
+            ),
+            'remark' => $crow->remark,
             'order_level' => $crow->order_level,
             
           'indicator' => $indicatorData,

@@ -1,46 +1,67 @@
 <template>
     <vx-card title="" code-toggler>
-        <!-- <step-costing></step-costing> -->
+        <step-costing></step-costing>
         <div class="mt-5">
             <form-wizard color="rgba(var(--vs-primary), 1)" errorColor="rgba(var(--vs-danger), 1)" :title="null"
                 :subtitle="null" finishButtonText="Submit">
+                <tab-content :title="$t('pb_step_prepare_annual_budget')" class="mb-5" icon="feather icon-home"
+                    :before-change="validateStep1">
 
-                <!-- Tab 1 -->
-                <tab-content :title="$t('pb_heading_costing')" class="mb-5" icon="feather icon-home"
-                    :before-change="validateStep2">
-                    <step-costing></step-costing>
+                    <vx-card :title="$t('pb_annual_budget_paln')" code-toggler>
+                        <div class="mt-5">
+
+                            <vs-collapse>
+                                <vs-collapse-item>
+                                    <div slot="header" style="color: #fff; background-color:#28c76f; padding: 10px;">
+                                        {{ $t("pb_heading_pb_revenue") }}
+                                    </div>
+                                    <step-revenue></step-revenue>
+                                </vs-collapse-item>
+
+                                <vs-collapse-item _disabled>
+                                    <div slot="header" style="color: #fff; background-color:#C0C9C4; padding: 10px;">
+                                        {{ $t("pb_heading_pb_expense") }}
+                                        <!-- គម្រោងចំណាយថវិកាតាមចំណាត់ថ្នាក់សេដ្ឋកិច្ច(PB Expense) -->
+                                    </div>
+                                    <!-- <step-expense></step-expense> -->
+                                </vs-collapse-item>
+
+                                <vs-collapse-item>
+                                    <div slot="header" style="color: #fff; background-color:#C0C9C4; padding: 10px;">
+                                        {{ $t("pb_heading_staff_expense") }}
+                                        <!-- តារាងគណនាគម្រោងចំណាយបន្ទុកបុគ្គលិក -->
+                                    </div>
+                                    <!-- <step-staff-costing></step-staff-costing> -->
+                                </vs-collapse-item>
+
+                                <vs-collapse-item>
+                                    <div slot="header" style="color: #fff; background-color:#C0C9C4; padding: 10px;">
+                                        {{ $t("pb_heading_target_indicator") }}
+                                        <!-- សូចនាករ និងគោលដៅសូចនាករ -->
+                                    </div>
+                                    <!-- <step-indicator></step-indicator> -->
+                                </vs-collapse-item>
+
+                                <vs-collapse-item>
+                                    <div slot="header" style="color: #fff; background-color:#C0C9C4; padding: 10px;">
+                                        {{ $t("pb_heading_costing") }}
+                                        <!-- សូចនាករ និងគោលដៅសូចនាករ -->
+                                    </div>
+                                    <step-costing></step-costing>
+                                </vs-collapse-item>
+
+                            </vs-collapse>
+                        </div>
+                    </vx-card>
                 </tab-content>
 
-                <!-- Tab 2 -->
-                <tab-content :title="$t('pb_heading_pb_revenue')" class="mb-5" icon="feather icon-home"
-                    :before-change="validateStep3">
-                    <step-revenue ref="refInitCalRequestRev"></step-revenue>
-                </tab-content>
-
-                <!-- Tab 3 -->
-                <tab-content :title="$t('pb_heading_pb_expense')" class="mb-5" icon="feather icon-home"
-                    :before-change="validateStep4">
-                    <step-expense ref="refInitCalRequestExp"></step-expense>
-                </tab-content>
-
-                <!-- Tab 4 -->
-                <tab-content :title="$t('pb_heading_staff_expense')" class="mb-5" icon="feather icon-home"
-                    :before-change="validateStep5">
-                    <step-staff-costing ref="refInitCalRequestStaffCosting"></step-staff-costing>
-                </tab-content>
-
-                <!-- Tab 5 -->
-                <tab-content :title="$t('pb_heading_target_indicator')" class="mb-5" icon="feather icon-home">
-                    <step-indicator ref="refInitCalRequestIndicator"></step-indicator>
-                </tab-content>
-
-                <!-- Tab 2 content -->
-                <!-- <tab-content :title="$t('pb_verify')" class="mb-5" icon="feather icon-briefcase"
+                <!-- tab 2 content -->
+                <tab-content :title="$t('pb_verify')" class="mb-5" icon="feather icon-briefcase"
                     :before-change="validateStep2">
                     <center>
                         <h2>Page is under construction</h2>
                     </center>
-                </tab-content> -->
+                </tab-content>
 
             </form-wizard>
         </div>
@@ -124,8 +145,18 @@ export default {
         }
     },
     methods: {
+        validateStep1() {
+            return new Promise((resolve, reject) => {
+                this.$validator.validateAll('step-1').then(result => {
+                    if (result) {
+                        resolve(true)
+                    } else {
+                        reject("correct all values");
+                    }
+                })
+            })
+        },
         validateStep2() {
-            this.$refs.refInitCalRequestRev.initRequest();
             return new Promise((resolve, reject) => {
                 this.$validator.validateAll("step-2").then(result => {
                     if (result) {
@@ -137,33 +168,6 @@ export default {
             })
         },
         validateStep3() {
-            this.$refs.refInitCalRequestExp.initRequest();
-            return new Promise((resolve, reject) => {
-                this.$validator.validateAll("step-3").then(result => {
-                    if (result) {
-                        alert("Form submitted!");
-                        resolve(true)
-                    } else {
-                        reject("correct all values");
-                    }
-                })
-            })
-        },
-        validateStep4() {
-            this.$refs.refInitCalRequestStaffCosting.initRequest();
-            return new Promise((resolve, reject) => {
-                this.$validator.validateAll("step-3").then(result => {
-                    if (result) {
-                        alert("Form submitted!");
-                        resolve(true)
-                    } else {
-                        reject("correct all values");
-                    }
-                })
-            })
-        },
-        validateStep5() {
-            this.$refs.refInitCalRequestIndicator.initRequest();
             return new Promise((resolve, reject) => {
                 this.$validator.validateAll("step-3").then(result => {
                     if (result) {

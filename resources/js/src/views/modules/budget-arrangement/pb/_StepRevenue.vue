@@ -629,6 +629,10 @@ export default {
         DTableList
     },
     methods: {
+        initRequest() {
+            this.$vs.loading();
+            this.getData();
+        },
         getDataTable(_search_criteria) {
             let _params = {};
             if (_search_criteria.search_field) {
