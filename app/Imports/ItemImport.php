@@ -21,8 +21,8 @@ class ItemImport implements ToModel,WithHeadingRow
             Item::insert([
                 "id"=> $row["id"],
                 "code"=>$row["code"],
-                "title_en"=>$row["title_en"],
-                "title_kh"=>$row["title_kh"],
+                "name_en"=>$row["title_en"],
+                "name_kh"=>$row["title_kh"],
                 "order_level"=>$row["order_level"]
             ]);
         }

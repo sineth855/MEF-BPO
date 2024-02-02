@@ -421,7 +421,7 @@ class ReportController extends Controller
             "totalRemainDollar" => number_format(($totalIncomeDollar - $totalExpenseDollar), 2),
             "incomeThisYear" => $getThisYearIncomes,
             "incomeLastyear" => $getLastYearIncomes,
-            "khmer_date" => KHMER_DATE,
+            "khmer_date" => config_khmerdate,
             "currentDay" => $this->convertToKhmerDate(date("D")),
             "currentDate" => $this->convertToKhmerNumber(date("d")),
             "currentMonth" => $this->convertKhMonth(date("m")),
@@ -1064,7 +1064,7 @@ class ReportController extends Controller
      
         $total_income = DB::select(DB::raw("SELECT ROUND(SUM(total_income) / 1000000) as total_income FROM tmp"));
         $total_expense = DB::select(DB::raw("SELECT ROUND(SUM(total_expense) / 1000000) as total_expense FROM tmp"));
-        $query = DB::select(DB::raw("SELECT * FROM tmp GROUP BY entity_id ORDER BY entity_id"));
+        $query = DB::select(DB::raw("SELECT * FROM tmp GROUP BY entity_id config_order BY entity_id"));
 
         $resultQuery = DB::select(DB::raw("
             SELECT 

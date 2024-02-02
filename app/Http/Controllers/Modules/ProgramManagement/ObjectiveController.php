@@ -26,7 +26,7 @@ class ObjectiveController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
-     */
+     **/
     public function dataFields(){
         // Loop Data Field From Table to put in array for mapping data field to search data table
         $data["tables"] = DB::select('show columns from '.env("DB_PREFIX").($this->db_table)->getTable());
@@ -39,6 +39,7 @@ class ObjectiveController extends Controller
         $dataFields = $newArr;
         return $dataFields;
     }
+
     public function index(Request $request)
     {
         $input = $request->all();
@@ -142,7 +143,7 @@ class ObjectiveController extends Controller
         }else{
             $status = 500;
             $boolen = false;
-            $message = trans('common.message_error');
+            $message = trans('common.error_msg');
         }
         $data = array(
             "success" => $boolen,
@@ -153,13 +154,12 @@ class ObjectiveController extends Controller
     }
 
     public function dataForm($input){
-        $dataFields = array(
-            "code" => isset($input[0]["code"])?$input[0]["code"]:null,
-            "name_en" => isset($input[0]["name_en"])?$input[0]["name_en"]:null,
-            "name_kh" => isset($input[1]["name_kh"])?$input[1]["name_kh"]:null,
-            "remark" => isset($input[3]["remark"])?$input[3]["remark"]:null,
-            "order_level" => isset($input[2]["order_level"])?$input[2]["order_level"]:0
-        );
+        $arr = $input;
+        $push_array = array(); //array("created_by" => Auth::user()->id);
+        $arraySingle = array_merge($arr, $push_array);
+        // array_push($arr, $push_array);
+        // $arraySingle = call_user_func_array('array_merge', $arr);
+        $dataFields = $arraySingle;
         return $dataFields;
     }
 

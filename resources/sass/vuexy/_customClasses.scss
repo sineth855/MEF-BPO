@@ -530,3 +530,11 @@ ul.bordered-items {
 input.vs-inputx.vs-input--input.small.hasValue{
   font-size: 15px !important;
 }
+
+table tr td{
+  border: none !important
+}
+
+table.vs-table tr td{
+  border: 1px solid #fff !important
+}

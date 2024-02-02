@@ -22,7 +22,7 @@ class CeilingEntityImport implements ToModel,WithHeadingRow
         if(!$queryCheck){
             if($row["entity_id"]!=''){
                 CeilingEntity::insert([
-                    "planing_id"=>PLANNING_YEAR,
+                    "planing_id"=>config_planning_year,
                     "ceiling_exp_group"=>$row["ceiling_exp_group"],
                     // "ceiling_exp_type"=>$row["ceiling_exp_type"],
                     "sub_program_id"=>$row["sub_program_id"],

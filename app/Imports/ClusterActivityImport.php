@@ -20,6 +20,7 @@ class ClusterActivityImport implements ToModel,WithHeadingRow
         if(!$queryCheck){
             if($row["sub_program_id"]!=""){
                 ClusterActivity::insert([
+                    "id" => $row["id"],
                     "sub_program_id" => $row["sub_program_id"],
                     "code" => $row["code"],
                     "sub_code" => $row["sub_code"],

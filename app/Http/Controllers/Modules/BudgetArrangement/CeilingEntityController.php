@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Modules\BudgetArrangement;
 
 use App\Http\Controllers\Controller;
 use App\Models\Modules\BudgetArrangement\CeilingEntity;
+use App\Models\Modules\ProgramManagement\Program;
+use App\Models\Modules\ProgramManagement\SubProgram;
 use Illuminate\Http\Request;
 use Auth;
 use DB;
@@ -44,47 +46,27 @@ class CeilingEntityController extends Controller
         $dataFields = $this->dataFields();
         $filter = CommonService::getFilter($input);
         
-        $objectives = array(
-            [
-                "label" => "គោលបំណងទី១",
-                "value" => 1,
-            ],
-            [
-                "label" => "គោលបំណងទី២",
-                "value" => 2,
-            ],
-            [
-                "label" => "គោលបំណងទី៣",
-                "value" => 3,
-            ]
-        );
-        $entities = array(
-            [
-                "label" => "អង្គភាពទី២២១",
-                "value" => 1,
-            ],
-            [
-                "label" => "អង្គភាពទី២២២",
-                "value" => 2,
-            ]
-        );
-        $entity_members = array(
-            [
-                "label" => "សមាជិកទី១",
-                "value" => 1,
-            ],
-            [
-                "label" => "សមាជិកទី២",
-                "value" => 2,
-            ]
-        );
+        $programs = Program::getPrograms();
+        $subPrograms = [];
+        $entities = [];
+        // $entity_members = array(
+        //     [
+        //         "label" => "សមាជិកទី១",
+        //         "value" => 1,
+        //     ],
+        //     [
+        //         "label" => "សមាជិកទី២",
+        //         "value" => 2,
+        //     ]
+        // );
         
         $data = array(
             "data_fields" => $this->dataFields(),
             "data" => CeilingEntity::getCeilingEntities($filter),
+            "program_id" => $programs,
+            "sub_program_id" => $subPrograms,
             "entity_id" => $entities,
-            "entity_member_id" => $entity_members,
-            "limit" => LIMIT,
+            "limit" => config_limit,
             "total" => 0//$this->db_table::count()
         );
         return response()->json($data);
@@ -175,7 +157,7 @@ class CeilingEntityController extends Controller
         }else{
             $status = 500;
             $boolen = false;
-            $message = trans('common.message_error');
+            $message = trans('common.error_msg');
         }
         $data = array(
             "success" => $boolen,

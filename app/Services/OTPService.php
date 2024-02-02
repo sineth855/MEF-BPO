@@ -12,7 +12,7 @@
 	class OTPService{
 	
 	    public static function getOTP($request){
-			$randomOTP = mt_rand(OTP_LIMIT, OTP_START);
+			$randomOTP = mt_rand(OTP_config_limit, config_otp_start);
 			$isSent = OTPService::sentOTP($randomOTP, $request);
 			$data = array();
 			if($isSent){
@@ -60,7 +60,7 @@
 		}
 		
 		public static function setExpiredOTP(){
-			$expiredDate = date("Y-m-d H:i:s",strtotime(date("Y-m-d H:i:s")." +" . OTP_EXPIRED));
+			$expiredDate = date("Y-m-d H:i:s",strtotime(date("Y-m-d H:i:s")." +" . config_otp_expire));
 			return $expiredDate;
 		}
 

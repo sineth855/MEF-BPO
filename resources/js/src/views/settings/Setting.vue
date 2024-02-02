@@ -1,9 +1,10 @@
 <template>
   <vs-tabs position="top" class="tabs-shadow-none" id="profile-tabs" :key="isSmallerScreen">
 
-    <vs-tab icon-pack="feather" icon="icon-edit" :label="!isSmallerScreen ? 'ព័ត៌មានរៀបចំថវិកា' : ''">
-      <div class="tab-general md:ml-4 md:mt-0 mt-4 ml-0">
-        <setting-budget-arrangement />
+    <!-- 3 -->
+    <vs-tab icon-pack="feather" icon="icon-lock" :label="!isSmallerScreen ? 'សិទ្ធ និងអ្នកប្រើប្រាស់' : ''">
+      <div class="tab-text md:ml-4 md:mt-0 mt-4 ml-0">
+        <setting-role />
       </div>
     </vs-tab>
 
@@ -14,7 +15,7 @@
       </div>
     </vs-tab>
 
-    <!-- 5 -->
+    <!-- 6 -->
     <vs-tab icon-pack="feather" icon="icon-user" :label="!isSmallerScreen ? 'អង្គភាព' : ''">
       <div class="tab-text md:ml-4 md:mt-0 mt-4 ml-0">
         <vx-card>
@@ -43,15 +44,10 @@
       </div>
     </vs-tab>
 
-    <!-- 3 -->
-    <vs-tab icon-pack="feather" icon="icon-lock" :label="!isSmallerScreen ? 'សិទ្ធ និងអ្នកប្រើប្រាស់' : ''">
-      <div class="tab-text md:ml-4 md:mt-0 mt-4 ml-0">
-        <setting-role />
-      </div>
-    </vs-tab>
+
 
     <!-- 6 -->
-    <vs-tab icon-pack="feather" icon="icon-calendar" :label="!isSmallerScreen ? 'ទិន្នន័យ Backup' : ''">
+    <vs-tab icon-pack="feather" icon="icon-calendar" :label="!isSmallerScreen ? 'Backup' : ''">
       <div class="tab-text md:ml-4 md:mt-0 mt-4 ml-0">
         <setting-backup />
       </div>
@@ -84,7 +80,7 @@
     </vs-tab> -->
 
     <!-- 9 -->
-    <vs-tab icon-pack="feather" icon="icon-clock" :label="!isSmallerScreen ? 'កំណត់ហេតុចូលប្រព័ន្ធ' : ''">
+    <vs-tab icon-pack="feather" icon="icon-clock" :label="!isSmallerScreen ? 'កំណត់ហេតុប្រព័ន្ធ' : ''">
       <div class="tab-social-links md:ml-4 md:mt-0 mt-4 ml-0">
         <vs-table :data="[]" style="overflow: scroll">
 

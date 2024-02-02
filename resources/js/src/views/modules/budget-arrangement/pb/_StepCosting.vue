@@ -25,6 +25,7 @@ export default {
                 dataGrid: "row",
                 hasHeadingReport: false,
                 popupFullscreen: true,
+                enableToggleForm: true,
                 headingReport: "pb_heading_costing",
                 actionButton: [
                     {
@@ -43,7 +44,7 @@ export default {
 
                 header8: {
                     label: "បរិយាយមុខសញ្ញា",
-                    width: "200",
+                    width: "400",
                     // flag: "y_n_1",
                     rowspan: 0,
                     colspan: 0,
@@ -135,15 +136,24 @@ export default {
                     rowspan: 0,
                     colspan: 0,
                 },
+                header18: {
+                    label: "មុខសញ្ញា",
+                    rowspan: 0,
+                    colspan: 0,
+                },
                 header19: {
                     label: "ផ្សេងៗ",
+                    rowspan: 0,
+                    colspan: 0,
+                },
+                header20: {
+                    label: "សកម្ម",
                     rowspan: 0,
                     colspan: 0,
                 }
             },
             data: {
                 dataHeaders: {
-
                     header8: {
                         label: "item_description",
                         // flag: "y_n_1",
@@ -237,8 +247,18 @@ export default {
                         rowspan: 0,
                         colspan: 0,
                     },
+                    header18: {
+                        label: "expense_type",
+                        rowspan: 0,
+                        colspan: 0,
+                    },
                     header19: {
                         label: "Misc", //ផ្សេងៗ
+                        rowspan: 0,
+                        colspan: 0,
+                    },
+                    header20: {
+                        label: "Action", //ផ្សេងៗ
                         rowspan: 0,
                         colspan: 0,
                     }
@@ -246,6 +266,12 @@ export default {
                 dataSubHeaders: {
                     header1: {
                         label: "1",
+                        width: 0,
+                        rowspan: 0,
+                        colspan: 0,
+                    },
+                    header2: {
+                        label: "22",
                         width: 0,
                         rowspan: 0,
                         colspan: 0,
@@ -337,31 +363,43 @@ export default {
                         rowspan: 0,
                         colspan: 0,
                     },
+                    header18: {
+                        label: "18", //
+                        rowspan: 0,
+                        colspan: 0,
+                    },
                     header19: {
                         label: "19", //ផ្សេងៗ
+                        rowspan: 0,
+                        colspan: 0,
+                    },
+                    header20: {
+                        label: "", //ផ្សេងៗ
                         rowspan: 0,
                         colspan: 0,
                     }
                 },
                 dataFillables: {
-                    field8: "desc",
-                    field1: "chapter",
-                    field2: "account",
-                    field3: "sub_account",
+                    field1: "desc",
+                    field2: "code_pro",
+                    field3: "chapter",
                     field4: "no",
                     field5: "line",
                     field6: "code_cluster_activity",
                     field7: "code_activity",
-                    field9: "expense_type",
+                    field8: "sub_account",
+                    field9: "regular_irregular",
                     field10: "unit",
                     field11: "quantity",
-                    field12: "unit_price",
-                    field13: "total_amount",
-                    field14: "time_year",
-                    field15: "annual_amount",
-                    field16: "month",
-                    field17: "expense_type",
-                    field19: "remark"
+                    field12: "currency",
+                    field13: "unit_price",
+                    field14: "total_amount",
+                    field15: "time_year",
+                    field16: "annual_amount",
+                    field17: "month",
+                    field18: "expense_type",
+                    field19: "remark",
+                    // field20: "action",
                 },
                 group_fields: { field1: "rev_group", field2: "rev_type" },
                 summary: [
@@ -461,17 +499,17 @@ export default {
                         children: [
                             {
                                 desc: "អនុកម្មវិធីទី១.១ : អគ្គនាយកដ្ឋានគោលនយោបាយ",
+                                code_pro: "",
                                 chapter: "",
-                                account: "",
-                                sub_account: "",
                                 no: "",
                                 line: "",
-                                code_prog_act: "10101",
                                 code_cluster_activity: "",
                                 code_activity: "",
-                                expense_type: "",
+                                sub_account: "",
+                                regular_irregular: "",
                                 unit: "",
                                 quantity: "",
+                                currency: "",
                                 unit_price: "",
                                 total_amount: "",
                                 time_year: "",
@@ -484,17 +522,17 @@ export default {
                                 children: [
                                     {
                                         desc: "ចង្កោមសកម្មភាពទី១៖ លេខាធិការដ្ឋាន",
+                                        code_pro: "",
                                         chapter: "",
-                                        account: "",
-                                        sub_account: "",
                                         no: "",
                                         line: "",
-                                        code_prog_act: "101010101",
                                         code_cluster_activity: "",
                                         code_activity: "",
-                                        expense_type: "",
+                                        sub_account: "",
+                                        regular_irregular: "",
                                         unit: "",
                                         quantity: "",
+                                        currency: "",
                                         unit_price: "",
                                         total_amount: "",
                                         time_year: "",
@@ -506,17 +544,17 @@ export default {
                                         children: [
                                             {
                                                 desc: "សកម្មភាពទី១ នៃចង្កោមសកម្មភាពទី១៖ បំពេញមុខងារជាលេខាធិការដ្ឋាន",
+                                                code_pro: "",
                                                 chapter: "",
-                                                account: "",
-                                                sub_account: "",
                                                 no: "",
                                                 line: "",
-                                                code_prog_act: "",
                                                 code_cluster_activity: "",
                                                 code_activity: "",
-                                                expense_type: "",
+                                                sub_account: "",
+                                                regular_irregular: "",
                                                 unit: "",
                                                 quantity: "",
+                                                currency: "",
                                                 unit_price: "",
                                                 total_amount: "",
                                                 time_year: "",
@@ -524,6 +562,52 @@ export default {
                                                 month: "",
                                                 expense_type: "",
                                                 remark: "",
+                                                children: [
+                                                    {
+                                                        desc: "TSK00012: ១.បន្ទុកបុគ្គលិក",
+                                                        code_pro: "",
+                                                        chapter: "",
+                                                        no: "",
+                                                        line: "",
+                                                        code_cluster_activity: "",
+                                                        code_activity: "",
+                                                        sub_account: "",
+                                                        regular_irregular: "",
+                                                        unit: "",
+                                                        quantity: "",
+                                                        currency: "",
+                                                        unit_price: "",
+                                                        total_amount: "",
+                                                        time_year: "",
+                                                        annual_amount: "",
+                                                        month: "",
+                                                        expense_type: "",
+                                                        remark: "",
+                                                        children: [
+                                                            {
+                                                                desc: "ប្រាក់បៀវត្សមូលដ្ឋានមន្ត្រីរាជការ ចំនួន ៥៦នាក់",
+                                                                code_pro: "10101",
+                                                                chapter: "64",
+                                                                no: "1",
+                                                                line: "LN0001",
+                                                                code_cluster_activity: "1010101",
+                                                                code_activity: "101010101",
+                                                                sub_account: "64021",
+                                                                regular_irregular: "Regular",
+                                                                unit: "ខែ",
+                                                                quantity: "1",
+                                                                currency: "KHR",
+                                                                unit_price: "50,216,000",
+                                                                total_amount: "50,216,000",
+                                                                time_year: "12",
+                                                                annual_amount: "602,592,000",
+                                                                month: "",
+                                                                expense_type: "",
+                                                                remark: "",
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
                                             }
                                         ]
                                     }
@@ -573,13 +657,13 @@ export default {
                     data: [],
                 },
                 {
-                    name: "ច្បាប់ហិរញ្ញវត្ថុ",
+                    name: "ទិន្នន័យ",
                     type: "grid",
                     flag: "y_n_minus_1",
                     required: false,
                 },
                 {
-                    name: "មូលដ្ឋានគិតចំណូល",
+                    name: "រង្វាស់ឯកតា",
                     type: "text",
                     required: false,
                 },
@@ -589,53 +673,27 @@ export default {
                     required: false,
                 },
                 {
-                    name: "សរុប​ឥណទានថវិកា",
+                    name: "ចំនួនក្នុង១ឯកតារ",
                     type: "text",
                     required: false,
                 },
                 {
-                    name: "ប៉ាន់ស្មាន​អនុវត្ត​ឆ្នាំ",
-                    type: "grid",
+                    name: "ចំនួនលើក/១ឆ្នាំ",
+                    type: "number",
                     required: false,
                 },
                 {
-                    name: "មូលដ្ឋានគិតចំណូល",
-                    type: "text",
-                    required: false,
-                },
-                {
-                    name: "បរិមាណ",
-                    type: "text",
-                    required: false,
-                },
-                {
-                    name: "សរុប​ឥណទានថវិកា",
-                    type: "text",
-                    required: false,
-                },
-                {
-                    name: "គម្រោង​ឆ្នាំ",
-                    type: "grid",
-                    flag: "y_n_1",
-                    required: false,
-                },
-                {
-                    name: "មូលដ្ឋានគិតចំណូល",
+                    name: "ប្រភេទចំណាយប្រចាំ/មិនប្រចាំ",
                     type: "text",
                     required: false,
                 },
                 {
                     name: "បរិមាណ",
-                    type: "text",
+                    type: "number",
                     required: false,
                 },
                 {
-                    name: "សរុប​",
-                    type: "text",
-                    required: false,
-                },
-                {
-                    name: "%ច្ប.២២",
+                    name: "ផ្សេងៗ",
                     type: "text",
                     required: false,
                 }
@@ -660,7 +718,6 @@ export default {
                         }
                         this.dataFields.push(_d);
                     }
-
                 });
                 _params = {
                     sort: _search_criteria.sort,

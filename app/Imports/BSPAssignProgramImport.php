@@ -69,7 +69,7 @@ class BSPAssignProgramImport implements ToModel,WithHeadingRow
             DB::table("mef_kpi_subprogram")->insert([
                 "kpi_program_id" => null,
                 "subprog_to_entity_id" => $row["subprog_to_entity_id"],
-                "planning_id" => PLANNING_YEAR,
+                "planning_id" => config_planning_year,
                 "code" => null,
                 "kpi_name_en" => $row["kpi_name_kh"],
                 "kpi_name_kh" => $row["kpi_name_kh"],
@@ -87,7 +87,7 @@ class BSPAssignProgramImport implements ToModel,WithHeadingRow
         if($row["cluster_act_to_entity_id"]!='' && $row["id"] != ''){
             DB::table("mef_kpi_cluster_activity")->insert([
                 "cluster_act_to_entity_id" => $row["cluster_act_to_entity_id"],
-                "planning_id" => PLANNING_YEAR,
+                "planning_id" => config_planning_year,
                 "kpi_sub_program_id" => null,
                 "code" => null,
                 "kpi_name_en" => $row["kpi_name_kh"],

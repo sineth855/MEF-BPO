@@ -1,7 +1,7 @@
 <template>
     <div id="table-demo">
         <!-- Here to create popup form for ceiling data by entity -->
-        <Form ref="refOpenPrivatePopupForm"></Form>
+        <Form ref="refOpenPrivatePopupForm" :data="data"></Form>
         <d-table-list @clickPricateForm="initPopupPrivateForm" @clicked="initTableData" :api="api" ref="refInitPage"
             :allowDel="true" :title="title" :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data"
             :formAttributes="formAttributes" :rowDisplay="rowDisplay"></d-table-list>
@@ -21,7 +21,7 @@ export default {
     data() {
         return {
             title: "CeilingBudget",
-            api: apiConfig._apiObjective,
+            api: apiConfig._apiCeilingEntity,
             dataAttributes: {
                 tableStyle: 3,
                 page_number: 1,
@@ -355,70 +355,88 @@ export default {
             },
             formAttributes: [
                 {
+                    name: "program_id",
+                    type: "select",
+                    required: true,
+                    hasFilter: true,
+                    filterObj: "sub_program_id",
+                    api: apiConfig._apiSubProgramByPro,
+                    options: [],
+                },
+                {
+                    name: "sub_program_id",
+                    type: "select",
+                    required: true,
+                    hasFilter: true,
+                    filterObj: "entity_id",
+                    api: apiConfig._apiEntityBySubPro,
+                    options: [],
+                },
+                {
                     name: "entity_id", // អង្គភាព
                     type: "select",
                     required: true,
                     options: [],
                 },
                 {
-                    name: "ceiling_exp_group", // ប្រភេទមុខសញ្ញា
-                    type: "select",
-                    required: true,
-                    options: [],
-                },
-                {
-                    name: "sub_program_id", // ប្រភេទមុខសញ្ញា
-                    type: "select",
-                    required: true,
-                    options: [],
-                },
-                {
-                    name: "ceiling_rule", //ច្បាប់ពិដាន
-                    type: "text",
-                    required: true,
-                    options: [],
-                },
-                {
-                    name: "irregular_expense", // ចំណាយមិនប្រចាំ
-                    type: "text",
+                    name: "tab_budget_ceiling",
+                    type: "tab_budget_ceiling_group",
                     required: false,
                 },
-                {
-                    name: "regular_expense", // ចំណាយប្រចាំ
-                    type: "text",
-                    required: false,
-                },
+                // {
+                //     name: "ceiling_exp_group", // ប្រភេទមុខសញ្ញា
+                //     type: "select",
+                //     required: true,
+                //     options: [],
+                // },
+                // {
+                //     name: "ceiling_rule", //ច្បាប់ពិដាន
+                //     type: "text",
+                //     required: true,
+                //     options: [],
+                // },
+                // {
+                //     name: "irregular_expense", // ចំណាយមិនប្រចាំ
+                //     type: "text",
+                //     required: false,
+                // },
+                // {
+                //     name: "regular_expense", // ចំណាយប្រចាំ
+                //     type: "text",
+                //     required: false,
+                // },
 
-                {
-                    name: "ceiling_tran_year_0", // ពិដានចំណាយចរន្ត
-                    type: "text",
-                    required: false
-                },
-                {
-                    name: "ceiling_tran_year_1", // ពិដានចំណាយចរន្ត
-                    type: "text",
-                    required: false
-                },
-                {
-                    name: "ceiling_tran_year_2", // ពិដានចំណាយចរន្ត
-                    type: "text",
-                    required: false
-                },
-                {
-                    name: "increase_rate_year_0", // អត្រាកំណើនប្រចាំឆ្នាំ
-                    type: "text",
-                    required: false
-                },
-                {
-                    name: "increase_rate_year_1", // អត្រាកំណើនប្រចាំឆ្នាំ
-                    type: "text",
-                    required: false
-                },
-                {
-                    name: "increase_rate_year_2", // អត្រាកំណើនប្រចាំឆ្នាំ
-                    type: "text",
-                    required: false
-                }
+                // {
+                //     name: "ceiling_tran_year_0", // ពិដានចំណាយចរន្ត
+                //     type: "text",
+                //     required: false
+                // },
+                // {
+                //     name: "ceiling_tran_year_1", // ពិដានចំណាយចរន្ត
+                //     type: "text",
+                //     required: false
+                // },
+                // {
+                //     name: "ceiling_tran_year_2", // ពិដានចំណាយចរន្ត
+                //     type: "text",
+                //     required: false
+                // },
+                // {
+                //     name: "increase_rate_year_0", // អត្រាកំណើនប្រចាំឆ្នាំ
+                //     type: "text",
+                //     required: false
+                // },
+                // {
+                //     name: "increase_rate_year_1", // អត្រាកំណើនប្រចាំឆ្នាំ
+                //     type: "text",
+                //     required: false
+                // },
+                // {
+                //     name: "increase_rate_year_2", // អត្រាកំណើនប្រចាំឆ្នាំ
+                //     type: "text",
+                //     required: false
+                // },
+
             ],
             rowDisplay: "3grid", //1grid, 2grid, 3grid, 4grid
             dataFields: []
@@ -461,8 +479,11 @@ export default {
             return new Promise((resolve, reject) => {
                 axios.post(this.api + "/search", _params)
                     .then((response) => {
-                        // this.data = response.data;
-                        this.data = this.data;
+                        if (response.data) {
+                            this.data = response.data;
+                        } else {
+                            this.data = this.data;
+                        }
                         this.$vs.loading.close();
                     }).catch((error) => {
                         // reject(error)
@@ -489,8 +510,8 @@ export default {
             this.getDataTable(_search_criteria);
             return false;
         },
-        initPopupPrivateForm() {
-            this.$refs.refOpenPrivatePopupForm.showNewForm();
+        initPopupPrivateForm(data) {
+            this.$refs.refOpenPrivatePopupForm.showForm(data);
             // alert("welcome back");
         },
 

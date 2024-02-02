@@ -18,8 +18,11 @@
         <span>&nbsp;&nbsp;</span>
         <!-- <cart-drop-down /> -->
 
-        <notification-drop-down />
+        <!-- <notification-drop-down /> -->
 
+        <!-- <profile-drop-down /> -->
+        <notification-drop-down />
+        <setting />
         <profile-drop-down />
 
       </vs-navbar>
@@ -29,12 +32,13 @@
 
 
 <script>
-import Bookmarks            from "./components/Bookmarks.vue"
-import I18n                 from "./components/I18n.vue"
-import SearchBar            from "./components/SearchBar.vue"
-import CartDropDown         from "./components/CartDropDown.vue"
+import Bookmarks from "./components/Bookmarks.vue"
+import I18n from "./components/I18n.vue"
+import SearchBar from "./components/SearchBar.vue"
+import CartDropDown from "./components/CartDropDown.vue"
 import NotificationDropDown from "./components/NotificationDropDown.vue"
-import ProfileDropDown      from "./components/ProfileDropDown.vue"
+import ProfileDropDown from "./components/ProfileDropDown.vue"
+import Setting from "./components/Setting.vue";
 
 export default {
   name: "the-navbar-vertical",
@@ -51,6 +55,7 @@ export default {
     CartDropDown,
     NotificationDropDown,
     ProfileDropDown,
+    Setting
   },
   computed: {
     navbarColorLocal() {
@@ -60,7 +65,7 @@ export default {
       return this.$store.state.verticalNavMenuWidth
     },
     textColor() {
-      return {'text-white': (this.navbarColor != '#10163a' && this.$store.state.theme === 'dark') || (this.navbarColor != '#fff' && this.$store.state.theme !== 'dark')}
+      return { 'text-white': (this.navbarColor != '#10163a' && this.$store.state.theme === 'dark') || (this.navbarColor != '#fff' && this.$store.state.theme !== 'dark') }
     },
     windowWidth() {
       return this.$store.state.windowWidth
@@ -68,9 +73,9 @@ export default {
 
     // NAVBAR STYLE
     classObj() {
-      if (this.verticalNavMenuWidth == "default")      return "navbar-default"
+      if (this.verticalNavMenuWidth == "default") return "navbar-default"
       else if (this.verticalNavMenuWidth == "reduced") return "navbar-reduced"
-      else if (this.verticalNavMenuWidth)              return "navbar-full"
+      else if (this.verticalNavMenuWidth) return "navbar-full"
     },
   },
   methods: {

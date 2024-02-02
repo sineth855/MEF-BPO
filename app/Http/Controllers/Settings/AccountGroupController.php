@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Settings;
 
 use App\Http\Controllers\Controller;
 use App\Models\Settings\AccountGroup;
+use App\Models\Settings\AccountType;
 use Illuminate\Http\Request;
 use Auth;
 use DB;
+use CommonService;
 
 class AccountGroupController extends Controller
 {
@@ -37,35 +39,21 @@ class AccountGroupController extends Controller
         $dataFields = $newArr;
         return $dataFields;
     }
+
     public function index(Request $request)
     {
         $input = $request->all();
         $dataFields = $this->dataFields();
-        $filter = array(
-            // "offset" => isset($input["offset"]) ? $input["offset"] : OFFSET,
-            "limit" => isset($input["limit"]) ? $input["limit"] : LIMIT,
-            "sort" => isset($input["sort"]) ? $input["sort"] : SORT,
-            "order" => isset($input["order"]) ? $input["order"] : ORDER
-        );
-        $query = $this->db_table::orderBy($filter["sort"], $filter["order"]);
-        $whereClause = $query;
-        $whereClause->offset(($input["page_number"] - 1) * $filter["limit"]);       
-        $whereClause->limit($filter["limit"]);
-        if(isset($input["search_field"])){
-            for($i=0 ; $i < count($input["search_field"]); $i++){
-                $field = array_key_first($input["search_field"][$i]); //array('key1', 'key2', 'key3');
-                if (in_array($field, $dataFields)) {
-                    $whereClause->orWhere($field, "Like","%".$input["search_field"][$i][$field]."%");
-                }
-            }
-        }
+        $filter = CommonService::getFilter($input);
         
-        $table = collect($whereClause->get());
+        $accountTypes = AccountType::getAccTypes();
+        
         $data = array(
             "data_fields" => $this->dataFields(),
-            "data" => $table,
-            "limit" => $filter["limit"],
-            "total" => $this->db_table->count()
+            "data" => $this->db_table::getAccountGroups($filter),
+            "account_type_id" => $accountTypes,
+            "limit" => config_limit,
+            "total" => $this->db_table::getCount($filter)
         );
         return response()->json($data);
     }
@@ -153,7 +141,7 @@ class AccountGroupController extends Controller
         }else{
             $status = 500;
             $boolen = false;
-            $message = trans('common.message_error');
+            $message = trans('common.error_msg');
         }
         $data = array(
             "success" => $boolen,
@@ -164,13 +152,12 @@ class AccountGroupController extends Controller
     }
 
     public function dataForm($input){
-        $dataFields = array(
-            "code" => isset($input[0]["code"])?$input[0]["code"]:null,
-            "name_en" => isset($input[1]["name_en"])?$input[1]["name_en"]:null,
-            "name_kh" => isset($input[2]["name_kh"])?$input[2]["name_kh"]:null,
-            "order_level" => isset($input[3]["order_level"])?$input[3]["order_level"]:0,
-            "description" => isset($input[4]["description"])?$input[4]["description"]:null,
-        );
+        $arr = $input;
+        $push_array = array(); //array("created_by" => Auth::user()->id);
+        $arraySingle = array_merge($arr, $push_array);
+        // array_push($arr, $push_array);
+        // $arraySingle = call_user_func_array('array_merge', $arr);
+        $dataFields = $arraySingle;
         return $dataFields;
     }
 
@@ -182,7 +169,7 @@ class AccountGroupController extends Controller
      */
     public function destroy($id)
     {
-        $table = $this->db_table::where('id', $id)->delete();
+        $table = $this->db_table::where('id', $id)->update(["is_delete" => 1]);
         if($table){
             $status = 200;
             $boolen = true;

@@ -30,8 +30,8 @@ export default {
                 ]
             },
             dataHeaders: {
-                header1: "title_en",
-                header2: "title_kh",
+                header1: "name_en",
+                header2: "name_kh",
                 header3: "status",
                 header4: "order_level",
             },
@@ -47,12 +47,12 @@ export default {
             },
             formAttributes: [
                 {
-                    name: "title_en",
+                    name: "name_en",
                     type: "text",
                     required: true
                 },
                 {
-                    name: "title_kh",
+                    name: "name_kh",
                     type: "text",
                     required: true
                 },

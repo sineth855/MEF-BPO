@@ -35,9 +35,9 @@ class GlobalSite
     public function handle($request, Closure $next)
     {
     //    $config_site = DB::table('config')->where('config_group_id', 1)->get(); 
-        $config_site = DB::table('configuration')->get(); 
+        $config_site = DB::table('config')->get(); 
        foreach ($config_site as $key => $value) {
-          define($value->keyword, $value->value);
+          define($value->key, $value->value);
        }
     
        return $next($request);  

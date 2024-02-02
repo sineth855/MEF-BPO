@@ -21,7 +21,7 @@ class EntityMemberImport implements ToModel,WithHeadingRow
         $queryCheck = EntityMember::where("id", (int)$row["id"])->first();
         if(!$queryCheck){
             EntityMember::insert([
-                "id"=>$row["id"],
+                "id" => $row["id"],
                 "fullname"=>$row["fullname"],
                 "entity_id"=>$row["entity_id"],
                 "is_active"=> 1

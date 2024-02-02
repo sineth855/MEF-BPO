@@ -9,8 +9,8 @@ class ProjectType extends Model
     protected $table = 'mef_project_type';
     protected  $primaryKey = 'id';
     protected $fillable = [
-                            'name_en',
-                            'name_kh',
+                            "name_en",
+                            "name_kh",
                             'order_level',
                             'is_active'
                           ];

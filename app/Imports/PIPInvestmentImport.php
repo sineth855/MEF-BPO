@@ -21,7 +21,7 @@ class PIPInvestmentImport implements ToModel,WithHeadingRow
             if(!$queryCheck){
                 PIPInvestment::insert([
                     "id"=> $row["id"],
-                    "planning_id"=> PLANNING_YEAR,
+                    "planning_id"=> config_planning_year,
                     "entity_id"=> $row["entity_id"],
                     "sub_program_id"=>$row["sub_program_id"],
                     "cluster_activity_id"=>isset($row["cluster_activity_id"])?$row["cluster_activity_id"]:0,

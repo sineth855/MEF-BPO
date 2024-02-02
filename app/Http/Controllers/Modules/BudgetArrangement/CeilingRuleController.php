@@ -42,14 +42,14 @@ class CeilingRuleController extends Controller
         $input = $request->all();
         $dataFields = $this->dataFields();
         $filter = array(
-            // "offset" => isset($input["offset"]) ? $input["offset"] : OFFSET,
-            "limit" => isset($input["limit"]) ? $input["limit"] : LIMIT,
-            "sort" => isset($input["sort"]) ? $input["sort"] : SORT,
-            "order" => isset($input["order"]) ? $input["order"] : ORDER
+            // "offset" => isset($input["offset"]) ? $input["offset"] : config_offset,
+            "limit" => isset($input["limit"]) ? $input["limit"] : config_limit,
+            "sort" => isset($input["sort"]) ? $input["sort"] : config_sort,
+            "order" => isset($input["order"]) ? $input["order"] : config_order
         );
         $query = $this->db_table::orderBy($filter["sort"], $filter["order"]);
         $whereClause = $query;
-        $whereClause->offset(($input["page_number"] - 1) * LIMIT);       
+        $whereClause->offset(($input["page_number"] - 1) * config_limit);       
         $whereClause->limit($filter["limit"]);
         if(isset($input["search_field"])){
             for($i=0 ; $i < count($input["search_field"]); $i++){
@@ -64,7 +64,7 @@ class CeilingRuleController extends Controller
         // $data = array(
         //     "data_fields" => $this->dataFields(),
         //     "data" => $table,
-        //     "limit" => LIMIT,
+        //     "limit" => config_limit,
         //     "total" => $this->db_table->count()
         // );
         $status = array(
@@ -87,7 +87,7 @@ class CeilingRuleController extends Controller
             "data_fields" => $this->dataFields(),
             "data" => $table,
             "status" => $status,
-            "limit" => LIMIT,
+            "limit" => config_limit,
             "total" => $this->db_table::count()
         );
         return response()->json($data);
@@ -178,7 +178,7 @@ class CeilingRuleController extends Controller
         }else{
             $status = 500;
             $boolen = false;
-            $message = trans('common.message_error');
+            $message = trans('common.error_msg');
         }
         $data = array(
             "success" => $boolen,

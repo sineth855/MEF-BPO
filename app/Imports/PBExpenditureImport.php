@@ -20,7 +20,7 @@ class PBExpenditureImport implements ToModel,WithHeadingRow
         // if($row["chapter_id"]!="" && $row["account_id"]!="" && $row["sub_account_id"]!=""){
         PBExpenditure::insert([
             'id' => $row["id"],
-            'planning_id' => PLANNING_YEAR,
+            'planning_id' => config_planning_year,
             'entity_id' => $row["entity_id"],
             'account_group_id' => $row["account_group_id"],
             'account_id' => $row["account_id"],

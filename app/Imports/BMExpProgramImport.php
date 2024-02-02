@@ -23,7 +23,7 @@ class BMExpProgramImport implements ToModel,WithHeadingRow
             if($row["entity_id"] != ""){
                 DB::table("mef_expenditure_program")->insert([
                     "id"=>$row["id"],
-                    "planning_id" => PLANNING_YEAR,
+                    "planning_id" => config_planning_year,
                     "entity_id" => $row["entity_id"],
                     // 'currency' => $row["currency"],
                     // 'currency_id' => $row["currency_id"],

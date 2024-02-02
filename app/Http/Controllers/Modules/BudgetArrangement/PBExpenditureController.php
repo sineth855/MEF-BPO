@@ -51,7 +51,7 @@ class PBExpenditureController extends Controller
             "data" => PBExpenditure::getExpenditures($filter),
             "entity_id" => $entities,
             // "entity_member_id" => $entity_members,
-            "limit" => LIMIT,
+            "limit" => config_limit,
             "total" => $this->db_table::count()
         );
         return response()->json($data);
@@ -142,7 +142,7 @@ class PBExpenditureController extends Controller
         }else{
             $status = 500;
             $boolen = false;
-            $message = trans('common.message_error');
+            $message = trans('common.error_msg');
         }
         $data = array(
             "success" => $boolen,

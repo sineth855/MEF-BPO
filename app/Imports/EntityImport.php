@@ -27,6 +27,19 @@ class EntityImport implements ToModel,WithHeadingRow
                 "parent_id"=>$row["parent_id"],
                 "name_en"=>$row["name_en"],
                 "name_kh"=>$row["name_kh"],
+                "abbreviation" => $row["abbre"],
+                "order_level"=>$row["order_level"],
+                "is_active"=>1,
+                "created_by"=>Auth::user()->id
+            ]);
+        }else{
+            Entity::where("id", $row["id"])->update([
+                "code"=>$row["code"],
+                "department_id"=>$row["department_id"],
+                "parent_id"=>$row["parent_id"],
+                "name_en"=>$row["name_en"],
+                "name_kh"=>$row["name_kh"],
+                "abbreviation" => $row["abbre"],
                 "order_level"=>$row["order_level"],
                 "is_active"=>1,
                 "created_by"=>Auth::user()->id

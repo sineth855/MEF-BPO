@@ -220,7 +220,7 @@ class PIPInvestmentController extends Controller
             "project_type_id" => ProjectType::getProjectTypes(),
             "project_status_id" => ProjectStatus::getProjectStatus(),
             "finance_resource_id" => FinanceResource::getFinanceResource(),
-            "limit" => LIMIT,
+            "limit" => config_limit,
             "total" => $this->db_table::count()
         );
         return response()->json($data);
@@ -315,7 +315,7 @@ class PIPInvestmentController extends Controller
         }else{
             $status = 500;
             $boolen = false;
-            $message = trans('common.message_error');
+            $message = trans('common.error_msg');
         }
         $data = array(
             "success" => $boolen,
@@ -327,7 +327,7 @@ class PIPInvestmentController extends Controller
 
     public function dataForm($input){
         $arr = $input;
-        $push_array = array("created_by" => Auth::user()->id, "planning_id" => PLANNING_YEAR);
+        $push_array = array("created_by" => Auth::user()->id, "planning_id" => config_planning_year);
         array_push($arr, $push_array);
         $arraySingle = call_user_func_array('array_merge', $arr);
         $dataFields = $arraySingle;

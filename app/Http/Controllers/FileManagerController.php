@@ -10,6 +10,7 @@ use App\Imports\ObjectiveImport;
 use App\Imports\ProgramImport;
 use App\Imports\SubProgramImport;
 use App\Imports\ClusterActivityImport;
+use App\Imports\ActivityImport;
 
 use App\Imports\AccountGroupImport;
 use App\Imports\AccountImport;
@@ -41,6 +42,8 @@ use App\Imports\IncomeImport;
 use App\Imports\OutcomeImport;
 use App\Imports\EntityImport;
 use App\Imports\EntityMemberImport;
+
+use App\Imports\UserImport;
 use Auth;
 // use Excel;
 use Maatwebsite\Excel\Facades\Excel;
@@ -163,6 +166,16 @@ class FileManagerController extends Controller
     public function fileUploadClusterActivity(Request $request){
         $path = $request->file('file')->getRealPath();
         $rows = Excel::import(new ClusterActivityImport, $path);
+        if($rows){
+            return response()->json(['success'=>true,'message'=>'File uploaded successfully.'], 200);
+        }else{
+            return response()->json(['success'=>false,'message'=>'File upload is failed!'], 500);
+        }
+    }
+
+    public function fileUploadActivity(Request $request){
+        $path = $request->file('file')->getRealPath();
+        $rows = Excel::import(new ActivityImport, $path);
         if($rows){
             return response()->json(['success'=>true,'message'=>'File uploaded successfully.'], 200);
         }else{
@@ -403,6 +416,16 @@ class FileManagerController extends Controller
         ]);
         $imageUrl = '/'.$destinationPath.$fileName;
         return response()->json(['success'=>true,'message'=>'File uploaded successfully.','data'=>['image_url'=>$imageUrl,'extension'=>$extension]], 200);
+    }
+
+    public function fileUploadUser(Request $request){
+        $path = $request->file('file')->getRealPath();
+        $rows = Excel::import(new UserImport, $path);
+        if($rows){
+            return response()->json(['success'=>true,'message'=>'File uploaded successfully.'], 200);
+        }else{
+            return response()->json(['success'=>false,'message'=>'File upload is failed!'], 500);
+        }
     }
 
     public function generateRandomString($length = 10) {

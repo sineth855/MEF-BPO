@@ -32,8 +32,8 @@ export default {
             dataHeaders: {
                 header1: "category_id",
                 header2: "code",
-                header3: "title_en",
-                header4: "title_kh",
+                header3: "name_en",
+                header4: "name_kh",
                 header5: "order_level",
             },
             data: {
@@ -41,8 +41,8 @@ export default {
                     {
                         category_id: "",
                         code: "ITM0001",
-                        title_en: "សម្ភារៈផ្គត់ផ្គង់ថែទាំ->សម្ភារៈផ្គត់ផ្គង់និងអនាម័យ",
-                        title_kh: "សម្ភារៈផ្គត់ផ្គង់ថែទាំ->សម្ភារៈផ្គត់ផ្គង់និងអនាម័យ",
+                        name_en: "សម្ភារៈផ្គត់ផ្គង់ថែទាំ->សម្ភារៈផ្គត់ផ្គង់និងអនាម័យ",
+                        name_kh: "សម្ភារៈផ្គត់ផ្គង់ថែទាំ->សម្ភារៈផ្គត់ផ្គង់និងអនាម័យ",
                         order_level: 1,
                         is_active: 1
                     }
@@ -87,12 +87,12 @@ export default {
                     required: true
                 },
                 {
-                    name: "title_en",
+                    name: "name_en",
                     type: "text",
                     required: true
                 },
                 {
-                    name: "title_kh",
+                    name: "name_kh",
                     type: "text",
                     required: true
                 },

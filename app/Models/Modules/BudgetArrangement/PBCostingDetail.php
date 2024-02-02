@@ -26,6 +26,7 @@ class PBCostingDetail extends Model
                           'expense_type',
                           'currency_id',
                           'currency',
+                          'flag_type',
                           'exchange_rate',
                           'remark',
                           'is_delete',

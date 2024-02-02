@@ -14,8 +14,8 @@ class Objective extends Model
                           'id',
                           'code',
                           'sub_code',
-                          'name_en',
-                          'name_kh',
+                          "name_en",
+                          "name_kh",
                           'remark',
                           'order_level'
                         ];
@@ -33,9 +33,31 @@ class Objective extends Model
     return $data;
   }
 
-  public static function getAllClusterPrograms(){
-    $query = Objective::where("is_active", 1)->orderBy("order_level")->get();
+  public static function getAllClusterPrograms($filter){
+    // $query = Objective::where("is_active", 1)->orderBy("order_level")->get();
+    // $data = array();
     $data = array();
+    $queryObj = Objective::orderBy($filter["sort"], $filter["order"]);
+    $whereClause = $queryObj;
+    $whereClause->where("is_active", 1);
+    $whereClause->offset(($filter["page_number"] - 1) * $filter["limit"]);       
+    $whereClause->limit($filter["limit"]);
+
+    if($filter["search_field"]){
+      $arraySingle = call_user_func_array('array_merge', $filter["search_field"]);
+      $dataFields = $arraySingle;
+      if (array_key_exists('objective_id', $dataFields)) {
+        $whereClause->Where("id", $dataFields["objective_id"]["value"]);
+      }
+      if (array_key_exists("name_kh", $dataFields)) {
+        $whereClause->Where("name_kh", 'Like', '%'.$dataFields["name_kh"].'%');
+      }
+      if (array_key_exists("name_en", $dataFields)) {
+        $whereClause->Where("name_en", 'Like', '%'.$dataFields["name_en"].'%');
+      }
+    }
+    $query = collect($whereClause->get());
+    
     foreach($query as $row){
       $proArr = array();
       // Program
@@ -44,7 +66,7 @@ class Objective extends Model
         $subProArr = array();
         $proIndArr = array();
         $queryProIndicator = DB::table("mef_kpi_program")
-                                ->where("planning_id", PLANNING_YEAR)
+                                ->where("planning_id", config_planning_year)
                                 ->where("program_id", $pro->id)
                                 ->orderBy("order_level")
                                 ->get();
@@ -56,12 +78,13 @@ class Objective extends Model
           );
         }
 
+        // Sub Program
         $querySubPro = SubProgram::where("is_active", 1)->where("program_id", $pro->id)->orderBy("order_level")->get();
         foreach($querySubPro as $subPro){
           $cluActArr = array();
           $subProInd = array();
           $querySubProIndicator = DB::table("mef_kpi_subprogram")
-                                      ->where("planning_id", PLANNING_YEAR)
+                                      ->where("planning_id", config_planning_year)
                                       ->where("sub_program_id", $pro->id)
                                       ->orderBy("order_level")
                                       ->get();
@@ -72,16 +95,19 @@ class Objective extends Model
               "indicator" => $subProIndicator->kpi_name_kh
             );
           }
+          // Cluster Activity
           $queryClusAct = ClusterActivity::where("is_active", 1)->where("sub_program_id", $subPro->id)->orderBy("order_level")->get();
           
           foreach($queryClusAct as $clusAct){
             $actArr = array();
             $clusActIndArr = array();
+
+            // Activity
             $queryAct = Activity::where("is_active", 1)->where("cluster_activity_id", $clusAct->id)->orderBy("order_level")->get();
             
             $queryClusActIndicator = DB::table("mef_kpi_cluster_activity")
                                         ->where("cluster_activity_id", $pro->id)
-                                        ->where("planning_id", PLANNING_YEAR)
+                                        ->where("planning_id", config_planning_year)
                                         ->orderBy("order_level")
                                         ->get();
             foreach($queryClusActIndicator as $clusActIndicator){
@@ -96,7 +122,7 @@ class Objective extends Model
               $actIndArr = array();
               $queryActIndicator = DB::table("mef_kpi_activity")
                                         ->where("activity_id", $act->id)
-                                        ->where("planning_id", PLANNING_YEAR)
+                                        ->where("planning_id", config_planning_year)
                                         ->orderBy("order_level")
                                         ->get();
                 foreach($queryActIndicator as $actIndicator){
@@ -106,13 +132,82 @@ class Objective extends Model
                     "indicator" => $actIndicator->kpi_name_kh
                   );
                 }
+                // Task
+                $taskArr = array();
+                $queryTask = DB::table("mef_task")
+                                        ->where("activity_id", $act->id)
+                                        ->orderBy("order_level")
+                                        ->whereNull("is_delete")
+                                        ->orWhere("is_delete", 0)
+                                        ->get();
+                foreach($queryTask as $task){
+                  // Costing
+                  $costingArr = array();
+                  $queryCostings = DB::table("mef_costing_to_entity")
+                                        ->where("activity_id", $act->id)
+                                        ->orderBy("order_level")
+                                        ->whereNull("is_delete")
+                                        ->orWhere("is_delete", 0)
+                                        ->where("planning_id", config_planning_year)
+                                        ->get();
+                  // Costing Detail
+                  foreach($queryCostings as $costing){
+                    $queryCostingDetails = DB::table("mef_costing_detail_to_entity")
+                                        ->where("costing_id", $costing->id)
+                                        ->orderBy("order_level")
+                                        ->whereNull("is_delete")
+                                        ->orWhere("is_delete", 0)
+                                        ->get();
+                    $costingDetailArr = array();
+                    foreach($queryCostingDetails as $cdetail){
+                      $costingDetailArr[] = array(
+                        "id" => $cdetail->id,
+                        "name" => $cdetail->name,
+                        "code" => $cdetail->code,
+                        "group_chapter" => $cdetail->group_chapter,
+                        "no" => $cdetail->no,
+                        "line" => $cdetail->line,
+                        "code_cluster_activity" => $cdetail->code_cluster_activity,
+                        "code_activity" => $cdetail->code_activity,
+                        "sub_account" => $cdetail->sub_account,
+                        "is_reg_exp" => $cdetail->is_reg_exp,
+                        "unit" => $cdetail->unit,
+                        "quantity" => $cdetail->quantity,
+                        "currency" => $cdetail->currency,
+                        "unit_price" => $cdetail->unit_price,
+                        "total_amount" => $cdetail->total_amount,
+                        "time_year" => $cdetail->time_year,
+                        "annual_amount" => $cdetail->annual_amount,
+                        "month" => $cdetail->month,
+                        "expense_type" => $cdetail->expense_type,
+                        "remark" => $cdetail->remark
+                      );
+                    }
 
-              $actArr[] = array(
-                "id" => $act->id,
-                "name" => $act->code.": ".$act->name_kh,
-                "indicator" => $actIndArr,
-                "order_level" => $act->order_level,
-              );
+                    $costingArr[] = array(
+                      "id" => $costing->id,
+                      "name_kh" => $costing->name_kh,
+                      "name_en" => $costing->name_en,
+                      "children" => $costingDetailArr
+                    );
+                  }
+
+                  $taskArr[] = array(
+                    "id" => $task->id,
+                    "code" => $task->code,
+                    "name" => $task->code.": ".$task->name_kh,
+                    "order_level" => $task->order_level,
+                    "children" => $costingArr
+                  );
+                }
+                
+                $actArr[] = array(
+                  "id" => $act->id,
+                  "name" => $act->code.": ".$act->name_kh,
+                  "indicator" => $actIndArr,
+                  "order_level" => $act->order_level,
+                  "children" => $taskArr
+                );
             }
             $cluActArr[] = array(
               "id" => $clusAct->id,
@@ -190,6 +285,7 @@ class Objective extends Model
 
       $data[] = array(
         "id" => $row->id,
+        "code" => $row->code,
         "name" => $row->name_kh,
         "name_en" => $row->name_en,
         "name_kh" => $row->name_kh,

@@ -9,8 +9,8 @@ class BankAccount extends Model
     protected $table = 'bank_account';
     protected  $primaryKey = 'id';
     protected $fillable = [
-                            'name_en',
-                            'name_kh',
+                            "name_en",
+                            "name_kh",
                             'account_group',
                             'account_name',
                             'account_type',

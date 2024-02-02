@@ -63,6 +63,13 @@ export default [
         icon: "UserIcon",
         i18n: "ProgramActivity",
       },
+      {
+        url: '/module/program-arrangement/task',
+        slug: 'task',
+        name: "task",
+        icon: "UserIcon",
+        i18n: "ProgramTask",
+      },
     ]
   },
   // =============================================================================
@@ -75,6 +82,20 @@ export default [
     icon: "DollarSignIcon",
     i18n: "BudgetArrangement",
     submenu: [
+      {
+        url: '/module/budget-arrangement/credit-revenue-rule',
+        slug: 'credit-revenue-rule',
+        name: "CreditRevenueRule",
+        icon: "UserIcon",
+        i18n: "EntryCreditRevenueRule",
+      },
+      {
+        url: '/module/budget-arrangement/credit-expense-rule',
+        slug: 'credit-expense-rule',
+        name: "CreditExpenseRule",
+        icon: "UserIcon",
+        i18n: "EntryCreditExpenseRule",
+      },
       {
         url: '/module/budget-arrangement/budget-ceiling',
         slug: 'budget-ceiling',

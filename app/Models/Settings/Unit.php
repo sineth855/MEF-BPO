@@ -3,15 +3,21 @@
 namespace App\Models\Settings;
 
 use Illuminate\Database\Eloquent\Model;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Unit extends Model
+class Unit extends Model implements Auditable
 {
-    protected $table = 'unit';
-    protected $fillable = [
-                            'title_en',
-                            'title_kh',
-                            'order_level',
-                            'remark'
-                          ];
-    public $timestamps = false;
+  use \OwenIt\Auditing\Auditable;
+  protected $auditStrict = true;
+  protected  $primaryKey = 'id';
+  
+  protected $table = 'unit';
+  protected $fillable = [
+                          "name_en",
+                          "name_kh",
+                          'order_level',
+                          'remark',
+                          'status'
+                        ];
+  public $timestamps = false;
 }

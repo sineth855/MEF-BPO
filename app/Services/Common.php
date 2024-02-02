@@ -393,11 +393,11 @@
 
 		public static function getFilter($obj){
 			$filter = array(
-				// "offset" => isset($obj["offset"]) ? $obj["offset"] : OFFSET,
-				"limit" => isset($obj["limit"]) ? $obj["limit"] : LIMIT,
-				"sort" => isset($obj["sort"]) ? $obj["sort"] : SORT,
-				"order" => isset($obj["order"]) ? $obj["order"] : ORDER,
-				"page_number" => isset($obj["page_number"]) ? $obj["page_number"] : ORDER,
+				// "offset" => isset($obj["offset"]) ? $obj["offset"] : config_offset,
+				"limit" => isset($obj["limit"]) ? $obj["limit"] : config_limit,
+				"sort" => isset($obj["sort"]) ? $obj["sort"] : config_sort,
+				"order" => isset($obj["order"]) ? $obj["order"] : config_order,
+				"page_number" => isset($obj["page_number"]) ? $obj["page_number"] : config_order,
 				"search_field" => isset($obj["search_field"]) ? $obj["search_field"] : "",
 			);
 			return $filter;

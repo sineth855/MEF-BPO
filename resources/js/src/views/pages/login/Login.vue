@@ -24,12 +24,12 @@
               <div class="px-8 pt-8 login-tabs-container">
 
                 <div class="vx-card__title mb-4">
-                  <h4 class="mb-4">Login</h4>
-                  <p>Welcome back, please login to your account.</p>
+                  <h4 class="mb-4">{{ $t("login") }}</h4>
+                  <p>{{ $t("welcome") }}</p>
                 </div>
 
                 <vs-tabs>
-                  <vs-tab label="Authentication">
+                  <vs-tab :label="$t('Authentication')">
                     <login-jwt></login-jwt>
                   </vs-tab>
 

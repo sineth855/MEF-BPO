@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700);/* (ignored) *//* (ignored) *//* (ignored) *//* (ignored) *//*=========================================================================================
+@import url(https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700);/*=========================================================================================
   File Name: app.scss
   Description: Write your custom scss
   ----------------------------------------------------------------------------------------
@@ -64,23 +64,23 @@
 ==========================================================================================*/
 
 @font-face {
-  font-family: "FK1";
-  src: url(/fonts/FK1.ttf?c59390fca50c31687aa42738bc8eff9f);
+  font-family: "Khmer OS Battambang Regular";
+  src: url("/fonts/KhmerOSBattambangRegular.ttf");
 }
 
 @font-face {
-  font-family: "FK2";
-  src: url(/fonts/FK2.ttf?2332e0468a736318b4d03c31fed7930e);
+  font-family: "Khmer OS Battambang Regular";
+  src: url("/fonts/KhmerOSBattambangRegular.ttf");
 }
 
 @font-face {
-  font-family: "Khmer MEF1";
-  src: url(/fonts/KHMERMEF1.ttf?c5fd1128e204acc3938bbed9a02262ba);
+  font-family: "Khmer OS Battambang Regular";
+  src: url("/fonts/KhmerOSBattambangRegular.ttf");
 }
 
 @font-face {
-  font-family: "Khmer MEF2";
-  src: url(/fonts/KHMERMEF2.ttf?314a24cb689f4ccaf1b62b2b53b8d266);
+  font-family: "Khmer OS Battambang Regular";
+  src: url("/fonts/KhmerOSBattambangRegular.ttf");
 }
 
 html {
@@ -124,7 +124,7 @@ input,
 footer,
 button,
 span.vs-button-text.vs-button--text {
-  font-family: "Khmer MEF1" !important;
+  font-family: "Khmer OS Battambang Regular" !important;
 }
 
 label {
@@ -4270,6 +4270,14 @@ input.vs-inputx.vs-input--input.small.hasValue {
   font-size: 15px !important;
 }
 
+[dir] table tr td {
+  border: none !important;
+}
+
+[dir] table.vs-table tr td {
+  border: 1px solid #fff !important;
+}
+
 /*=========================================================================================
   File Name: _fixesVuesax.scss
   Description: Partial - Fixes/Add vuesax framework styles
@@ -5011,3 +5019,4 @@ button:focus {
   padding-top: 41.6666666667% !important;
 }
 
+/* (ignored) *//* (ignored) *//* (ignored) *//* (ignored) */

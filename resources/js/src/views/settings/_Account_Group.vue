@@ -30,6 +30,7 @@ export default {
                 ]
             },
             dataHeaders: {
+                header1: "account_type_group",
                 header2: "code",
                 header3: "name_en",
                 header4: "name_kh",
@@ -37,20 +38,26 @@ export default {
             },
             data: {
                 data: [
-                    {
-                        code: "60",
-                        name_en: "ការទិញ",
-                        name_kh: "ការទិញ",
-                        description: "",
-                        order_level: 1,
-                        is_active: 1
-                    },
+                    // {
+                    //     code: "60",
+                    //     name_en: "ការទិញ",
+                    //     name_kh: "ការទិញ",
+                    //     description: "",
+                    //     order_level: 1,
+                    //     is_active: 1
+                    // },
                 ],
 
                 limit: 10,
                 total: 3,
             },
             formAttributes: [
+                {
+                    name: "account_type_id",
+                    type: "select",
+                    required: true,
+                    options: []
+                },
                 {
                     name: "code",
                     type: "text",
@@ -94,9 +101,6 @@ export default {
                     if (_search_criteria.search_field[_formAttribute["name"]]) {
                         let _d = {
                             [_formAttribute["name"]]: _search_criteria.search_field[_formAttribute["name"]]
-                        }
-                        if (this.form.attribute["name"]) {
-
                         }
                         this.dataFields.push(_d);
                     }

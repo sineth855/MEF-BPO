@@ -20,8 +20,8 @@ class UnitImport implements ToModel,WithHeadingRow
         if(!$queryCheck){
             Unit::insert([
                 "id"=> $row["id"],
-                "title_en"=>$row["title_en"],
-                "title_kh"=>$row["title_kh"],
+                "name_en"=>$row["title_en"],
+                "name_kh"=>$row["title_kh"],
                 "order_level"=>$row["order_level"]
             ]);
         }

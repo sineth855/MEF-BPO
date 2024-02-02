@@ -17,10 +17,10 @@ class PaymentMethodController extends Controller
     {
         $input = $request->all();
         $filter = array(
-            "offset" => isset($input["offset"]) ? $input["offset"] : OFFSET,
-            "limit" => isset($input["limit"]) ? $input["limit"] : LIMIT,
-            "sort" => isset($input["sort"]) ? $input["sort"] : SORT,
-        "order" => isset($input["order"]) ? $input["order"] : ORDER
+            "offset" => isset($input["offset"]) ? $input["offset"] : config_offset,
+            "limit" => isset($input["limit"]) ? $input["limit"] : config_limit,
+            "sort" => isset($input["sort"]) ? $input["sort"] : config_sort,
+        "order" => isset($input["order"]) ? $input["order"] : config_order
         );
         $table = PaymentMethod::orderBy($filter["sort"], $filter["order"])
                                 ->offset($filter["offset"])

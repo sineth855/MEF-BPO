@@ -12,10 +12,11 @@ class Account extends Model
                           'account_group_id',
                           'parent_id',
                           'code',
-                          'name_en',
-                          'name_kh',
+                          "name_en",
+                          "name_kh",
                           'description',
-                          'order_level'
+                          'order_level',
+                          'is_delete'
                         ];
   public $timestamps = true;
 }

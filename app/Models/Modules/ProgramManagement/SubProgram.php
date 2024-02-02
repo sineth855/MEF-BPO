@@ -21,8 +21,8 @@ class SubProgram extends Model
                             'entity_member_id',
                             'structure_name_en',
                             'structure_name_kh',
-                            'name_en',
-                            'name_kh',
+                            "name_en",
+                            "name_kh",
                             'remark',
                             'administrative_class',
                             'is_active',
@@ -55,7 +55,12 @@ class SubProgram extends Model
     }
 
     public static function getSubProgramsByProgs($param){
-      $query = SubProgram::where("is_active", 1)->where("program_id", $param["param"]["value"])->orderBy("order_level")->get();
+      $queryData = SubProgram::where("is_active", 1)->orderBy("order_level");
+      $whereClause = $queryData;
+      if(!empty( $param["param"]["value"])){
+        $whereClause->where("program_id", $param["param"]["value"]);
+      }
+      $query = collect($whereClause->get());
       // $query = SubProgram::where("is_active", 1)->where("program_id", $param["param"]["value"])->orderBy("order_level")->get();
       $data = array();
       foreach($query as $row){
@@ -121,13 +126,16 @@ class SubProgram extends Model
           if (array_key_exists('code', $dataFields)) {
             $whereClauseSPro->Where("code", "Like", "%".$dataFields["code"]."%");
           }
+          if (array_key_exists('sub_program_id', $dataFields)) {
+            // $whereClauseSPro->Where("id", $dataFields["sub_program_id"]["value"]);
+          }
           if (array_key_exists('entity_id', $dataFields)) {
             $whereClauseSPro->Where("entity_id", $dataFields["entity_id"]["value"]);
           }
-          if (array_key_exists('name_en', $dataFields)) {
+          if (array_key_exists("name_en", $dataFields)) {
             $whereClauseSPro->Where("name_en", "Like", "%".$dataFields["name_en"]."%");
           }
-          if (array_key_exists('name_kh', $dataFields)) {
+          if (array_key_exists("name_kh", $dataFields)) {
             $whereClauseSPro->Where("name_kh", "Like", "%".$dataFields["name_kh"]."%");
           }
         }
@@ -159,9 +167,9 @@ class SubProgram extends Model
               "label" => isset($crow->Program)?$crow->Program->name_kh:"",
               "value" => isset($crow->Program)?$crow->Program->id:"",
             ),
-            'name' => $crow->name_kh,
-            'name_en' => $crow->name_en,
-            'name_kh' => $crow->name_kh,
+            'name' => (config_language == "en")?$crow->name_en:$crow->name_kh,
+            "name_en" => $crow->name_en,
+            "name_kh" => $crow->name_kh,
             'entity' => isset($crow->Entity)?$crow->Entity->name_kh:"",
             'entity_id' => array(
               "label" => isset($crow->Entity)?$crow->Entity->code."-".$crow->Entity->name_kh:"",
@@ -174,26 +182,26 @@ class SubProgram extends Model
             ),
             'remark' => $crow->remark,
             'order_level' => $crow->order_level,
-            'indicator' => $indicatorArr,
+            'indicator' => array("data" => $indicatorArr),
           );
         }
-        if(count($cdata) > 0){
-          $data[] = array(
-            'id' => $row->id,
-            'code' => $row->code,
-            'name' => $row->name_kh,
-            'name_en' => $row->name_en,
-            'name_kh' => $row->name_kh,
-            'program_id' => array(
-              "label" => $row->name_kh,
-              "value" => $row->id
-            ),
-            'field' => 'program_id',
-            // 'remark' => $row->remark,
-            // 'order_level' => $row->order_level,
-            'children' => $cdata
-          );
-        }
+        // if(count($cdata) > 0){
+        $data[] = array(
+          'id' => $row->id,
+          'code' => $row->code,
+          'name' => $row->name_kh,
+          "name_en" => $row->name_en,
+          "name_kh" => $row->name_kh,
+          'program_id' => array(
+            "label" => $row->name_kh,
+            "value" => $row->id
+          ),
+          'field' => 'program_id',
+          // 'remark' => $row->remark,
+          // 'order_level' => $row->order_level,
+          'children' => $cdata
+        );
+        // }
       }
       return $data;
     }
@@ -222,8 +230,8 @@ class SubProgram extends Model
             'id' => $crow->id,
             'code' => $crow->code,
             'program_id' => $crow->program_id,
-            'name_en' => $crow->name_en,
-            'name_kh' => $crow->name_kh,
+            "name_en" => $crow->name_en,
+            "name_kh" => $crow->name_kh,
             'entity' => isset($crow->Entity)?$crow->Entity->name_kh:"",
             'entity_id' => array(
               "label" => isset($crow->Entity)?$crow->Entity->code."-".$crow->Entity->name_kh:"",
@@ -244,8 +252,8 @@ class SubProgram extends Model
         $data[] = array(
           'id' => $row->id,
           'code' => $row->code,
-          'name_en' => $row->name_en,
-          'name_kh' => $row->name_kh,
+          "name_en" => $row->name_en,
+          "name_kh" => $row->name_kh,
           'field' => 'program_id',
           // 'remark' => $row->remark,
           // 'order_level' => $row->order_level,

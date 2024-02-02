@@ -1,51 +1,51 @@
 <template>
-    <vx-card title="" code-toggler>
-        <!-- <step-costing></step-costing> -->
-        <div class="mt-5">
-            <form-wizard color="rgba(var(--vs-primary), 1)" errorColor="rgba(var(--vs-danger), 1)" :title="null"
-                :subtitle="null" finishButtonText="Submit">
+    <!-- <vx-card title="" code-toggler> -->
+    <!-- <step-costing></step-costing> -->
+    <div class="mt-5">
+        <form-wizard color="rgba(var(--vs-primary), 1)" errorColor="rgba(var(--vs-danger), 1)" :title="null"
+            :subtitle="null" finishButtonText="Submit">
 
-                <!-- Tab 1 -->
-                <tab-content :title="$t('pb_heading_costing')" class="mb-5" icon="feather icon-home"
-                    :before-change="validateStep2">
-                    <step-costing></step-costing>
-                </tab-content>
+            <!-- Tab 1 -->
+            <tab-content :title="$t('pb_heading_costing')" class="mb-5" icon="feather icon-home"
+                :before-change="validateStep2">
+                <step-costing></step-costing>
+            </tab-content>
 
-                <!-- Tab 2 -->
-                <tab-content :title="$t('pb_heading_pb_revenue')" class="mb-5" icon="feather icon-home"
-                    :before-change="validateStep3">
-                    <step-revenue ref="refInitCalRequestRev"></step-revenue>
-                </tab-content>
+            <!-- Tab 2 -->
+            <tab-content :title="$t('pb_heading_pb_revenue')" class="mb-5" icon="feather icon-home"
+                :before-change="validateStep3">
+                <step-revenue ref="refInitCalRequestRev"></step-revenue>
+            </tab-content>
 
-                <!-- Tab 3 -->
-                <tab-content :title="$t('pb_heading_pb_expense')" class="mb-5" icon="feather icon-home"
-                    :before-change="validateStep4">
-                    <step-expense ref="refInitCalRequestExp"></step-expense>
-                </tab-content>
+            <!-- Tab 3 -->
+            <tab-content :title="$t('pb_heading_pb_expense')" class="mb-5" icon="feather icon-home"
+                :before-change="validateStep4">
+                <step-expense ref="refInitCalRequestExp"></step-expense>
+            </tab-content>
 
-                <!-- Tab 4 -->
-                <tab-content :title="$t('pb_heading_staff_expense')" class="mb-5" icon="feather icon-home"
-                    :before-change="validateStep5">
-                    <step-staff-costing ref="refInitCalRequestStaffCosting"></step-staff-costing>
-                </tab-content>
+            <!-- Tab 4 -->
+            <tab-content :title="$t('pb_heading_staff_expense')" class="mb-5" icon="feather icon-home"
+                :before-change="validateStep5">
+                <step-staff-costing ref="refInitCalRequestStaffCosting"></step-staff-costing>
+            </tab-content>
 
-                <!-- Tab 5 -->
-                <tab-content :title="$t('pb_heading_target_indicator')" class="mb-5" icon="feather icon-home">
-                    <step-indicator ref="refInitCalRequestIndicator"></step-indicator>
-                </tab-content>
+            <!-- Tab 5 -->
+            <tab-content :title="$t('pb_heading_target_indicator')" class="mb-5" icon="feather icon-home">
+                <step-indicator ref="refInitCalRequestIndicator"></step-indicator>
+            </tab-content>
 
-                <!-- Tab 2 content -->
-                <!-- <tab-content :title="$t('pb_verify')" class="mb-5" icon="feather icon-briefcase"
+            <!-- Tab 2 content -->
+            <!-- <tab-content :title="$t('pb_verify')" class="mb-5" icon="feather icon-briefcase"
                     :before-change="validateStep2">
                     <center>
                         <h2>Page is under construction</h2>
                     </center>
                 </tab-content> -->
 
-            </form-wizard>
-        </div>
+        </form-wizard>
+    </div>
 
-    </vx-card>
+    <!-- </vx-card> -->
 </template>
 
 <script>
@@ -141,7 +141,7 @@ export default {
             return new Promise((resolve, reject) => {
                 this.$validator.validateAll("step-3").then(result => {
                     if (result) {
-                        alert("Form submitted!");
+                        // alert("Form submitted!");
                         resolve(true)
                     } else {
                         reject("correct all values");
@@ -154,7 +154,7 @@ export default {
             return new Promise((resolve, reject) => {
                 this.$validator.validateAll("step-3").then(result => {
                     if (result) {
-                        alert("Form submitted!");
+                        // alert("Form submitted!");
                         resolve(true)
                     } else {
                         reject("correct all values");
@@ -167,7 +167,7 @@ export default {
             return new Promise((resolve, reject) => {
                 this.$validator.validateAll("step-3").then(result => {
                     if (result) {
-                        alert("Form submitted!");
+                        // alert("Form submitted!");
                         resolve(true)
                     } else {
                         reject("correct all values");

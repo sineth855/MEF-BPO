@@ -25,7 +25,7 @@ import TabsAlignments from './TabsAlignments.vue'
 import TabsPosition from './TabsPosition.vue'
 import TabsIcons from './TabsIcons.vue'
 
-export default{
+export default {
     components: {
         TabsDefault,
         TabsColor,

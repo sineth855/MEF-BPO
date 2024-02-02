@@ -39,7 +39,7 @@ class BSPSubProgramToEntity extends Model
                 $s2entities = DB::table("mef_subprogram_to_entity as s2e")
                             ->select("s2e.id", "s.name_en", "s.name_kh", "s.order_level")
                             ->Join("mef_subprogram as s", "s.id", "=", "s2e.sub_program_id")
-                            ->where("s2e.planning_id", PLANNING_YEAR)
+                            ->where("s2e.planning_id", config_planning_year)
                             ->where("s.program_id", $progId)
                             ->get();
                 
@@ -116,7 +116,7 @@ class BSPSubProgramToEntity extends Model
     public static function getKPIs($table, $clause, $order, $id){
         $indicatorArr = array();
         $indicators = DB::table("mef_kpi_subprogram")
-                        ->where("planning_id", PLANNING_YEAR)
+                        ->where("planning_id", config_planning_year)
                         ->where("subprog_to_entity_id", $id)
                         ->orderBy("order_level")->get();
         foreach($indicators as $indicator){

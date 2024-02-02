@@ -1,25 +1,25 @@
 <template>
-    <vx-card class="mb-6">
-        <h3 class="pb-4">ស្វែងរកទិន្នន័យ</h3>
+    <vx-card>
+        <h3 class="pb-4">{{ $t('text_search') }}</h3>
         <div class="vx-row">
-            <div :key="i" v-for="(formAttribute, i) in formAttributes" :class="styleClass">
+            <template v-for="(formAttribute, i) in formAttributes">
                 <!-- Form Input Text -->
-                <template v-if="formAttribute.type == 'text' && formAttribute.required">
+                <div v-if="formAttribute.type == 'text' && formAttribute.required" :class="styleClass" dclass="mt-4">
                     <label>{{ $t(formAttribute.name) }}</label>
                     <vs-input :placeholder="$t(formAttribute.name)" v-model="form.attribute[formAttribute.name]"
                         :name="formAttribute.name" size="small" class="mt-2 w-full" />
-                </template>
+                </div>
 
                 <!-- Form Input Number -->
-                <template v-if="formAttribute.type == 'number' && formAttribute.required">
+                <div v-if="formAttribute.type == 'number' && formAttribute.required" :class="styleClass" dclass="mt-4">
                     <label>{{ $t(formAttribute.name) }}</label>
                     <vs-input type="number" :placeholder="$t(formAttribute.name)"
                         v-model="form.attribute[formAttribute.name]" :name="formAttribute.name" size="small"
                         class="mt-2 w-full" />
-                </template>
+                </div>
 
                 <!-- Form Select -->
-                <template v-if="formAttribute.type == 'select'" :class="styleClass" dclass="mt-2 w-full">
+                <div v-if="formAttribute.type == 'select' && formAttribute.required" :class="styleClass" dclass="mt-4">
                     <label class="mb-2">{{ $t(formAttribute.name) }} <span v-if="formAttribute.required">*</span></label>
                     <span v-if="formAttribute.required">
                         <template v-if="formAttribute.hasFilter">
@@ -32,8 +32,8 @@
                             }}</span>
                         </template>
                         <template v-else>
-                            <v-select size="small" v-validate="''" :name="formAttribute.name"
-                                v-model="form.attribute[formAttribute.name]" :options="data[formAttribute.name]"
+                            <v-select size="small" v-validate="''" v-model="form.attribute[formAttribute.name]"
+                                :name="formAttribute.name" :options="data[formAttribute.name]"
                                 :dir="$vs.rtl ? 'rtl' : 'ltr'" class="mt-2 w-full" />
                             <span class="text-danger text-sm" v-show="errors.has(formAttribute.name)">{{
                                 $t("required_" + formAttribute.name)
@@ -48,39 +48,40 @@
                                 :options="data[formAttribute.name]" :dir="$vs.rtl ? 'rtl' : 'ltr'" class="mt-2 w-full" />
                         </template>
                         <template v-else>
-                            <v-select size="small" v-validate="''" :name="formAttribute.name"
-                                v-model="form.attribute[formAttribute.name]" :options="data[formAttribute.name]"
+                            <v-select size="small" v-validate="''" v-model="form.attribute[formAttribute.name]"
+                                :name="formAttribute.name" :options="data[formAttribute.name]"
                                 :dir="$vs.rtl ? 'rtl' : 'ltr'" class="mt-2 w-full" />
                         </template>
                     </span>
-                </template>
+                </div>
 
                 <!-- Form Textarea -->
-                <template v-if="formAttribute.type == 'textarea' && formAttribute.required">
+                <template v-if="formAttribute.type == 'textarea' && formAttribute.required" :class="styleClass"
+                    dclass="mt-4">
                     <label>{{ $t(formAttribute.name) }}</label>
                     <vs-textarea label="Label in Textarea" v-model="form.attribute[formAttribute.name]"
                         class="mt-2 w-full" />
                 </template>
 
                 <!-- Form Checkbox -->
-                <template v-if="formAttribute.type == 'checkbox' && formAttribute.required">
+                <template v-if="formAttribute.type == 'checkbox' && formAttribute.required" :class="styleClass"
+                    dclass="mt-4">
                     <label>{{ $t(formAttribute.name) }}</label>
                     <vs-checkbox v-model="form.attribute[formAttribute.name]"> {{ $t(formAttribute.name) }}</vs-checkbox>
                 </template>
 
                 <!-- Form Date -->
-                <div v-if="formAttribute.type == 'date'">
-                    <label>{{ $t(formAttribute.name) }}</label>
+                <div v-if="formAttribute.type == 'date' && formAttribute.required" :class="styleClass" dclass="mt-4">
+                    <label class="mb-2">{{ $t(formAttribute.name) }}</label>
                     <span v-if="formAttribute.required">
-                        <!-- <flat-pickr :name="formAttribute.name" v-model="form.attribute[formAttribute.name]"
-                            class="w-full" /> -->
-                        <vs-input :placeholder="$t(formAttribute.name)" v-model="form.attribute[formAttribute.name]"
-                            :name="formAttribute.name" size="small" class="mt-2 w-full" />
+                        <flat-pickr v-validate="'required'" size="small" :name="formAttribute.name"
+                            v-model="form.attribute[formAttribute.name]" class="mt-1 w-full" />
+                        <span class="text-danger text-sm" v-show="errors.has(formAttribute.name)">{{ $t("required_" +
+                            formAttribute.name)
+                        }}</span>
                     </span>
                 </div>
-
-            </div>
-
+            </template>
         </div>
         <span class="pull-right">
             <vs-button type="filled" @click.prevent="initSearch" class="mt-2 block">{{ $t("btn_search") }}</vs-button>
@@ -95,6 +96,8 @@ import DForm from '@/views/form-builder/DForm.vue'
 import { AgGridVue } from "ag-grid-vue"
 import '@sass/vuexy/extraComponents/agGridStyleOverride.scss'
 import vSelect from 'vue-select'
+import flatPickr from 'vue-flatpickr-component';
+import 'flatpickr/dist/flatpickr.css';
 
 export default {
     props: {
@@ -111,7 +114,8 @@ export default {
     components: {
         AgGridVue,
         vSelect,
-        DForm
+        DForm,
+        flatPickr
     },
     data() {
         return {
@@ -152,8 +156,9 @@ export default {
     methods: {
         onInitChange($event, _formAttribute, _formName, _apiRequest) {
             // if (!this.validateForm) return
-            // alert("testing");
+            // alert(_apiRequest);
             let _data = {
+                autocomplete: true,
                 param: this.form.attribute[_formName]
             };
             this.form.attribute[_formAttribute] = null;
@@ -177,6 +182,8 @@ export default {
                             }
                             this.data[_formAttribute].push(_d);
                         }
+
+                        this.data[_formAttribute].push();
                         // response["data"].forEach(_formAttribute => {
                         //     alert("testing");
                         //     // let _d = {
@@ -224,16 +231,19 @@ export default {
     },
     created() {
         if (this.rowDisplay == "1grid") {
-            this.styleClass = "vx-col lg:w-1/1 w-full";
+            this.styleClass = "vx-col lg:w-1/1 w-full mt-4";
         }
         if (this.rowDisplay == "2grid") {
-            this.styleClass = "vx-col lg:w-1/2 w-full";
+            this.styleClass = "vx-col lg:w-1/2 w-full mt-4";
         }
         if (this.rowDisplay == "3grid") {
-            this.styleClass = "vx-col lg:w-1/3 w-full";
+            this.styleClass = "vx-col lg:w-1/3 w-full mt-4";
         }
         if (this.rowDisplay == "4grid") {
-            this.styleClass = "vx-col lg:w-1/4 w-full";
+            this.styleClass = "vx-col lg:w-1/4 w-full mt-4";
+        }
+        if (this.rowDisplay == "full-grid") {
+            this.styleClass = "vx-col lg:w-1/1 w-full";
         }
     }
 }

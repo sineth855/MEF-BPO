@@ -46,14 +46,13 @@ class SubProgramController extends Controller
         $input = $request->all();
         $dataFields = $this->dataFields();
         $filter = CommonService::getFilter($input);
-
         $programs = Program::getPrograms();
         $entities = Entity::getEntities();
         $entity_members = [];
         
         $data = array(
-            "data_fields" => $this->dataFields(),
             "data" => $this->db_table::getSubProgramByProgram($filter),
+            "data_fields" => $this->dataFields(),
             "program_id" => $programs,
             "entity_id" => $entities,
             "entity_member_id" => $entity_members,
@@ -166,7 +165,7 @@ class SubProgramController extends Controller
         }else{
             $status = 500;
             $boolen = false;
-            $message = trans('common.message_error');
+            $message = trans('common.error_msg');
         }
         $data = array(
             "success" => $boolen,

@@ -73,7 +73,6 @@ class KPISubProgramController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
-
         $dataFields = $this->dataForm($input);
 
         $table = $this->db_table::create($dataFields);
@@ -139,7 +138,7 @@ class KPISubProgramController extends Controller
         }else{
             $status = 500;
             $boolen = false;
-            $message = trans('common.message_error');
+            $message = trans('common.error_msg');
         }
         $data = array(
             "success" => $boolen,
@@ -150,7 +149,10 @@ class KPISubProgramController extends Controller
     }
 
     public function dataForm($input){
-        $arraySingle = call_user_func_array('array_merge', $input);
+        $arr = $input;
+        $push_array = array("created_by" => Auth::user()->id);
+        array_push($arr, $push_array);
+        $arraySingle = call_user_func_array('array_merge', $arr);
         $dataFields = $arraySingle;
         return $dataFields;
     }

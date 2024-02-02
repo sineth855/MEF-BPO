@@ -1,50 +1,61 @@
 <template>
-    <vx-card :title="$t(title)" code-toggler>
+    <vx-card>
         <d-modal-form @clicked="initTableData" ref="refModalForm" :data="dataTables" :api="api"
             :formAttributes="formAttributes" :rowDisplay="rowDisplay" :dataAttributes="dataAttributes"
             :title="$t(title)"></d-modal-form>
 
-        <!-- <div v-if="dataAttributes.enableToggleForm" class="items-center data-list-btn-container">
-            <div class="p-3 mr-4">
-                <vs-button @click="openToggleForm" color="primary" type="filled">{{ $t("បន្ថែមគំរូប្រភេទចំណាត់ថ្នាក់")
-                }}</vs-button>
+        <div class="flex flex-wrap items-center justify-between">
+            <div class="mr-3">
+                <h3>{{ $t(title) }}</h3>
             </div>
-            <div class="p-3 mb-4" style="overflow: scroll;">
-                <d-form v-if="enableToggleForm" @clicked="initPushDataTable" @clickForm="initTableData" :data="dataTables"
-                    :dataInfo="dataInfo" :formAttributes="formAttributes" :api="api" :rowDisplay="rowDisplay"></d-form>
-                <d-child-table></d-child-table>
-            </div>
-        </div> -->
 
-        <div v-if="!dataAttributes.enableToggleForm" class="flex flex-wrap-reverse items-center data-list-btn-container">
-            <!-- ADD NEW -->
-            <div class="btn-add-new p-3 mb-4 mr-4 rounded-lg cursor-pointer flex items-center justify-center text-lg font-medium text-base text-primary border border-solid border-primary"
-                @click="openForm">
-                <feather-icon icon="PlusIcon" svgClasses="h-4 w-4" />
-                <span class="ml-2 text-base text-primary">{{ $t("AddNew") }}</span>
-            </div>
-        </div>
-        <!-- If has private button -->
-        <div v-if="dataAttributes.hasPrivateButton" class="flex flex-wrap-reverse items-center data-list-btn-container">
-            <!-- ADD NEW -->
-            <div class="btn-add-new p-3 mb-4 mr-4 rounded-lg cursor-pointer flex items-center justify-center text-lg font-medium text-base text-primary border border-solid border-primary"
-                @click="openPrivateForm">
-                <feather-icon icon="PlusIcon" svgClasses="h-4 w-4" />
-                <span class="ml-2 text-base text-primary">{{ $t("AddNew") }}</span>
+            <div class="items-center pt-4 pb-3">
+                <div class="vx-row mr-1">
+                    <div @click="isHidden = !isHidden" class="btn-add-new p-3 mr-2 rounded-sm cursor-pointer text-right flex items-center justify-center
+                        text-lg font-medium text-base text-primary border border-solid border-default">
+                        <feather-icon icon="FilterIcon" svgClasses="h-4 w-4" />
+                    </div>
+
+                    <template v-if="!dataAttributes.enableToggleForm">
+                        <!-- ADD NEW -->
+                        <div class="btn-add-new p-3 mr-1 rounded-sm cursor-pointer text-right flex items-center justify-center text-lg font-medium text-base text-primary border border-solid border-primary"
+                            @click="openForm">
+                            <feather-icon icon="PlusIcon" svgClasses="h-4 w-4" />
+                            <span class="ml-2 text-base text-primary">{{ $t("AddNew") }}</span>
+                        </div>
+                    </template>
+                    <!-- If has private button -->
+                    <template v-if="dataAttributes.hasPrivateButton">
+                        <!-- ADD NEW -->
+                        <div class="btn-add-new p-3 mr-1 rounded-sm cursor-pointer text-right flex items-center justify-center text-lg font-medium text-base text-primary border border-solid border-primary"
+                            @click="openPrivateForm('')">
+                            <feather-icon icon="PlusIcon" svgClasses="h-4 w-4" />
+                            <span class="ml-2 text-base text-primary">{{ $t("AddNew") }}</span>
+                        </div>
+                    </template>
+
+                    <!-- <div class="btn-add-new p-3 mr-2 rounded-sm cursor-pointer text-right flex items-center justify-center
+                        text-lg font-medium text-base text-primary border border-solid border-default">
+                        <feather-icon icon="LoadingIcon" svgClasses="h-4 w-4" />
+                    </div> -->
+                    <!-- <div class="btn-add-new p-3 mr-1 rounded-sm cursor-pointer text-right flex items-center justify-center text-lg font-medium text-base text-primary border border-solid border-primary"
+                        @click=openForm(1)>
+                        <vx-tooltip color="success" text="បង្កើតគោលបំណង">
+                            <feather-icon icon="PlusIcon" svgClasses="h-4 w-4" />
+                            <span class="ml-2 text-base text-primary">{{ $t("AddNew") }}</span>
+                        </vx-tooltip>
+                    </div> -->
+                </div>
             </div>
         </div>
 
         <d-heading-wizard v-if="dataAttributes.hasHeadingReport" :dataAttributes="dataAttributes"></d-heading-wizard>
 
-        <d-search v-if="!dataAttributes.hideSearchBar" @searchQuery="searchQuery" @clicked="initTableData"
-            :data="dataTables" :api="api" :formAttributes="formAttributes" :rowDisplay="'4grid'" :dataInfo="''"></d-search>
-
-        <h3 class="mb-2">
-            <center>{{ $t(title) }}</center>
-        </h3>
-        <!-- <div class="sub_title" v-if="sub_title">
-            <center>{{ sub_title }}</center>
-        </div> -->
+        <template v-if="!isHidden">
+            <d-search v-if="!dataAttributes.hideSearchBar" @searchQuery="searchQuery" @clicked="initTableData"
+                :data="dataTables" :api="api" :formAttributes="formAttributes" :rowDisplay="'4grid'"
+                :dataInfo="''"></d-search>
+        </template>
 
         <!-- & dataTables.data.length -->
         <vs-table v-if="dataTables.data && dataAttributes.tableStyle == 1" :max-items="dataTables.limit"
@@ -79,6 +90,7 @@
             :data="dataTables.data">
 
             <template slot="thead">
+                <!-- 28C76F -->
                 <vs-th style="background-color: #28C76F; color: #ffffff; font-weight: bold;">{{ $t("no") }}</vs-th>
                 <vs-th style="background-color: #28C76F; color: #ffffff; font-weight: bold;" :key="i"
                     v-for="(header, i) in dataHeaders">{{ $t(header) }}</vs-th>
@@ -89,7 +101,10 @@
                 <tbody :key="pindextr" v-for="(ptr, pindextr) in data">
                     <vs-tr :state="dataAttributes.backgroundColor">
                         <!-- <td :colspan="Object.keys(ptr.children[0]).length">{{ ptr.name_kh }}</td> -->
-                        <td :colspan="Object.keys(dataHeaders).length + 1">{{ ptr.code }}-{{ ptr.name_kh }}</td>
+                        <td :colspan="Object.keys(dataHeaders).length + 1">
+                            {{ ptr.code }}-{{ ptr.name_kh }}
+                            <vs-progress :percent="75" color="danger"></vs-progress>
+                        </td>
                         <td>
                             <center><feather-icon style="cursor: pointer;" @click="openFormByParent(ptr)" icon="PlusIcon"
                                     svgClasses="w-5 h-5 hover:text-primary stroke-current" /></center>
@@ -101,6 +116,7 @@
                         <vs-td v-for="(value, name, index) in dataHeaders" :key="name.indextr">
                             <!-- <vs-td v-for="header in dataHeaders" :key="header.indextr"> -->
                             <!-- { tr[header] }} -->
+                            {{ name | json }}
                             <template v-if="name == 'indicator'">
                                 <template v-if="tr[name].length > 0">
                                     <div class="mb-2" :key="indexI" v-for="(dataRow, indexI) in tr[name]">
@@ -144,6 +160,11 @@
                                         svgClasses="mr-2 w-5 h-5 hover:text-primary stroke-current"
                                         @click.stop="initAction(tr, rowBtnAction.method)" />
                                 </template>
+                            </template>
+                            <template v-else>
+                                <feather-icon style="cursor: pointer;" :key="sindex" icon="DollarSignIcon"
+                                    svgClasses="mr-2 w-5 h-5 hover:text-primary stroke-current"
+                                    @click.stop="initAction(schild3, 'PrivateForm')" />
                             </template>
                             <!-- <feather-icon style="cursor: pointer;" icon="EditIcon"
                                 svgClasses="w-5 h-5 hover:text-primary stroke-current" @click.stop="initEdit(tr)" />
@@ -199,12 +220,27 @@
 
                     <template v-for="row in ptr.data.children">
                         <vs-tr :state="'warning'">
-                            <td>{{ row.name }} <feather-icon style="cursor: pointer;" @click="openForm" icon="PlusIcon"
-                                    svgClasses="w-5 h-5 hover:text-primary stroke-current" /></td>
+                            <td>{{ row.name }}
+                                <template v-if="dataAttributes.hasPrivateButton">
+                                    <feather-icon style="cursor: pointer;" @click="openPrivateForm(row)" icon="PlusIcon"
+                                        svgClasses="w-5 h-5 hover:text-primary stroke-current" />
+                                </template>
+                                <template v-else>
+                                    <feather-icon style="cursor: pointer;" @click="openForm" icon="PlusIcon"
+                                        svgClasses="w-5 h-5 hover:text-primary stroke-current" />
+                                </template>
+                            </td>
                             <td :key="index1" v-for="(row, index1) in row.values">{{ row }} </td>
                             <td>
-                                <center><feather-icon style="cursor: pointer;" @click="openForm" icon="PlusIcon"
-                                        svgClasses="w-5 h-5 hover:text-primary stroke-current" /></center>
+                                <template v-if="dataAttributes.hasPrivateButton">
+                                    <feather-icon style="cursor: pointer;" @click="openPrivateForm(row)" icon="PlusIcon"
+                                        svgClasses="w-5 h-5 hover:text-primary stroke-current" />
+
+                                </template>
+                                <template v-else>
+                                    <feather-icon style="cursor: pointer;" @click="openForm" icon="PlusIcon"
+                                        svgClasses="w-5 h-5 hover:text-primary stroke-current" />
+                                </template>
                             </td>
                         </vs-tr>
                         <vs-tr :key="index" v-for="(row2, index) in row.data">
@@ -218,9 +254,16 @@
                                 <td>{{ row3.name }}</td>
                                 <td :key="index4" v-for="(row, index4) in row.values">{{ row }}</td>
                                 <td>
-                                    <feather-icon style="cursor: pointer;" icon="EditIcon"
-                                        svgClasses="w-5 h-5 hover:text-primary stroke-current"
-                                        @click.stop="initEdit(row3)" />
+                                    <template v-if="dataAttributes.hasPrivateButton">
+                                        <feather-icon style="cursor: pointer;" icon="EditIcon"
+                                            svgClasses="w-5 h-5 hover:text-primary stroke-current"
+                                            @click.stop="openPrivateForm(row3)" />
+                                    </template>
+                                    <template v-else>
+                                        <feather-icon style="cursor: pointer;" icon="EditIcon"
+                                            svgClasses="w-5 h-5 hover:text-primary stroke-current"
+                                            @click.stop="initEdit(row3)" />
+                                    </template>
                                     <!-- <template v-if="dataAttributes.actionButton">
                                         <feather-icon style="cursor: pointer;" v-for="rowBtnAction in dataAttributes.actionButton"
                                             :key="rowBtnAction.indextr" :icon="rowBtnAction.icon"
@@ -240,6 +283,7 @@
                 </tbody>
             </template>
         </vs-table>
+
 
         <vs-table v-if="dataTables.data && dataAttributes.tableStyle == 4" :max-items="dataTables.limit"
             :data="dataTables.data" style="overflow: scroll">
@@ -1105,6 +1149,7 @@
             </template>
         </vs-table>
 
+
         <vs-table v-if="dataTables.data && dataAttributes.tableStyle == 11" :max-items="dataTables.limit"
             :data="dataTables.data" style="overflow: scroll">
             <template slot-scope="{data}">
@@ -1142,30 +1187,205 @@
                     </vs-tr>
 
                     <template v-for="parent in ptr.children">
-                        <vs-tr style="background-color: rgb(178, 255, 217);">
-                            <vs-td v-if="parent.colspan" :key="sindex" v-for="(dataField, sindex) in dataTables.dataFillables"
-                                :colspan="parent.colspan">
+                        <vs-tr style="background-color: rgb(197 232 255);">
+                            <vs-td :key="sindex" v-for="(dataField, sindex) in dataTables.dataFillables">
                                 {{ parent[dataField] }}
+                                <template v-if="dataField == 'desc'">
+                                    <!-- <feather-icon style="cursor: pointer;" :key="sindex" icon="PlusIcon"
+                                        svgClasses="mr-2 w-5 h-5 hover:text-primary stroke-current"
+                                        @click="openPrivateForm('')" /> -->
+                                </template>
                             </vs-td>
-                            <vs-td v-else :key="sindex" v-for="(dataField, sindex) in dataTables.dataFillables">
-                                {{ parent[dataField] }}
+                            <vs-td>
+
                             </vs-td>
                         </vs-tr>
 
                         <template v-for="child in parent.children">
-                            <vs-tr style="background-color: rgb(255, 253, 229);">
+                            <vs-tr style="background-color: rgb(251 249 188);">
                                 <vs-td :key="sindex" v-for="(dataField, sindex) in dataTables.dataFillables">
+                                    <span v-if="child[dataField] == 'desc'">> {{ child[dataField] }}</span>
+                                    <span v-else>{{ child[dataField] }}</span>
+                                </vs-td>
+                                <vs-td></vs-td>
+                            </vs-tr>
+
+                            <template v-for="(schild, sindex) in child.children">
+                                <vs-tr style="background-color: rgb(216 216 216);">
+                                    <vs-td :key="sindex" v-for="(dataField, sindex) in dataTables.dataFillables">
+                                        <span v-if="v == 'desc'">> {{ schild[dataField] }}</span>
+                                        <span v-else>{{ schild[dataField] }}</span>
+                                    </vs-td>
+                                    <vs-td>
+
+                                    </vs-td>
+                                </vs-tr>
+
+                                <template v-for="(schild2, sindex) in schild.children">
+                                    <vs-tr style="background-color: rgb(240 240 240);">
+                                        <vs-td :key="sindex" v-for="(dataField, sindex) in dataTables.dataFillables">
+                                            {{ schild2[dataField] }}
+                                            <template v-if="dataField == 'desc'">
+                                                <feather-icon style="cursor: pointer;" :key="sindex" icon="DollarSignIcon"
+                                                    svgClasses="mr-2 w-5 h-5 hover:text-primary stroke-current"
+                                                    @click.stop="initAction(schild2, 'PrivateForm')" />
+                                                <feather-icon style="cursor: pointer;" :key="sindex" icon="PlusIcon"
+                                                    svgClasses="mr-2 w-5 h-5 hover:text-primary stroke-current"
+                                                    @click.stop="initAction(schild2, 'Edit')" />
+                                            </template>
+                                        </vs-td>
+                                        <vs-td>
+                                            <feather-icon style="cursor: pointer;" :key="sindex" icon="DollarSignIcon"
+                                                svgClasses="mr-2 w-5 h-5 hover:text-primary stroke-current"
+                                                @click.stop="initAction(schild2, 'PrivateForm')" />
+                                            <feather-icon style="cursor: pointer;" :key="sindex" icon="PlusIcon"
+                                                svgClasses="mr-2 w-5 h-5 hover:text-primary stroke-current"
+                                                @click.stop="initAction(schild2, 'Edit')" />
+                                        </vs-td>
+                                    </vs-tr>
+
+                                    <template v-for="(schild3, ssindex) in schild2.children">
+                                        <vs-tr>
+                                            <vs-td :key="ssindex" v-for="(dataField, ssindex) in dataTables.dataFillables">
+                                                {{ schild3[dataField] }}
+                                            </vs-td>
+                                            <vs-td>
+                                                <template v-if="dataAttributes.actionButton">
+                                                    <feather-icon style="cursor: pointer;"
+                                                        v-for="rowBtnAction in dataAttributes.actionButton"
+                                                        :key="rowBtnAction.indextr" :icon="rowBtnAction.icon"
+                                                        svgClasses="mr-2 w-5 h-5 hover:text-primary stroke-current"
+                                                        @click.stop="initAction(schild3, rowBtnAction.method)" />
+                                                </template>
+                                            </vs-td>
+                                        </vs-tr>
+                                    </template>
+                                </template>
+                            </template>
+                        </template>
+                    </template>
+                </tbody>
+            </template>
+        </vs-table>
+
+        <!-- Table 12 -->
+        <!-- <vs-table v-if="dataTables.data && dataAttributes.tableStyle == 12" :max-items="dataTables.limit" :data="dataTables"
+            style="overflow: scroll"> -->
+        <vs-table v-if="dataTables.data && dataAttributes.tableStyle == 12" :max-items="dataTables.limit"
+            :data="dataTables.data">
+            <template slot-scope="{data}">
+                <vs-tr>
+                    <vs-td :style="style(header)" :key="i" v-for="(header, i) in dataHeaders" :colspan="colspan(header)"
+                        :rowspan="rowspan(header)">
+                        <span v-if="header.label">
+                            <center><span v-html="$t(header.label)"></span></center>
+                        </span>
+                        <span v-else>
+                            <center><span v-html="$t(header.label)"></span></center>
+                        </span>
+                    </vs-td>
+                </vs-tr>
+
+                <vs-tr v-if="dataTables.dataHeaders" style="background-color: #28C76F; color: #ffffff; font-weight: bold;">
+                    <vs-td :style="style(header)" :key="j" v-for="(header, j) in dataTables.dataHeaders"
+                        :colspan="colspan(header)" :rowspan="rowspan(header)">{{ header.label }} </vs-td>
+                </vs-tr>
+
+                <vs-tr v-if="dataTables.dataSubHeaders"
+                    style="background-color: #28C76F; color: #ffffff; font-weight: bold;">
+                    <vs-td :key="k" v-for="(header, k) in dataTables.dataSubHeaders" :colspan="colspan(header)"
+                        :rowspan="rowspan(header)"><small>{{ header.label }}</small></vs-td>
+                </vs-tr>
+                <tbody :key="pindextr" v-for="(ptr, pindextr) in data">
+                    <vs-tr :key="cindex" v-for="(cusField, cindex) in dataTables.group_fields"
+                        style="background-color: rgb(240 240 240);">
+                        <td :key="scindex" v-for="(scfield, scindex) in ptr[cusField]">
+                            <center>{{ scfield }}</center>
+                        </td>
+                    </vs-tr>
+                    <!-- <template v-for="(l2, l2index) in ptr"> -->
+                    <!-- dataTables.dataFillables | json }} -->
+                    <!-- <vs-tr style="background-color: rgb(255, 234, 43);">
+                        <vs-td>
+                            {{ pindextr }} --- {{ ptr["name"] }}
+                        </vs-td>
+                    </vs-tr> -->
+                    <vs-tr style="background-color: rgb(163 232 253);">
+                        <vs-td :key="sindex" v-for="(dataField, sindex) in dataTables.dataFillables">
+                            {{ ptr[dataField] }}
+                            <template v-if="dataField == 'name'">
+
+                            </template>
+                        </vs-td>
+
+                        <vs-td>
+
+                        </vs-td>
+                    </vs-tr>
+
+                    <template v-for="(child, sindex) in ptr.children">
+                        <vs-tr style="background-color: rgb(250, 237, 167);">
+                            <vs-td :key="sindex" v-for="(dataField, sindex) in dataTables.dataFillables">
+                                <template v-if="dataField == 'name'">
                                     {{ child[dataField] }}
+                                    <feather-icon style="cursor: pointer;" :key="sindex" icon="PlusIcon"
+                                        svgClasses="mr-2 w-5 h-5 hover:text-primary stroke-current"
+                                        @click.stop="initAction(child, 'Edit')" />
+                                </template>
+                            </vs-td>
+                            <vs-td>
+                                <template v-if="dataField == 'name'">
+                                    <feather-icon style="cursor: pointer;" :key="sindex" icon="PlusIcon"
+                                        svgClasses="mr-2 w-5 h-5 hover:text-primary stroke-current"
+                                        @click.stop="initAction(child, 'Edit')" />
+                                </template>
+                            </vs-td>
+                        </vs-tr>
+                        <template v-for="(schild2, sindex) in child.children">
+                            <vs-tr style="background-color: rgb(240 240 240);">
+                                <vs-td :key="sindex" v-for="(dataField, sindex) in dataTables.dataFillables">
+                                    {{ schild2[dataField] }}
+                                    <template v-if="dataField == 'name'">
+                                        <feather-icon style="cursor: pointer;" :key="sindex" icon="PlusIcon"
+                                            svgClasses="mr-2 w-5 h-5 hover:text-primary stroke-current"
+                                            @click.stop="initAction(schild2, 'Edit')" />
+                                    </template>
+                                </vs-td>
+                                <vs-td>
+                                    <feather-icon style="cursor: pointer;" :key="sindex" icon="PlusIcon"
+                                        svgClasses="mr-2 w-5 h-5 hover:text-primary stroke-current"
+                                        @click.stop="initAction(schild2, 'Edit')" />
                                 </vs-td>
                             </vs-tr>
 
-                            <vs-tr :key="sindex" v-for="(schild, sindex) in child.children">
-                                <vs-td :key="sindex" v-for="(dataField, sindex) in dataTables.dataFillables">
-                                    {{ schild[dataField] }}
-                                </vs-td>
-                            </vs-tr>
+                            <template v-for="(schild3, ssindex) in schild2.children">
+                                <vs-tr>
+                                    <!-- <vs-td>{{ schild3.children.name }}</vs-td> -->
+                                    <!-- <vs-td>{{ schild3 | json }}</vs-td> -->
+                                    <vs-td :key="ssindex" v-for="(dataField, ssindex) in dataTables.dataFillables">
+                                        {{ schild3[dataField] }}
+                                        <template v-if="dataField == 'name'">
+                                            <feather-icon style="cursor: pointer;" :key="sindex" icon="DollarSignIcon"
+                                                svgClasses="mr-2 w-5 h-5 hover:text-primary stroke-current"
+                                                @click.stop="initAction(schild3, 'PrivateForm')" />
+                                        </template>
+                                    </vs-td>
+                                    <vs-td>
+                                        <template v-if="dataAttributes.actionButton">
+                                            <feather-icon style="cursor: pointer;"
+                                                v-for="rowBtnAction in dataAttributes.actionButton"
+                                                :key="rowBtnAction.indextr" :icon="rowBtnAction.icon"
+                                                svgClasses="mr-2 w-5 h-5 hover:text-primary stroke-current"
+                                                @click.stop="initAction(schild3, rowBtnAction.method)" />
+                                        </template>
+                                    </vs-td>
+                                </vs-tr>
+                            </template>
                         </template>
                     </template>
+
+                    <!-- </template> -->
+
                 </tbody>
             </template>
         </vs-table>
@@ -1229,7 +1449,9 @@ export default {
                 }
             },
             enableToggleForm: true,
-            dataElements: []
+            dataElements: [],
+            isHidden: true
+
         }
     },
     components: {
@@ -1289,8 +1511,8 @@ export default {
                 this.dataElements.push(_obj);
             });
         },
-        openPrivateForm() {
-            this.$emit('clickPricateForm');
+        openPrivateForm(data) {
+            this.$emit('clickPrivateForm', data);
         },
         openForm() {
             this.$refs.refModalForm.openNewForm();
@@ -1376,7 +1598,6 @@ export default {
         initEdit(data) {
             this.$refs.refModalForm.initForm(data);
         },
-
         initAction(data, method) {
             console.log("data", data);
             if (method == "View") {
@@ -1384,6 +1605,9 @@ export default {
             }
             if (method == "Edit") {
                 this.$refs.refModalForm.initForm(data);
+            }
+            if (method == "PrivateForm") {
+                this.$emit('clickPrivateForm', data);
             }
             if (method == "Delete") {
                 this.dataId = data.id;
@@ -1402,7 +1626,7 @@ export default {
 
     },
     created() {
-        console.log("data table", this.dataTables)
+        // console.log("data table", this.dataTables)
         this.$vs.loading.close();
     },
     watch: {

@@ -18,8 +18,8 @@ class Program extends Model
                           'objective_id',
                           'entity_id',
                           'entity_member_id',
-                          'name_en',
-                          'name_kh',
+                          "name_en",
+                          "name_kh",
                           'remark',
                           'order_level',
                           'is_active',
@@ -52,8 +52,8 @@ class Program extends Model
           'id' => $crow->id,
           'code' => $crow->code,
           'program_id' => $crow->program_id,
-          'name_en' => $crow->name_en,
-          'name_kh' => $crow->name_kh,
+          "name_en" => $crow->name_en,
+          "name_kh" => $crow->name_kh,
           'entity_id' => $crow->entity_id,
           'entity_member_id' => $crow->entity_member_id,
           // 'remark' => $crow->remark,
@@ -74,8 +74,8 @@ class Program extends Model
       $data[] = array(
         'id' => $row->id,
         'code' => $row->code,
-        'name_en' => $row->name_en,
-        'name_kh' => $row->name_kh,
+        "name_en" => $row->name_en,
+        "name_kh" => $row->name_kh,
         'field' => 'program_id',
         'indicator' => $indicatorData,
         // 'remark' => $row->remark,
@@ -125,10 +125,10 @@ class Program extends Model
         if (array_key_exists('entity_id', $dataFields)) {
           $whereClausePro->Where("entity_id", $dataFields["entity_id"]["value"]);
         }
-        if (array_key_exists('name_en', $dataFields)) {
+        if (array_key_exists("name_en", $dataFields)) {
           $whereClausePro->Where("name_en", "Like", "%".$dataFields["name_en"]."%");
         }
-        if (array_key_exists('name_kh', $dataFields)) {
+        if (array_key_exists("name_kh", $dataFields)) {
           $whereClausePro->Where("name_kh", "Like", "%".$dataFields["name_kh"]."%");
         }
       }
@@ -144,8 +144,8 @@ class Program extends Model
             "value" => $row->id,
           ),
           //$crow->objective_id,
-          'name_en' => $crow->name_en,
-          'name_kh' => $crow->name_kh,
+          "name_en" => $crow->name_en,
+          "name_kh" => $crow->name_kh,
           'entity' => isset($crow->Entity)?$crow->Entity->name_kh:"",
           'entity_id' => array(
             "label" => isset($crow->Entity)?$crow->Entity->code."-".$crow->Entity->name_kh:"",
@@ -163,8 +163,8 @@ class Program extends Model
       $data[] = array(
         'id' => $row->id,
         'code' => $row->code,
-        'name_en' => $row->name_en,
-        'name_kh' => $row->name_kh,
+        "name_en" => $row->name_en,
+        "name_kh" => $row->name_kh,
         'objective_id' => array(
           "label" => $row->name_kh,
           "value" => $row->id

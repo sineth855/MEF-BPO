@@ -1,14 +1,17 @@
 <template>
-    <d-table-list @clicked="initTableData" :api="api" ref="refInitPage" :allowDel="true" :title="title"
-        :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data" :formAttributes="formAttributes"
-        :rowDisplay="rowDisplay"></d-table-list>
+    <div>
+        <form-indicator ref="refOpenPrivatePopupForm"></form-indicator>
+        <d-table-list @clickPrivateForm="initOpenForm" @clicked="initTableData" :api="api" ref="refInitPage"
+            :allowDel="true" :title="title" :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data"
+            :formAttributes="formAttributes" :rowDisplay="rowDisplay"></d-table-list>
+    </div>
 </template>
 
 <script>
 import axios from "@/axios.js";
 import apiConfig from "@/apiConfig.js";
 import { ref } from 'vue';
-
+import FormIndicator from '@/views/modules/program-management/_FormIndicator.vue';
 import DTableList from '@/views/form-builder/DTableList.vue';
 
 export default {
@@ -23,13 +26,14 @@ export default {
                 page_number: 1,
                 offset: 0,
                 dataGrid: "row",
-                hasIndicatorSubPro: true,
+                // hideFormData: true,
+                // hasIndicatorSubPro: true,
                 allowDel: true,
                 actionButton: [
                     {
                         icon: "ListIcon",
                         path: "#",
-                        method: "Indicator",
+                        method: "PrivateForm",
                         allow: true
                     },
                     {
@@ -145,7 +149,7 @@ export default {
             },
             formAttributes: [
                 {
-                    name: "sub_program_id",
+                    name: "program_id",
                     type: "select",
                     required: true,
                     hasDefault: false,
@@ -223,6 +227,7 @@ export default {
         }
     },
     components: {
+        FormIndicator,
         DTableList,
     },
     methods: {
@@ -288,6 +293,9 @@ export default {
             }
             this.getDataTable(_search_criteria);
             return false;
+        },
+        initOpenForm(data) {
+            this.$refs.refOpenPrivatePopupForm.showForm(data);
         }
     },
     created() {

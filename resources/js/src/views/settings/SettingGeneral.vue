@@ -1,6 +1,6 @@
 <template>
   <vx-card no-shadow>
-    
+
     <!-- Img Row -->
     <div class="flex flex-wrap items-center mb-base">
       <vs-avatar :src="activeUserInfo.photoURL" size="70px" class="mr-4 mb-4" />
@@ -12,20 +12,14 @@
     </div>
 
     <!-- Info -->
-    <vs-input class="w-full mb-base" label-placeholder="Username" v-model="username"></vs-input>
-    <vs-input class="w-full mb-base" label-placeholder="Name" v-model="name"></vs-input>
-    <vs-input class="w-full" label-placeholder="Email" v-model="email"></vs-input>
-
-    <vs-alert icon-pack="feather" icon="icon-info" class="h-full my-4" color="warning">
-      <span>Your account is not verified. <a href="#" class="hover:underline">Resend Confirmation</a></span>
-    </vs-alert>
-
-    <vs-input class="w-full my-base" label-placeholder="Company" v-model="company"></vs-input>
+    <vs-input class="w-full mb-base" label-placeholder="config_name" v-model="config_name"></vs-input>
+    <vs-input class="w-full mb-base" label-placeholder="config_owner" v-model="config_owner"></vs-input>
+    <vs-input class="w-full" label-placeholder="config_address" v-model="config_address"></vs-input>
+    <vs-input class="w-full my-base" label-placeholder="config_address" v-model="config_address"></vs-input>
 
     <!-- Save & Reset Button -->
     <div class="flex flex-wrap items-center justify-end">
-      <vs-button class="ml-auto mt-2">Save Changes</vs-button>
-      <vs-button class="ml-4 mt-2" type="border" color="warning">Reset</vs-button>
+      <vs-button class="ml-auto mt-2">{{ $t('btn_update') }}</vs-button>
     </div>
 
   </vx-card>
@@ -35,10 +29,7 @@
 export default {
   data() {
     return {
-      username: "BPO-001",
-      name: "Administrator",
-      email: "admin@admin.com",
-      company: "នាយកដ្ឋានផែនការថវិកា(Budget Department)",
+      config_name: ""
     }
   },
   computed: {

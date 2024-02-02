@@ -138,9 +138,6 @@ export default {
                         let _d = {
                             [_formAttribute["name"]]: _search_criteria.search_field[_formAttribute["name"]]
                         }
-                        if (this.form.attribute["name"]) {
-
-                        }
                         this.dataFields.push(_d);
                     }
 

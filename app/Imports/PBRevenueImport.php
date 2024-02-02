@@ -21,7 +21,7 @@ class PBRevenueImport implements ToModel,WithHeadingRow
         if(!$queryCheck){
             PBRevenue::insert([
                 'id' => $row["id"],
-                'planning_id' => PLANNING_YEAR,
+                'planning_id' => config_planning_year,
                 'entity_id' => $row["entity_id"],
                 'account_id' => $row["account_id"],
                 'sub_account_id' => (int)$row["sub_account_id"],

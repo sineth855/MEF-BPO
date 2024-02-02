@@ -18,5 +18,5 @@ return [
     'msg_cancel_successfully' => 'Data has been cancelled.',
     'msg_delete_successfully' => 'Data has been deleleted permanently.',
     // Error
-    'error_msg' => "Program, while trying to operate data!"
+    'error_msg' => "Problem, while trying to operate data!"
 ];

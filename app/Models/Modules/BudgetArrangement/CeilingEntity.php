@@ -56,8 +56,8 @@ class CeilingEntity extends Model
                               ->get();
           foreach($ceilingEntityDatas as $ceilingEntityData){
             $ceilingEntityDataArr[] = array(
-              'title_en' => $ceilingEntityData->name_en,
-              'title_kh' => $ceilingEntityData->name_kh,
+              "name_en" => $ceilingEntityData->name_en,
+              "name_kh" => $ceilingEntityData->name_kh,
               'ceiling_entity_id' => $ceilingEntityData->ceiling_entity_id,
               'ceiling_exp_group' => $ceilingEntityData->ceiling_exp_group,
               'ceiling_exp_type' => $ceilingEntityData->ceiling_exp_type,
@@ -80,8 +80,8 @@ class CeilingEntity extends Model
           $ceilingEntityArr[] = array(
             'code'=> $ceilingEntity->code,
             'department_id'=> $ceilingEntity->department_id,
-            'name_en'=> $ceilingEntity->name_en,
-            'name_kh'=> $ceilingEntity->name_kh,
+            "name_en"=> $ceilingEntity->name_en,
+            "name_kh"=> $ceilingEntity->name_kh,
             'color'=> $ceilingEntity->color,
             'limit_member'=> $ceilingEntity->limit_member,
             "order_level"=> $ceilingEntity->order_level,

@@ -10,8 +10,8 @@ class PositionType extends Model
     protected  $primaryKey = 'id';
     protected $fillable = [
                             'parent_id',
-                            'name_en',
-                            'name_kh',
+                            "name_en",
+                            "name_kh",
                             'order_level'
                           ];
     public $timestamps = false;

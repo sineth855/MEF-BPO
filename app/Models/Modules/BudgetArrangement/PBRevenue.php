@@ -71,7 +71,7 @@
                   foreach($subAccounts as $subAccount){
                     $subAccountId = $subAccount->id;
                     $revenues = PBRevenue::where("entity_id", 1)
-                                          ->where("planning_id", PLANNING_YEAR)
+                                          ->where("planning_id", config_planning_year)
                                           ->where("sub_account_id", $subAccountId)
                                           ->get();
                     $revenueArr = array();

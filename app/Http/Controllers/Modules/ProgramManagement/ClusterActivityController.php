@@ -46,7 +46,7 @@ class ClusterActivityController extends Controller
         $input = $request->all();
         $dataFields = $this->dataFields();
         $filter = CommonService::getFilter($input);
-
+        
         $subPrograms = SubProgram::getSubPrograms();
         $entities = Entity::getEntities();
         $entity_members = [];
@@ -57,8 +57,16 @@ class ClusterActivityController extends Controller
             "sub_program_id" => $subPrograms,
             "entity_id" => $entities,
             "entity_member_id" => $entity_members,
-            "limit" => LIMIT,
+            "limit" => config_limit,
             "total" => SubProgram::getCount($filter)
+        );
+        return response()->json($data);
+    }
+
+    public function getClusterAct(Request $request){
+        $params = $request->all();
+        $data = array(
+            "data" => $this->db_table::getClusterActs($params),
         );
         return response()->json($data);
     }
@@ -148,7 +156,7 @@ class ClusterActivityController extends Controller
         }else{
             $status = 500;
             $boolen = false;
-            $message = trans('common.message_error');
+            $message = trans('common.error_msg');
         }
         $data = array(
             "success" => $boolen,

@@ -16,8 +16,8 @@ class PBCosting extends Model
                           'sub_program_id',
                           'cluster_activity_id',
                           'activity_id',
-                          'title_en',
-                          'title_kh',
+                          "name_en",
+                          "name_kh",
                           'order_level',
                           'is_active',
                           'is_delete',
@@ -62,6 +62,7 @@ class PBCosting extends Model
             }
         }
         $resultSubPro = collect($whereSubPro->get());
+        $subProArr = array();
         foreach($resultSubPro as $subPro){
             $subProId = $subPro->id;
             $queryClusAct = ClusterActivity::orderBy("order_level");
@@ -80,6 +81,7 @@ class PBCosting extends Model
                 }
             }
             $resultClusAct = collect($whereProClause->get());
+            $clusArr = array();
             foreach($resultClusAct as $clusAct){
                 $clusActId = $clusAct->id;
                 $queryAct = Activity::orderBy("order_level");
@@ -95,6 +97,7 @@ class PBCosting extends Model
                     }
                 }
                 $resultAct = Collect($whereAct->get());
+                $actArr = array();
                 foreach($resultAct as $act){
                     $actId = $act->id;
                     // $queryCosting = PBCosting::orderBy($filter["sort"], $filter["order"]);
@@ -107,10 +110,10 @@ class PBCosting extends Model
                     // if($filter["search_field"]){
                     //     $arraySingle = call_user_func_array('array_merge', $filter["search_field"]);
                     //     $dataFields = $arraySingle;
-                    //     if (array_key_exists('name_en', $dataFields)) {
+                    //     if (array_key_exists("name_en", $dataFields)) {
                     //         $whereCostingClause->Where("name_en", "Like" , "%".$dataFields["name_en"]."%");
                     //     }
-                    //     if (array_key_exists('name_kh', $dataFields)) {
+                    //     if (array_key_exists("name_kh", $dataFields)) {
                     //         $whereCostingClause->Where("name_kh", "Like" , "%".$dataFields["name_kh"]."%");
                     //     }
                     //     if (array_key_exists('entity_id', $dataFields)) {
@@ -122,7 +125,8 @@ class PBCosting extends Model
                         
                     // }
                     // Return Activity Data
-                    $data[] = array(
+                    $actArr[] = array(
+                        "desc" => $act->code."-".$act->name_kh, // program name
                         "chapter" => "",
                         "account" => "",
                         "sub_account" => "",
@@ -131,7 +135,6 @@ class PBCosting extends Model
                         "code_prog_act" => "10101",
                         "code_cluster_activity" => "",
                         "code_activity" => "",
-                        "item_name" => $act->code."-".$act->name_kh, // program name
                         "expense_type" => "",
                         "unit" => "",
                         "quantity" => "",
@@ -141,12 +144,13 @@ class PBCosting extends Model
                         "annual_amount" => "",
                         "month" => "",
                         "expense_type" => "",
-                        "remark" => "",
+                        "remark" => ""
                     );
                 }
 
                 // Return Cluster Activity Data
-                $data[] = array(
+                $clusArr[] = array(
+                    "desc" => $clusAct->code."-".$clusAct->name_kh, // program name
                     "chapter" => "",
                     "account" => "",
                     "sub_account" => "",
@@ -155,7 +159,6 @@ class PBCosting extends Model
                     "code_prog_act" => "10101",
                     "code_cluster_activity" => "",
                     "code_activity" => "",
-                    "item_name" => $clusAct->code."-".$clusAct->name_kh, // program name
                     "expense_type" => "",
                     "unit" => "",
                     "quantity" => "",
@@ -166,11 +169,13 @@ class PBCosting extends Model
                     "month" => "",
                     "expense_type" => "",
                     "remark" => "",
+                    "children" => $actArr
                 );
             }
 
             // Return SubProgram Data
-            $data[] = array(
+            $subProArr[] = array(
+                "desc" => $subPro->code."-".$subPro->structure_name_kh.':'.$subPro->name_kh, // program name
                 "chapter" => "",
                 "account" => "",
                 "sub_account" => "",
@@ -179,7 +184,6 @@ class PBCosting extends Model
                 "code_prog_act" => "10101",
                 "code_cluster_activity" => "",
                 "code_activity" => "",
-                "item_name" => $subPro->code."-".$subPro->name_kh, // program name
                 "expense_type" => "",
                 "unit" => "",
                 "quantity" => "",
@@ -190,11 +194,13 @@ class PBCosting extends Model
                 "month" => "",
                 "expense_type" => "",
                 "remark" => "",
+                "children" => $clusArr
             );
         }
 
         // Return Program Data
         $data[] = array(
+            "desc" => $pro->name_kh, // program name
             "chapter" => "",
             "account" => "",
             "sub_account" => "",
@@ -203,7 +209,6 @@ class PBCosting extends Model
             "code_prog_act" => "10101",
             "code_cluster_activity" => "",
             "code_activity" => "",
-            "item_name" => $pro->name_kh, // program name
             "expense_type" => "",
             "unit" => "",
             "quantity" => "",
@@ -214,6 +219,7 @@ class PBCosting extends Model
             "month" => "",
             "expense_type" => "",
             "remark" => "",
+            "children" => $subProArr
         );
     }
     return $data;

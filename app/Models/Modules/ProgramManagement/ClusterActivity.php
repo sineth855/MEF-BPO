@@ -16,8 +16,8 @@ class ClusterActivity extends Model
                             'sub_program_id',
                             'entity_id',
                             'entity_member_id',
-                            'name_en',
-                            'name_kh',
+                            "name_en",
+                            "name_kh",
                             'remark',
                             'order_level',
                             'created_by',
@@ -37,15 +37,18 @@ class ClusterActivity extends Model
 
     public static function getClusterActBySProgram($filter){
       $data = array();
-      $queryObj = SubProgram::orderBy($filter["sort"], $filter["order"]);
+      $queryObj = SubProgram::where("is_active", 1);
       $whereClause = $queryObj;
-      $whereClause->where("is_active", 1);
-      $whereClause->offset(($filter["page_number"] - 1) * $filter["limit"]);       
-      $whereClause->limit($filter["limit"]);
 
-      if($filter["search_field"]){
-        $arraySingle = call_user_func_array('array_merge', $filter["search_field"]);
-        $dataFields = $arraySingle;
+      // If has param search_field
+      if(isset($filter["search_field"])){
+        $whereClause->orderBy($filter["sort"], $filter["order"]);
+        $whereClause->offset(($filter["page_number"] - 1) * $filter["limit"]);       
+        $whereClause->limit($filter["limit"]);
+
+        if($filter["search_field"]){
+          $arraySingle = call_user_func_array('array_merge', $filter["search_field"]);
+          $dataFields = $arraySingle;
         if (array_key_exists('sub_program_id', $dataFields)) {
           $whereClause->Where("id", $dataFields["sub_program_id"]["value"]);
         }
@@ -53,30 +56,40 @@ class ClusterActivity extends Model
           $whereClause->Where("id", $dataFields["entity_id"]["value"]);
         }
       }
-      $query = collect($whereClause->get());
 
+        // if (array_key_exists('sub_program_id', $dataFields)) {
+        //   $arraySingle = call_user_func_array('array_merge', $filter["search_field"]);
+        //   $dataFields = $arraySingle;
+        //   $whereClause->Where("id", $dataFields["sub_program_id"]["value"]);
+        // }
+        // if (array_key_exists('entity_id', $dataFields)) {
+        //   $whereClause->Where("entity_id", $dataFields["entity_id"]["value"]);
+        // }
+      }      
+
+      // Query Result
+      $query = collect($whereClause->get());
       foreach($query as $row){
         $parentId = $row->id;
         $cdata = array();
         // $result = ClusterActivity::where("sub_program_id", $parentId)->orderBy("order_level")->get();
-
         $queryClusAct = ClusterActivity::orderBy("order_level");
         $whereClauseClusAct = $queryClusAct;
+        $whereClauseClusAct->where("is_active", 1);
         $whereClauseClusAct->where("sub_program_id", $parentId);
-
         if($filter["search_field"]){
           $arraySingle = call_user_func_array('array_merge', $filter["search_field"]);
           $dataFields = $arraySingle;
           if (array_key_exists('code', $dataFields)) {
-            $whereClauseClusAct->Where("id", $dataFields["code"]);
+            $whereClauseClusAct->Where("code", $dataFields["code"]);
           }
           if (array_key_exists('entity_id', $dataFields)) {
             $whereClauseClusAct->Where("id", $dataFields["entity_id"]["value"]);
           }
-          if (array_key_exists('name_en', $dataFields)) {
+          if (array_key_exists("name_en", $dataFields)) {
             $whereClauseClusAct->Where("name_en", "Like", "%".$dataFields["name_en"]."%");
           }
-          if (array_key_exists('name_kh', $dataFields)) {
+          if (array_key_exists("name_kh", $dataFields)) {
             $whereClauseClusAct->Where("name_kh", "Like", "%".$dataFields["name_kh"]."%");
           }
         }
@@ -102,8 +115,8 @@ class ClusterActivity extends Model
               "label" => isset($crow->SubProgram)?$crow->SubProgram->name_kh:"",
               "value" => isset($crow->SubProgram)?$crow->SubProgram->id:"",
             ),
-            'name_en' => $crow->name_en,
-            'name_kh' => $crow->name_kh,
+            "name_en" => $crow->name_en,
+            "name_kh" => $crow->name_kh,
             'entity' => isset($crow->Entity)?$crow->Entity->name_kh:"",
             'entity_id' => array(
               "label" => isset($crow->Entity)?$crow->Entity->code."-".$crow->Entity->name_kh:"",
@@ -123,8 +136,9 @@ class ClusterActivity extends Model
         $data[] = array(
           'id' => $row->id,
           'code' => $row->code,
-          'name_en' => $row->name_en,
-          'name_kh' => $row->name_kh,
+          "name" => $row->code.'-'.(config_language == "en")?$row->name_en:$row->name_kh,
+          "name_en" => $row->name_en,
+          "name_kh" => $row->name_kh,
           'sub_program_id' => array(
             "label" => $row->code.'-'.$row->structure_name_kh.':'.$row->name_kh,
             "value" => $row->id
@@ -138,12 +152,18 @@ class ClusterActivity extends Model
       return $data;
     }
 
-    public static function getClusterActs(){
-      $query = ClusterActivity::where("is_active", 1)->orderBy("order_level")->get();
+    public static function getClusterActs($param){
+      $queryData = ClusterActivity::where("is_active", 1);
+      $whereClause = $queryData;
+      $whereClause->orderBy("order_level");
+      if(!empty($param["param"]["value"])){
+        $whereClause->where("sub_program_id", $param["param"]["value"]);
+      }
+      $query = collect($whereClause->get());
       $data = array();
       foreach($query as $row){
         $data[] = array(
-          "label" => $row->code.'-'.$row->name_kh,
+          "label" => (config_language == "en")?$row->code.'-'.$row->name_en:$row->code.'-'.$row->name_kh,
           "value" => $row->id,
         );
       }

@@ -193,16 +193,16 @@ export default {
                         "value": 2,
                     }
                 ],
-                sub_program_id: [
-                    {
-                        "label": "អនុកម្មវិធីទី១",
-                        "value": 1,
-                    },
-                    {
-                        "label": "អនុកម្មវិធីទី២",
-                        "value": 2,
-                    }
-                ],
+                // sub_program_id: [
+                //     {
+                //         "label": "អនុកម្មវិធីទី១",
+                //         "value": 1,
+                //     },
+                //     {
+                //         "label": "អនុកម្មវិធីទី២",
+                //         "value": 2,
+                //     }
+                // ],
                 cluster_activity_id: [
                     {
                         "label": "ចង្កោមសកម្មភាពទី១",
@@ -217,12 +217,12 @@ export default {
                 total: 3,
             },
             formAttributes: [
-                {
-                    name: "objective_id",
-                    type: "select",
-                    required: true,
-                    options: []
-                },
+                // {
+                //     name: "objective_id",
+                //     type: "select",
+                //     required: true,
+                //     options: []
+                // },
                 {
                     name: "program_id",
                     type: "select",
@@ -230,16 +230,16 @@ export default {
                     hasFilter: true,
                     filterObj: "sub_program_id",
                     api: apiConfig._apiSubProgramByPro,
-                    options: []
+                    options: [],
                 },
                 {
                     name: "sub_program_id",
                     type: "select",
                     required: true,
                     hasFilter: true,
-                    filterObj: "cluster_activity_id",
-                    api: apiConfig._apiSubProgramByPro,
-                    options: []
+                    filterObj: "entity_id",
+                    api: apiConfig._apiEntityBySubPro,
+                    options: [],
                 },
                 {
                     name: "cluster_activity_id",

@@ -30,8 +30,8 @@ export default {
                 ]
             },
             dataHeaders: {
-                header1: "title_en",
-                header2: "title_kh",
+                header1: "name_en",
+                header2: "name_kh",
                 header3: "year",
                 header4: "start_date",
                 header5: "end_date",
@@ -40,12 +40,7 @@ export default {
             },
             data: {
                 data: [
-                    {
-                        parent_id: "",
-                        title_en: "",
-                        title_kh: "",
-                        order_level: 1
-                    },
+
                 ],
 
                 limit: 10,
@@ -53,12 +48,12 @@ export default {
             },
             formAttributes: [
                 {
-                    name: "title_en",
+                    name: "name_en",
                     type: "text",
                     required: true
                 },
                 {
-                    name: "title_kh",
+                    name: "name_kh",
                     type: "text",
                     required: true
                 },

@@ -2,12 +2,16 @@
     <div class="demo-alignment">
         <vs-popup v-if="dataAttributes.popupFullscreen" fullscreen classContent="popup-example" :title="title"
             :active.sync="showModalForm">
-            <d-form @clickForm="initTableData" ref="refModalForm" :data="data" :dataInfo="dataInfo"
-                :formAttributes="formAttributes" :api="api" :rowDisplay="rowDisplay"></d-form>
+            <!-- Modal Indicator Sub Program-->
+            <!-- <modal-indicator-sub-program v-if="dataAttributes.hasIndicatorSubPro" :dataInfo="dataInfo"
+                ref="refInitRequest"></modal-indicator-sub-program> -->
+
+            <span v-if="!dataAttributes.hideFormData">
+                <d-form @clickForm="initTableData" ref="refModalForm" :data="data" :dataInfo="dataInfo"
+                    :formAttributes="formAttributes" :api="api" :rowDisplay="rowDisplay"></d-form>
+            </span>
             <!-- <d-indicator v-if="dataAttributes.hasIndicatorSubPro" :dataInfo="dataInfo"
                 :dataAttributes="dataAttributes"></d-indicator> -->
-            <modal-indicator-sub-program v-if="dataAttributes.hasIndicatorSubPro" :dataInfo="dataInfo"
-                ref="refInitRequest"></modal-indicator-sub-program>
         </vs-popup>
 
         <vs-popup v-else classContent="popup-example" :title="title" :active.sync="showModalForm">
@@ -15,8 +19,10 @@
                 :formAttributes="formAttributes" :api="api" :rowDisplay="rowDisplay"></d-form>
             <!-- <d-indicator v-if="dataAttributes.hasIndicator" :dataInfo="dataInfo"
                 :dataAttributes="dataAttributes"></d-indicator> -->
-            <modal-indicator-sub-program v-if="dataAttributes.hasIndicatorSubPro" :dataInfo="dataInfo"
-                ref="refInitRequest"></modal-indicator-sub-program>
+
+            <!-- Modal Indicator Sub Program-->
+            <!-- <modal-indicator-sub-program v-if="dataAttributes.hasIndicatorSubPro" :dataInfo="dataInfo"
+                ref="refInitRequest"></modal-indicator-sub-program> -->
         </vs-popup>
     </div>
 </template>
@@ -60,12 +66,13 @@ export default {
         }
     },
     methods: {
+        // To show popup form when create new data
         openNewForm() {
+            this.dataInfo = {};
             this.showModalForm = true;
             this.$refs.refModalForm.showNewForm();
         },
         openNewFormByParent(obj) {
-            console.log("t", obj);
             this.dataInfo = {};
             this.showModalForm = true;
             this.$refs.refModalForm.showNewFormByParent(obj);
@@ -73,7 +80,6 @@ export default {
         initForm(data) {
             this.showModalForm = true;
             this.dataInfo = data;
-            console.log("Edit", this.dataInfo);
             this.$refs.refModalForm.showDataForm(data);
             this.$refs.refInitRequest.showRequestData(data);
         },
@@ -83,7 +89,7 @@ export default {
         }
     },
     created() {
-        console.log("check data form objects", this.data);
+        // console.log("check data form objects", this.data);
     }
 }
 </script>

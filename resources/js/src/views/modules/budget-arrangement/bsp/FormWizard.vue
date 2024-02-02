@@ -31,7 +31,7 @@
           </tab-content>
 
           <!-- tab 5 -->
-          <tab-content :title="$t('bsp_text_printing')" class="mb-5" icon="feather icon-image">
+          <!-- <tab-content :title="$t('bsp_text_printing')" class="mb-5" icon="feather icon-image">
             <vs-navbar text-color="rgba(255,255,255,.6)" active-text-color="rgba(255,255,255,1)" :type="type"
               color="#F4F4F4" v-model="activeItem" style="box-shadow: 1px 5px 15px;" class="p-2 mb-6">
 
@@ -47,7 +47,7 @@
             </vs-navbar>
 
             <div class="vx-row">
-              <!-- Background Color -->
+              
               <div class="vx-col w-full sm:w-1/4 md:w-1/4 lg:w-1/4 xl:w-1/4 mb-base">
                 <vx-card :title="$t('bsp_text_printing')" title-color="#fff" card-background="primary"
                   content-color="#fff" code-toggler>
@@ -61,7 +61,7 @@
                   </p>
                 </vx-card>
               </div>
-              <!-- Background Color -->
+
               <div class="vx-col w-full sm:w-1/4 md:w-1/4 lg:w-1/4 xl:w-1/4 mb-base">
                 <vx-card :title="$t('bsp_text_printing')" title-color="#fff" card-background="danger" content-color="#fff"
                   code-toggler>
@@ -75,7 +75,6 @@
                 </vx-card>
               </div>
 
-              <!-- Background Color -->
               <div class="vx-col w-full sm:w-1/4 md:w-1/4 lg:w-1/4 xl:w-1/4 mb-base">
                 <vx-card :title="$t('bsp_text_printing')" title-color="#fff" card-background="warning"
                   content-color="#fff" code-toggler>
@@ -89,7 +88,6 @@
                 </vx-card>
               </div>
 
-              <!-- Background Color -->
               <div class="vx-col w-full sm:w-1/4 md:w-1/4 lg:w-1/4 xl:w-1/4 mb-base">
                 <vx-card :title="$t('bsp_text_printing')" title-color="#fff" card-background="primary"
                   content-color="#fff" code-toggler>
@@ -102,8 +100,10 @@
                   </p>
                 </vx-card>
               </div>
+
             </div>
-          </tab-content>
+          </tab-content> -->
+
         </form-wizard>
       </div>
     </vx-card>

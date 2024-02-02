@@ -9,8 +9,8 @@ class Planning extends Model
     protected $table = 'mef_planning';
     protected  $primaryKey = 'id';
     protected $fillable = [
-                            'title_en',
-                            'title_kh',
+                            "name_en",
+                            "name_kh",
                             'year',
                             'start_date',
                             'end_date',

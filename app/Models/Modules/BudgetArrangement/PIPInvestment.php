@@ -143,7 +143,7 @@ class PIPInvestment extends Model
                     // PIPInvestment::orderBy("order_level");
                     $clausePIPInv = $queryPIPInv;
                     $clausePIPInv->where("pip.sub_program_id", $subProgramId);
-                    $clausePIPInv->where("pip.planning_id", PLANNING_YEAR);
+                    $clausePIPInv->where("pip.planning_id", config_planning_year);
 
                     if($filter["search_field"]){
                         $arraySingle = call_user_func_array('array_merge', $filter["search_field"]);
@@ -419,7 +419,7 @@ class PIPInvestment extends Model
         //     $subProgs = array();
         //     foreach($subPrograms as $subProgram){
         //         $subProgramId = $subProgram->id;
-        //         $pipInvestments = PIPInvestment::where("sub_program_id", $subProgramId)->where("planning_id", PLANNING_YEAR)->orderBy("order_level")->get();
+        //         $pipInvestments = PIPInvestment::where("sub_program_id", $subProgramId)->where("planning_id", config_planning_year)->orderBy("order_level")->get();
         //         $pipInvPros = array();
         //         foreach($pipInvestments as $pipInvestment){
         //             $pipInvestmentId = $pipInvestment->id;

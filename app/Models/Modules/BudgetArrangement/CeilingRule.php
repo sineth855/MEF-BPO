@@ -8,10 +8,10 @@ class CeilingRule extends Model
 {
     protected $table = 'mef_ceiling_rule';
     protected $fillable = [
-                            'planing_id',
-                            'name_en',
+                            'planning_id',
+                            "name_en",
                             // 'ceiling_exp_type',
-                            'name_kh',
+                            "name_kh",
                             'issue_date',
                             'authorize_by',
                             'approved_by',

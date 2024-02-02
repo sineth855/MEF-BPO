@@ -8,8 +8,8 @@ class Bank extends Model
 {
   protected $table = 'bank';
   protected $fillable = [
-                          'name_en',
-                          'name_kh',
+                          "name_en",
+                          "name_kh",
                           'code',
                           'order_level',
                           'address',

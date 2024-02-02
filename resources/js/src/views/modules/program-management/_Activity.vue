@@ -17,6 +17,7 @@ export default {
             title: "activity",
             api: apiConfig._apiActivity,
             dataAttributes: {
+                popupFullscreen: true,
                 backgroundColor: "warning",
                 tableStyle: 2,
                 page_number: 1,
@@ -50,80 +51,80 @@ export default {
             },
             data: {
                 data: [
-                    {
-                        id: 1,
-                        code: "",
-                        name_en: "#120 - អនុកម្មវិធី",
-                        name_kh: "#120 - អនុកម្មវិធី",
-                        children: [
-                            {
-                                id: 1,
-                                sub_program_id: 1,
-                                code: "001",
-                                name_en: "#001 - ចង្កោមសកម្មភាពទី ១",
-                                name_kh: "#001 - ចង្កោមសកម្មភាពទី ១",
-                                entity_id: 1,
-                                entity_member_id: 2,
-                                order_level: 1,
-                                indicator: {
-                                    data: [
-                                        {
-                                            id: 1,
-                                            code: "#1.3.10-1",
-                                            kpi_name_en: "ឈ្មោះសូចនាករ",
-                                            kpi_name_kh: "ឈ្មោះសូចនាករ",
-                                            order_level: 1,
-                                            status: "Active"
-                                        }, {
-                                            id: 2,
-                                            code: "#1.3.10-2",
-                                            kpi_name_en: "ឈ្មោះសូចនាករ",
-                                            kpi_name_kh: "ឈ្មោះសូចនាករ",
-                                            order_level: 1,
-                                            status: "Active"
-                                        }, {
-                                            id: 3,
-                                            code: "#1.3.10-3",
-                                            kpi_name_en: "ឈ្មោះសូចនាករជាភាសាអង់គ្លេស",
-                                            kpi_name_kh: "ឈ្មោះសូចនាករជាភាសាអង់គ្លេស",
-                                            order_level: 1,
-                                            status: "InActive"
-                                        }
-                                    ]
-                                },
-                            }
-                            // {
-                            //     id: 1,
-                            //     // code_cluster_activity: "001",
-                            //     name_en: "ចង្កោមសកម្មភាពទី ១",
-                            //     name_kh: "ចង្កោមសកម្មភាពទី ១",
-                            //     sub_program: "អនុកម្មវិធីទី១",
-                            //     responsible_person: "ឯកឧត្តម ទទួលបន្ទុក",
-                            //     responsible_entity: "ឈ្មោះអង្គភាពទទួលបន្ទុក",
-                            //     order_level: 1
-                            // },
-                            // {
-                            //     id: 2,
-                            //     // code_cluster_activity: "001",
-                            //     name_en: "ចង្កោមសកម្មភាពទី ២",
-                            //     name_kh: "ចង្កោមសកម្មភាពទី ២",
-                            //     sub_program: "អនុកម្មវិធីទី២",
-                            //     responsible_person: "ឯកឧត្តម ទទួលបន្ទុក",
-                            //     responsible_entity: "ឈ្មោះអង្គភាពទទួលបន្ទុក",
-                            //     order_level: 2
-                            // },
-                            // {
-                            //     id: 3,
-                            //     // code_cluster_activity: "001",
-                            //     name_en: "ចង្កោមសកម្មភាពទី ៣",
-                            //     name_kh: "ចង្កោមសកម្មភាពទី ៣",
-                            //     sub_program: "អនុកម្មវិធីទី៣",
-                            //     responsible_person: "ឯកឧត្តម ទទួលបន្ទុក",
-                            //     responsible_entity: "ឈ្មោះអង្គភាពទទួលបន្ទុក",
-                            //     order_level: 3
-                            // },
-                        ]
-                    }
+                    // {
+                    //     id: 1,
+                    //     code: "",
+                    //     name_en: "#120 - អនុកម្មវិធី",
+                    //     name_kh: "#120 - អនុកម្មវិធី",
+                    //     children: [
+                    //         {
+                    //             id: 1,
+                    //             sub_program_id: 1,
+                    //             code: "001",
+                    //             name_en: "#001 - ចង្កោមសកម្មភាពទី ១",
+                    //             name_kh: "#001 - ចង្កោមសកម្មភាពទី ១",
+                    //             entity_id: 1,
+                    //             entity_member_id: 2,
+                    //             order_level: 1,
+                    //             indicator: {
+                    //                 data: [
+                    //                     {
+                    //                         id: 1,
+                    //                         code: "#1.3.10-1",
+                    //                         kpi_name_en: "ឈ្មោះសូចនាករ",
+                    //                         kpi_name_kh: "ឈ្មោះសូចនាករ",
+                    //                         order_level: 1,
+                    //                         status: "Active"
+                    //                     }, {
+                    //                         id: 2,
+                    //                         code: "#1.3.10-2",
+                    //                         kpi_name_en: "ឈ្មោះសូចនាករ",
+                    //                         kpi_name_kh: "ឈ្មោះសូចនាករ",
+                    //                         order_level: 1,
+                    //                         status: "Active"
+                    //                     }, {
+                    //                         id: 3,
+                    //                         code: "#1.3.10-3",
+                    //                         kpi_name_en: "ឈ្មោះសូចនាករជាភាសាអង់គ្លេស",
+                    //                         kpi_name_kh: "ឈ្មោះសូចនាករជាភាសាអង់គ្លេស",
+                    //                         order_level: 1,
+                    //                         status: "InActive"
+                    //                     }
+                    //                 ]
+                    //             },
+                    //         }
+                    //         // {
+                    //         //     id: 1,
+                    //         //     // code_cluster_activity: "001",
+                    //         //     name_en: "ចង្កោមសកម្មភាពទី ១",
+                    //         //     name_kh: "ចង្កោមសកម្មភាពទី ១",
+                    //         //     sub_program: "អនុកម្មវិធីទី១",
+                    //         //     responsible_person: "ឯកឧត្តម ទទួលបន្ទុក",
+                    //         //     responsible_entity: "ឈ្មោះអង្គភាពទទួលបន្ទុក",
+                    //         //     order_level: 1
+                    //         // },
+                    //         // {
+                    //         //     id: 2,
+                    //         //     // code_cluster_activity: "001",
+                    //         //     name_en: "ចង្កោមសកម្មភាពទី ២",
+                    //         //     name_kh: "ចង្កោមសកម្មភាពទី ២",
+                    //         //     sub_program: "អនុកម្មវិធីទី២",
+                    //         //     responsible_person: "ឯកឧត្តម ទទួលបន្ទុក",
+                    //         //     responsible_entity: "ឈ្មោះអង្គភាពទទួលបន្ទុក",
+                    //         //     order_level: 2
+                    //         // },
+                    //         // {
+                    //         //     id: 3,
+                    //         //     // code_cluster_activity: "001",
+                    //         //     name_en: "ចង្កោមសកម្មភាពទី ៣",
+                    //         //     name_kh: "ចង្កោមសកម្មភាពទី ៣",
+                    //         //     sub_program: "អនុកម្មវិធីទី៣",
+                    //         //     responsible_person: "ឯកឧត្តម ទទួលបន្ទុក",
+                    //         //     responsible_entity: "ឈ្មោះអង្គភាពទទួលបន្ទុក",
+                    //         //     order_level: 3
+                    //         // },
+                    //     ]
+                    // }
                 ],
                 sub_program_id: [
                     {
@@ -166,16 +167,6 @@ export default {
                     options: [],
                 },
                 {
-                    name: "name_en",
-                    type: "text",
-                    required: true
-                },
-                {
-                    name: "name_kh",
-                    type: "text",
-                    required: true
-                },
-                {
                     name: "entity_id",
                     type: "select",
                     required: true,
@@ -191,6 +182,16 @@ export default {
                     options: [],
                 },
                 {
+                    name: "name_en",
+                    type: "text",
+                    required: true
+                },
+                {
+                    name: "name_kh",
+                    type: "text",
+                    required: true
+                },
+                {
                     name: "order_level",
                     type: "number",
                     required: false
@@ -202,7 +203,7 @@ export default {
                 },
 
             ],
-            rowDisplay: "2grid", //1grid, 2grid, 3grid, 4grid
+            rowDisplay: "3grid", //1grid, 2grid, 3grid, 4grid
             dataFields: []
         }
     },

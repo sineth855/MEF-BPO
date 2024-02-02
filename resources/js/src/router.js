@@ -264,10 +264,54 @@ const router = new Router({
                         rule: 'editor',
                     }
                 },
-
+                {
+                    path: '/module/program-arrangement/task',
+                    slug: 'task',
+                    name: "task",
+                    icon: "UserIcon",
+                    i18n: "ProgramTask",
+                    component: () => import('./views/modules/program-management/_Task.vue'),
+                    meta: {
+                        pageTitle: 'ការងារ',
+                        breadcrumb: [
+                            { title: 'ផ្ទាំងគ្រប់គ្រង', url: '/' },
+                            { title: 'ផ្ទាំងគ្រប់គ្រង' },
+                            { title: 'ការងារ', active: true },
+                        ],
+                        rule: 'editor',
+                    }
+                },
                 // =============================================================================
                 // Budget Arrangement
                 // =============================================================================
+                {           
+                    path: 'module/budget-arrangement/credit-revenue-rule',
+                    name: 'CreditIncomeRule',
+                    component: () => import('@/views/Modules/budget-arrangement/credit-revenue-rule/Index.vue'),
+                    meta: {
+                        pageTitle: 'ឥណទានច្បាប់ចំណូល',
+                        breadcrumb: [
+                            { title: 'ផ្ទាំងគ្រប់គ្រង', url: '/' },
+                            { title: 'រៀបចំថវិកា', url: '/' },
+                            { title: 'ឥណទានច្បាប់ចំណូល', active: true },
+                        ],
+                        rule: 'editor'
+                    }
+                },
+                {           
+                    path: 'module/budget-arrangement/credit-expense-rule',
+                    name: 'CreditExpenseRule',
+                    component: () => import('@/views/Modules/budget-arrangement/credit-expense-rule/Index.vue'),
+                    meta: {
+                        pageTitle: 'ឥណទានច្បាប់ចំណាយ',
+                        breadcrumb: [
+                            { title: 'ផ្ទាំងគ្រប់គ្រង', url: '/' },
+                            { title: 'រៀបចំថវិកា', url: '/' },
+                            { title: 'ឥណទានច្បាប់ចំណាយ', active: true },
+                        ],
+                        rule: 'editor'
+                    }
+                },
                 {           
                     path: 'module/budget-arrangement/budget-ceiling',
                     name: 'BudgetCeiling',
@@ -418,7 +462,7 @@ const router = new Router({
                     {           
                         path: 'report/program',
                         name: 'ReportProgram',
-                        component: () => import('@/views/reports/program/Index.vue'),
+                        component: () => import('@/views/modules/program-management/_Program.vue'),//import('@/views/reports/program/Index.vue'),
                         meta: {
                             pageTitle: 'របាយការណ៍កម្មវិធី',
                             breadcrumb: [
@@ -432,7 +476,7 @@ const router = new Router({
                     {           
                         path: 'report/pip',
                         name: 'ReportPIP',
-                        component: () => import('@/views/reports/pip/Index.vue'),
+                        component: () => import('@/views/Modules/budget-arrangement/pip/Index.vue'),//,import('@/views/reports/pip/Index.vue'),
                         meta: {
                             pageTitle: 'របាយការណ៍គម្រោងវិនិយោគ',
                             breadcrumb: [
@@ -446,7 +490,7 @@ const router = new Router({
                     {           
                         path: 'report/bsp',
                         name: 'ReportBSP',
-                        component: () => import('@/views/reports/bsp/Index.vue'),
+                        component: () => import('@/views/Modules/budget-arrangement/bsp/Index.vue'),//import('@/views/reports/bsp/Index.vue'),
                         meta: {
                             pageTitle: 'របាយការណ៍ផែនការថវិកា',
                             breadcrumb: [
@@ -460,7 +504,7 @@ const router = new Router({
                     {           
                         path: 'report/pb',
                         name: 'ReportPB',
-                        component: () => import('@/views/reports/pb/Index.vue'),
+                        component: () => import('@/views/Modules/budget-arrangement/pb/Index.vue'),//import('@/views/reports/pb/Index.vue'),
                         meta: {
                             pageTitle: 'របាយការណ៍គម្រោងថវិកាប្រចាំឆ្នាំ',
                             breadcrumb: [
@@ -474,7 +518,7 @@ const router = new Router({
                     {           
                         path: 'report/quarterly',
                         name: 'ReportQuarterly',
-                        component: () => import('@/views/reports/quarterly/Index.vue'),
+                        component: () => import('@/views/Modules/budget-monitoring/income-expense-arrangement/Index.vue'),//import('@/views/reports/quarterly/Index.vue'),
                         meta: {
                             pageTitle: 'របាយការណ៍ចំណូល/ចំណាយត្រីមាស',
                             breadcrumb: [
@@ -488,7 +532,7 @@ const router = new Router({
                     {           
                         path: 'report/income',
                         name: 'ReportIncome',
-                        component: () => import('@/views/reports/income/Index.vue'),
+                        component: () => import('@/views/Modules/budget-monitoring/income-implementing-result/Index.vue'),//import('@/views/reports/income/Index.vue'),
                         meta: {
                             pageTitle: 'របាយការណ៍ចំណូល',
                             breadcrumb: [
@@ -516,7 +560,7 @@ const router = new Router({
                     ,{           
                         path: 'report/credit-movement',
                         name: 'ReportCreditMovement',
-                        component: () => import('@/views/reports/credit-movement/Index.vue'),
+                        component: () => import('@/views/Modules/budget-monitoring/credit-movement/Index.vue'), //import('@/views/reports/credit-movement/Index.vue'),
                         meta: {
                             pageTitle: 'របាយការណ៍ចលនាឥណទាន',
                             breadcrumb: [
