@@ -94,11 +94,15 @@ Route::group([
         Route::resource('module/program_management/activity', 'Modules\ProgramManagement\ActivityController');
         Route::resource('module/program_management/task', 'Modules\ProgramManagement\TaskController');
         // KPI
+        Route::post('module/program_management/kpi_cluster_activity/get_kpi', 'Modules\ProgramManagement\KPIClusterActivityController@index');
+        Route::resource('module/program_management/kpi_cluster_activity', 'Modules\ProgramManagement\KPIClusterActivityController');
+
         Route::post('module/program_management/kpi_program/get_kpi', 'Modules\ProgramManagement\KPIProgramController@index');
         Route::resource('module/program_management/kpi_program', 'Modules\ProgramManagement\KPIProgramController');
 
         Route::post('module/program_management/kpi_sub_program/get_kpi', 'Modules\ProgramManagement\KPISubProgramController@index');
         Route::resource('module/program_management/kpi_sub_program', 'Modules\ProgramManagement\KPISubProgramController');
+
         // PIP
         Route::post('module/budget_arrangement/ceiling_rule/search', 'Modules\BudgetArrangement\CeilingRuleController@index');
         Route::resource('module/budget_arrangement/ceiling_rule', 'Modules\BudgetArrangement\CeilingRuleController');
@@ -169,6 +173,13 @@ Route::group([
         Route::resource('setting/notificatoin_type', 'Settings\NotificationTypeController');
         Route::resource('setting/circular', 'Settings\CircularController');
         Route::resource('setting/incentive_officer', 'Settings\IncentiveOfficerController');
+
+        Route::post('setting/ceiling_group/search', 'Settings\CeilingGroupController@index');
+        Route::resource('setting/ceiling_group', 'Settings\CeilingGroupController');
+
+        Route::post('setting/ceiling_type/search', 'Settings\CeilingTypeController@index');
+        Route::resource('setting/ceiling_type', 'Settings\CeilingTypeController');
+
         // Setting Budget Arrangement
         Route::post('setting/planning/search', 'Settings\PlanningController@index');
         Route::resource('setting/planning', 'Settings\PlanningController');

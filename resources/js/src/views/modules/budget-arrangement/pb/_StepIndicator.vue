@@ -208,7 +208,7 @@ export default {
   methods: {
     initRequest() {
       this.$vs.loading();
-      // this.getData();
+      this.getData();
     },
     getDataTable(_search_criteria) {
       let _params = {};
@@ -272,7 +272,7 @@ export default {
   },
   created() {
     // this.$vs.loading();
-    this.getData();
+    // this.getData();
   },
   watch: {
   }

@@ -31,7 +31,6 @@ export default {
     data() {
         return {
             date: null,
-            columnField: "sub_program_id",
             form: {
                 attribute: {}
             },
@@ -68,7 +67,7 @@ export default {
             data: {},
             formAttributes: [
                 {
-                    name: "sub_program_id",
+                    name: "cluster_activity_id",
                     type: "select",
                     required: true,
                     data: [],

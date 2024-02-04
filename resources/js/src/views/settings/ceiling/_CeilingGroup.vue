@@ -1,87 +1,44 @@
 <template>
-    <div>
-        <form-ceiling ref="refOpenPrivatePopupForm" :api="dataAttributes.api" :dataAttributes="dataAttributes"
-            :dataInfo="dataInfo"></form-ceiling>
-        <d-table-list @clicked="initTableData" :api="api" ref="refInitPage" :allowDel="true" :title="title"
-            :dataInfo="dataInfo" :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data"
-            :formAttributes="formAttributes" :rowDisplay="rowDisplay" @clickPrivateForm="initOpenForm"></d-table-list>
-    </div>
+    <d-table-list @clicked="initTableData" :api="api" ref="refInitPage" :allowDel="true" :title="title" :dataInfo="dataInfo"
+        :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data" :formAttributes="formAttributes"
+        :rowDisplay="rowDisplay"></d-table-list>
 </template>
 
 <script>
-import axios from "@/axios.js";
-import apiConfig from "@/apiConfig.js";
+import axios from "@/axios.js"
+import apiConfig from "@/apiConfig.js"
 import { ref } from 'vue';
-import FormCeiling from '@/views/modules/budget-arrangement/budget-ceiling/_FormCeilingEntity.vue';
+
 import DTableList from '@/views/form-builder/DTableList.vue'
 
 export default {
     data() {
         return {
-            title: "CeilingBudget",
-            api: apiConfig._apiCeilingRule,
+            title: "setting_unit",
+            api: apiConfig._apiCeilingGroup,
             dataAttributes: {
-                api: apiConfig._apiCeilingEntity,
                 tableStyle: 1,
                 page_number: 1,
                 offset: 0,
                 dataGrid: "row",
                 actionButton: [
-                    {
-                        icon: "ListIcon",
-                        path: "#",
-                        method: "PrivateForm",
-                        allow: true
-                    },
                     // {
                     //     icon: "DollarSignIcon",
                     //     path: "/module/budget-arrangement/budget-ceiling/list",
                     //     method: "View"
-                    // },
-                    // {
-                    //     icon: "EditIcon",
-                    //     path: "#",
-                    //     method: "Edit"
-                    // },
-                    // {
-                    //     icon: "TrashIcon",
-                    //     path: "#",
-                    //     method: "Edit"
-                    // },
+                    // }
                 ]
             },
             dataHeaders: {
-                // header1: "id",
                 header1: "name_en",
                 header2: "name_kh",
-                header3: "issue_date",
-                header4: "status",
+                header3: "order_level",
             },
             data: {
                 data: [
-                    {
-                        id: 1,
-                        name_en: "ពិដានប្រចាំឆ្នាំ២០១៩",
-                        name_kh: "ពិដានប្រចាំឆ្នាំ២០១៩",
-                        issue_date: "2022",
-                        status: "បានអនុម័ត",
-                    },
 
                 ],
-                status: [
-                    {
-                        label: "កំពុងដំណើរការ",
-                        value: 1
-                    },
-                    {
-                        label: "បញ្ចប់",
-                        value: 2,
-                    },
-                    {
-                        label: "បានអនុម័ត",
-                        value: 3,
-                    }
-                ],
+
                 limit: 10,
                 total: 3,
             },
@@ -97,21 +54,14 @@ export default {
                     required: true
                 },
                 {
-                    name: "issue_date",
-                    type: "date",
-                    required: true
+                    name: "order_level",
+                    type: "number",
+                    required: false
                 },
                 {
-                    name: "status",
-                    type: "select",
-                    required: true,
-                    hasDefault: true,
-                    defaultOptions: {
-                        label: "កំពុងដំណើរការ",
-                        value: 1,
-                    },
-                    options: [
-                    ],
+                    name: "remark",
+                    type: "textarea",
+                    required: false
                 },
             ],
             rowDisplay: "2grid", //1grid, 2grid, 3grid, 4grid
@@ -120,7 +70,6 @@ export default {
         }
     },
     components: {
-        FormCeiling,
         DTableList,
     },
     methods: {
@@ -160,7 +109,6 @@ export default {
                         } else {
                             this.data = this.data;
                         }
-                        // this.data = this.data;
                         this.$vs.loading.close();
                     }).catch((error) => {
                         // reject(error)
@@ -186,10 +134,8 @@ export default {
             }
             this.getDataTable(_search_criteria);
             return false;
-        },
-        initOpenForm(data) {
-            this.$refs.refOpenPrivatePopupForm.showForm(data);
         }
+
     },
     created() {
         this.$vs.loading();

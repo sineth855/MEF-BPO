@@ -1,9 +1,9 @@
 <template>
   <vx-card no-shadow>
-
-    <div class="mb-base">
+    <program-structure></program-structure>
+    <!-- <div class="mb-base">
       <h3 class="mb-4">កំពុងស្ថិតក្នុងការត្រួតពិនិត្យ</h3>
-    </div>
+    </div> -->
 
     <!-- Save & Reset Button -->
     <!-- <div class="flex flex-wrap items-center justify-end mt-base">
@@ -15,11 +15,16 @@
 </template>
 
 <script>
+import ProgramStructure from '@/views/modules/program-management/Index.vue';
+
 export default {
   data() {
     return {
-      
+
     }
+  },
+  components: {
+    ProgramStructure,
   },
   computed: {
     activeUserInfo() {

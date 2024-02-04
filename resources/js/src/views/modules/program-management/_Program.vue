@@ -12,7 +12,7 @@
 import axios from "@/axios.js";
 import apiConfig from "@/apiConfig.js";
 import { ref } from 'vue';
-import FormIndicator from '@/views/modules/program-management/_FormIndicator.vue';
+import FormIndicator from '@/views/modules/program-management/_FormProIndicator.vue';
 import DTableList from '@/views/form-builder/DTableList.vue';
 
 export default {

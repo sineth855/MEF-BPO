@@ -1,28 +1,32 @@
 <?php
 
-namespace App\Http\Controllers\Modules\BudgetArrangement;
+namespace App\Http\Controllers\Settings;
 
 use App\Http\Controllers\Controller;
-use App\Models\Modules\BudgetArrangement\CeilingEntity;
-use App\Models\Modules\ProgramManagement\Program;
-use App\Models\Modules\ProgramManagement\SubProgram;
+use App\Models\Settings\CeilingGroup;
 use Illuminate\Http\Request;
 use Auth;
 use DB;
-use CommonService;
+use View, Input, Redirect;
 
-class CeilingEntityController extends Controller
+class CeilingGroupController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     protected $db_table;
-    public $path = "admin/modules/ceiling_entity";
+    public $path = "admin/setting";
 
     public function __construct()
     {
         $this->middleware('auth');
         $this->view_title = $this->path.'.entry_title';
-        $this->db_table = new CeilingEntity;
+        $this->db_table = new CeilingGroup;
         $this->lang_path = $this->path;
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -44,130 +48,36 @@ class CeilingEntityController extends Controller
     {
         $input = $request->all();
         $dataFields = $this->dataFields();
-        $filter = CommonService::getFilter($input);
-        
-        $programs = Program::getPrograms("");
-        $subPrograms = [];
-        $entities = [];
-        // $entity_members = array(
-        //     [
-        //         "label" => "សមាជិកទី១",
-        //         "value" => 1,
-        //     ],
-        //     [
-        //         "label" => "សមាជិកទី២",
-        //         "value" => 2,
-        //     ]
-        // );
-
-        $dataHeaders = array(
-            "header1" => array(
-                "label" => "២០២៣",
-                "rowspan" => 0,
-                "colspan" => 0,
-            ),
-            "header2" => array(
-                "label" => "២០២៤",
-                "rowspan" => 0,
-                "colspan" => 0,
-            ),
-            "header3" => array(
-                "label" => "២០២៥",
-                "rowspan" => 0,
-                "colspan" => 0,
-            ),
-            "header4" => array(
-                "label" => "២០២៣",
-                "rowspan" => 0,
-                "colspan" => 0,
-            ),
-            "header5" => array(
-                "label" => "២០២៤",
-                "rowspan" => 0,
-                "colspan" => 0,
-            ),
-            "header6" => array(
-                "label" => "២០២៥",
-                "rowspan" => 0,
-                "colspan" => 0,
-            )
-            // header7: {
-            //     label: "",
-            //     rowspan: 0,
-            //     colspan: 0,
-            // }
-            );
-        $dataSubHeaders = array(
-            "header1" => array(
-                "label" => "1",
-                "rowspan" => 0,
-                "colspan" => 0,
-            ),
-            "header2" => array(
-                "label" => "2",
-                "rowspan" => 0,
-                "colspan" => 0,
-            ),
-            "header3" => array(
-                "label" => "3",
-                "rowspan" => 0,
-                "colspan" => 0,
-            ),
-            "header4" => array(
-                "label" => "4",
-                "rowspan" => 0,
-                "colspan" => 0,
-            ),
-            "header5" => array(
-                "label" => "5",
-                "rowspan" => 0,
-                "colspan" => 0,
-            ),
-            "header6" => array(
-                "label" => "6",
-                "rowspan" => 0,
-                "colspan" => 0,
-            ),
-            "header7" => array(
-                "label" => "7=(4-1)/1",
-                "rowspan" => 0,
-                "colspan" => 0,
-            ),
-            "header8" => array(
-                "label" => "8=(5-4)/4",
-                "rowspan" => 0,
-                "colspan" => 0,
-            ),
-            "header9" => array(
-                "label" => "9=(6-5)/5",
-                "rowspan" => 0,
-                "colspan" => 0,
-            ),
-            "header10" => array(
-                "label" => "10",
-                "rowspan" => 0,
-                "colspan" => 0,
-            ),
+        // dd($dataFields);
+        $filter = array(
+            // "offset" => isset($input["offset"]) ? $input["offset"] : config_offset,
+            "limit" => isset($input["limit"]) ? $input["limit"] : config_limit,
+            "sort" => isset($input["sort"]) ? $input["sort"] : config_sort,
+            "order" => isset($input["order"]) ? $input["order"] : config_order
         );
-            // header11: {
-            //     label: "",
-            //     rowspan: 0,
-            //     colspan: 0,
-            // },
+        $query = $this->db_table::orderBy($filter["sort"], $filter["order"]);
+        $whereClause = $query;
+        $whereClause->offset(($input["page_number"] - 1) * $filter["limit"]);       
+        $whereClause->limit($filter["limit"]);
+        if(isset($input["search_field"])){
+            for($i=0 ; $i < count($input["search_field"]); $i++){
+                $field = array_key_first($input["search_field"][$i]); //array('key1', 'key2', 'key3');
+                if (in_array($field, $dataFields)) {
+                    $whereClause->where($field, "Like","%".$input["search_field"][$i][$field]."%");
+                }
+            }
+        }
+        
+        $table = collect($whereClause->get());
         $data = array(
             "data_fields" => $this->dataFields(),
-            "data" => CeilingEntity::getCeilingEntities($filter),
-            "dataHeaders" => $dataHeaders,
-            "dataSubHeaders" => $dataSubHeaders,
-            "program_id" => $programs,
-            "sub_program_id" => $subPrograms,
-            "entity_id" => $entities,
-            "limit" => config_limit,
-            "total" => 0//$this->db_table::count()
+            "data" => $table,
+            "limit" => $filter["limit"],
+            "total" => $this->db_table->count()
         );
         return response()->json($data);
     }
-    
+
     /**
      * Show the form for creating a new resource.
      *
@@ -187,9 +97,7 @@ class CeilingEntityController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
-
         $dataFields = $this->dataForm($input);
-
         $table = $this->db_table::create($dataFields);
         if($table){
             $status = 200;
@@ -245,7 +153,12 @@ class CeilingEntityController extends Controller
     {
         $input = $request->all();
         $dataFields = $this->dataForm($input);
-        $table = $this->db_table::where('id', $id)->update($dataFields);
+        // $ddd = array(
+        //     "name_en" => 11111,
+        //     "name_kh" => 11111
+        // );
+        $table = CeilingGroup::find($id);
+        $table->update($dataFields);
         if($table){
             $status = 200;
             $boolen = true;
@@ -280,7 +193,8 @@ class CeilingEntityController extends Controller
      */
     public function destroy($id)
     {
-        $table = $this->db_table::where('id', $id)->delete();
+        $table = CeilingGroup::find($id);
+        $table->delete();
         if($table){
             $status = 200;
             $boolen = true;

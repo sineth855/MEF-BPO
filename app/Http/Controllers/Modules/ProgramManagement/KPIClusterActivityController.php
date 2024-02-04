@@ -1,26 +1,24 @@
 <?php
 
-namespace App\Http\Controllers\Modules\BudgetArrangement;
+namespace App\Http\Controllers\Modules\ProgramManagement;
 
 use App\Http\Controllers\Controller;
-use App\Models\Modules\BudgetArrangement\CeilingEntity;
-use App\Models\Modules\ProgramManagement\Program;
-use App\Models\Modules\ProgramManagement\SubProgram;
+use App\Models\Modules\ProgramManagement\KPIClusterActivity;
 use Illuminate\Http\Request;
+use CommonService;
 use Auth;
 use DB;
-use CommonService;
 
-class CeilingEntityController extends Controller
+class KPIClusterActivityController extends Controller
 {
     protected $db_table;
-    public $path = "admin/modules/ceiling_entity";
+    public $path = "admin/modules/kpi_sub_program";
 
     public function __construct()
     {
         $this->middleware('auth');
         $this->view_title = $this->path.'.entry_title';
-        $this->db_table = new CeilingEntity;
+        $this->db_table = new KPIClusterActivity;
         $this->lang_path = $this->path;
     }
     /**
@@ -45,129 +43,17 @@ class CeilingEntityController extends Controller
         $input = $request->all();
         $dataFields = $this->dataFields();
         $filter = CommonService::getFilter($input);
-        
-        $programs = Program::getPrograms("");
-        $subPrograms = [];
-        $entities = [];
-        // $entity_members = array(
-        //     [
-        //         "label" => "សមាជិកទី១",
-        //         "value" => 1,
-        //     ],
-        //     [
-        //         "label" => "សមាជិកទី២",
-        //         "value" => 2,
-        //     ]
-        // );
-
-        $dataHeaders = array(
-            "header1" => array(
-                "label" => "២០២៣",
-                "rowspan" => 0,
-                "colspan" => 0,
-            ),
-            "header2" => array(
-                "label" => "២០២៤",
-                "rowspan" => 0,
-                "colspan" => 0,
-            ),
-            "header3" => array(
-                "label" => "២០២៥",
-                "rowspan" => 0,
-                "colspan" => 0,
-            ),
-            "header4" => array(
-                "label" => "២០២៣",
-                "rowspan" => 0,
-                "colspan" => 0,
-            ),
-            "header5" => array(
-                "label" => "២០២៤",
-                "rowspan" => 0,
-                "colspan" => 0,
-            ),
-            "header6" => array(
-                "label" => "២០២៥",
-                "rowspan" => 0,
-                "colspan" => 0,
-            )
-            // header7: {
-            //     label: "",
-            //     rowspan: 0,
-            //     colspan: 0,
-            // }
-            );
-        $dataSubHeaders = array(
-            "header1" => array(
-                "label" => "1",
-                "rowspan" => 0,
-                "colspan" => 0,
-            ),
-            "header2" => array(
-                "label" => "2",
-                "rowspan" => 0,
-                "colspan" => 0,
-            ),
-            "header3" => array(
-                "label" => "3",
-                "rowspan" => 0,
-                "colspan" => 0,
-            ),
-            "header4" => array(
-                "label" => "4",
-                "rowspan" => 0,
-                "colspan" => 0,
-            ),
-            "header5" => array(
-                "label" => "5",
-                "rowspan" => 0,
-                "colspan" => 0,
-            ),
-            "header6" => array(
-                "label" => "6",
-                "rowspan" => 0,
-                "colspan" => 0,
-            ),
-            "header7" => array(
-                "label" => "7=(4-1)/1",
-                "rowspan" => 0,
-                "colspan" => 0,
-            ),
-            "header8" => array(
-                "label" => "8=(5-4)/4",
-                "rowspan" => 0,
-                "colspan" => 0,
-            ),
-            "header9" => array(
-                "label" => "9=(6-5)/5",
-                "rowspan" => 0,
-                "colspan" => 0,
-            ),
-            "header10" => array(
-                "label" => "10",
-                "rowspan" => 0,
-                "colspan" => 0,
-            ),
-        );
-            // header11: {
-            //     label: "",
-            //     rowspan: 0,
-            //     colspan: 0,
-            // },
         $data = array(
+            "cluster_activity_id" => array($input["data_info"]["cluster_activity_id"]),
+            "data" => $this->db_table::getKPIClusterAct($filter, $input, $this->dataFields()),
+            "data_info" => $input["data_info"],
+            "limit" => $filter["limit"],
+            "total" => $this->db_table::getCount($filter, $input, $this->dataFields()),
             "data_fields" => $this->dataFields(),
-            "data" => CeilingEntity::getCeilingEntities($filter),
-            "dataHeaders" => $dataHeaders,
-            "dataSubHeaders" => $dataSubHeaders,
-            "program_id" => $programs,
-            "sub_program_id" => $subPrograms,
-            "entity_id" => $entities,
-            "limit" => config_limit,
-            "total" => 0//$this->db_table::count()
         );
         return response()->json($data);
     }
-    
+
     /**
      * Show the form for creating a new resource.
      *
@@ -187,7 +73,6 @@ class CeilingEntityController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
-
         $dataFields = $this->dataForm($input);
 
         $table = $this->db_table::create($dataFields);
@@ -265,9 +150,9 @@ class CeilingEntityController extends Controller
 
     public function dataForm($input){
         $arr = $input;
-        $push_array = array_merge(array(["created_by" => Auth::user()->id]));
+        $push_array = array_merge(array(["planning_id" => config_planning_year, "modified_by" => Auth::user()->id]));
         $arraySingle = array_merge($arr, $push_array);
-        $result = call_user_func_array("array_merge",$arraySingle);
+        $result = call_user_func_array('array_merge', $arraySingle);
         $dataFields = $result;
         return $dataFields;
     }
@@ -280,7 +165,7 @@ class CeilingEntityController extends Controller
      */
     public function destroy($id)
     {
-        $table = $this->db_table::where('id', $id)->delete();
+        $table = $this->db_table::where('id', $id)->update(["status" => 4]);
         if($table){
             $status = 200;
             $boolen = true;

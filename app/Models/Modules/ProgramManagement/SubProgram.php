@@ -156,16 +156,16 @@ class SubProgram extends Model
           // }
 
           $cdata[] = array(
-            'id' => $crow->id,
             'sub_program_id' => array(
               "label" => (config_language == "en")?$crow->code."-".$crow->name_en:$crow->code."-".$crow->name_kh,
               "value" => $crow->id,
             ),
-            'code' => $crow->code,
             'program_id' => array(
               "label" => isset($crow->Program)&&config_language == "en"?$crow->Program->code."-".$crow->Program->name_en:$crow->Program->code."-".$crow->Program->name_kh,
               "value" => isset($crow->Program)?$crow->Program->id:"",
             ),
+            'id' => $crow->id,
+            'code' => $crow->code,
             'name' => (config_language == "en")?$crow->code."-".$crow->name_en:$crow->code."-".$crow->name_kh,
             "name_en" => $crow->name_en,
             "name_kh" => $crow->name_kh,

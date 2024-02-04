@@ -6,6 +6,7 @@ export default {
     _apiSubProgram: "/api/v1/module/program_management/sub_program",
     _apiKPIProgram: "/api/v1/module/program_management/kpi_program",
     _apiKPISubProgram: "/api/v1/module/program_management/kpi_sub_program",
+    _apiKPIClusterActivity: "/api/v1/module/program_management/kpi_cluster_activity",
     _apiSubProgramByPro: "/api/v1/module/program_management/sub_program_by_prog",
     _apiEntityBySubPro: "/api/v1/module/program_management/entity_by_subprog",
     _apiEntityByAct: "/api/v1/module/program_management/get_entity_by_activity",
@@ -34,6 +35,8 @@ export default {
     _apiItem: "/api/v1/setting/item",
     _apiItemCategory: "/api/v1/setting/item_category",
     _apiPlanning: "/api/v1/setting/planning",
+    _apiCeilingGroup: "/api/v1/setting/ceiling_group",
+    _apiCeilingType: "/api/v1/setting/ceiling_type",
 
     _apiExpenditureGroup: "/api/v1/setting/expenditure_group",
     _apiExpenditureType: "/api/v1/setting/expenditure_type",

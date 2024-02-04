@@ -74,13 +74,31 @@
                         <vs-td v-for="header in dataHeaders" :key="header.indextr">{{ tr[header] }}</vs-td>
                         <vs-td>
                             <template v-if="dataAttributes.actionButton">
+                                <template v-for="rowBtnAction in dataAttributes.actionButton">
+                                    <feather-icon v-if="rowBtnAction.allow" style="cursor: pointer;"
+                                        :icon="rowBtnAction.icon"
+                                        svgClasses="mr-2 w-5 h-5 hover:text-primary stroke-current"
+                                        @click.stop="initAction(tr, rowBtnAction.method)" />
+                                </template>
+                            </template>
+                            <template v-else>
+                                <center>
+                                    <feather-icon style="cursor: pointer;" :key="sindex" icon="EditIcon"
+                                        svgClasses="mr-2 w-5 h-5 hover:text-primary stroke-current"
+                                        @click.stop="initAction(tr, 'Edit')" />
+                                </center>
+                                <!-- <feather-icon style="cursor: pointer;" :key="sindex" icon="DollarSignIcon"
+                                svgClasses="mr-2 w-5 h-5 hover:text-primary stroke-current"
+                                @click.stop="initAction(tr, 'PrivateForm')" /> -->
+                            </template>
+                            <!-- <template v-if="dataAttributes.actionButton">
                                 <feather-icon style="cursor: pointer;" v-for="rowBtnAction in dataAttributes.actionButton"
                                     :key="rowBtnAction.indextr" :icon="rowBtnAction.icon"
                                     svgClasses="mr-2 w-5 h-5 hover:text-primary stroke-current"
                                     @click.stop="viewUrl(rowBtnAction)" />
-                            </template>
-                            <feather-icon style="cursor: pointer;" icon="EditIcon"
-                                svgClasses="w-5 h-5 hover:text-primary stroke-current" @click.stop="initEdit(tr)" />
+                            </template> -->
+                            <!-- <feather-icon style="cursor: pointer;" icon="EditIcon"
+                                svgClasses="w-5 h-5 hover:text-primary stroke-current" @click.stop="initEdit(tr)" /> -->
                             <feather-icon style="cursor: pointer;" v-if="allowDel" icon="TrashIcon"
                                 svgClasses="w-5 h-5 hover:text-danger stroke-current" class="ml-2"
                                 @click.stop="initDel(tr.id)" />

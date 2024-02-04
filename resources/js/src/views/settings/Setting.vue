@@ -1,5 +1,11 @@
 <template>
   <vs-tabs position="top" class="tabs-shadow-none" id="profile-tabs" :key="isSmallerScreen">
+    <!-- 5 -->
+    <vs-tab icon-pack="feather" icon="icon-edit" :label="!isSmallerScreen ? 'ព័ត៌មានរៀបចំថវិកា' : ''">
+      <div class="tab-general md:ml-4 md:mt-0 mt-4 ml-0">
+        <setting-budget-arrangement />
+      </div>
+    </vs-tab>
 
     <!-- 3 -->
     <vs-tab icon-pack="feather" icon="icon-lock" :label="!isSmallerScreen ? 'សិទ្ធ និងអ្នកប្រើប្រាស់' : ''">
@@ -24,12 +30,6 @@
       </div>
     </vs-tab>
 
-    <vs-tab icon-pack="feather" icon="icon-edit" :label="!isSmallerScreen ? 'ព័ត៌មានរៀបចំថវិកា' : ''">
-      <div class="tab-general md:ml-4 md:mt-0 mt-4 ml-0">
-        <setting-budget-arrangement />
-      </div>
-    </vs-tab>
-
     <!-- 1 -->
     <vs-tab icon-pack="feather" icon="icon-edit" :label="!isSmallerScreen ? 'ពត៌មានទូទៅ' : ''">
       <div class="tab-general md:ml-4 md:mt-0 mt-4 ml-0">
@@ -47,7 +47,7 @@
 
 
     <!-- 6 -->
-    <vs-tab icon-pack="feather" icon="icon-calendar" :label="!isSmallerScreen ? 'Backup' : ''">
+    <vs-tab icon-pack="feather" icon="icon-calendar" :label="!isSmallerScreen ? 'រក្សាទុកទិន្នន័យ' : ''">
       <div class="tab-text md:ml-4 md:mt-0 mt-4 ml-0">
         <setting-backup />
       </div>

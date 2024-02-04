@@ -92,10 +92,76 @@ class CeilingEntity extends Model
           );
         }
 
-        $ceilingGroupDataArr[] = array(
-          "name_en" => $ceilingGroup->name_en,
-          "name_kh" => $ceilingGroup->name_kh,
-          "entities"=> $ceilingEntityArr
+          $ceilingGroupDataArr[] = array(
+            "id" => $ceilingGroup->id,
+            "name" => $ceilingGroup->name_kh,
+            "name_en" => $ceilingGroup->name_en,
+            "name_kh" => $ceilingGroup->name_kh,
+            "remark" => $ceilingGroup->remark,
+            "status" => $ceilingGroup->status,
+            "hasColspan" => true,
+            "colspan" => 12,
+            "order_level" => "",
+            "data"=> array(
+              "summary" => array(
+                "id" => 1,
+                "name" => "សរុបរួមក្រសួង",
+                "values" => array(1.00, 2.00, 3.00, 4.00, 5.00, 6.00, 7.00, 8.00, 9.00, "")
+              ),
+              "children" => array(
+                [
+                  "id" => 1,
+                  "name" => "I.រដ្ឋបាលកណ្តាល",
+                  "values" => [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, ""],
+                    "data" => array(
+                      [
+                        "id" => 1,
+                      "name" => "- បន្ទុកបុគ្គលិក",
+                      "values" => [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, ""],
+                      ],
+                      [
+                        "id" => 1,
+                      "name" => "- ក្រៅបន្ទុកបុគ្គលិក",
+                      "values" => [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, ""],
+                      ],
+                    ),
+                    // $ceilingEntityArr
+                  
+                  "dataDetails" => array(
+                    [
+                      "id" => 1,
+                      "name" => "១. អនុកម្មវិធីទី១.១ អគ្គនាយកដ្ឋាន​គោលនយោបាយ",
+                      "entity" => array(),
+                      "values" => [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, ""],
+                      "data" => array(
+                        [
+                          "id" => 1,
+                        "name" => "- បន្ទុកបុគ្គលិក",
+                        "values" => [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, ""],
+                        ],
+                        [
+                          "id" => 1,
+                        "name" => "- ក្រៅបន្ទុកបុគ្គលិក",
+                        "values" => [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, ""],
+                        ]
+                        ),
+                      "ceiling_entities" => array(
+                        [
+                          "id" => 1,
+                        "name" => "- បន្ទុកបុគ្គលិក",
+                        "values" => [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, ""],
+                        ],
+                        [
+                          "id" => 1,
+                        "name" => "- បន្ទុកបុគ្គលិក",
+                        "values" => [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, ""],
+                        ],
+                      ),
+                    ]
+                  )
+                  ]
+              )
+          )
         );
       }
       return $ceilingGroupDataArr;

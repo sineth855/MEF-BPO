@@ -25,6 +25,14 @@
                 <expenditure-type></expenditure-type>
             </vs-tab>
 
+            <vs-tab :label="$t('ceiling_group')">
+                <ceiling-group></ceiling-group>
+            </vs-tab>
+
+            <vs-tab :label="$t('ceiling_type')">
+                <ceiling-type></ceiling-type>
+            </vs-tab>
+
         </vs-tabs>
     </div>
 </template>
@@ -37,6 +45,9 @@ import PIPProjectStatus from '@/views/settings/include_budget_arrangement/_PIPPr
 import PIPProjectType from '@/views/settings/include_budget_arrangement/_PIPProjectType.vue';
 import ExpenditureGroup from '@/views/settings/include_budget_arrangement/_ExpenditureGroup.vue';
 import ExpenditureType from '@/views/settings/include_budget_arrangement/_ExpenditureType.vue';
+// Ceiling
+import CeilingGroup from '@/views/settings/ceiling/_CeilingGroup.vue';
+import CeilingType from '@/views/settings/ceiling/_CeilingType.vue';
 
 export default {
     components: {
@@ -44,7 +55,9 @@ export default {
         PIPProjectStatus,
         PIPProjectType,
         ExpenditureGroup,
-        ExpenditureType
+        ExpenditureType,
+        CeilingGroup,
+        CeilingType
     },
     data() {
         return {

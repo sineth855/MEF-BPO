@@ -12,7 +12,7 @@
 import axios from "@/axios.js";
 import apiConfig from "@/apiConfig.js";
 import { ref } from 'vue';
-import FormIndicator from '@/views/modules/program-management/_FormIndicator.vue';
+import FormIndicator from '@/views/modules/program-management/_FormClusActivityIndicator.vue';
 import DTableList from '@/views/form-builder/DTableList.vue';
 
 export default {
@@ -21,7 +21,7 @@ export default {
             title: "cluster_activity",
             api: apiConfig._apiClusterActivity,
             dataAttributes: {
-                api: apiConfig._apiKPISubProgram,
+                api: apiConfig._apiKPIClusterActivity,
                 popupFullscreen: true,
                 backgroundColor: "warning",
                 tableStyle: 2,
@@ -152,7 +152,7 @@ export default {
             },
             formAttributes: [
                 {
-                    name: "program_id",
+                    name: "sub_program_id",
                     type: "select",
                     required: true,
                     hasDefault: false,

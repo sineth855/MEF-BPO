@@ -4,6 +4,7 @@ namespace App\Models\Modules\ProgramManagement;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Modules\ProgramManagement\SubProgram;
+use App\Models\Modules\ProgramManagement\KPIClusterActivity;
 use App\Models\Settings\Entity;
 use App\Models\Settings\EntityMember;
 
@@ -96,25 +97,30 @@ class ClusterActivity extends Model
         
         $queryClusActProgs = collect($whereClauseClusAct->get());
         foreach($queryClusActProgs as $crow){
-          $indicators = array(
-            "id" => "id",
-            "code" => "code",
-            "kpi_name_en" => "kpi_name_en",
-            "kpi_name_kh" => "kpi_name_kh",
-            "order_level" => "order_level",
-            "status" => "status",
-          );
-          $indicatorData = array(
-            "data" => $indicators
-          );
+          $indicatorArr = array();
+          $sproId = $crow->id;
+          $kpis = KPIClusterActivity::where("status", "!=", 4)->where("cluster_activity_id", $sproId)->get();
+          foreach($kpis as $kpi){
+            $indicatorArr[] = array(
+              "code" => $kpi->code,
+              "kpi_name_en" => $kpi->kpi_name_en,
+              "kpi_name_kh" => $kpi->kpi_name_kh,
+              "order_level" => $kpi->order_level,
+              "status" => $kpi->status,
+            );
+          }
 
           $cdata[] = array(
-            'id' => $crow->id,
-            'code' => $crow->code,
             'sub_program_id' => array(
               "label" => isset($crow->SubProgram)?$crow->SubProgram->name_kh:"",
               "value" => isset($crow->SubProgram)?$crow->SubProgram->id:"",
             ),
+            'cluster_activity_id' => array(
+              "label" => (config_language == "en")?$crow->code."-".$crow->name_en:$crow->code."-".$crow->name_kh,
+              "value" => $crow->id,
+            ),
+            'id' => $crow->id,
+            'code' => $crow->code,
             "name_en" => $crow->name_en,
             "name_kh" => $crow->name_kh,
             'entity' => isset($crow->Entity)?$crow->Entity->name_kh:"",
@@ -129,7 +135,7 @@ class ClusterActivity extends Model
             ),
             'remark' => $crow->remark,
             'order_level' => $crow->order_level,
-            'indicator' => $indicatorData,
+            'indicator' => array("data" => $indicatorArr),
           );
         }
         
