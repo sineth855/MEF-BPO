@@ -1,8 +1,8 @@
 <template>
     <div class="flex items-center">
         <d-table-list @clicked="initTableData" :api="api" ref="refInitPage" :allowDel="true" :title="title"
-            :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data" :formAttributes="formAttributes"
-            :rowDisplay="rowDisplay" @emitDataForm="initDataForm"></d-table-list>
+            :dataInfo="dataInfo" :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data"
+            :formAttributes="formAttributes" :rowDisplay="rowDisplay" @emitDataForm="initDataForm"></d-table-list>
     </div>
 </template>
 
@@ -193,16 +193,16 @@ export default {
                         "value": 2,
                     }
                 ],
-                // sub_program_id: [
-                //     {
-                //         "label": "អនុកម្មវិធីទី១",
-                //         "value": 1,
-                //     },
-                //     {
-                //         "label": "អនុកម្មវិធីទី២",
-                //         "value": 2,
-                //     }
-                // ],
+                sub_program_id: [
+                    {
+                        "label": "អនុកម្មវិធីទី១",
+                        "value": 1,
+                    },
+                    {
+                        "label": "អនុកម្មវិធីទី២",
+                        "value": 2,
+                    }
+                ],
                 cluster_activity_id: [
                     {
                         "label": "ចង្កោមសកម្មភាពទី១",
@@ -217,49 +217,42 @@ export default {
                 total: 3,
             },
             formAttributes: [
-                // {
-                //     name: "objective_id",
-                //     type: "select",
-                //     required: true,
-                //     options: []
-                // },
+                {
+                    name: "objective_id",
+                    type: "select",
+                    required: true,
+                    hasFilter: true,
+                    filterObj: "program_id",
+                    api: apiConfig._apiProgramByObj
+                },
                 {
                     name: "program_id",
                     type: "select",
                     required: true,
                     hasFilter: true,
                     filterObj: "sub_program_id",
-                    api: apiConfig._apiSubProgramByPro,
-                    options: [],
+                    api: apiConfig._apiSubProgramByPro
                 },
                 {
                     name: "sub_program_id",
                     type: "select",
                     required: true,
                     hasFilter: true,
-                    filterObj: "entity_id",
-                    api: apiConfig._apiEntityBySubPro,
-                    options: [],
+                    filterObj: "cluster_activity_id",
+                    api: apiConfig._apiEntityBySubPro
                 },
                 {
                     name: "cluster_activity_id",
                     type: "select",
                     required: true,
-                    options: []
-                },
-                {
-                    name: "name_en",
-                    type: "text",
-                    required: true
-                },
-                {
-                    name: "name_kh",
-                    type: "text",
-                    required: true
+                    hasFilter: false,
                 },
                 {
                     name: "entity_id",
                     type: "select",
+                    hasFilter: true,
+                    filterObj: "entity_member_id",
+                    api: apiConfig._apiMemberByEntity,
                     required: true,
                     options: [
                         {
@@ -288,6 +281,16 @@ export default {
                     ],
                 },
                 {
+                    name: "name_en",
+                    type: "text",
+                    required: true
+                },
+                {
+                    name: "name_kh",
+                    type: "text",
+                    required: true
+                },
+                {
                     name: "order_level",
                     type: "number",
                     required: false
@@ -299,7 +302,8 @@ export default {
                 },
             ],
             rowDisplay: "2grid", //1grid, 2grid, 3grid, 4grid
-            dataFields: []
+            dataFields: [],
+            dataInfo: {}
         }
     },
     components: {

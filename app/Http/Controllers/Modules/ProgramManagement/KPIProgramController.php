@@ -3,29 +3,24 @@
 namespace App\Http\Controllers\Modules\ProgramManagement;
 
 use App\Http\Controllers\Controller;
-use App\Models\Modules\ProgramManagement\ClusterActivity;
-use App\Models\Modules\ProgramManagement\Activity;
-use App\Models\Modules\ProgramManagement\Task;
-use App\Models\Settings\Entity;
-use App\Models\Settings\EntityMember;
+use App\Models\Modules\ProgramManagement\KPIProgram;
 use Illuminate\Http\Request;
+use CommonService;
 use Auth;
 use DB;
-use CommonService;
 
-class TaskController extends Controller
+class KPIProgramController extends Controller
 {
     protected $db_table;
-    public $path = "admin/modules/task";
+    public $path = "admin/modules/kpi_sub_program";
 
     public function __construct()
     {
         $this->middleware('auth');
         $this->view_title = $this->path.'.entry_title';
-        $this->db_table = new Task;
+        $this->db_table = new KPIProgram;
         $this->lang_path = $this->path;
     }
-    
     /**
      * Display a listing of the resource.
      *
@@ -43,27 +38,18 @@ class TaskController extends Controller
         $dataFields = $newArr;
         return $dataFields;
     }
-
     public function index(Request $request)
     {
         $input = $request->all();
         $dataFields = $this->dataFields();
         $filter = CommonService::getFilter($input);
-        
-        $clusterActivities = ClusterActivity::getClusterActs($filter);
-        $activities = [];
-        $entities = [];
-        $entity_members = [];
-
         $data = array(
+            "program_id" => array($input["data_info"]["program_id"]),
+            "data" => $this->db_table::getKPIProgram($filter, $input, $this->dataFields()),
+            "data_info" => $input["data_info"],
+            "limit" => $filter["limit"],
+            "total" => $this->db_table::getCount($filter, $input, $this->dataFields()),
             "data_fields" => $this->dataFields(),
-            "data" => $this->db_table::getTaskByAct($filter),
-            "cluster_activity_id" => $clusterActivities,
-            "activity_id" => $activities,
-            "entity_id" => $entities,
-            "entity_member_id" => $entity_members,
-            "limit" => config_limit,
-            "total" => Activity::getCount($filter)
         );
         return response()->json($data);
     }
@@ -87,7 +73,6 @@ class TaskController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
-
         $dataFields = $this->dataForm($input);
 
         $table = $this->db_table::create($dataFields);
@@ -118,32 +103,7 @@ class TaskController extends Controller
     {
         $table = $this->db_table::find($id);
         $data = array(
-            "data" => $table,
-        );
-        return response()->json($data);
-    }
-
-    function getTaskDetail(Request $request){
-        $input = $request->all();
-        // dd($input["data_info"]["cluster_activity_id"]);
-        $dataFields = $this->dataFields();
-        $filter = CommonService::getFilter($input);
-        
-        // $clusterActivities = $input["data_info"]["cluster_activity_id"]?$input["data_info"]["cluster_activity_id"]:[];
-        // $activities = $input["data_info"]["activity_id"]?$input["data_info"]["activity_id"]:[];
-        $accountGroups = [];
-        $accounts = [];
-        $subAccounts = [];
-        $data = array(
-            "data" => $this->db_table::getTaskDetail($input),
-            "cluster_activity_id" => $input["data_info"]["cluster_activity_id"]?array($input["data_info"]["cluster_activity_id"]):[],
-            "activity_id" => $input["data_info"]["activity_id"]?array($input["data_info"]["activity_id"]):[],
-            "task_id" => $input["data_info"]["task_id"]?array($input["data_info"]["task_id"]):[],
-            "account_group_id"=> $accountGroups,
-            "account_id"=> $accounts,
-            "sub_account_id"=> $subAccounts,
-            "limit" => config_limit,
-            "total" => 0//Activity::getCount($filter)
+            "data" => $table
         );
         return response()->json($data);
     }
@@ -190,7 +150,7 @@ class TaskController extends Controller
 
     public function dataForm($input){
         $arr = $input;
-        $push_array = array_merge(array(["created_by" => Auth::user()->id]));
+        $push_array = array_merge(array(["planning_id" => config_planning_year, "modified_by" => Auth::user()->id]));
         $arraySingle = array_merge($arr, $push_array);
         $result = call_user_func_array('array_merge', $arraySingle);
         $dataFields = $result;
@@ -205,7 +165,7 @@ class TaskController extends Controller
      */
     public function destroy($id)
     {
-        $table = $this->db_table::where('id', $id)->update(["is_delete" => 1]);
+        $table = $this->db_table::where('id', $id)->update(["status" => 4]);
         if($table){
             $status = 200;
             $boolen = true;

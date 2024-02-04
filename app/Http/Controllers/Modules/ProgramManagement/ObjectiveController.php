@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Modules\ProgramManagement;
 use App\Http\Controllers\Controller;
 use App\Models\Modules\ProgramManagement\Objective;
 use App\Models\Modules\ProgramManagement\Program;
+use App\Models\Settings\Entity;
 use Illuminate\Http\Request;
 use Auth;
 use DB;
@@ -45,19 +46,77 @@ class ObjectiveController extends Controller
         $input = $request->all();
         $dataFields = $this->dataFields();
         $filter = CommonService::getFilter($input);
-
         $objectives = Objective::getObjectives();
-        $programs = Program::getPrograms();
-
+        $programs = Program::getPrograms("");
+        $entities = Entity::getEntities();
         $data = array(
             "data_fields" => $this->dataFields(),
             "data" => $this->db_table::getAllClusterPrograms($filter),
+            "dataHeader" => $this->dataHeader($flag = 1),
             "objective_id" => $objectives,
             "program_id" => $programs,
+            "sub_program_id" => [],
+            "cluster_activity_id" => [],
+            "entity_id" => $entities,
+            "entity_member_id" => [],
             "limit" => $filter["limit"],
             "total" => Objective::getCount($filter)
         );
         return response()->json($data);
+    }
+
+    public function dataHeader($flag)
+    {
+        $dataHeaders = array(
+          "header1" => array(
+            "label" => "ឆ្នាំមុន-២០២១(អនុវត្តរួច)",
+            "rowspan" => 2,
+            "colspan" => 0,
+          ),
+          "header2" => array(
+            "label" => "ឆ្នាំបច្ចុប្បន្ន-២០២២(កំពុងអនុវត្ត)",
+            "rowspan" => 2,
+            "colspan" => 0,
+          ),
+          "header3" => array(
+            "label" => "ឆ្នាំគ្រោងថវិកា-២០២៣",
+            "rowspan" => 0,
+            "colspan" => 2,
+          ),
+          "header4" => array(
+            "label" => "ឆ្នាំគ្រោងថវិកា​២០២៤",
+            "rowspan" => 2,
+            "colspan" => 0,
+          ),
+          "header5" => array(
+            "label" => "ឆ្នាំគ្រោងថវិកា២០២៥",
+            "rowspan" => 2,
+            "colspan" => 0,
+          ),
+        );
+
+        $dataSubHeaders = array(
+            "header1" => array(
+                "label" => "គោលដៅ",
+                "rowspan" => 0,
+                "colspan" => 0
+            ),
+            "header2" => array(
+                "label" => "មូលហេតុផ្លាស់ប្ដូរ (ធៀបឆ្នាំ២០២២)",
+                "rowspan" => 0,
+                "colspan" => 0
+            )
+        );
+
+        $data = array(
+            "dataHeaders" => $dataHeaders,
+            "dataSubHeaders" => $dataSubHeaders,
+            "hasColspan" => true,
+            "colspan" => 9,
+            "rowspan" => 0
+        );
+        
+        return $data;
     }
 
     /**
@@ -155,11 +214,10 @@ class ObjectiveController extends Controller
 
     public function dataForm($input){
         $arr = $input;
-        $push_array = array(); //array("created_by" => Auth::user()->id);
+        $push_array = array_merge(array(["created_by" => Auth::user()->id]));
         $arraySingle = array_merge($arr, $push_array);
-        // array_push($arr, $push_array);
-        // $arraySingle = call_user_func_array('array_merge', $arr);
-        $dataFields = $arraySingle;
+        $result = call_user_func_array('array_merge', $arraySingle);
+        $dataFields = $result;
         return $dataFields;
     }
 

@@ -46,7 +46,7 @@ class SubProgramController extends Controller
         $input = $request->all();
         $dataFields = $this->dataFields();
         $filter = CommonService::getFilter($input);
-        $programs = Program::getPrograms();
+        $programs = Program::getPrograms("");
         $entities = Entity::getEntities();
         $entity_members = [];
         
@@ -177,10 +177,10 @@ class SubProgramController extends Controller
 
     public function dataForm($input){
         $arr = $input;
-        $push_array = array("created_by" => Auth::user()->id);
-        array_push($arr, $push_array);
-        $arraySingle = call_user_func_array('array_merge', $arr);
-        $dataFields = $arraySingle;
+        $push_array = array_merge(array(["created_by" => Auth::user()->id]));
+        $arraySingle = array_merge($arr, $push_array);
+        $result = call_user_func_array('array_merge', $arraySingle);
+        $dataFields = $result;
         return $dataFields;
     }
 

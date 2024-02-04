@@ -61,7 +61,6 @@ class SubProgram extends Model
         $whereClause->where("program_id", $param["param"]["value"]);
       }
       $query = collect($whereClause->get());
-      // $query = SubProgram::where("is_active", 1)->where("program_id", $param["param"]["value"])->orderBy("order_level")->get();
       $data = array();
       foreach($query as $row){
         $data[] = array(
@@ -90,8 +89,6 @@ class SubProgram extends Model
     }
 
     public static function getSubProgramByProgram($filter){
-      // $data = array();
-      // $query = Program::orderBy("order_level")->get();
       $data = array();
       $queryObj = Program::orderBy($filter["sort"], $filter["order"]);
       $whereClause = $queryObj;
@@ -114,8 +111,7 @@ class SubProgram extends Model
       foreach($query as $row){
         $parentId = $row->id;
         $cdata = array(); //cdata = children data
-        // $querySubPrograms = SubProgram::where("program_id", $parentId)->orderBy("order_level")->get();
-
+       
         $querySPrograms = SubProgram::orderBy("order_level");
         $whereClauseSPro = $querySPrograms;
         $whereClauseSPro->where("program_id", $parentId);
@@ -127,7 +123,7 @@ class SubProgram extends Model
             $whereClauseSPro->Where("code", "Like", "%".$dataFields["code"]."%");
           }
           if (array_key_exists('sub_program_id', $dataFields)) {
-            // $whereClauseSPro->Where("id", $dataFields["sub_program_id"]["value"]);
+            $whereClauseSPro->Where("id", $dataFields["sub_program_id"]["value"]);
           }
           if (array_key_exists('entity_id', $dataFields)) {
             $whereClauseSPro->Where("entity_id", $dataFields["entity_id"]["value"]);
@@ -143,10 +139,9 @@ class SubProgram extends Model
         foreach($querySubPrograms as $crow){
           $subProId = $crow->id;
           $indicatorArr = array();
-          $kpis = KPISubProgram::where("is_active", 1)->where("sub_program_id", $subProId)->get();
+          $kpis = KPISubProgram::whereNull("status")->where("sub_program_id", $subProId)->get();
           foreach($kpis as $kpi){
             $indicatorArr[] = array(
-              "id" => $kpi->id,
               "code" => $kpi->code,
               "kpi_name_en" => $kpi->kpi_name_en,
               "kpi_name_kh" => $kpi->kpi_name_kh,
@@ -162,12 +157,16 @@ class SubProgram extends Model
 
           $cdata[] = array(
             'id' => $crow->id,
+            'sub_program_id' => array(
+              "label" => (config_language == "en")?$crow->code."-".$crow->name_en:$crow->code."-".$crow->name_kh,
+              "value" => $crow->id,
+            ),
             'code' => $crow->code,
             'program_id' => array(
-              "label" => isset($crow->Program)?$crow->Program->name_kh:"",
+              "label" => isset($crow->Program)&&config_language == "en"?$crow->Program->code."-".$crow->Program->name_en:$crow->Program->code."-".$crow->Program->name_kh,
               "value" => isset($crow->Program)?$crow->Program->id:"",
             ),
-            'name' => (config_language == "en")?$crow->name_en:$crow->name_kh,
+            'name' => (config_language == "en")?$crow->code."-".$crow->name_en:$crow->code."-".$crow->name_kh,
             "name_en" => $crow->name_en,
             "name_kh" => $crow->name_kh,
             'entity' => isset($crow->Entity)?$crow->Entity->name_kh:"",
@@ -214,6 +213,7 @@ class SubProgram extends Model
         $cdata = array(); //cdata = children data
         $querySubPrograms = SubProgram::where("program_id", $parentId)->orderBy("order_level")->get();
         foreach($querySubPrograms as $crow){
+          
           $indicators = array(
             "id" => "id",
             "code" => "code",
@@ -222,6 +222,7 @@ class SubProgram extends Model
             "order_level" => "order_level",
             "status" => "status",
           );
+
           $indicatorData = array(
             "data" => $indicators
           );
@@ -244,8 +245,7 @@ class SubProgram extends Model
             ),
             'remark' => $crow->remark,
             'order_level' => $crow->order_level,
-            
-          'indicator' => $indicatorData,
+            'indicator' => $indicatorData,
           );
         }
         

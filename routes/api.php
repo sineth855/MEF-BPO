@@ -80,6 +80,7 @@ Route::group([
         Route::post('module/program_management/task/search', 'Modules\ProgramManagement\TaskController@index');
 
         Route::post('module/program_management/get_entity_by_activity', 'Modules\ProgramManagement\ActivityController@getEntityByAct');
+        Route::post('module/program_management/program_by_obj', 'Modules\ProgramManagement\ProgramController@getProgByObj');
         Route::post('module/program_management/entity_by_subprog', 'Modules\ProgramManagement\SubProgramController@getEntityBySubprog');
         Route::post('module/program_management/sub_program_by_prog', 'Modules\ProgramManagement\SubProgramController@getSubProgByProg');
         Route::post('module/program_management/get_cluster_act', 'Modules\ProgramManagement\ClusterActivityController@getClusterAct');
@@ -93,8 +94,11 @@ Route::group([
         Route::resource('module/program_management/activity', 'Modules\ProgramManagement\ActivityController');
         Route::resource('module/program_management/task', 'Modules\ProgramManagement\TaskController');
         // KPI
+        Route::post('module/program_management/kpi_program/get_kpi', 'Modules\ProgramManagement\KPIProgramController@index');
+        Route::resource('module/program_management/kpi_program', 'Modules\ProgramManagement\KPIProgramController');
+
+        Route::post('module/program_management/kpi_sub_program/get_kpi', 'Modules\ProgramManagement\KPISubProgramController@index');
         Route::resource('module/program_management/kpi_sub_program', 'Modules\ProgramManagement\KPISubProgramController');
-        // Route::post('module/program_management/kpi_sub_program/search', 'Modules\ProgramManagement\KPISubProgramController@index');
         // PIP
         Route::post('module/budget_arrangement/ceiling_rule/search', 'Modules\BudgetArrangement\CeilingRuleController@index');
         Route::resource('module/budget_arrangement/ceiling_rule', 'Modules\BudgetArrangement\CeilingRuleController');

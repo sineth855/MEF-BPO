@@ -7,6 +7,7 @@ use App\Models\Settings\Unit;
 use Illuminate\Http\Request;
 use Auth;
 use DB;
+use View, Input, Redirect;
 
 class UnitController extends Controller
 {
@@ -47,6 +48,7 @@ class UnitController extends Controller
     {
         $input = $request->all();
         $dataFields = $this->dataFields();
+        // dd($dataFields);
         $filter = array(
             // "offset" => isset($input["offset"]) ? $input["offset"] : config_offset,
             "limit" => isset($input["limit"]) ? $input["limit"] : config_limit,
@@ -57,12 +59,11 @@ class UnitController extends Controller
         $whereClause = $query;
         $whereClause->offset(($input["page_number"] - 1) * $filter["limit"]);       
         $whereClause->limit($filter["limit"]);
-        $whereClause->where("status", null)->orWhere("status", 0);
         if(isset($input["search_field"])){
             for($i=0 ; $i < count($input["search_field"]); $i++){
                 $field = array_key_first($input["search_field"][$i]); //array('key1', 'key2', 'key3');
                 if (in_array($field, $dataFields)) {
-                    $whereClause->orWhere($field, "Like","%".$input["search_field"][$i][$field]."%");
+                    $whereClause->where($field, "Like","%".$input["search_field"][$i][$field]."%");
                 }
             }
         }
@@ -152,6 +153,10 @@ class UnitController extends Controller
     {
         $input = $request->all();
         $dataFields = $this->dataForm($input);
+        // $ddd = array(
+        //     "name_en" => 11111,
+        //     "name_kh" => 11111
+        // );
         $table = Unit::find($id);
         $table->update($dataFields);
         if($table){
@@ -173,11 +178,10 @@ class UnitController extends Controller
 
     public function dataForm($input){
         $arr = $input;
-        $push_array = array(); //array("created_by" => Auth::user()->id);
+        $push_array = array_merge(array(["created_by" => Auth::user()->id]));
         $arraySingle = array_merge($arr, $push_array);
-        // array_push($arr, $push_array);
-        // $arraySingle = call_user_func_array('array_merge', $arr);
-        $dataFields = $arraySingle;
+        $result = call_user_func_array("array_merge",$arraySingle);
+        $dataFields = $result;
         return $dataFields;
     }
 

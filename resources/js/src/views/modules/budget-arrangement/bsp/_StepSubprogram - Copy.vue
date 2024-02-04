@@ -1,8 +1,8 @@
 <template>
     <div class="flex items-center">
         <d-table-list @clicked="initTableData" :api="api" ref="refInitPage" :allowDel="true" :title="title"
-            :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data" :formAttributes="formAttributes"
-            :rowDisplay="rowDisplay" @emitDataForm="initDataForm"></d-table-list>
+            :dataInfo="dataInfo" :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data"
+            :formAttributes="formAttributes" :rowDisplay="rowDisplay" @emitDataForm="initDataForm"></d-table-list>
 
         <!-- <vs-table :data="[]">
 
@@ -358,7 +358,8 @@ export default {
                 },
             ],
             rowDisplay: "2grid", //1grid, 2grid, 3grid, 4grid
-            dataFields: []
+            dataFields: [],
+            dataInfo: {}
         }
     },
     components: {

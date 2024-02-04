@@ -1,8 +1,7 @@
 <template>
-    <d-table-list @clicked="initTableData" :api="api" ref="refInitPage" 
-    :allowDel="true" :title="title" :dataAttributes="dataAttributes" 
-    :dataHeaders="dataHeaders" :dataTables="data"
-    :formAttributes="formAttributes" :rowDisplay="rowDisplay"></d-table-list>
+    <d-table-list @clicked="initTableData" :api="api" ref="refInitPage" :allowDel="true" :title="title"
+        :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data" :formAttributes="formAttributes"
+        :rowDisplay="rowDisplay"></d-table-list>
 </template>
 
 <script>
@@ -108,7 +107,7 @@ export default {
                 //         remark: "",
                 //     ddd: "tttt"
                 //     },
-               
+
                 // ]
             },
             formAttributes: [
@@ -148,7 +147,8 @@ export default {
             rowDisplay: "2grid", //1grid, 2grid, 3grid, 4grid
             dataArr: [],
             searchArr: [],
-            dataFields: []
+            dataFields: [],
+            dataInfo: {}
         }
     },
     components: {
@@ -167,7 +167,7 @@ export default {
                         }
                         this.dataFields.push(_d);
                     }
-                    
+
                 });
                 _params = {
                     sort: _search_criteria.sort,
@@ -185,7 +185,7 @@ export default {
 
             return new Promise((resolve, reject) => {
                 axios.post(apiConfig._apiObjective + "/search", _params)
-                //axios.post(apiConfig._apiObjective + "/search" + '?sort=' + _search_criteria.sort + '&order=' + _search_criteria.order + '&page_number=' + _search_criteria.page_number + "&dd=" + _ddd)
+                    //axios.post(apiConfig._apiObjective + "/search" + '?sort=' + _search_criteria.sort + '&order=' + _search_criteria.order + '&page_number=' + _search_criteria.page_number + "&dd=" + _ddd)
                     .then((response) => {
                         this.data = response.data;
                         this.$vs.loading.close();
@@ -217,7 +217,7 @@ export default {
             this.getDataTable(_search_criteria);
             return false;
         }
-        
+
     },
     created() {
         this.$vs.loading();

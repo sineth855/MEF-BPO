@@ -1,8 +1,8 @@
 <template>
   <div class="flex">
     <d-table-list @clicked="initTableData" :api="api" ref="refInitPage" :allowDel="true" :title="title"
-      :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data" :formAttributes="formAttributes"
-      :rowDisplay="rowDisplay" @emitDataForm="initDataForm"></d-table-list>
+      :dataInfo="dataInfo" :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data"
+      :formAttributes="formAttributes" :rowDisplay="rowDisplay" @emitDataForm="initDataForm"></d-table-list>
   </div>
 </template>
 
@@ -64,44 +64,49 @@ export default {
         // }
       },
       data: {
-        dataHeaders: {
-          header1: {
-            label: "ឆ្នាំមុន-២០២១(អនុវត្តរួច)",
-            rowspan: 2,
-            colspan: 0,
+        dataHeader: {
+          dataHeaders: {
+            header1: {
+              label: "ឆ្នាំមុន-២០២១(អនុវត្តរួច)",
+              rowspan: 2,
+              colspan: 0,
+            },
+            header2: {
+              label: "ឆ្នាំបច្ចុប្បន្ន-២០២២(កំពុងអនុវត្ត)",
+              rowspan: 2,
+              colspan: 0,
+            },
+            header3: {
+              label: "ឆ្នាំគ្រោងថវិកា-២០២៣",
+              rowspan: 0,
+              colspan: 2,
+            },
+            header4: {
+              label: "ឆ្នាំគ្រោងថវិកា​២០២៤",
+              rowspan: 2,
+              colspan: 0,
+            },
+            header5: {
+              label: "ឆ្នាំគ្រោងថវិកា២០២៥",
+              rowspan: 2,
+              colspan: 0,
+            },
           },
-          header2: {
-            label: "ឆ្នាំបច្ចុប្បន្ន-២០២២(កំពុងអនុវត្ត)",
-            rowspan: 2,
-            colspan: 0,
+          dataSubHeaders: {
+            header1: {
+              label: "គោលដៅ",
+              rowspan: 0,
+              colspan: 0,
+            },
+            header2: {
+              label: "មូលហេតុផ្លាស់ប្ដូរ (ធៀបឆ្នាំ២០២២)",
+              rowspan: 0,
+              colspan: 0,
+            },
           },
-          header3: {
-            label: "ឆ្នាំគ្រោងថវិកា-២០២៣",
-            rowspan: 0,
-            colspan: 2,
-          },
-          header4: {
-            label: "ឆ្នាំគ្រោងថវិកា​២០២៤",
-            rowspan: 2,
-            colspan: 0,
-          },
-          header5: {
-            label: "ឆ្នាំគ្រោងថវិកា២០២៥",
-            rowspan: 2,
-            colspan: 0,
-          },
-        },
-        dataSubHeaders: {
-          header1: {
-            label: "គោលដៅ",
-            rowspan: 0,
-            colspan: 0,
-          },
-          header2: {
-            label: "មូលហេតុផ្លាស់ប្ដូរ (ធៀបឆ្នាំ២០២២)",
-            rowspan: 0,
-            colspan: 0,
-          },
+          hasColspan: true,
+          colspan: 9,
+          rowspan: 0,
         },
         data: [
           {
@@ -110,11 +115,8 @@ export default {
             name_kh: "កម្មវិធី",
             remark: "",
             status: 1,
-            hasColspan: true,
-            colspan: 9,
-            rowspan: 0,
             order_level: "",
-            indicators: [
+            indicator: [
               {
                 id: 1,
                 code: "PI-1011",
@@ -145,7 +147,7 @@ export default {
                 responsible_entity: { id: 1, name: "ឈ្មោះអង្គភាពទទួលបន្ទុក", name_kh: "ឈ្មោះអង្គភាពទទួលបន្ទុក" },
                 responsible_person: { id: 1, name: "បុគ្គលទទួលបន្ទុក", name: "បុគ្គលទទួលបន្ទុក" },
                 order_level: 1,
-                indicators: [
+                indicator: [
                   {
                     id: 1,
                     code: "PI-1011",
@@ -184,7 +186,7 @@ export default {
                     responsible_entity: { id: 1, name: "ឈ្មោះអង្គភាពទទួលបន្ទុក", name_kh: "ឈ្មោះអង្គភាពទទួលបន្ទុក" },
                     responsible_person: { id: 1, name: "បុគ្គលទទួលបន្ទុក", name: "បុគ្គលទទួលបន្ទុក" },
                     order_level: 1,
-                    indicators: [
+                    indicator: [
                       {
                         id: 1,
                         code: "PI-1011",
@@ -215,7 +217,7 @@ export default {
                         responsible_entity: { id: 1, name: "ឈ្មោះអង្គភាពទទួលបន្ទុក", name_kh: "ឈ្មោះអង្គភាពទទួលបន្ទុក" },
                         responsible_person: { id: 1, name: "បុគ្គលទទួលបន្ទុក", name: "បុគ្គលទទួលបន្ទុក" },
                         order_level: 1,
-                        indicators: [
+                        indicator: [
                           {
                             id: 1,
                             code: "PI-1011",
@@ -244,6 +246,36 @@ export default {
                 ]
               }
             ]
+          }
+        ],
+        objective_id: [
+          {
+            "label": "គោលបំណងទី១",
+            "value": 1,
+          },
+          {
+            "label": "គោលបំណងទី២",
+            "value": 2,
+          }
+        ],
+        entity_id: [
+          {
+            "label": "អង្គភាពទី១",
+            "value": 1,
+          },
+          {
+            "label": "អង្គភាពទី២",
+            "value": 2,
+          }
+        ],
+        entity_member_id: [
+          {
+            "label": "សមាជិកទី១",
+            "value": 1,
+          },
+          {
+            "label": "សមាជិកទី២",
+            "value": 2,
           }
         ],
         program_id: [
@@ -280,26 +312,39 @@ export default {
         total: 3,
       },
       formAttributes: [
+        // {
+        //   name: "objective_id",
+        //   type: "select",
+        //   required: true,
+        //   hasFilter: true,
+        //   filterObj: "program_id",
+        //   api: apiConfig._apiProgramByObj
+        // },
         {
           name: "program_id",
           type: "select",
           required: true,
-          options: [],
+          hasFilter: true,
+          filterObj: "sub_program_id",
+          api: apiConfig._apiSubProgramByPro,
+          options: []
         },
         {
           name: "sub_program_id",
           type: "select",
           required: true,
-          options: [],
+          hasFilter: true,
+          filterObj: "cluster_activity_id",
+          api: apiConfig._apiEntityBySubPro
         },
         {
           name: "cluster_activity_id",
           type: "select",
           required: true,
-          options: [],
+          hasFilter: false,
         },
         {
-          name: "title",
+          name: "title_en",
           type: "text",
           required: true
         },
@@ -309,23 +354,24 @@ export default {
           required: true
         },
         {
-          name: "code_indicator",
+          name: "code",
           type: "text",
-          required: true
+          required: false
         },
         {
           name: "target",
           type: "text",
-          required: true
+          required: false
         },
         {
           name: "change_reason",
           type: "text",
-          required: true
+          required: false
         },
       ],
       rowDisplay: "3grid", //1grid, 2grid, 3grid, 4grid
-      dataFields: []
+      dataFields: [],
+      dataInfo: {}
     }
   },
   components: {
@@ -336,10 +382,8 @@ export default {
       this.$vs.loading();
       this.getData();
     },
-    initDataForm() {
-      // alert("testing");
-    },
     getDataTable(_search_criteria) {
+      this.$vs.loading.close();
       let _params = {};
       if (_search_criteria.search_field) {
         let _formAttribute = this.formAttributes;
@@ -351,7 +395,6 @@ export default {
             }
             this.dataFields.push(_d);
           }
-
         });
         _params = {
           sort: _search_criteria.sort,
@@ -363,6 +406,7 @@ export default {
         _params = {
           sort: _search_criteria.sort,
           order: _search_criteria.order,
+          flag: "2",
           page_number: _search_criteria.page_number,
         };
       }
@@ -370,8 +414,11 @@ export default {
       return new Promise((resolve, reject) => {
         axios.post(this.api + "/search", _params)
           .then((response) => {
-            // this.data = response.data;
-            this.data = this.data;
+            if (response.data) {
+              this.data = response.data;
+            } else {
+              this.data = this.data;
+            }
             this.$vs.loading.close();
           }).catch((error) => {
             // reject(error)
@@ -397,7 +444,7 @@ export default {
       }
       this.getDataTable(_search_criteria);
       return false;
-    }
+    },
   },
   created() {
     // this.$vs.loading();

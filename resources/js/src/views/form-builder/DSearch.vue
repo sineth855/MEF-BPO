@@ -104,6 +104,9 @@ export default {
         data: {
             required: true,
         },
+        dataInfo: {
+            required: true,
+        },
         api: { type: String },
         formAttributes: {
             required: true
@@ -122,7 +125,8 @@ export default {
             _search_fields: {},
             form: {
                 attribute: []
-            }
+            },
+            // dataInfo: {}
         }
     },
     watch: {
@@ -218,12 +222,19 @@ export default {
         },
         initSearch() {
             this._search_fields = [];
-            let _formAttribute = this.form.attribute;
+            // let _formAttribute = this.form.attribute;
+            // this.$emit('searchQuery', _formAttribute);
+            let _params = {
+                "formAttribute": this.form.attribute,
+                "dataInfo": this.dataInfo
+            };
+            console.log("data Form", _params);
+            this.$emit('searchQuery', _params);
+
             // for (let i = 0; i < _formAttribute.length; i++) {
             //     let _nameField = _formAttribute[i]["name"] + ':' + this.form.attribute[_formAttribute[i]["name"]];
             //     this._search_fields.push(_nameField);
             // }
-            this.$emit('searchQuery', _formAttribute);
         }
     },
     mounted() {

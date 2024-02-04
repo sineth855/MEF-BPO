@@ -1,9 +1,10 @@
 <template>
-    <div id="table-demo">
-        <form-task ref="refOpenPrivatePopupForm"></form-task>
-        <d-table-list @clickPrivateForm="initOpenForm" @clicked="initTableData" :api="api" ref="refInitPage"
-            :allowDel="true" :title="title" :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data"
-            :formAttributes="formAttributes" :rowDisplay="rowDisplay"></d-table-list>
+    <div>
+        <form-task ref="refOpenPrivatePopupForm" :api="dataAttributes.api" :dataAttributes="dataAttributes"
+            :dataInfo="dataInfo"></form-task>
+        <d-table-list @clicked="initTableData" :api="api" ref="refInitPage" :allowDel="true" :title="title"
+            :dataInfo="dataInfo" :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data"
+            :formAttributes="formAttributes" :rowDisplay="rowDisplay" @clickPrivateForm="initOpenForm"></d-table-list>
     </div>
 </template>
 
@@ -18,9 +19,10 @@ import DTableList from '@/views/form-builder/DTableList.vue';
 export default {
     data() {
         return {
-            title: "pb_heading_costing",
+            title: "task",
             api: apiConfig._apiActivity,
             dataAttributes: {
+                api: apiConfig._apiGetTaskDetail,
                 tableStyle: 12,
                 page_number: 1,
                 offset: 0,
@@ -28,7 +30,7 @@ export default {
                 hasHeadingReport: false,
                 popupFullscreen: true,
                 enableToggleForm: false,
-                hideSearchBar: true,
+                hideSearchBar: false,
                 headingReport: "pb_heading_costing",
                 actionButton: [
                     {
@@ -565,6 +567,13 @@ export default {
                     hasFilter: false,
                     // filterObj: "",
                 },
+                {
+                    name: "task_id",
+                    type: "select",
+                    required: true,
+                    hasFilter: false,
+                    // filterObj: "",
+                },
                 // {
                 //     name: "group_chapter",
                 //     type: "select",
@@ -635,6 +644,7 @@ export default {
             dataTables: [],
             rowDisplay: "3grid", //1grid, 2grid, 3grid, 4grid
             dataFields: [],
+            dataInfo: {},
             showForm: false
         }
     },
@@ -656,6 +666,7 @@ export default {
                         }
                         this.dataFields.push(_d);
                     }
+
                 });
                 _params = {
                     sort: _search_criteria.sort,
@@ -679,8 +690,7 @@ export default {
                         } else {
                             this.data = this.data;
                         }
-                        // console.log("Hello Testing ===", response.data);
-                        // console.log("Hello Testing", this.data);
+                        // this.data = this.data;
                         this.$vs.loading.close();
                     }).catch((error) => {
                         // reject(error)
@@ -709,7 +719,6 @@ export default {
         },
         initOpenForm(data) {
             this.$refs.refOpenPrivatePopupForm.showForm(data);
-            this.showForm = true;
         }
     },
     created() {

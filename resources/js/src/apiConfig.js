@@ -2,7 +2,9 @@ export default {
     // Program Management
     _apiObjective: "/api/v1/module/program_management/objective",
     _apiProgram: "/api/v1/module/program_management/program",
+    _apiProgramByObj: "/api/v1/module/program_management/program_by_obj",
     _apiSubProgram: "/api/v1/module/program_management/sub_program",
+    _apiKPIProgram: "/api/v1/module/program_management/kpi_program",
     _apiKPISubProgram: "/api/v1/module/program_management/kpi_sub_program",
     _apiSubProgramByPro: "/api/v1/module/program_management/sub_program_by_prog",
     _apiEntityBySubPro: "/api/v1/module/program_management/entity_by_subprog",

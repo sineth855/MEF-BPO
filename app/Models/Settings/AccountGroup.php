@@ -15,7 +15,9 @@ class AccountGroup extends Model
                             "name_kh",
                             'description',
                             'order_level',
-                            'is_delete'
+                            'is_delete',
+                            'created_by',
+                            'modified_by'
                           ];
     public $timestamps = true;
 

@@ -8,7 +8,8 @@
 
             <span v-if="!dataAttributes.hideFormData">
                 <d-form @clickForm="initTableData" ref="refModalForm" :data="data" :dataInfo="dataInfo"
-                    :formAttributes="formAttributes" :api="api" :rowDisplay="rowDisplay"></d-form>
+                    :parentDataInfo="parentDataInfo" :formAttributes="formAttributes" :api="api"
+                    :rowDisplay="rowDisplay"></d-form>
             </span>
             <!-- <d-indicator v-if="dataAttributes.hasIndicatorSubPro" :dataInfo="dataInfo"
                 :dataAttributes="dataAttributes"></d-indicator> -->
@@ -16,7 +17,8 @@
 
         <vs-popup v-else classContent="popup-example" :title="title" :active.sync="showModalForm">
             <d-form @clickForm="initTableData" ref="refModalForm" :data="data" :dataInfo="dataInfo"
-                :formAttributes="formAttributes" :api="api" :rowDisplay="rowDisplay"></d-form>
+                :parentDataInfo="parentDataInfo" :formAttributes="formAttributes" :api="api"
+                :rowDisplay="rowDisplay"></d-form>
             <!-- <d-indicator v-if="dataAttributes.hasIndicator" :dataInfo="dataInfo"
                 :dataAttributes="dataAttributes"></d-indicator> -->
 
@@ -37,6 +39,9 @@ import ModalIndicatorSubProgram from '@/views/modules/program-management/indicat
 export default {
     props: {
         data: {
+            required: true,
+        },
+        parentDataInfo: {
             required: true,
         },
         api: { type: String },
@@ -84,7 +89,11 @@ export default {
             this.$refs.refInitRequest.showRequestData(data);
         },
         initTableData() {
-            this.$emit('clicked');
+            console.log("by pass data ====", this.parentDataInfo);
+            let _search_params = {
+                dataInfo: this.parentDataInfo
+            }
+            this.$emit('clicked', _search_params);
             this.showModalForm = false;
         }
     },

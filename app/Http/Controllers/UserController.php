@@ -265,14 +265,11 @@ class UserController extends Controller
     }
 
     public function dataForm($input){
-        // $input["password"] = bcrypt($input["password"]);
         $arr = $input;
-        // dd($arr);
-        unset($arr[9]);
-        $push_array = array("created_by" => Auth::user()->id, "updated_at" => Auth::user()->id, "password" => bcrypt($input[8]["password"]));
-        array_push($arr, $push_array);
-        $arraySingle = call_user_func_array('array_merge', $arr);
-        $dataFields = $arraySingle;
+        $push_array = array_merge(array(["created_by" => Auth::user()->id]));
+        $arraySingle = array_merge($arr, $push_array);
+        $result = call_user_func_array('array_merge', $arraySingle);
+        $dataFields = $result;
         return $dataFields;
     }
 }

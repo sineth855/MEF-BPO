@@ -1,8 +1,6 @@
 <template>
-    <div id="table-demo">
-        <d-table-list @clicked="initTableData" :api="api" ref="refInitPage" :allowDel="true" :title="title"
-            :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data" :formAttributes="formAttributes"
-            :rowDisplay="rowDisplay"></d-table-list>
+    <div>
+        <task></task>
     </div>
 </template>
 
@@ -11,7 +9,7 @@ import axios from "@/axios.js"
 import apiConfig from "@/apiConfig.js"
 import { ref } from 'vue';
 import DTableList from '@/views/form-builder/DTableList.vue'
-
+import Task from '@/views/modules/program-management/_Task.vue';
 
 export default {
     data() {
@@ -699,10 +697,12 @@ export default {
                 }
             ],
             rowDisplay: "3grid", //1grid, 2grid, 3grid, 4grid
-            dataFields: []
+            dataFields: [],
+            dataInfo: {}
         }
     },
     components: {
+        Task,
         DTableList
     },
     methods: {

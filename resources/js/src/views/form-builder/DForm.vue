@@ -335,13 +335,17 @@ export default {
         },
         dataInfo: {
             required: true
-        }
+        },
+        parentDataInfo: {
+            required: true
+        },
     },
     data() {
         return {
             styleClass: "",
             formAttribute: "",
             dataFields: [],
+
             form: {
                 attribute: {
 
@@ -423,13 +427,13 @@ export default {
         },
         // Just test to create dynamic data table on form
         onChangeElement(e, form_name) {
-            alert("t");
+            // alert("t");
             // this.form.attribute[form_name] = ;
             this.$emit('clicked', e)
             // this.$refs.refInitPushDataTable.initPushDataTable(form_name);
         },
         showNewForm() {
-            console.log("check data", this.dataInfo);
+            // console.log("check data", this.dataInfo);
             this.form.attribute = [];
             this.formAttributes.forEach(_formAttribute => {
                 if (_formAttribute["hasDefault"]) {
@@ -478,6 +482,8 @@ export default {
             });
         },
         submitForm() {
+            // this.dataInfo;
+            // return false;
             let _d;
             this.dataFields = [];
             let _formAttribute = this.formAttributes;
@@ -546,6 +552,7 @@ export default {
                                         color: 'primary',
                                         position: 'top-right'
                                     })
+
                                     this.$emit('clickForm');
                                     // this.$router.push('/account/expense').catch(() => { })
                                 }).catch((error) => {

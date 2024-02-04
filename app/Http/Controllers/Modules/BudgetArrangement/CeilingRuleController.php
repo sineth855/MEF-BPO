@@ -189,13 +189,11 @@ class CeilingRuleController extends Controller
     }
 
     public function dataForm($input){
-        $dataFields = array(
-            "name_en" => isset($input[0]["name_en"])?$input[0]["name_en"]:null,
-            "name_kh" => isset($input[1]["name_kh"])?$input[1]["name_kh"]:null,
-            "issue_date" => isset($input[2]["issue_date"])?$input[2]["issue_date"]:null,
-            "status" => isset($input[3]["status"])?$input[3]["status"]:1,
-            "created_by" => Auth::user()->id
-        );
+        $arr = $input;
+        $push_array = array_merge(array(["created_by" => Auth::user()->id]));
+        $arraySingle = array_merge($arr, $push_array);
+        $result = call_user_func_array('array_merge', $arraySingle);
+        $dataFields = $result;
         return $dataFields;
     }
 

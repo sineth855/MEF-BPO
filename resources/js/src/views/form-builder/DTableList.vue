@@ -1,8 +1,8 @@
 <template>
     <vx-card>
         <d-modal-form @clicked="initTableData" ref="refModalForm" :data="dataTables" :api="api"
-            :formAttributes="formAttributes" :rowDisplay="rowDisplay" :dataAttributes="dataAttributes"
-            :title="$t(title)"></d-modal-form>
+            :formAttributes="formAttributes" :parentDataInfo="dataInfo" :rowDisplay="rowDisplay"
+            :dataAttributes="dataAttributes" :title="$t(title)"></d-modal-form>
 
         <div class="flex flex-wrap items-center justify-between">
             <div class="mr-3">
@@ -54,35 +54,39 @@
         <template v-if="!isHidden">
             <d-search v-if="!dataAttributes.hideSearchBar" @searchQuery="searchQuery" @clicked="initTableData"
                 :data="dataTables" :api="api" :formAttributes="formAttributes" :rowDisplay="'4grid'"
-                :dataInfo="''"></d-search>
+                :dataInfo="dataInfo"></d-search>
         </template>
 
         <!-- & dataTables.data.length -->
         <vs-table v-if="dataTables.data && dataAttributes.tableStyle == 1" :max-items="dataTables.limit"
             :data="dataTables.data">
+            <template slot="thead">
+                <!-- 28C76F -->
+                <vs-th style="background-color: #28C76F; color: #ffffff; font-weight: bold;">{{ $t("no") }}</vs-th>
+                <vs-th style="background-color: #28C76F; color: #ffffff; font-weight: bold;" :key="i"
+                    v-for="(header, i) in dataHeaders">{{ $t(header) }}</vs-th>
+                <vs-th style="background-color: #28C76F; color: #ffffff; font-weight: bold;">{{ $t("Action") }}</vs-th>
+            </template>
             <template slot-scope="{data}">
-                <vs-tr style="background-color: #28C76F; color: #ffffff; font-weight: bold;">
-                    <vs-td>{{ $t("no") }}</vs-td>
-                    <vs-td :key="i" v-for="(header, i) in dataHeaders">{{ $t(header) }}</vs-td>
-                    <vs-td>{{ $t("Action") }}</vs-td>
-                </vs-tr>
-                <vs-tr :key="indextr" v-for="(tr, indextr) in data">
-                    <vs-td>{{ calPageIncreaseNumber(dataTables.limit, indextr) }}</vs-td>
-                    <vs-td v-for="header in dataHeaders" :key="header.indextr">{{ tr[header] }}</vs-td>
-                    <vs-td>
-                        <template v-if="dataAttributes.actionButton">
-                            <feather-icon style="cursor: pointer;" v-for="rowBtnAction in dataAttributes.actionButton"
-                                :key="rowBtnAction.indextr" :icon="rowBtnAction.icon"
-                                svgClasses="mr-2 w-5 h-5 hover:text-primary stroke-current"
-                                @click.stop="viewUrl(rowBtnAction)" />
-                        </template>
-                        <feather-icon style="cursor: pointer;" icon="EditIcon"
-                            svgClasses="w-5 h-5 hover:text-primary stroke-current" @click.stop="initEdit(tr)" />
-                        <feather-icon style="cursor: pointer;" v-if="allowDel" icon="TrashIcon"
-                            svgClasses="w-5 h-5 hover:text-danger stroke-current" class="ml-2"
-                            @click.stop="initDel(tr.id)" />
-                    </vs-td>
-                </vs-tr>
+                <tbody :key="indextr" v-for="(tr, indextr) in data">
+                    <vs-tr :state="dataAttributes.backgroundColor">
+                        <vs-td>{{ calPageIncreaseNumber(dataTables.limit, indextr) }}</vs-td>
+                        <vs-td v-for="header in dataHeaders" :key="header.indextr">{{ tr[header] }}</vs-td>
+                        <vs-td>
+                            <template v-if="dataAttributes.actionButton">
+                                <feather-icon style="cursor: pointer;" v-for="rowBtnAction in dataAttributes.actionButton"
+                                    :key="rowBtnAction.indextr" :icon="rowBtnAction.icon"
+                                    svgClasses="mr-2 w-5 h-5 hover:text-primary stroke-current"
+                                    @click.stop="viewUrl(rowBtnAction)" />
+                            </template>
+                            <feather-icon style="cursor: pointer;" icon="EditIcon"
+                                svgClasses="w-5 h-5 hover:text-primary stroke-current" @click.stop="initEdit(tr)" />
+                            <feather-icon style="cursor: pointer;" v-if="allowDel" icon="TrashIcon"
+                                svgClasses="w-5 h-5 hover:text-danger stroke-current" class="ml-2"
+                                @click.stop="initDel(tr.id)" />
+                        </vs-td>
+                    </vs-tr>
+                </tbody>
             </template>
         </vs-table>
 
@@ -110,16 +114,13 @@
                                     svgClasses="w-5 h-5 hover:text-primary stroke-current" /></center>
                         </td>
                     </vs-tr>
-                    <!-- <template v-if="getDocumentSize(ptr.children) > 0"> -->
+
                     <vs-tr :key="indextr" v-for="(tr, indextr) in ptr.children">
                         <vs-td>{{ calPageIncreaseNumber(dataTables.limit, indextr) }}</vs-td>
                         <vs-td v-for="(value, name, index) in dataHeaders" :key="name.indextr">
-                            <!-- <vs-td v-for="header in dataHeaders" :key="header.indextr"> -->
-                            <!-- { tr[header] }} -->
-                            {{ name | json }}
                             <template v-if="name == 'indicator'">
-                                <template v-if="tr[name].length > 0">
-                                    <div class="mb-2" :key="indexI" v-for="(dataRow, indexI) in tr[name]">
+                                <template v-if="tr[name]['data'].length > 0">
+                                    <div class="mb-2" :key="indexI" v-for="(dataRow, indexI) in tr[name]['data']">
                                         <vx-card>
                                             {{ dataRow["code"] }}-{{ dataRow["kpi_name_kh"] }}
                                         </vx-card>
@@ -132,25 +133,7 @@
                             <template v-if="name != 'indicator'">
                                 {{ tr[value] }}
                             </template>
-                            <!-- <span v-if="tr[header].data.length > 0"> -->
-                            <!-- <span v-if="getDocumentSize(tr[header].data) > 0">
-                                <div class="mb-2" :key="indexI" v-for="(dataRow, indexI) in tr[header].data">
-                                    <vx-card>
-                                        {{ dataRow["code"] }}-{{ dataRow["kpi_name_kh"] }}
-                                    </vx-card>
-                                </div>
-                            </span>
-                            <span v-else>
-                                <center>
-                                    {{ $t("msg_no_indicator") }}
-                                    <feather-icon style="cursor: pointer;" @click="openForm" icon="PlusIcon"
-                                        svgClasses="w-5 h-5 hover:text-primary stroke-current" />
-                                </center>
-                            </span> -->
-                            <!-- </span>
-                            <span v-else>
-                                {{ tr[header] }}
-                            </span> -->
+
                         </vs-td>
                         <vs-td>
                             <template v-if="dataAttributes.actionButton">
@@ -162,15 +145,16 @@
                                 </template>
                             </template>
                             <template v-else>
-                                <feather-icon style="cursor: pointer;" :key="sindex" icon="DollarSignIcon"
+                                <center>
+                                    <feather-icon style="cursor: pointer;" :key="sindex" icon="EditIcon"
+                                        svgClasses="mr-2 w-5 h-5 hover:text-primary stroke-current"
+                                        @click.stop="initAction(tr, 'Edit')" />
+                                </center>
+                                <!-- <feather-icon style="cursor: pointer;" :key="sindex" icon="DollarSignIcon"
                                     svgClasses="mr-2 w-5 h-5 hover:text-primary stroke-current"
-                                    @click.stop="initAction(schild3, 'PrivateForm')" />
+                                    @click.stop="initAction(tr, 'PrivateForm')" /> -->
                             </template>
-                            <!-- <feather-icon style="cursor: pointer;" icon="EditIcon"
-                                svgClasses="w-5 h-5 hover:text-primary stroke-current" @click.stop="initEdit(tr)" />
-                            <feather-icon style="cursor: pointer;" v-if="allowDel" icon="TrashIcon"
-                                svgClasses="w-5 h-5 hover:text-danger stroke-current" class="ml-2"
-                                @click.stop="initDel(tr.id)" /> -->
+
                         </vs-td>
                     </vs-tr>
                     <!-- </template> -->
@@ -400,25 +384,26 @@
                     </vs-td>
                 </vs-tr>
 
-                <vs-tr v-if="dataTables.dataHeaders" style="background-color: #28C76F; color: #ffffff; font-weight: bold;">
-                    <vs-td :key="j" v-for="(header, j) in dataTables.dataHeaders" :colspan="colspan(header)"
+                <vs-tr v-if="dataTables.dataHeader.dataHeaders"
+                    style="background-color: #28C76F; color: #ffffff; font-weight: bold;">
+                    <vs-td :key="j" v-for="(header, j) in dataTables.dataHeader.dataHeaders" :colspan="colspan(header)"
                         :rowspan="rowspan(header)">{{ header.label }} </vs-td>
                 </vs-tr>
 
-                <vs-tr v-if="dataTables.dataSubHeaders"
+                <vs-tr v-if="dataTables.dataHeader.dataSubHeaders"
                     style="background-color: #28C76F; color: #ffffff; font-weight: bold;">
-                    <vs-td :key="k" v-for="(header, k) in dataTables.dataSubHeaders" :colspan="colspan(header)"
+                    <vs-td :key="k" v-for="(header, k) in dataTables.dataHeader.dataSubHeaders" :colspan="colspan(header)"
                         :rowspan="rowspan(header)"><small>{{ header.label }}</small></vs-td>
                 </vs-tr>
 
                 <tbody :key="pindextr" v-for="(ptr, pindextr) in data">
 
                     <vs-tr :state="'success'">
-                        <template v-if="ptr.hasColspan == false">
+                        <template v-if="dataTables.dataHeader.hasColspan == false">
                             <td>{{ ptr.name }}</td>
                             <td :key="index" v-for="(row, index) in ptr.values">{{ row }}</td>
                         </template>
-                        <td v-else :colspan="ptr.colspan">{{ ptr.name }}</td>
+                        <td v-else :colspan="dataTables.dataHeader.colspan">{{ ptr.name }}</td>
                     </vs-tr>
                     <!-- Level 1 -->
                     <template v-if="ptr.children" v-for="(row, index) in ptr.children">
@@ -432,14 +417,11 @@
                             <td>{{ }}</td>
                             <td>{{ }}</td>
                             <td>{{ }}</td>
-                            <td>
-                                <center><feather-icon style="cursor: pointer;" @click="openForm" icon="PlusIcon"
-                                        svgClasses="w-5 h-5 hover:text-primary stroke-current" /></center>
-                            </td>
+                            <td>{{ }}</td>
                         </vs-tr>
 
                         <!-- Indicator -->
-                        <template v-for="indicator_row in row.indicators">
+                        <template v-for="indicator_row in row.indicator">
                             <vs-tr>
                                 <td>{{ indicator_row.indicator }}</td>
                                 <td>{{ indicator_row.code }}</td>
@@ -449,9 +431,7 @@
                                 <td>{{ }}</td>
                                 <td>{{ }}</td>
                                 <td>{{ }}</td>
-                                <td>
-
-                                </td>
+                                <td></td>
                             </vs-tr>
                         </template>
 
@@ -474,7 +454,7 @@
                             </vs-tr>
 
                             <!-- Indicator -->
-                            <template v-for="indicator_row in row.indicators">
+                            <template v-for="indicator_row in row.indicator">
                                 <vs-tr>
                                     <td>{{ indicator_row.indicator }}</td>
                                     <td>{{ indicator_row.code }}</td>
@@ -501,7 +481,6 @@
                                     <td>{{ }}</td>
                                     <td>{{ }}</td>
                                     <td>{{ }}</td>
-                                    <td>{{ }}</td>
                                     <td>
                                         <center><feather-icon style="cursor: pointer;" @click="openForm" icon="PlusIcon"
                                                 svgClasses="w-5 h-5 hover:text-primary stroke-current" /></center>
@@ -519,8 +498,10 @@
                                         <td>{{ }}</td>
                                         <td>{{ }}</td>
                                         <td>{{ }}</td>
-                                        <td>{{ }}</td>
-                                        <td>{{ }}</td>
+                                        <td>
+                                            <center><feather-icon style="cursor: pointer;" @click="openForm" icon="PlusIcon"
+                                                    svgClasses="w-5 h-5 hover:text-primary stroke-current" /></center>
+                                        </td>
                                     </vs-tr>
                                 </template>
 
@@ -1348,23 +1329,22 @@
                                     <template v-if="dataField == 'name'">
                                         <feather-icon style="cursor: pointer;" :key="sindex" icon="PlusIcon"
                                             svgClasses="mr-2 w-5 h-5 hover:text-primary stroke-current"
-                                            @click.stop="initAction(schild2, 'Edit')" />
+                                            @click.stop="initAction(child, 'Edit')" />
                                     </template>
                                 </vs-td>
                                 <vs-td>
                                     <feather-icon style="cursor: pointer;" :key="sindex" icon="PlusIcon"
                                         svgClasses="mr-2 w-5 h-5 hover:text-primary stroke-current"
-                                        @click.stop="initAction(schild2, 'Edit')" />
+                                        @click.stop="initAction(child, 'Edit')" />
                                 </vs-td>
                             </vs-tr>
 
                             <template v-for="(schild3, ssindex) in schild2.children">
                                 <vs-tr>
-                                    <!-- <vs-td>{{ schild3.children.name }}</vs-td> -->
-                                    <!-- <vs-td>{{ schild3 | json }}</vs-td> -->
                                     <vs-td :key="ssindex" v-for="(dataField, ssindex) in dataTables.dataFillables">
                                         {{ schild3[dataField] }}
                                         <template v-if="dataField == 'name'">
+                                            <!-- ###### Level Task ########-->
                                             <feather-icon style="cursor: pointer;" :key="sindex" icon="DollarSignIcon"
                                                 svgClasses="mr-2 w-5 h-5 hover:text-primary stroke-current"
                                                 @click.stop="initAction(schild3, 'PrivateForm')" />
@@ -1427,6 +1407,9 @@ export default {
         dataTables: {
             required: true,
         },
+        dataInfo: {
+            required: true,
+        },
         allowDel: {
             type: Boolean
         },
@@ -1441,16 +1424,16 @@ export default {
             current_page: 1,
             dataId: 0,
             // Remove Data Info Obj just for testing
-            dataInfo: {
-                indicator: {
-                    data: {
+            // dataInfo: {
+            //     indicator: {
+            //         data: {
 
-                    }
-                }
-            },
+            //         }
+            //     }
+            // },
             enableToggleForm: true,
             dataElements: [],
-            isHidden: true
+            isHidden: false
 
         }
     },
@@ -1539,17 +1522,20 @@ export default {
             let _result = _offset + (index + 1);
             return _result;
         },
-        initTableData() {
+        initTableData(_search_fields) {
+            // alert("tets");
             let _search_params = {
                 pageNum: this.current_page,
-                searchFields: []
+                searchFields: [],
+                dataInfo: _search_fields.dataInfo
             }
             this.$emit('clicked', _search_params);
         },
         searchQuery(_search_fields) {
             let _search_params = {
                 pageNum: this.current_page,
-                searchFields: _search_fields
+                searchFields: _search_fields.formAttribute,
+                dataInfo: _search_fields.dataInfo
             }
             this.$emit('clicked', _search_params);
         },
@@ -1567,7 +1553,8 @@ export default {
             let id = this.dataId;
             let _search_params = {
                 pageNum: this.current_page,
-                searchFields: []
+                searchFields: [],
+                dataInfo: this.dataInfo
             }
             return new Promise((resolve, reject) => {
                 axios.delete(this.api + '/' + id)
@@ -1599,7 +1586,7 @@ export default {
             this.$refs.refModalForm.initForm(data);
         },
         initAction(data, method) {
-            console.log("data", data);
+            this.dataInfo = data;
             if (method == "View") {
                 this.$refs.refModalForm.initForm(data);
             }

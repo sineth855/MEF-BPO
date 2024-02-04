@@ -19,18 +19,20 @@
                 </vs-tr> -->
                 <template>
                     <vs-tr :key="indextr" v-for="(tr, indextr) in data">
-                        <vs-td>{{ indextr+1 }}</vs-td>
+                        <vs-td>{{ indextr + 1 }}</vs-td>
                         <vs-td v-for="header in dataHeaders" :key="header.indextr">{{ tr[header] }}</vs-td>
                         <vs-td>
                             <template v-if="dataAttributes.actionButton">
                                 <feather-icon style="cursor: pointer;" v-for="rowBtnAction in dataAttributes.actionButton"
                                     :key="rowBtnAction.indextr" :icon="rowBtnAction.icon"
-                                    svgClasses="mr-2 w-5 h-5 hover:text-primary stroke-current" @click.stop="viewUrl(rowBtnAction)" />
+                                    svgClasses="mr-2 w-5 h-5 hover:text-primary stroke-current"
+                                    @click.stop="viewUrl(rowBtnAction)" />
                             </template>
-                            <feather-icon style="cursor: pointer;" icon="EditIcon" svgClasses="w-5 h-5 hover:text-primary stroke-current"
-                                @click.stop="initEdit(tr)" />
+                            <feather-icon style="cursor: pointer;" icon="EditIcon"
+                                svgClasses="w-5 h-5 hover:text-primary stroke-current" @click.stop="initEdit(tr)" />
                             <feather-icon style="cursor: pointer;" v-if="dataAttributes.allowDel" icon="TrashIcon"
-                                svgClasses="w-5 h-5 hover:text-danger stroke-current" class="ml-2" @click.stop="initDel(tr.id)" />
+                                svgClasses="w-5 h-5 hover:text-danger stroke-current" class="ml-2"
+                                @click.stop="initDel(tr.id)" />
                         </vs-td>
                     </vs-tr>
                 </template>
@@ -75,7 +77,7 @@
             </template>
         </vs-table>
         <vs-table>
-           <template>
+            <template>
                 <vs-tr>
                     <vs-td></vs-td>
                     <vs-td>
@@ -189,6 +191,7 @@ export default {
             ],
             rowDisplay: "2grid", //1grid, 2grid, 3grid, 4grid
             dataFields: [],
+
             dataIndicators: [
                 {
                     id: "23",
@@ -199,7 +202,7 @@ export default {
         }
     },
     components: {
-        
+
     },
     methods: {
         addRow() {
@@ -265,7 +268,7 @@ export default {
             return false;
         }
     },
-    created() { 
+    created() {
         // console.log("found data", this.dataInfo);
         // this.dataIndicators = this.dataInfo.indicator;
         this.$vs.loading();

@@ -1,9 +1,9 @@
 <template>
     <!-- ###################### -->
-    
+
     <div class="flex">
         <vs-table :data="[]">
-        
+
             <template slot="thead">
                 <vs-th rowspan="3" class="rotate">ជំពូក</vs-th>
                 <vs-th class="rotate">គណនីយ</vs-th>
@@ -16,20 +16,20 @@
                 <vs-th class="th-width-300" colspan="4">ប៉ាន់ស្មានអនុវត្តឆ្នាំ២០២២</vs-th>
                 <vs-th class="th-width-300" colspan="4">គម្រោងឆ្នាំ២០២៣</vs-th>
             </template>
-        
+
             <template>
-        
+
                 <vs-tr :state="'success'">
                     <vs-td></vs-td>
                     <vs-td></vs-td>
                     <vs-td></vs-td>
                     <vs-td></vs-td>
                     <vs-td></vs-td>
-        
+
                     <vs-td></vs-td>
                     <vs-td></vs-td>
                     <vs-td></vs-td>
-        
+
                     <vs-td></vs-td>
                     <vs-td></vs-td>
                     <vs-td colspan="2">ប៉ាន់​ស្មាន​ប្រចាំ​ឆ្នាំ</vs-td>
@@ -37,257 +37,257 @@
                     <vs-td></vs-td>
                     <vs-td colspan="2">សរុប​ការ​គ្រោ​ងចំណាយ</vs-td>
                 </vs-tr>
-        
+
                 <vs-tr :state="'success'">
                     <vs-td></vs-td>
                     <vs-td></vs-td>
                     <vs-td></vs-td>
                     <vs-td>សរុប​រួមចំណាយ​ (ក+ខ)</vs-td>
-        
+
                     <vs-td></vs-td>
                     <vs-td class="td-width-150">មូលដ្ឋានគិតចំណាយ</vs-td>
                     <vs-td class="td-width-150">បរិមាណ</vs-td>
                     <vs-td class="td-width-150">សរុបឥណទានថវិកា</vs-td>
-        
+
                     <vs-td class="td-width-150">អនុវត្តឆមាសទី១</vs-td>
                     <vs-td class="td-width-150">ប៉ាន់ស្មានឆមាសទី២</vs-td>
                     <vs-td class="td-width-150">សរុប</vs-td>
                     <vs-td class="td-width-150">%ច្ប.២២</vs-td>
-        
+
                     <vs-td class="td-width-150">មូលដ្ឋានគិតចំណាយ</vs-td>
                     <vs-td class="td-width-150">បរិមាណ</vs-td>
                     <vs-td class="td-width-150">សរុប</vs-td>
                     <vs-td class="td-width-150">%ច្ប.២២</vs-td>
                 </vs-tr>
-        
+
                 <vs-tr :state="'warning'">
                     <vs-td></vs-td>
                     <vs-td></vs-td>
                     <vs-td></vs-td>
                     <vs-td>ក្នុងនោះចំណាយ​ក្នុងប្រទេស</vs-td>
-        
+
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
-        
+
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
-        
+
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                 </vs-tr>
-        
+
                 <vs-tr :state="'warning'">
                     <vs-td></vs-td>
                     <vs-td></vs-td>
                     <vs-td></vs-td>
                     <vs-td>ក. សរុបចំណាយ​ចរន្ត (ក្រុមទី១+ក្រុមទី២)</vs-td>
-        
+
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
-        
+
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
-        
+
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                 </vs-tr>
-        
+
                 <vs-tr :state="'warning'">
                     <vs-td></vs-td>
                     <vs-td></vs-td>
                     <vs-td></vs-td>
                     <vs-td>ក. សរុបចំណាយ​ចរន្ត (ក្រុមទី១+ក្រុមទី២)</vs-td>
-        
+
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
-        
+
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
-        
+
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                 </vs-tr>
-        
+
                 <vs-tr :state="'warning'">
                     <vs-td></vs-td>
                     <vs-td></vs-td>
                     <vs-td></vs-td>
                     <vs-td>ក. សរុបចំណាយ​ចរន្ត (ក្រុមទី១+ក្រុមទី២)</vs-td>
-        
+
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
-        
+
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
-        
+
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                 </vs-tr>
-        
+
                 <vs-tr :state="'warning'">
                     <vs-td></vs-td>
                     <vs-td></vs-td>
                     <vs-td></vs-td>
                     <vs-td>ប្រភេទទី១: ចំណាយ​សារពើពន្ធ</vs-td>
-        
+
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
-        
+
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
-        
+
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                 </vs-tr>
-        
+
                 <vs-tr>
                     <vs-td>70</vs-td>
                     <vs-td></vs-td>
                     <vs-td></vs-td>
                     <vs-td>ចំណាយសារពើពន្ធក្នុងស្រុក</vs-td>
-        
+
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
-        
+
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
-        
+
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                 </vs-tr>
-        
+
                 <vs-tr>
                     <vs-td></vs-td>
                     <vs-td>7001</vs-td>
                     <vs-td></vs-td>
                     <vs-td>ពន្ធផ្ទាល់ (ពន្ធលើផលទុន ប្រាក់ចំណាយ)</vs-td>
                     <vs-td></vs-td>
-        
+
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
-        
+
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
-        
+
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                 </vs-tr>
-        
+
                 <vs-tr>
                     <vs-td></vs-td>
                     <vs-td></vs-td>
                     <vs-td>70011</vs-td>
                     <vs-td>ពន្ធលើប្រាក់ចំណាយ (រូបវន្តបុគ្គល)</vs-td>
                     <vs-td></vs-td>
-        
+
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
-        
+
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
-        
+
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                 </vs-tr>
-        
+
                 <vs-tr>
                     <vs-td></vs-td>
                     <vs-td>7002</vs-td>
                     <vs-td></vs-td>
                     <vs-td>ពន្ធផ្ទាល់ (ពន្ធលើផលទុន ប្រាក់ចំណាយ)</vs-td>
                     <vs-td></vs-td>
-        
+
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
-        
+
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
-        
+
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                 </vs-tr>
-        
+
                 <vs-tr>
                     <vs-td></vs-td>
                     <vs-td></vs-td>
                     <vs-td>70012</vs-td>
                     <vs-td>ពន្ធលើប្រាក់ចំណាយ (រូបវន្តបុគ្គល)</vs-td>
                     <vs-td></vs-td>
-        
+
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
-        
+
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
-        
+
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                     <vs-td>0.0</vs-td>
                 </vs-tr>
-        
+
             </template>
         </vs-table>
-        
+
         <d-table-list @clicked="initTableData" :api="api" ref="refInitPage" :allowDel="true" :title="title"
-            :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data" :formAttributes="formAttributes"
-            :rowDisplay="rowDisplay" @emitDataForm="initDataForm"></d-table-list>    
+            :dataInfo="dataInfo" :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data"
+            :formAttributes="formAttributes" :rowDisplay="rowDisplay" @emitDataForm="initDataForm"></d-table-list>
     </div>
-<!-- ###################### -->
+    <!-- ###################### -->
 </template>
 
 
@@ -539,7 +539,8 @@ export default {
                 },
             ],
             rowDisplay: "2grid", //1grid, 2grid, 3grid, 4grid
-            dataFields: []
+            dataFields: [],
+            dataInfo: {}
         }
     },
     components: {

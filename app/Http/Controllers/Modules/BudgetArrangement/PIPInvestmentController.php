@@ -214,7 +214,7 @@ class PIPInvestmentController extends Controller
             "data" => $this->db_table::getPIPInvestment($filter),
             "dataHeaders" => $dataHeaders,
             "dataSubHeaders" => $dataSubHeaders,
-            "program_id" => Program::getPrograms(),
+            "program_id" => Program::getPrograms(""),
             "sub_program_id" => [],//SubProgram::getSubProgramsByPro(),
             "entity_id" => [],//Entity::getBySubProgEntities($filter),
             "project_type_id" => ProjectType::getProjectTypes(),
@@ -327,20 +327,11 @@ class PIPInvestmentController extends Controller
 
     public function dataForm($input){
         $arr = $input;
-        $push_array = array("created_by" => Auth::user()->id, "planning_id" => config_planning_year);
-        array_push($arr, $push_array);
-        $arraySingle = call_user_func_array('array_merge', $arr);
-        $dataFields = $arraySingle;
+        $push_array = array_merge(array(["created_by" => Auth::user()->id]));
+        $arraySingle = array_merge($arr, $push_array);
+        $result = call_user_func_array('array_merge', $arraySingle);
+        $dataFields = $result;
         return $dataFields;
-        // dd($dataFields);
-        // $dataFields = array(
-        //     "name_en" => isset($input[0]["name_en"])?$input[0]["name_en"]:null,
-        //     "name_kh" => isset($input[1]["name_kh"])?$input[1]["name_kh"]:null,
-        //     "issue_date" => isset($input[2]["issue_date"])?$input[2]["issue_date"]:null,
-        //     "status" => isset($input[3]["status"])?$input[3]["status"]:1,
-        //     "created_by" => Auth::user()->id
-        // );
-        // return $dataFields;
     }
 
     /**

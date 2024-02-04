@@ -647,7 +647,8 @@ export default {
                 // },
             ],
             rowDisplay: "3grid", //1grid, 2grid, 3grid, 4grid
-            dataFields: []
+            dataFields: [],
+            dataInfo: {}
         }
     },
 }

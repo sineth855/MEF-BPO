@@ -150,10 +150,10 @@ class AccountTypeController extends Controller
 
     public function dataForm($input){
         $arr = $input;
-        $push_array = array("created_by" => Auth::user()->id);
-        array_push($arr, $push_array);
-        $arraySingle = call_user_func_array('array_merge', $arr);
-        $dataFields = $arraySingle;
+        $push_array = array_merge(array(["created_by" => Auth::user()->id]));
+        $arraySingle = array_merge($arr, $push_array);
+        $result = call_user_func_array('array_merge', $arraySingle);
+        $dataFields = $result;
         return $dataFields;
     }
 

@@ -1,8 +1,7 @@
 <template>
     <div id="table-demo">
-        <form-task ref="refOpenPrivatePopupForm"></form-task>
-        <d-table-list @clickPrivateForm="initOpenForm" @clicked="initTableData" :api="api" ref="refInitPage"
-            :allowDel="true" :title="title" :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data"
+        <d-table-list @clicked="initTableData" :api="api" ref="refInitPage" :allowDel="true" :title="title"
+            :dataInfo="dataInfo" :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data"
             :formAttributes="formAttributes" :rowDisplay="rowDisplay"></d-table-list>
     </div>
 </template>
@@ -11,15 +10,14 @@
 import axios from "@/axios.js"
 import apiConfig from "@/apiConfig.js"
 import { ref } from 'vue';
-import FormTask from '@/views/modules/program-management/_FormTask.vue';
-import FormActivity from '@/views/modules/program-management/_FormActivity.vue';
 import DTableList from '@/views/form-builder/DTableList.vue'
+
 
 export default {
     data() {
         return {
             title: "pb_heading_costing",
-            api: apiConfig._apiTask,
+            api: apiConfig._apiObjective,
             dataAttributes: {
                 tableStyle: 11,
                 page_number: 1,
@@ -27,7 +25,7 @@ export default {
                 dataGrid: "row",
                 hasHeadingReport: false,
                 popupFullscreen: true,
-                enableToggleForm: false,
+                enableToggleForm: true,
                 headingReport: "pb_heading_costing",
                 actionButton: [
                     {
@@ -45,111 +43,111 @@ export default {
             dataHeaders: {
 
                 header8: {
-                    label: "description",
+                    label: "បរិយាយមុខសញ្ញា",
                     width: "400",
                     // flag: "y_n_1",
                     rowspan: 0,
                     colspan: 0,
                 },
                 header1: {
-                    label: "code_program",
+                    label: "កូដកម្មវិធី",
                     width: 0,
                     rowspan: 0,
                     colspan: 0,
                 },
                 header2: {
-                    label: "account_group",
+                    label: "ជំពូក",
                     width: 0,
                     rowspan: 0,
                     colspan: 0,
                 },
                 header3: {
-                    label: "line_no",
+                    label: "លេខ",
                     width: 0,
                     rowspan: 0,
                     colspan: 0,
                 },
                 header4: {
-                    label: "no",
+                    label: "ល.រ.",
                     width: 0,
                     rowspan: 0,
                     colspan: 0,
                 },
                 header5: {
-                    label: "code_cluster_activity",
+                    label: "កូដចង្កោមសកម្មភាព",
                     flag: "y_n_minus_1",
                     rowspan: 0,
                     colspan: 0,
                 },
                 header6: {
-                    label: "code_activity",
+                    label: "កូដសកម្មភាព",
                     flag: "y_n",
                     rowspan: 0,
                     colspan: 0,
                 },
                 header7: {
-                    label: "sub_account",
+                    label: "អនុគណនី",
                     rowspan: 0,
                     colspan: 0,
                 },
                 header9: {
-                    label: "is_reg_exp",
+                    label: "ប្រចាំ/មិនប្រចាំ",
                     rowspan: 0,
                     colspan: 0,
                 },
                 header10: {
-                    label: "unit",
+                    label: "ឯកតា",
                     rowspan: 0,
                     colspan: 0,
                 },
                 header11: {
-                    label: "quantity",
+                    label: "បរិមាណ",
                     rowspan: 0,
                     colspan: 0,
                 },
                 header12: {
-                    label: "currency",
+                    label: "រូបបីយប័ណ្ណ",
                     rowspan: 0,
                     colspan: 0,
                 },
                 header13: {
-                    label: "unit_price",
+                    label: "តម្លៃឯកតា",
                     rowspan: 0,
                     colspan: 0,
                 },
                 header14: {
-                    label: "unit_price",
+                    label: "តម្លៃ១លើក",
                     rowspan: 0,
                     colspan: 0,
                 },
                 header15: {
-                    label: "time_annual",
+                    label: "លើក/ឆ្នាំ",
                     flag: "y_n_1",
                     rowspan: 0,
                     colspan: 0,
                 },
                 header16: {
-                    label: "total_annual_amount",
+                    label: "សរុបប្រចាំឆ្នាំ",
                     rowspan: 0,
                     colspan: 0,
                 },
                 header17: {
-                    label: "month",
+                    label: "ខែ",
                     rowspan: 0,
                     colspan: 0,
                 },
                 header18: {
-                    label: "expense_type",
+                    label: "មុខសញ្ញា",
                     rowspan: 0,
                     colspan: 0,
                 },
                 header19: {
-                    label: "misc",
+                    label: "ផ្សេងៗ",
                     rowspan: 0,
                     colspan: 0,
                 },
                 header20: {
-                    label: "Action",
+                    label: "សកម្ម",
                     rowspan: 0,
                     colspan: 0,
                 }
@@ -564,7 +562,6 @@ export default {
                                                 month: "",
                                                 expense_type: "",
                                                 remark: "",
-                                                has_child: true,
                                                 children: [
                                                     {
                                                         desc: "TSK00012: ១.បន្ទុកបុគ្គលិក",
@@ -615,7 +612,7 @@ export default {
                                         ]
                                     }
                                 ]
-                            },
+                            }
                         ]
                     }
                 ],
@@ -623,12 +620,12 @@ export default {
                 total: 3,
             },
             formAttributes: [
-                // {
-                //     name: "entity_id",
-                //     type: "select",
-                //     required: true,
-                //     data: [],
-                // },
+                {
+                    name: "entity_id",
+                    type: "select",
+                    required: true,
+                    data: [],
+                },
                 {
                     name: "sub_program_id",
                     type: "select",
@@ -637,12 +634,6 @@ export default {
                 },
                 {
                     name: "cluster_activity_id",
-                    type: "select",
-                    required: true,
-                    data: [],
-                },
-                {
-                    name: "activity_id",
                     type: "select",
                     required: true,
                     data: [],
@@ -666,51 +657,53 @@ export default {
                     data: [],
                 },
                 {
-                    name: "lbl_detail",
+                    name: "ទិន្នន័យ",
                     type: "grid",
                     flag: "y_n_minus_1",
                     required: false,
                 },
                 {
-                    name: "unit",
-                    type: "select",
-                    required: false,
-                },
-                {
-                    name: "quantity",
-                    type: "number",
-                    required: false,
-                },
-                {
-                    name: "unit_price",
+                    name: "រង្វាស់ឯកតា",
                     type: "text",
                     required: false,
                 },
                 {
-                    name: "time_annual",
+                    name: "បរិមាណ",
+                    type: "text",
+                    required: false,
+                },
+                {
+                    name: "ចំនួនក្នុង១ឯកតារ",
+                    type: "text",
+                    required: false,
+                },
+                {
+                    name: "ចំនួនលើក/១ឆ្នាំ",
                     type: "number",
                     required: false,
                 },
                 {
-                    name: "is_reg_exp",
-                    type: "select",
+                    name: "ប្រភេទចំណាយប្រចាំ/មិនប្រចាំ",
+                    type: "text",
                     required: false,
                 },
                 {
-                    name: "misc",
-                    type: "textarea",
+                    name: "បរិមាណ",
+                    type: "number",
+                    required: false,
+                },
+                {
+                    name: "ផ្សេងៗ",
+                    type: "text",
                     required: false,
                 }
             ],
-            dataTables: [],
             rowDisplay: "3grid", //1grid, 2grid, 3grid, 4grid
             dataFields: [],
             dataInfo: {}
         }
     },
     components: {
-        FormTask,
-        FormActivity,
         DTableList
     },
     methods: {
@@ -771,10 +764,8 @@ export default {
             }
             this.getDataTable(_search_criteria);
             return false;
-        },
-        initOpenForm(data) {
-            this.$refs.refOpenPrivatePopupForm.showForm(data);
         }
+
     },
     created() {
         this.$vs.loading();

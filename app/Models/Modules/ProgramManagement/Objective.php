@@ -37,10 +37,11 @@ class Objective extends Model
     // $query = Objective::where("is_active", 1)->orderBy("order_level")->get();
     // $data = array();
     $data = array();
-    $queryObj = Objective::orderBy($filter["sort"], $filter["order"]);
+    $queryObj = Objective::orderBy("order_level");
     $whereClause = $queryObj;
     $whereClause->where("is_active", 1);
     $whereClause->offset(($filter["page_number"] - 1) * $filter["limit"]);       
+    // $whereClause->limit(1);
     $whereClause->limit($filter["limit"]);
 
     if($filter["search_field"]){
@@ -159,30 +160,30 @@ class Objective extends Model
                                         ->orWhere("is_delete", 0)
                                         ->get();
                     $costingDetailArr = array();
-                    foreach($queryCostingDetails as $cdetail){
-                      $costingDetailArr[] = array(
-                        "id" => $cdetail->id,
-                        "name" => $cdetail->name,
-                        "code" => $cdetail->code,
-                        "group_chapter" => $cdetail->group_chapter,
-                        "no" => $cdetail->no,
-                        "line" => $cdetail->line,
-                        "code_cluster_activity" => $cdetail->code_cluster_activity,
-                        "code_activity" => $cdetail->code_activity,
-                        "sub_account" => $cdetail->sub_account,
-                        "is_reg_exp" => $cdetail->is_reg_exp,
-                        "unit" => $cdetail->unit,
-                        "quantity" => $cdetail->quantity,
-                        "currency" => $cdetail->currency,
-                        "unit_price" => $cdetail->unit_price,
-                        "total_amount" => $cdetail->total_amount,
-                        "time_year" => $cdetail->time_year,
-                        "annual_amount" => $cdetail->annual_amount,
-                        "month" => $cdetail->month,
-                        "expense_type" => $cdetail->expense_type,
-                        "remark" => $cdetail->remark
-                      );
-                    }
+                    // foreach($queryCostingDetails as $cdetail){
+                    //   $costingDetailArr[] = array(
+                    //     "id" => $cdetail->id,
+                    //     "name" => (config_language == "en")?$cdetail->line_no.'-'.$cdetail->name_en:$cdetail->line_no.'-'.$cdetail->name_kh,
+                    //     "code" => $cdetail->line_no,
+                    //     "group_chapter" => "",
+                    //     "no" => "",
+                    //     "line_no" => $cdetail->line_no,
+                    //     "code_cluster_activity" => "",
+                    //     "code_activity" => "",
+                    //     "sub_account" => "",
+                    //     "is_reg_exp" => "",
+                    //     "unit" => "",
+                    //     "quantity" => "",
+                    //     "currency" => "",
+                    //     "unit_price" => "",
+                    //     "total_amount" => "",
+                    //     "time_year" => "",
+                    //     "annual_amount" => "",
+                    //     "month" => "",
+                    //     "expense_type" => "",
+                    //     "remark" => "",
+                    //   );
+                    // }
 
                     $costingArr[] = array(
                       "id" => $costing->id,
@@ -286,9 +287,9 @@ class Objective extends Model
       $data[] = array(
         "id" => $row->id,
         "code" => $row->code,
-        "name" => $row->name_kh,
-        "name_en" => $row->name_en,
-        "name_kh" => $row->name_kh,
+        "name" => $row->code."-".$row->name_kh,
+        "name_en" => $row->code."-".$row->name_en,
+        "name_kh" => $row->code."-".$row->name_kh,
         "order_level" => $row->order_level,
         "hasColspan" => true,
         "colspan"=> 4,

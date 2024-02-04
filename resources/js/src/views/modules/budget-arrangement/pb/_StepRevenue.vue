@@ -1,8 +1,8 @@
 <template>
     <div id="table-demo">
         <d-table-list @clicked="initTableData" :api="api" ref="refInitPage" :allowDel="true" :title="title"
-            :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data" :formAttributes="formAttributes"
-            :rowDisplay="rowDisplay"></d-table-list>
+            :dataInfo="dataInfo" :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data"
+            :formAttributes="formAttributes" :rowDisplay="rowDisplay"></d-table-list>
     </div>
 </template>
 
@@ -622,7 +622,8 @@ export default {
                 }
             ],
             rowDisplay: "3grid", //1grid, 2grid, 3grid, 4grid
-            dataFields: []
+            dataFields: [],
+            dataInfo: {}
         }
     },
     components: {
@@ -695,8 +696,8 @@ export default {
 
     },
     created() {
-        this.$vs.loading();
-        this.getData();
+        // this.$vs.loading();
+        // this.getData();
     },
     watch: {
     }

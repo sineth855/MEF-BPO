@@ -1,14 +1,18 @@
 <template>
-    <d-table-list @clicked="initTableData" :api="api" ref="refInitPage" :allowDel="true" :title="title"
-        :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data" :formAttributes="formAttributes"
-        :rowDisplay="rowDisplay"></d-table-list>
+    <div>
+        <form-indicator ref="refOpenPrivatePopupForm" :api="dataAttributes.api" :dataAttributes="dataAttributes"
+            :dataInfo="dataInfo"></form-indicator>
+        <d-table-list @clicked="initTableData" :api="api" ref="refInitPage" :allowDel="true" :title="title"
+            :dataInfo="dataInfo" :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data"
+            :formAttributes="formAttributes" :rowDisplay="rowDisplay" @clickPrivateForm="initOpenForm"></d-table-list>
+    </div>
 </template>
 
 <script>
 import axios from "@/axios.js";
 import apiConfig from "@/apiConfig.js";
 import { ref } from 'vue';
-
+import FormIndicator from '@/views/modules/program-management/_FormIndicator.vue';
 import DTableList from '@/views/form-builder/DTableList.vue';
 
 export default {
@@ -17,14 +21,24 @@ export default {
             title: "cluster_activity",
             api: apiConfig._apiClusterActivity,
             dataAttributes: {
-                backgroundColor: "warning",
+                api: apiConfig._apiKPISubProgram,
                 popupFullscreen: true,
+                backgroundColor: "warning",
                 tableStyle: 2,
                 page_number: 1,
                 offset: 0,
                 dataGrid: "row",
-                allowDel: false,
+                enableToggleForm: false,
+                // hideFormData: true,
+                // hasIndicatorSubPro: true,
+                allowDel: true,
                 actionButton: [
+                    {
+                        icon: "ListIcon",
+                        path: "#",
+                        method: "PrivateForm",
+                        allow: true
+                    },
                     {
                         icon: "ViewIcon",
                         path: "#",
@@ -37,32 +51,39 @@ export default {
                         method: "Edit",
                         allow: true
                     },
+                    {
+                        icon: "TrashIcon",
+                        path: "#",
+                        method: "Delete",
+                        allow: true
+                    },
                 ]
             },
             dataHeaders: {
+                // header1: "code_subprogram",
                 header1: "code",
                 header2: "name_en",
                 header3: "name_kh",
                 // header4: "program",
-                header5: "indicator",
-                header5: "entity",
-                header6: "entity_member",
-                header7: "order_level"
+                indicator: "indicator",
+                header6: "entity",
+                header7: "entity_member",
+                header8: "order_level"
             },
             data: {
                 data: [
                     {
                         id: 1,
+                        name_en: "12-កម្មវិធីទី១",
+                        name_kh: "12-កម្មវិធីទី១",
                         code: "",
-                        name_en: "#120 - អនុកម្មវិធី",
-                        name_kh: "#120 - អនុកម្មវិធី",
                         children: [
                             {
                                 id: 1,
-                                sub_program_id: 1,
+                                program_id: 1,
                                 code: "001",
-                                name_en: "#001 - ចង្កោមសកម្មភាពទី ១",
-                                name_kh: "#001 - ចង្កោមសកម្មភាពទី ១",
+                                name_en: "#001 - អនុកម្មវិធីទី ១",
+                                name_kh: "#001 - អនុកម្មវិធីទី ១",
                                 entity_id: 1,
                                 entity_member_id: 2,
                                 order_level: 1,
@@ -93,46 +114,16 @@ export default {
                                     ]
                                 },
                             }
-                            // {
-                            //     id: 1,
-                            //     // code_cluster_activity: "001",
-                            //     name_en: "ចង្កោមសកម្មភាពទី ១",
-                            //     name_kh: "ចង្កោមសកម្មភាពទី ១",
-                            //     sub_program: "អនុកម្មវិធីទី១",
-                            //     responsible_person: "ឯកឧត្តម ទទួលបន្ទុក",
-                            //     responsible_entity: "ឈ្មោះអង្គភាពទទួលបន្ទុក",
-                            //     order_level: 1
-                            // },
-                            // {
-                            //     id: 2,
-                            //     // code_cluster_activity: "001",
-                            //     name_en: "ចង្កោមសកម្មភាពទី ២",
-                            //     name_kh: "ចង្កោមសកម្មភាពទី ២",
-                            //     sub_program: "អនុកម្មវិធីទី២",
-                            //     responsible_person: "ឯកឧត្តម ទទួលបន្ទុក",
-                            //     responsible_entity: "ឈ្មោះអង្គភាពទទួលបន្ទុក",
-                            //     order_level: 2
-                            // },
-                            // {
-                            //     id: 3,
-                            //     // code_cluster_activity: "001",
-                            //     name_en: "ចង្កោមសកម្មភាពទី ៣",
-                            //     name_kh: "ចង្កោមសកម្មភាពទី ៣",
-                            //     sub_program: "អនុកម្មវិធីទី៣",
-                            //     responsible_person: "ឯកឧត្តម ទទួលបន្ទុក",
-                            //     responsible_entity: "ឈ្មោះអង្គភាពទទួលបន្ទុក",
-                            //     order_level: 3
-                            // },
                         ]
                     }
                 ],
-                sub_program_id: [
+                program_id: [
                     {
-                        "label": "អនុកម្មវិធីទី១",
+                        "label": "កម្មវិធីទី១",
                         "value": 1,
                     },
                     {
-                        "label": "អនុកម្មវិធីទី២",
+                        "label": "កម្មវិធីទី២",
                         "value": 2,
                     }
                 ],
@@ -161,19 +152,26 @@ export default {
             },
             formAttributes: [
                 {
-                    name: "sub_program_id",
+                    name: "program_id",
                     type: "select",
                     required: true,
+                    hasDefault: false,
+                    defaultOptions: {},
                     options: [
                         {
-                            "label": "អនុកម្មវិធីទី១",
-                            "value": 1,
+                            value: 1,
+                            label: "កម្មវិធីទី១"
                         },
                         {
-                            "label": "អនុកម្មវិធីទី២",
-                            "value": 2
+                            value: 2,
+                            label: "កម្មវិធីទី២"
                         }
-                    ],
+                    ]
+                },
+                {
+                    name: "code",
+                    type: "text",
+                    required: true
                 },
                 {
                     name: "name_en",
@@ -210,13 +208,30 @@ export default {
                     type: "textarea",
                     required: false
                 },
-
+                // {
+                //     name: "is_active",
+                //     type: "checkbox",
+                //     required: false
+                // },
+                {
+                    name: "is_active",
+                    type: "checkbox",
+                    required: false,
+                    attributes: [
+                        {
+                            name: "is_active",
+                            value: "1"
+                        }
+                    ]
+                }
             ],
             rowDisplay: "2grid", //1grid, 2grid, 3grid, 4grid
-            dataFields: []
+            dataFields: [],
+            dataInfo: {}
         }
     },
     components: {
+        FormIndicator,
         DTableList,
     },
     methods: {
@@ -256,6 +271,7 @@ export default {
                         } else {
                             this.data = this.data;
                         }
+                        // this.data = this.data;
                         this.$vs.loading.close();
                     }).catch((error) => {
                         // reject(error)
@@ -281,8 +297,10 @@ export default {
             }
             this.getDataTable(_search_criteria);
             return false;
+        },
+        initOpenForm(data) {
+            this.$refs.refOpenPrivatePopupForm.showForm(data);
         }
-
     },
     created() {
         this.$vs.loading();

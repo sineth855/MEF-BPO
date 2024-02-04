@@ -13,7 +13,9 @@ class AccountTypeGroup extends Model
                             "name_kh",
                             'order_level',
                             'is_active',
-                            'is_delete'
+                            'is_delete',
+                            'created_by',
+                            'modified_by'
                           ];
     public $timestamps = false;
 

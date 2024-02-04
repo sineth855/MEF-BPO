@@ -41,15 +41,15 @@ class KPISubProgramController extends Controller
     public function index(Request $request)
     {
         $input = $request->all();
-        // dd($input);
         $dataFields = $this->dataFields();
         $filter = CommonService::getFilter($input);
-        
         $data = array(
-            "data_fields" => $this->dataFields(),
-            "data" => $this->db_table::getKPISubProgram($filter),
+            "sub_program_id" => array($input["data_info"]["sub_program_id"]),
+            "data" => $this->db_table::getKPISubProgram($filter, $input, $this->dataFields()),
+            "data_info" => $input["data_info"],
             "limit" => $filter["limit"],
-            "total" => $this->db_table::getCount($filter)
+            "total" => $this->db_table::getCount($filter, $input, $this->dataFields()),
+            "data_fields" => $this->dataFields(),
         );
         return response()->json($data);
     }
@@ -150,10 +150,10 @@ class KPISubProgramController extends Controller
 
     public function dataForm($input){
         $arr = $input;
-        $push_array = array("created_by" => Auth::user()->id);
-        array_push($arr, $push_array);
-        $arraySingle = call_user_func_array('array_merge', $arr);
-        $dataFields = $arraySingle;
+        $push_array = array_merge(array(["planning_id" => config_planning_year, "modified_by" => Auth::user()->id]));
+        $arraySingle = array_merge($arr, $push_array);
+        $result = call_user_func_array('array_merge', $arraySingle);
+        $dataFields = $result;
         return $dataFields;
     }
 
@@ -165,7 +165,7 @@ class KPISubProgramController extends Controller
      */
     public function destroy($id)
     {
-        $table = $this->db_table::where('id', $id)->delete();
+        $table = $this->db_table::where('id', $id)->update(["status" => 4]);
         if($table){
             $status = 200;
             $boolen = true;

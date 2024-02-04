@@ -1,9 +1,10 @@
 <template>
     <div>
-        <form-indicator ref="refOpenPrivatePopupForm"></form-indicator>
-        <d-table-list @clickPrivateForm="initOpenForm" @clicked="initTableData" :api="api" ref="refInitPage"
-            :allowDel="true" :title="title" :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data"
-            :formAttributes="formAttributes" :rowDisplay="rowDisplay"></d-table-list>
+        <form-indicator ref="refOpenPrivatePopupForm" :api="dataAttributes.api" :dataAttributes="dataAttributes"
+            :dataInfo="dataInfo"></form-indicator>
+        <d-table-list @clicked="initTableData" :api="api" ref="refInitPage" :allowDel="true" :title="title"
+            :dataInfo="dataInfo" :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data"
+            :formAttributes="formAttributes" :rowDisplay="rowDisplay" @clickPrivateForm="initOpenForm"></d-table-list>
     </div>
 </template>
 
@@ -20,12 +21,14 @@ export default {
             title: "sub_program",
             api: apiConfig._apiSubProgram,
             dataAttributes: {
+                api: apiConfig._apiKPISubProgram,
                 popupFullscreen: true,
                 backgroundColor: "warning",
                 tableStyle: 2,
                 page_number: 1,
                 offset: 0,
                 dataGrid: "row",
+                enableToggleForm: false,
                 // hideFormData: true,
                 // hasIndicatorSubPro: true,
                 allowDel: true,
@@ -223,7 +226,8 @@ export default {
                 }
             ],
             rowDisplay: "2grid", //1grid, 2grid, 3grid, 4grid
-            dataFields: []
+            dataFields: [],
+            dataInfo: {}
         }
     },
     components: {

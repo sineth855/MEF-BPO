@@ -5,6 +5,7 @@ namespace App\Models\Modules\ProgramManagement;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Modules\ProgramManagement\Objective;
 use App\Models\Modules\ProgramManagement\SubProgram;
+use App\Models\Modules\ProgramManagement\KPIProgram;
 use App\Models\Settings\Entity;
 use App\Models\Settings\EntityMember;
 use DB;
@@ -88,7 +89,8 @@ class Program extends Model
 
   public static function getProgramByObj($filter){
     $data = array();
-    $queryObj = Objective::orderBy($filter["sort"], $filter["order"]);
+    // $queryObj = Objective::orderBy($filter["sort"], $filter["order"]);
+    $queryObj = Objective::orderBy("order_level");
     $whereClause = $queryObj;
     $whereClause->where("is_active", 1);
     $whereClause->offset(($filter["page_number"] - 1) * $filter["limit"]);       
@@ -135,6 +137,19 @@ class Program extends Model
 
       $queryProgs = collect($whereClausePro->get());
       foreach($queryProgs as $crow){
+        $indicatorArr = array();
+        $proId = $crow->id;
+        $kpis = KPIProgram::whereNull("status")->where("program_id", $proId)->get();
+        foreach($kpis as $kpi){
+          $indicatorArr[] = array(
+            "code" => $kpi->code,
+            "kpi_name_en" => $kpi->kpi_name_en,
+            "kpi_name_kh" => $kpi->kpi_name_kh,
+            "order_level" => $kpi->order_level,
+            "status" => $kpi->status,
+          );
+        }
+
         $cdata[] = array(
           'id' => $crow->id,
           'code' => $crow->code,
@@ -143,7 +158,12 @@ class Program extends Model
             "label" => $row->name_kh,
             "value" => $row->id,
           ),
+          'program_id' => array(
+            "label" => (config_language == "en")?$crow->code."-".$crow->name_en:$crow->code."-".$crow->name_kh,
+            "value" => $crow->id,
+          ),
           //$crow->objective_id,
+          'name' => (config_language == "en")?$crow->code."-".$crow->name_en:$crow->code."-".$crow->name_kh,
           "name_en" => $crow->name_en,
           "name_kh" => $crow->name_kh,
           'entity' => isset($crow->Entity)?$crow->Entity->name_kh:"",
@@ -158,11 +178,13 @@ class Program extends Model
           ),
           'remark' => $crow->remark,
           'order_level' => $crow->order_level,
+          'indicator' => array("data" => $indicatorArr),
         );
       }
       $data[] = array(
         'id' => $row->id,
         'code' => $row->code,
+        "name" => (config_language == "en")?$row->code."-".$row->name_en:$row->code."-".$row->name_kh,
         "name_en" => $row->name_en,
         "name_kh" => $row->name_kh,
         'objective_id' => array(
@@ -178,16 +200,30 @@ class Program extends Model
     return $data;
   }
 
-  public static function getPrograms(){
-    $query = Program::where("is_active", 1)->orderBy("order_level")->get();
-    $data = array();
-    foreach($query as $row){
-      $data[] = array(
-        "label" => $row->code.'-'.$row->name_kh,
-        "value" => $row->id,
-      );
-    }
-    return $data;
+  public static function getPrograms($param){
+    $queryData = Program::where("is_active", 1)->orderBy("order_level");
+      $whereClause = $queryData;
+      if(!empty($param["param"]["value"]) && $param["param"]!=""){
+        $whereClause->where("objective_id", $param["param"]["value"]);
+      }
+      $query = collect($whereClause->get());
+      $data = array();
+      foreach($query as $row){
+        $data[] = array(
+          "label" => (config_language == "en")?$row->code."-".$row->name_en:$row->code."-".$row->name_kh,
+          "value" => $row->id,
+        );
+      }
+      return $data;
+    // $query = Program::where("is_active", 1)->orderBy("order_level")->get();
+    // $data = array();
+    // foreach($query as $row){
+    //   $data[] = array(
+    //     "label" => $row->code.'-'.$row->name_kh,
+    //     "value" => $row->id,
+    //   );
+    // }
+    // return $data;
   }
 
   public static function getCount($filter){

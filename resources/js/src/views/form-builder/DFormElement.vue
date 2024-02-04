@@ -63,19 +63,25 @@
                         </vs-select>
                     </span>
                 </div>
-    
+
                 <div v-if="formAttribute.type == 'select_autocomplete'" class="mt-4">
                     <label class="mb-2">{{ $t(formAttribute.name) }} - {{ form.attribute[formAttribute.name] }}</label>
                     <span v-if="formAttribute.required">
-                        <vs-select :name="formAttribute.name" @change="onChangeElement($event, formAttribute.name)" v-model="form.attribute[formAttribute.name]" :dir="$vs.rtl ? 'rtl' : 'ltr'" v-validate="'required'" class="w-full">
-                            <vs-select-item :key="index" :value="item.value" :text="item.label" v-for="(item, index) in data[formAttribute.name]"/>
+                        <vs-select :name="formAttribute.name" @change="onChangeElement($event, formAttribute.name)"
+                            v-model="form.attribute[formAttribute.name]" :dir="$vs.rtl ? 'rtl' : 'ltr'"
+                            v-validate="'required'" class="w-full">
+                            <vs-select-item :key="index" :value="item.value" :text="item.label"
+                                v-for="(item, index) in data[formAttribute.name]" />
                         </vs-select>
-                        <span class="text-danger text-sm" v-show="errors.has(formAttribute.name)">{{ $t("required_" + formAttribute.name)
+                        <span class="text-danger text-sm" v-show="errors.has(formAttribute.name)">{{ $t("required_" +
+                            formAttribute.name)
                         }}</span>
                     </span>
                     <span v-else>
-                        <vs-select :name="formAttribute.name" @change="onChangeElement($event, formAttribute.name)" v-model="form.attribute[formAttribute.name]" class="w-full">
-                            <vs-select-item :key="index" :value="item.value" :text="item.label" v-for="(item, index) in data[formAttribute.name]"/>
+                        <vs-select :name="formAttribute.name" @change="onChangeElement($event, formAttribute.name)"
+                            v-model="form.attribute[formAttribute.name]" class="w-full">
+                            <vs-select-item :key="index" :value="item.value" :text="item.label"
+                                v-for="(item, index) in data[formAttribute.name]" />
                         </vs-select>
                     </span>
                 </div>
@@ -276,6 +282,7 @@ export default {
             styleClass: "",
             formAttribute: "",
             dataFields: [],
+
             form: {
                 attribute: [
                     {
@@ -306,7 +313,7 @@ export default {
     methods: {
         onChangeElement(e, form_name) {
             this.form.attribute[form_name] = "ddddd";
-            this.form_element.push();  
+            this.form_element.push();
         },
         showNewForm() {
             this.form.attribute = [];

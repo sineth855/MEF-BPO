@@ -165,13 +165,11 @@ class ProjectTypeController extends Controller
     }
 
     public function dataForm($input){
-        $dataFields = array(
-            "code" => isset($input[0]["code"])?$input[0]["code"]:null,
-            "name_en" => isset($input[1]["name_en"])?$input[1]["name_en"]:null,
-            "name_kh" => isset($input[2]["name_kh"])?$input[2]["name_kh"]:null,
-            "order_level" => isset($input[3]["order_level"])?$input[3]["order_level"]:0,
-            "description" => isset($input[4]["description"])?$input[4]["description"]:null,
-        );
+        $arr = $input;
+        $push_array = array_merge(array(["created_by" => Auth::user()->id]));
+        $arraySingle = array_merge($arr, $push_array);
+        $result = call_user_func_array('array_merge', $arraySingle);
+        $dataFields = $result;
         return $dataFields;
     }
 

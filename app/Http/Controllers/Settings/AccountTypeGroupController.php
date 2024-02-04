@@ -51,7 +51,6 @@ class AccountTypeGroupController extends Controller
         $whereClause = $query;
         $whereClause->offset(($input["page_number"] - 1) * $filter["limit"]);       
         $whereClause->limit($filter["limit"]);
-        $whereClause->where("is_delete", null)->orWhere("is_delete", 0);
         if(isset($input["search_field"])){
             for($i=0 ; $i < count($input["search_field"]); $i++){
                 $field = array_key_first($input["search_field"][$i]); //array('key1', 'key2', 'key3');
@@ -60,7 +59,7 @@ class AccountTypeGroupController extends Controller
                 }
             }
         }
-        
+        $whereClause->where("is_delete", null)->orWhere("is_delete", 0);
         $table = collect($whereClause->get());
         $data = array(
             "data_fields" => $this->dataFields(),
@@ -167,10 +166,10 @@ class AccountTypeGroupController extends Controller
 
     public function dataForm($input){
         $arr = $input;
-        $push_array = array("created_by" => Auth::user()->id);
-        array_push($arr, $push_array);
-        $arraySingle = call_user_func_array('array_merge', $arr);
-        $dataFields = $arraySingle;
+        $push_array = array_merge(array(["created_by" => Auth::user()->id]));
+        $arraySingle = array_merge($arr, $push_array);
+        $result = call_user_func_array('array_merge', $arraySingle);
+        $dataFields = $result;
         return $dataFields;
     }
     /**

@@ -51,7 +51,7 @@ class ProgramController extends Controller
         $objectives = Objective::getObjectives();
         $entities = Entity::getEntities();
         $entity_members = EntityMember::getMembers();
-        $programs = Program::getPrograms();
+        $programs = Program::getPrograms("");
 
         $data = array(
             "data_fields" => $this->dataFields(),
@@ -78,6 +78,14 @@ class ProgramController extends Controller
         //     }
         // }
         // $table = collect($whereClause->get());
+    }
+
+    public function getProgByObj(Request $request){
+        $paramId = $request->all();
+        $data = array(
+            "data" => $this->db_table::getPrograms($paramId),
+        );
+        return response()->json($data);
     }
 
     public function _index(Request $request)
@@ -199,10 +207,10 @@ class ProgramController extends Controller
 
     public function dataForm($input){
         $arr = $input;
-        $push_array = array("created_by" => Auth::user()->id);
-        array_push($arr, $push_array);
-        $arraySingle = call_user_func_array('array_merge', $arr);
-        $dataFields = $arraySingle;
+        $push_array = array_merge(array(["created_by" => Auth::user()->id]));
+        $arraySingle = array_merge($arr, $push_array);
+        $result = call_user_func_array('array_merge', $arraySingle);
+        $dataFields = $result;
         return $dataFields;
     }
 

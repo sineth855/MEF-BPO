@@ -171,11 +171,11 @@ class TitleController extends Controller
     }
 
     public function dataForm($input){
-        $dataFields = array(
-            "name_en" => isset($input[0]["name_en"])?$input[0]["name_en"]:null,
-            "name_kh" => isset($input[1]["name_kh"])?$input[1]["name_kh"]:null,
-            "order_level" => isset($input[2]["order_level"])?$input[2]["order_level"]:0
-        );
+        $arr = $input;
+        $push_array = array_merge(array(["created_by" => Auth::user()->id]));
+        $arraySingle = array_merge($arr, $push_array);
+        $result = call_user_func_array('array_merge', $arraySingle);
+        $dataFields = $result;
         return $dataFields;
     }
 

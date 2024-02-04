@@ -147,6 +147,10 @@ class Activity extends Model
                 foreach($queryCostingDetails as $cdetail){
                   $costingDetailArr[] = array(
                     "id" => $cdetail->id,
+                    'task_id' => array(
+                      "label" => (config_language == "en")?$task->code.'-'.$task->name_en:$task->code.'-'.$task->name_kh,
+                      "value" => $task->id
+                    ),
                     "name" => (config_language == "en")?$cdetail->name_en:$cdetail->name_kh,
                     "code" => $cdetail->line_no,
                     "group_chapter" => "",//$cdetail->group_chapter,
@@ -171,6 +175,18 @@ class Activity extends Model
 
                 $costingArr[] = array(
                   "id" => $costing->id,
+                  'cluster_activity_id' => array(
+                    "label" => (config_language == "en")?$row->code.'-'.$row->name_en:$row->code.'-'.$row->name_kh,
+                    "value" => $row->id
+                  ),
+                  'activity_id' => array(
+                    "label" => (config_language == "en")?$crow->code.'-'.$crow->name_en:$crow->code.'-'.$crow->name_kh,
+                    "value" => $crow->id
+                  ),
+                  'task_id' => array(
+                    "label" => (config_language == "en")?$task->code.'-'.$task->name_en:$task->code.'-'.$task->name_kh,
+                    "value" => $task->id
+                  ),
                   "name" => (config_language == "en")?$costing->code.": ".$costing->name_en:$costing->code.": ".$costing->name_kh,
                   "name_kh" => $costing->name_kh,
                   "name_en" => $costing->name_en,
@@ -181,10 +197,14 @@ class Activity extends Model
               $taskArr[] = array(
                 "id" => $task->id,
                 "code" => $task->code,
-                'activity_id' => array(
-                  "label" => $row->code.'-'.(config_language == "en")?$row->name_en:$row->name_kh,
-                  "value" => $row->id
-                ),
+                'cluster_activity_id' => array(
+                    "label" => (config_language == "en")?$row->code.'-'.$row->name_en:$row->code.'-'.$row->name_kh,
+                    "value" => $row->id
+                  ),
+                  'activity_id' => array(
+                    "label" => (config_language == "en")?$crow->code.'-'.$crow->name_en:$crow->code.'-'.$crow->name_kh,
+                    "value" => $crow->id
+                  ),
                 "name" => (config_language == "en")?$task->code.": ".$task->name_en:$task->code.": ".$task->name_kh,
                 "order_level" => $task->order_level,
                 "children" => $costingArr
@@ -194,10 +214,7 @@ class Activity extends Model
             $cdata[] = array(
               'id' => $crow->id,
               'code' => $crow->code,
-              'sub_program_id' => array(
-                "label" => (config_language == "en")?$row->code.'-'.$row->name_en:$row->code.'-'.$row->name_kh,
-                "value" => $row->id
-              ),
+              'sub_program_id' => [],
               'cluster_activity_id' => array(
                 "label" => (config_language == "en")?$row->code.'-'.$row->name_en:$row->code.'-'.$row->name_kh,
                 "value" => $row->id
@@ -206,7 +223,7 @@ class Activity extends Model
                 "label" => (config_language == "en")?$crow->code.'-'.$crow->name_en:$crow->code.'-'.$crow->name_kh,
                 "value" => $crow->id
               ),
-              "name" => (config_language == "en")?$crow->name_en:$crow->name_kh,
+              "name" => (config_language == "en")?$crow->code."-".$crow->name_en:$crow->code."-".$crow->name_kh,
               "name_en" => $crow->name_en,
               "name_kh" => $crow->name_kh,
               'entity' => isset($crow->Entity)?$crow->Entity->name_kh:"",
