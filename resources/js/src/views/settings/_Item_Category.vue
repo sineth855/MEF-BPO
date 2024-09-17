@@ -14,7 +14,7 @@ import DTableList from '@/views/form-builder/DTableList.vue'
 export default {
     data() {
         return {
-            title: "setting_item_category",
+            title: "setting_category",
             api: apiConfig._apiItemCategory,
             dataAttributes: {
                 tableStyle: 1,
@@ -30,16 +30,12 @@ export default {
                 ]
             },
             dataHeaders: {
-                header1: "parent_id",
-                header2: "name_en",
-                header3: "name_kh",
-                header4: "order_level",
+                header1: "name_en",
+                header2: "name_kh",
+                header3: "order_level",
             },
             data: {
-                data: [
-
-                ],
-
+                data: [],
                 limit: 10,
                 total: 3,
             },

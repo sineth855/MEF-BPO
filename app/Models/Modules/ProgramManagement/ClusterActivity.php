@@ -48,16 +48,15 @@ class ClusterActivity extends Model
         $whereClause->limit($filter["limit"]);
 
         if($filter["search_field"]){
-          $arraySingle = call_user_func_array('array_merge', $filter["search_field"]);
-          $dataFields = $arraySingle;
-        if (array_key_exists('sub_program_id', $dataFields)) {
-          $whereClause->Where("id", $dataFields["sub_program_id"]["value"]);
+            $arraySingle = call_user_func_array('array_merge', $filter["search_field"]);
+            $dataFields = $arraySingle;
+          if (array_key_exists('sub_program_id', $dataFields)) {
+            $whereClause->Where("id", $dataFields["sub_program_id"]["value"]);
+          }
+          if (array_key_exists('entity_id', $dataFields)) {
+            $whereClause->Where("id", $dataFields["entity_id"]["value"]);
+          }
         }
-        if (array_key_exists('entity_id', $dataFields)) {
-          $whereClause->Where("id", $dataFields["entity_id"]["value"]);
-        }
-      }
-
         // if (array_key_exists('sub_program_id', $dataFields)) {
         //   $arraySingle = call_user_func_array('array_merge', $filter["search_field"]);
         //   $dataFields = $arraySingle;

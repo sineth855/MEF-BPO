@@ -2,10 +2,10 @@
   <div class="flex">
     <d-table-list @clicked="initTableData" :api="api" ref="refInitPage" :allowDel="true" :title="title"
       :dataInfo="dataInfo" :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data"
-      :formAttributes="formAttributes" :rowDisplay="rowDisplay" @emitDataForm="initDataForm"></d-table-list>
+      :formAttributes="formAttributes" :rowDisplay="rowDisplay" @emitDataForm="initDataForm"
+      @initDownload="initDownload"></d-table-list>
   </div>
 </template>
-
 
 <script>
 import axios from "@/axios.js"
@@ -20,6 +20,7 @@ export default {
       title: "bsp_heading_target_kpi",
       api: apiConfig._apiObjective,
       dataAttributes: {
+        enableDownload: true,
         tableStyle: 5,
         page_number: 1,
         offset: 0,
@@ -378,6 +379,10 @@ export default {
     DTableList,
   },
   methods: {
+    initDownload() {
+      const _base_url = window.location.origin;
+      window.location = _base_url + '/download/BSP/2023/2-KPI_BSPGDP.xlsx';
+    },
     initRequest() {
       this.$vs.loading();
       this.getData();

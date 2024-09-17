@@ -134,7 +134,7 @@ class CircularController extends Controller
      */
     public function destroy($id)
     {
-        $table = Circular::where('id', $id)->delete();
+        $table = Circular::where('id', $id)->update(["status" => 4]);
         if($table){
             $status = 200;
             $boolen = true;

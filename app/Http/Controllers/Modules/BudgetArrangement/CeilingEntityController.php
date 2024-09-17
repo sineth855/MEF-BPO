@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Modules\BudgetArrangement;
 
 use App\Http\Controllers\Controller;
 use App\Models\Modules\BudgetArrangement\CeilingEntity;
+use App\Models\Settings\CeilingGroup;
+use App\Models\Settings\CeilingType;
 use App\Models\Modules\ProgramManagement\Program;
 use App\Models\Modules\ProgramManagement\SubProgram;
 use Illuminate\Http\Request;
@@ -160,8 +162,13 @@ class CeilingEntityController extends Controller
             "dataHeaders" => $dataHeaders,
             "dataSubHeaders" => $dataSubHeaders,
             "program_id" => $programs,
-            "sub_program_id" => $subPrograms,
+            "sub_program_id" => [],
             "entity_id" => $entities,
+            "ceiling_exp_group" => CeilingGroup::getCeilingGroupsOptions($filter),
+            "ceiling_exp_type" => CeilingType::getCeilingTypeOptions($filter),
+            "ceiling_rule" => [],
+            "irregular_expense" => [],
+            "target_type_id" => [],
             "limit" => config_limit,
             "total" => 0//$this->db_table::count()
         );
@@ -187,9 +194,7 @@ class CeilingEntityController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
-
         $dataFields = $this->dataForm($input);
-
         $table = $this->db_table::create($dataFields);
         if($table){
             $status = 200;
@@ -265,7 +270,7 @@ class CeilingEntityController extends Controller
 
     public function dataForm($input){
         $arr = $input;
-        $push_array = array_merge(array(["created_by" => Auth::user()->id]));
+        $push_array = array_merge(array(["planning_id" => config_planning_year, "created_by" => Auth::user()->id]));
         $arraySingle = array_merge($arr, $push_array);
         $result = call_user_func_array("array_merge",$arraySingle);
         $dataFields = $result;
@@ -280,7 +285,7 @@ class CeilingEntityController extends Controller
      */
     public function destroy($id)
     {
-        $table = $this->db_table::where('id', $id)->delete();
+        $table = $this->db_table::where('id', $id)->update(["status" => 4]);
         if($table){
             $status = 200;
             $boolen = true;

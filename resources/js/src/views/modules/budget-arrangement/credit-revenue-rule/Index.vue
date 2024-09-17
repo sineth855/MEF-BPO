@@ -17,7 +17,7 @@ export default {
   data() {
     return {
       title: "CreditRevenueRule",
-      api: apiConfig._apiObjective,
+      api: apiConfig._apiUnit,
       dataAttributes: {
         tableStyle: 6,
         page_number: 1,
@@ -59,13 +59,32 @@ export default {
           colspan: 0,
         },
         header4: {
-          label: "ចំណាត់ថ្នាក់ចំណាយ(តាមតារាងមាតិកាថវិកា)",
+          label: "ចំណាត់ថ្នាក់ចំណូល(តាមតារាងមាតិកាថវិកា)",
           width: "200",
           rowspan: 3,
           colspan: 0,
         }
       },
       data: {
+
+        account_group_id: [
+          {
+            "label": "20-អចលកម្មអរូបី",
+            "value": 1,
+          },
+          {
+            "label": "21-អចលកម្មរូបី",
+            "value": 2,
+          },
+          {
+            "label": "22-ទ្រព្យសម្បត្តិវិនិយោគរយៈពេលវែង",
+            "value": 1,
+          },
+          {
+            "label": "23-ការវិនិយោគ",
+            "value": 2,
+          },
+        ],
         dataHeaders: {
           header1: {
             label: "មូលដ្ឋានគិតចំណូល",
@@ -103,6 +122,7 @@ export default {
         dataFillables: {
           field1: "chapter",
           field2: "account",
+          field222: "account_group_id",
           field3: "sub_account",
           field4: "cost_classification",
           field5: "income_year_minus_n",
@@ -115,10 +135,10 @@ export default {
             account: "",
             sub_account: "",
             cost_classification: "សរុប​រួមចំណូល​ (ក+ខ)",
-            income_year_minus_n: "0.00",
-            f_rule_year_n_basic_cal_income: "0.00", // f_rule_year_n_basic_cal_income => Finance Rule By Current Year (n=number of the curent year) (cal_income = calculated Income)
-            f_rule_year_n_quantity: "0.00",
-            f_rule_year_n_credit_budget: "0.00",
+            income_year_minus_n: "32.537.506",
+            f_rule_year_n_basic_cal_income: "34.709.856", // f_rule_year_n_basic_cal_income => Finance Rule By Current Year (n=number of the curent year) (cal_income = calculated Income)
+            f_rule_year_n_quantity: "32.537.506",
+            f_rule_year_n_credit_budget: "34.709.856",
             est_budget_year_n_semester_1: "0.00",
             est_budget_year_n_semester_2: "0.00",
             est_cal_year_n_total: "0.00",
@@ -229,19 +249,19 @@ export default {
           data: [],
         },
         {
-          name: "group_chapter",
+          name: "account_group_id",
+          type: "select",
+          required: true,
+          data: [],
+        },
+        {
+          name: "account_type_id",
           type: "select",
           required: true,
           data: [],
         },
         {
           name: "account_id",
-          type: "select",
-          required: true,
-          data: [],
-        },
-        {
-          name: "sub_account_id",
           type: "select",
           required: true,
           data: [],

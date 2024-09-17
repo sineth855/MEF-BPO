@@ -135,7 +135,7 @@ class TaxableSalaryController extends Controller
      */
     public function destroy($id)
     {
-        $table = TaxableSalary::where('id', $id)->delete();
+        $table = TaxableSalary::where('id', $id)->update(["status" => 4]);
         if($table){
             $status = 200;
             $boolen = true;

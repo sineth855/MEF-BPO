@@ -65,7 +65,7 @@ class CeilingRuleController extends Controller
         //     "data_fields" => $this->dataFields(),
         //     "data" => $table,
         //     "limit" => config_limit,
-        //     "total" => $this->db_table->count()
+        //     "total" =>collect($whereClause->count())
         // );
         $status = array(
             [
@@ -205,7 +205,7 @@ class CeilingRuleController extends Controller
      */
     public function destroy($id)
     {
-        $table = $this->db_table::where('id', $id)->delete();
+        $table = $this->db_table::where('id', $id)->update(["status" => 4]);
         if($table){
             $status = 200;
             $boolen = true;

@@ -21,6 +21,7 @@ export default {
                 page_number: 1,
                 offset: 0,
                 dataGrid: "row",
+                allowDel: false,
                 actionButton: [
                     // {
                     //     icon: "DollarSignIcon",
@@ -59,18 +60,28 @@ export default {
                 },
                 {
                     name: "year",
-                    type: "number",
-                    required: false
+                    type: "select",
+                    required: true,
+                    options: [
+                        {
+                            "label": "2023",
+                            "value": "2023",
+                        },
+                        {
+                            "label": "2024",
+                            "value": "2024",
+                        },
+                    ],
                 },
                 {
                     name: "start_date",
-                    type: "number",
-                    required: false
+                    type: "date",
+                    required: true
                 },
                 {
                     name: "end_date",
-                    type: "number",
-                    required: false
+                    type: "date",
+                    required: true
                 },
                 {
                     name: "is_default",

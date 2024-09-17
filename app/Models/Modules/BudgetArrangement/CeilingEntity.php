@@ -9,9 +9,10 @@ class CeilingEntity extends Model
 {
     protected $table = 'mef_ceiling_entity';
     protected $fillable = [
-                            'planing_id',
+                            'planning_id',
                             'ceiling_exp_group',
                             // 'ceiling_exp_type',
+                            'program_id',
                             'sub_program_id',
                             'entity_id',
                             'entity_parent_id',

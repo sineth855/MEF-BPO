@@ -131,7 +131,7 @@ class NotificationTypeController extends Controller
      */
     public function destroy($id)
     {
-        $table = NotificationType::where('id', $id)->delete();
+        $table = NotificationType::where('id', $id)->update(["status" => 4]);
         if($table){
             $status = 200;
             $boolen = true;

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Modules\ProgramManagement;
 
 use App\Http\Controllers\Controller;
+use App\Models\Modules\ProgramManagement\Program;
+use App\Models\Modules\ProgramManagement\SubProgram;
 use App\Models\Modules\ProgramManagement\ClusterActivity;
 use App\Models\Modules\ProgramManagement\Activity;
 use App\Models\Modules\ProgramManagement\Task;
@@ -58,7 +60,10 @@ class TaskController extends Controller
         $data = array(
             "data_fields" => $this->dataFields(),
             "data" => $this->db_table::getTaskByAct($filter),
-            "cluster_activity_id" => $clusterActivities,
+            "program_id" => Program::getPrograms(""),
+            "sub_program_id" => [],//SubProgram::getSubProgramsByPro(),
+            "cluster_activity_id" => [],//$clusterActivities,
+            // "cluster_activity_id" => $clusterActivities,
             "activity_id" => $activities,
             "entity_id" => $entities,
             "entity_member_id" => $entity_members,
@@ -205,7 +210,7 @@ class TaskController extends Controller
      */
     public function destroy($id)
     {
-        $table = $this->db_table::where('id', $id)->update(["is_delete" => 1]);
+        $table = $this->db_table::where('id', $id)->update(["status" => 4]);
         if($table){
             $status = 200;
             $boolen = true;

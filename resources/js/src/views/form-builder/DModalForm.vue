@@ -1,5 +1,7 @@
 <template>
     <div class="demo-alignment">
+        <!-- <setting-backup /> -->
+        <!-- <d-form /> -->
         <vs-popup v-if="dataAttributes.popupFullscreen" fullscreen classContent="popup-example" :title="title"
             :active.sync="showModalForm">
             <!-- Modal Indicator Sub Program-->
@@ -9,7 +11,7 @@
             <span v-if="!dataAttributes.hideFormData">
                 <d-form @clickForm="initTableData" ref="refModalForm" :data="data" :dataInfo="dataInfo"
                     :parentDataInfo="parentDataInfo" :formAttributes="formAttributes" :api="api"
-                    :rowDisplay="rowDisplay"></d-form>
+                    :rowDisplay="rowDisplay"/>
             </span>
             <!-- <d-indicator v-if="dataAttributes.hasIndicatorSubPro" :dataInfo="dataInfo"
                 :dataAttributes="dataAttributes"></d-indicator> -->
@@ -18,7 +20,7 @@
         <vs-popup v-else classContent="popup-example" :title="title" :active.sync="showModalForm">
             <d-form @clickForm="initTableData" ref="refModalForm" :data="data" :dataInfo="dataInfo"
                 :parentDataInfo="parentDataInfo" :formAttributes="formAttributes" :api="api"
-                :rowDisplay="rowDisplay"></d-form>
+                :rowDisplay="rowDisplay"/>
             <!-- <d-indicator v-if="dataAttributes.hasIndicator" :dataInfo="dataInfo"
                 :dataAttributes="dataAttributes"></d-indicator> -->
 
@@ -30,13 +32,22 @@
 </template>
 
 <script>
+import SettingBackup from "@/views/settings/SettingBackup.vue"
+import { ref } from 'vue';
+import Vue from "vue";
 import apiConfig from "@/apiConfig.js"
 import DForm from '@/views/form-builder/DForm.vue'
-import { ref } from 'vue';
-import DIndicator from '@/views/form-builder/DIndicator.vue';
-import ModalIndicatorSubProgram from '@/views/modules/program-management/indicator/_modal_indicator_subprogram.vue';
+import DModalForm from '@/views/form-builder/DModalForm.vue';
+// import DIndicator from '@/views/form-builder/DIndicator.vue';
+// import ModalIndicatorSubProgram from '@/views/modules/program-management/indicator/_modal_indicator_subprogram.vue';
+// Vue.use("DForm", DForm);
 
 export default {
+    components: {
+        SettingBackup,
+        DForm,
+        DModalForm
+    },
     props: {
         data: {
             required: true,
@@ -46,6 +57,7 @@ export default {
         },
         api: { type: String },
         formAttributes: {
+            type: Array,
             required: true
         },
         dataAttributes: {
@@ -56,7 +68,6 @@ export default {
             required: true,
         }
     },
-    components: { DForm, ModalIndicatorSubProgram },
     data() {
         return {
             showModalForm: false,
@@ -72,10 +83,10 @@ export default {
     },
     methods: {
         // To show popup form when create new data
-        openNewForm() {
+        openNewForm(data) {
             this.dataInfo = {};
             this.showModalForm = true;
-            this.$refs.refModalForm.showNewForm();
+            this.$refs.refModalForm.showNewForm(data);
         },
         openNewFormByParent(obj) {
             this.dataInfo = {};
@@ -86,15 +97,17 @@ export default {
             this.showModalForm = true;
             this.dataInfo = data;
             this.$refs.refModalForm.showDataForm(data);
-            this.$refs.refInitRequest.showRequestData(data);
+            // this.$refs.refInitRequest.showRequestData(data);
         },
-        initTableData() {
+        initTableData(flag) {
             console.log("by pass data ====", this.parentDataInfo);
             let _search_params = {
                 dataInfo: this.parentDataInfo
             }
             this.$emit('clicked', _search_params);
-            this.showModalForm = false;
+            if(flag==""){
+                this.showModalForm = false;
+            }
         }
     },
     created() {

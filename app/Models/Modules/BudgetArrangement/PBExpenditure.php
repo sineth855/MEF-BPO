@@ -30,7 +30,7 @@ class PBExpenditure extends Model
                           'percentage_compare_credit_rule',
                           'non_regular_expense',
                           'description_inc_dec',
-                          'is_delete',
+                          'status',
                           'created_by',
                           'modified_by'
                         ];

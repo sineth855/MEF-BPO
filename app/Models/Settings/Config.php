@@ -13,6 +13,8 @@ class Config extends Model
                             'code',
                             'key',
                             'value',
+                            'created_by',
+                            'modified_by'
                           ];
     public $timestamps = false;
 }

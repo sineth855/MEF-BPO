@@ -2,7 +2,7 @@
     <div id="table-demo">
         <d-table-list @clicked="initTableData" :api="api" ref="refInitPage" :allowDel="true" :title="title"
             :dataInfo="dataInfo" :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data"
-            :formAttributes="formAttributes" :rowDisplay="rowDisplay"></d-table-list>
+            :formAttributes="formAttributes" :rowDisplay="rowDisplay" @initDownload="initDownload"></d-table-list>
     </div>
 </template>
 
@@ -17,8 +17,9 @@ export default {
     data() {
         return {
             title: "pb_heading_pb_revenue",
-            api: apiConfig._apiObjective,
+            api: apiConfig._apiUnit,
             dataAttributes: {
+                enableDownload: true,
                 tableStyle: 6,
                 page_number: 1,
                 offset: 0,
@@ -630,6 +631,10 @@ export default {
         DTableList
     },
     methods: {
+        initDownload() {
+            const _base_url = window.location.origin;
+            window.location = _base_url + '/download/PB/2023/PB-Cosolidate-File.xlsx';
+        },
         initRequest() {
             this.$vs.loading();
             this.getData();

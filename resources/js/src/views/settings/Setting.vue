@@ -1,9 +1,10 @@
 <template>
   <vs-tabs position="top" class="tabs-shadow-none" id="profile-tabs" :key="isSmallerScreen">
-    <!-- 5 -->
-    <vs-tab icon-pack="feather" icon="icon-edit" :label="!isSmallerScreen ? 'ព័ត៌មានរៀបចំថវិកា' : ''">
-      <div class="tab-general md:ml-4 md:mt-0 mt-4 ml-0">
-        <setting-budget-arrangement />
+
+    <!-- 4 -->
+    <vs-tab icon-pack="feather" icon="icon-settings" :label="!isSmallerScreen ? 'គណនេយ្យ និងរដ្ឋបាល' : ''">
+      <div class="tab-text md:ml-4 md:mt-0 mt-4 ml-0">
+        <setting-account-admin />
       </div>
     </vs-tab>
 
@@ -14,12 +15,13 @@
       </div>
     </vs-tab>
 
-    <!-- 4 -->
-    <vs-tab icon-pack="feather" icon="icon-settings" :label="!isSmallerScreen ? 'គណនេយ្យ និងរដ្ឋបាល' : ''">
-      <div class="tab-text md:ml-4 md:mt-0 mt-4 ml-0">
-        <setting-account-admin />
+    <!-- 5 -->
+    <vs-tab icon-pack="feather" icon="icon-edit" :label="!isSmallerScreen ? 'ព័ត៌មានរៀបចំថវិកា' : ''">
+      <div class="tab-general md:ml-4 md:mt-0 mt-4 ml-0">
+        <setting-budget-arrangement />
       </div>
     </vs-tab>
+
 
     <!-- 6 -->
     <vs-tab icon-pack="feather" icon="icon-user" :label="!isSmallerScreen ? 'អង្គភាព' : ''">
@@ -43,8 +45,6 @@
         <setting-structure />
       </div>
     </vs-tab>
-
-
 
     <!-- 6 -->
     <vs-tab icon-pack="feather" icon="icon-calendar" :label="!isSmallerScreen ? 'រក្សាទុកទិន្នន័យ' : ''">

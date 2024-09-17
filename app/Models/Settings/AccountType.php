@@ -14,11 +14,11 @@ class AccountType extends Model
                             "name_kh",
                             'description',
                             'order_level',
-                            'is_delete',
+                            'status',
                             'created_by',
                             'modified_by'
                           ];
-    public $timestamps = true;
+    public $timestamps = false;
 
     public function AccountTypeGroup(){
       return $this->belongsTo(AccountTypeGroup::class,'account_type_group_id');
@@ -40,7 +40,7 @@ class AccountType extends Model
       $data = array();
       $query = AccountType::orderBy($filter["sort"], $filter["order"]);
       $whereClause = $query;
-      // $whereClause->where("is_active", 1);
+      $whereClause->whereNotIn("status", [4])->orWhere("status", null);
       $whereClause->offset(($filter["page_number"] - 1) * $filter["limit"]);       
       $whereClause->limit($filter["limit"]);
 
@@ -55,13 +55,13 @@ class AccountType extends Model
       foreach($results as $row){
         $data[] = array(
           'id' => $row->id,
-          'account_type_group' => $row->AccountTypeGroup->name_kh,
+          'account_type_group' => isset($row->AccountTypeGroup)?$row->AccountTypeGroup->name_kh:"",
           'account_type_group_id' => array(
-            "label" => $row->AccountTypeGroup->name_kh,
-            "value" => $row->AccountTypeGroup->id
+            "label" => $row->AccountTypeGroup?$row->AccountTypeGroup->name_kh:"",
+            "value" => $row->AccountTypeGroup?$row->AccountTypeGroup->id:"",
           ),
-          "name_en" => $row->name_en,
-          "name_kh" => $row->name_kh,
+          "name_en" => $row->name_en?$row->name_en:"",
+          "name_kh" => $row->name_kh?$row->name_kh:"",
           'description' => $row->description,
           'order_level'
         );

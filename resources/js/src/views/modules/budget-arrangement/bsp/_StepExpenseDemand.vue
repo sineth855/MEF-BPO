@@ -3,7 +3,8 @@
     <div class="flex">
         <d-table-list @clicked="initTableData" :api="api" ref="refInitPage" :allowDel="true" :title="title"
             :dataInfo="dataInfo" :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data"
-            :formAttributes="formAttributes" :rowDisplay="rowDisplay" @emitDataForm="initDataForm"></d-table-list>
+            :formAttributes="formAttributes" :rowDisplay="rowDisplay" @emitDataForm="initDataForm"
+            @initDownload="initDownload"></d-table-list>
 
         <!-- <vs-table :data="[]">
 
@@ -301,6 +302,7 @@ export default {
             title: "bsp_heading_expend_demand_subpro",
             api: apiConfig._apiObjective,
             dataAttributes: {
+                enableDownload: true,
                 tableStyle: 3,
                 page_number: 1,
                 offset: 0,
@@ -544,6 +546,10 @@ export default {
         DTableList,
     },
     methods: {
+        initDownload() {
+            const _base_url = window.location.origin;
+            window.location = _base_url + '/download/BSP/2023/BSP.xlsx';
+        },
         initRequest() {
             this.$vs.loading();
             this.getData();

@@ -28,7 +28,7 @@
                               'qty_rev_plan',
                               'total_rev_plan',
                               'percentage_rev_plan',
-                              'is_delete',
+                              'status',
                               'created_by',
                               'modified_by',
                           ];

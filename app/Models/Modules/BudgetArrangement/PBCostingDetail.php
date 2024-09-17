@@ -29,7 +29,7 @@ class PBCostingDetail extends Model
                           'flag_type',
                           'exchange_rate',
                           'remark',
-                          'is_delete',
+                          'status',
                           'created_by',
                           'modified_by'
                         ];

@@ -109,7 +109,6 @@ export default {
     methods: {
         showForm(data) {
             this.$refs.refModalForm.openNewForm();
-            console.log("form data", data);
             this.dataInfo = data;
             let _param = { task_id: 1 };
             return new Promise((resolve, reject) => {

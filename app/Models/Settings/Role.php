@@ -16,9 +16,9 @@ class Role extends Model
                             'remark',
                             'order_level',
                             'is_active',
-                            'is_delete',
+                            'status',
                             'created_by',
-                            'updated_by'
+                            'modified_by'
                           ];
     public $timestamps = true;
 
@@ -61,6 +61,7 @@ class Role extends Model
       $query = Role::orderBy($filters["sort"], $filters["order"]);
       $whereClause = $query;
       $whereClause->where("is_active",1);
+      $whereClause->whereNotIn("status", [4])->orWhereNull("status");
       if(Auth::user()->entity_id !=0 || Auth::user()->entity_id !=null){
         $whereClause->where("entity_id", Auth::user()->entity_id);
       }
@@ -79,13 +80,14 @@ class Role extends Model
       $tableResult = collect($whereClause->get());
       foreach($tableResult as $row){
         $data[] = array(
-          "entity_id" => $row->entity_id,
-          "entity" => $row->Entity->code.'-'.$row->Entity->name_kh,
+          "id" => $row->id,
+          "entity_id" => $row->Entity->code.'-'.(config_language=="en")?$row->Entity->name_en:$row->Entity->name_kh,
+          "entity" => $row->Entity->code.'-'.(config_language=="en")?$row->Entity->name_en:$row->Entity->name_kh,
           "name" => $row->name,
           "remark" => $row->remark,
           "order_level" => $row->order_level,
           "created_by" => $row->created_by,
-          "updated_by" => $row->updated_by,
+          "modified_by" => $row->modified_by,
         );
       }
       return $data;

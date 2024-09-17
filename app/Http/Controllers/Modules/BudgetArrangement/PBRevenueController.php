@@ -43,7 +43,7 @@ class PBRevenueController extends Controller
         $input = $request->all();
         $dataFields = $this->dataFields();
         $filter = CommonService::getFilter($input);
-        $entities = Entity::getEntities();      
+        $entities = Entity::getEntityOpts();      
         $data = array(
             "data_fields" => $this->dataFields(),
             "data" => PBRevenue::getRevenues($filter),
@@ -167,7 +167,7 @@ class PBRevenueController extends Controller
      */
     public function destroy($id)
     {
-        $table = $this->db_table::where('id', $id)->delete();
+        $table = $this->db_table::where('id', $id)->update(["status" => 4]);
         if($table){
             $status = 200;
             $boolen = true;

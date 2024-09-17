@@ -171,7 +171,7 @@ class BSPIndicatorController extends Controller
 
     public function dataForm($input){
         $arr = $input;
-        $push_array = array(); //array("created_by" => Auth::user()->id);
+        $push_array = array("created_by" => Auth::user()->id);
         $arraySingle = array_merge($arr, $push_array);
         $result = call_user_func_array('array_merge', $arraySingle);
         $dataFields = $result;
@@ -186,7 +186,7 @@ class BSPIndicatorController extends Controller
      */
     public function destroy($id)
     {
-        $table = $this->db_table::where('id', $id)->delete();
+        $table = $this->db_table::where('id', $id)->update(["status" => 4]);
         if($table){
             $status = 200;
             $boolen = true;

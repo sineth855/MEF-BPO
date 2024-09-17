@@ -15,8 +15,9 @@
             </template> -->
       </vx-input-group>
       <div class="flex items-center">
-        <vs-button class="mb-base mr-3" type="border" icon-pack="feather" icon="icon icon-download">{{ $t('Download')
-        }}</vs-button>
+        <vs-button @click="initDownload" class="mb-base mr-3" type="border" icon-pack="feather"
+          icon="icon icon-download">{{ $t('Download')
+          }}</vs-button>
         <vs-button class="mb-base mr-3" icon-pack="feather" icon="icon icon-file" @click="printInvoice">{{ $t("Print")
         }}</vs-button>
       </div>
@@ -78,6 +79,10 @@ export default {
 
   },
   methods: {
+    initDownload() {
+      const _base_url = window.location.origin;
+      window.location = _base_url + '/download/IncomeExpensePro/ProgExpRev.xlsx';
+    },
     printInvoice() {
       window.print()
     },

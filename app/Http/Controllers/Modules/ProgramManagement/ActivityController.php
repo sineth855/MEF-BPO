@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Modules\ProgramManagement;
 
 use App\Http\Controllers\Controller;
+use App\Models\Modules\ProgramManagement\Program;
 use App\Models\Modules\ProgramManagement\SubProgram;
 use App\Models\Modules\ProgramManagement\ClusterActivity;
 use App\Models\Modules\ProgramManagement\Activity;
@@ -50,7 +51,7 @@ class ActivityController extends Controller
         $filter = CommonService::getFilter($input);
         
         $clusterActivities = ClusterActivity::getClusterActs($filter);
-        $entities = Entity::getEntities();
+        $entities = Entity::getEntityOpts();
         $entity_members = [];
 
         $dataHeaders = array(
@@ -301,8 +302,11 @@ class ActivityController extends Controller
             "dataFillables" => $dataFillables,
             "dataHeaders" => $dataHeaders,
             "dataSubHeaders" => $dataSubHeaders,
-            "sub_program_id" => SubProgram::getSubProgramsByProgs($filter),
+            "program_id" => Program::getPrograms(""),
+            "sub_program_id" => [],//SubProgram::getSubProgramsByPro(),
             "cluster_activity_id" => [],//$clusterActivities,
+            // "entity_id" => [],//Entity::getBySubProgEntities($filter),
+            // "sub_program_id" => SubProgram::getSubProgramsByProgs($filter),
             "activity_id" => [], //Activity::getActivities($filter),
             "entity_id" => $entities,
             "entity_member_id" => [], //$entity_members,
@@ -441,7 +445,7 @@ class ActivityController extends Controller
      */
     public function destroy($id)
     {
-        $table = $this->db_table::where('id', $id)->delete();
+        $table = $this->db_table::where('id', $id)->update(["status" => 4]);
         if($table){
             $status = 200;
             $boolen = true;

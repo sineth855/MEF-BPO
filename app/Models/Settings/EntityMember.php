@@ -11,29 +11,29 @@ class EntityMember extends Model
   protected $table = 'entity_member';
   // protected  $primaryKey = 'id';
   protected $fillable = [
-                          'user_id',
-                          'photo',
-                          'identity_no',
-                          'title',
-                          'fullname',
-                          'first_name',
-                          'last_name',
-                          'latin',
-                          'duty',
-                          'duty_id',
+                          "user_id",
+                          "photo",
+                          "identity_no",
+                          "title",
+                          "fullname",
+                          "first_name",
+                          "last_name",
+                          "latin",
+                          "duty",
+                          "duty_id",
                           "entity",
                           "entity_id",
-                          'gender',
-                          'address',
-                          'email',
-                          'position',
-                          'department',
-                          'telephone_1',
-                          'telephone_2',
-                          'order_level',
-                          'created_by',
-                          'modified_by',
-                          'is_active'
+                          "gender",
+                          "address",
+                          "email",
+                          "position",
+                          "department",
+                          "telephone_1",
+                          "telephone_2",
+                          "order_level",
+                          "created_by",
+                          "modified_by",
+                          "is_active",
                         ];
                         
   public $timestamps = true;
@@ -106,17 +106,59 @@ class EntityMember extends Model
     return $data;
   }
 
+  public static function getEntityMembers($filter){
+    $data = array();
+    $query = Entity::orderBy($filter["sort"], $filter["order"]);
+    $whereClause = $query;
+    $whereClause->whereNotIn("status", [4])->orWhereNull("status");
+    $whereClause->offset(($filter["page_number"] - 1) * $filter["limit"]);       
+    $whereClause->limit($filter["limit"]);
+
+    if($filter["search_field"]){
+      $arraySingle = call_user_func_array('array_merge', $filter["search_field"]);
+      $dataFields = $arraySingle;
+      if (array_key_exists("name_kh", $dataFields)) {
+        $whereClause->Where("name_kh", $dataFields["name_kh"]);
+      }
+      if (array_key_exists("name_en", $dataFields)) {
+        $whereClause->Where("name_en", $dataFields["name_en"]);
+      }
+    }
+    $results = collect($whereClause->get());
+    foreach($results as $row){
+      $data[] = array(
+        "user_id" => $row->user_id,
+        "photo" => $row->photo,
+        "identity_no" => $row->identity_no,
+        "title" => $row->title,
+        "fullname" => $row->fullname,
+        "first_name" => $row->first_name,
+        "last_name" => $row->last_name,
+        "latin" => $row->latin,
+        "duty" => $row->duty,
+        "duty_id" => $row->duty_id,
+        "entity" => $row->entity,
+        "entity_id" => $row->entity_id,
+        "gender" => $row->gender,
+        "address" => $row->address,
+        "email" => $row->email,
+        "position" => $row->position,
+        "department" => $row->department,
+        "telephone_1" => $row->telephone_1,
+        "telephone_2" => $row->telephone_2,
+        "order_level" => $row->order_level,
+        "created_by" => $row->created_by,
+        "modified_by" => $row->modified_by,
+        "is_active" => $row->is_active,
+      );
+    }
+    return $data;
+  }
+
   public static function getCount($filter){
     $query = EntityMember::orderBy($filter["sort"], $filter["order"]);
     $whereClause = $query;
-    $whereClause->orderBy("order_level")->get();
-    $whereClause->where("is_active", 1);
-    if(Auth::user()->entity_id !=0 || Auth::user()->entity_id !=null){
-      $whereClause->where("entity_id", Auth::user()->entity_id);
-    }
-    $whereClause->offset(($filter["page_number"] - 1) * $filter["limit"]);       
-    $whereClause->limit($filter["limit"]);
-    
+    $whereClause->whereNotIn("status", [4])->orWhereNull("status");
     if($filter["search_field"]){
       $arraySingle = call_user_func_array('array_merge', $filter["search_field"]);
       $dataFields = $arraySingle;

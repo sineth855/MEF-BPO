@@ -7,25 +7,25 @@
         <form-wizard color="rgba(var(--vs-primary), 1)" errorColor="rgba(var(--vs-danger), 1)" :title="null"
           :subtitle="null" finishButtonText="Submit">
           <!-- Tab 1  -->
-          <tab-content :title="$t('bsp_text_subprogram')" class="mb-5" icon="feather icon-home"
+          <tab-content :title="$t('bsp_text_subprogram')" class="mb-5" icon="feather icon-package"
             :before-change="validateStep2">
             <step-subprogram></step-subprogram>
           </tab-content>
 
           <!-- Tab 2  -->
-          <tab-content :title="$t('bsp_text_define_indicator')" class="mb-5" icon="feather icon-home"
+          <tab-content :title="$t('bsp_text_define_indicator')" class="mb-5" icon="feather icon-code"
             :before-change="validateStep3">
             <step-indicator ref="refInitCalRequestIndicator"></step-indicator>
           </tab-content>
 
           <!-- Tab 3  -->
-          <tab-content :title="$t('bsp_text_income_plan')" class="mb-5" icon="feather icon-home"
+          <tab-content :title="$t('bsp_text_income_plan')" class="mb-5" icon="feather icon-edit-2"
             :before-change="validateStep4">
             <step-income-plan ref="refInitCalRequestIncomePlan"></step-income-plan>
           </tab-content>
 
           <!-- Tab 4  -->
-          <tab-content :title="$t('bsp_text_expense_demand')" class="mb-5" icon="feather icon-home"
+          <tab-content :title="$t('bsp_text_expense_demand')" class="mb-5" icon="feather icon-dollar-sign"
             :before-change="validateStep5">
             <step-expense-demand ref="refInitCalRequestExpDemand"></step-expense-demand>
           </tab-content>

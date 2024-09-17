@@ -99,7 +99,7 @@ class AuditrailLogController extends Controller
      */
     public function show($id)
     {
-        $table = $this->db_table::find($id);
+        $table = $table=$this->db_table::find($id);
         $data = array(
             "data" => $table
         );
@@ -128,7 +128,8 @@ class AuditrailLogController extends Controller
     {
         $input = $request->all();
         $dataFields = $this->dataForm($input);
-        $table = $this->db_table::where('id', $id)->update($dataFields);
+        $table = $table=$this->db_table::find($id);
+        $table->update($dataFields);
         if($table){
             $status = 200;
             $boolen = true;
@@ -163,7 +164,8 @@ class AuditrailLogController extends Controller
      */
     public function destroy($id)
     {
-        $table = $this->db_table::where('id', $id)->update(["is_delete" => 1]);
+        $table=$this->db_table::find($id);
+$table->update(["status" => 4]);
         if($table){
             $status = 200;
             $boolen = true;

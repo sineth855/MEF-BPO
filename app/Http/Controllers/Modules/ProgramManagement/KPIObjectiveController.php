@@ -167,7 +167,7 @@ class KPIObjectiveController extends Controller
     public function destroy($id)
     {
         $table = KPIObjective::where("id", $id);
-        $table->delete();
+        $table->update(["status" => 4]);
         if($table){
             $status = 200;
             $boolen = true;

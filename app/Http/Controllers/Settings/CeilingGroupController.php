@@ -7,6 +7,7 @@ use App\Models\Settings\CeilingGroup;
 use Illuminate\Http\Request;
 use Auth;
 use DB;
+use CommonService;
 use View, Input, Redirect;
 
 class CeilingGroupController extends Controller
@@ -48,32 +49,12 @@ class CeilingGroupController extends Controller
     {
         $input = $request->all();
         $dataFields = $this->dataFields();
-        // dd($dataFields);
-        $filter = array(
-            // "offset" => isset($input["offset"]) ? $input["offset"] : config_offset,
-            "limit" => isset($input["limit"]) ? $input["limit"] : config_limit,
-            "sort" => isset($input["sort"]) ? $input["sort"] : config_sort,
-            "order" => isset($input["order"]) ? $input["order"] : config_order
-        );
-        $query = $this->db_table::orderBy($filter["sort"], $filter["order"]);
-        $whereClause = $query;
-        $whereClause->offset(($input["page_number"] - 1) * $filter["limit"]);       
-        $whereClause->limit($filter["limit"]);
-        if(isset($input["search_field"])){
-            for($i=0 ; $i < count($input["search_field"]); $i++){
-                $field = array_key_first($input["search_field"][$i]); //array('key1', 'key2', 'key3');
-                if (in_array($field, $dataFields)) {
-                    $whereClause->where($field, "Like","%".$input["search_field"][$i][$field]."%");
-                }
-            }
-        }
-        
-        $table = collect($whereClause->get());
+        $filter = CommonService::getFilter($input);
         $data = array(
             "data_fields" => $this->dataFields(),
-            "data" => $table,
-            "limit" => $filter["limit"],
-            "total" => $this->db_table->count()
+            "data" => $this->db_table::getCeilingGroups($filter),
+            "limit" => config_limit,
+            "total" => $this->db_table::getCount($filter)
         );
         return response()->json($data);
     }
@@ -124,7 +105,7 @@ class CeilingGroupController extends Controller
      */
     public function show($id)
     {
-        $table = $this->db_table::find($id);
+        $table = $table=$this->db_table::find($id);
         $data = array(
             "data" => $table
         );
@@ -153,10 +134,6 @@ class CeilingGroupController extends Controller
     {
         $input = $request->all();
         $dataFields = $this->dataForm($input);
-        // $ddd = array(
-        //     "name_en" => 11111,
-        //     "name_kh" => 11111
-        // );
         $table = CeilingGroup::find($id);
         $table->update($dataFields);
         if($table){
@@ -193,8 +170,8 @@ class CeilingGroupController extends Controller
      */
     public function destroy($id)
     {
-        $table = CeilingGroup::find($id);
-        $table->delete();
+        $table = $table=$this->db_table::find($id);
+        $table->update(["status" => 4]);
         if($table){
             $status = 200;
             $boolen = true;

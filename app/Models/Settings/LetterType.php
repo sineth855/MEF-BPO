@@ -10,7 +10,8 @@ class LetterType extends Model
     protected  $primaryKey = 'id';
     protected $fillable = [
                             'name',
+                            'created_by',
                             'modified_by'
                           ];
-    public $timestamps = true;
+    public $timestamps = false;
 }

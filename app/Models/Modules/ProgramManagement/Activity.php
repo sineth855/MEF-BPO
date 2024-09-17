@@ -120,8 +120,8 @@ class Activity extends Model
             $queryTask = DB::table("mef_task")
                                     ->where("activity_id", $crow->id)
                                     ->orderBy("order_level")
-                                    ->whereNull("is_delete")
-                                    ->orWhere("is_delete", 0)
+                                    ->whereNull("status")
+                                    ->orWhere("status", 0)
                                     ->get();
             foreach($queryTask as $task){
               // Costing
@@ -129,8 +129,8 @@ class Activity extends Model
               $queryCostings = DB::table("mef_costing_to_entity")
                                     ->where("task_id", $task->id)
                                     ->orderBy("order_level")
-                                    ->where("is_delete", "!=", 1)
-                                    // ->orWhere("is_delete", 0)
+                                    ->where("status", "!=", 1)
+                                    // ->orWhere("status", 0)
                                     // ->where("planning_id", config_planning_year)
                                     ->get();
 
@@ -139,8 +139,8 @@ class Activity extends Model
                 $queryCostingDetails = DB::table("mef_costing_detail_to_entity")
                                     ->where("costing_id", $costing->id)
                                     ->orderBy("order_level")
-                                    ->whereNull("is_delete")
-                                    ->orWhere("is_delete", 0)
+                                    ->whereNull("status")
+                                    ->orWhere("status", 0)
                                     ->get();
 
                 $costingDetailArr = array();

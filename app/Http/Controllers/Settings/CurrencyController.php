@@ -135,7 +135,7 @@ class CurrencyController extends Controller
      */
     public function destroy($id)
     {
-        $table = Currency::where('id', $id)->delete();
+        $table = Currency::where('id', $id)->update(["status" => 4]);
         if($table){
             $status = 200;
             $boolen = true;

@@ -20,7 +20,7 @@ class UserController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->view_title = $this->path.'.entry_user';
+        $this->view_title = $this->path.'.en_user';
         $this->db_table = new User;
         $this->lang_path = $this->path;
     }
@@ -34,7 +34,6 @@ class UserController extends Controller
         $input = $request->all();
         $dataFields = $this->dataFields();
         $filter = CommonService::getFilter($input);
-        // dd($filter);
         
         $genders = array(
             [
@@ -45,19 +44,19 @@ class UserController extends Controller
                 "value" => "ស្រី"
             ],
         );
-        $entities = Entity::getEntities();
+        $entities = Entity::getEntityOpts();
         $roles = Role::getRoleValues($filter);
-        $titles = Title::getTitles();
-        $positions = Position::gePositionValues();
+        $titles = Title::getTitleOpts();
+        $positions = Position::getPositionOpts();
         
         $data = array(
+            "data" => $this->db_table::getUsers($filter),
             "entity_id" => $entities,
             "role_id" => $roles,
             "gender" => $genders,
             "title" => $titles,
             "position" => $positions,
             "data_fields" => $this->dataFields(),
-            "data" => $this->db_table::getUsers($filter),
             "limit" => config_limit,
             "total" => User::getCount($filter)
         );
@@ -198,15 +197,21 @@ class UserController extends Controller
     {
         $input = $request->all();
         $dataFields = $this->dataForm($input);
-        $table = $this->db_table::where('id', $id)->update($dataFields);
-        if($table){
+        if($dataFields["password"] != $dataFields["confirm_password"]){
             $status = 200;
-            $boolen = true;
-            $message = trans('common.msg_update_successfully');
-        }else{
-            $status = 500;
             $boolen = false;
-            $message = trans('common.error_msg');
+            $message = "សូមបំពេញលេខសម្ងាត់បញ្ជាក់ឲ្យបានត្រឹមត្រូវ!";
+        }else{
+            $table = $this->db_table::where('id', $id)->update($dataFields);
+            if($table){
+                $status = 200;
+                $boolen = true;
+                $message = trans('common.msg_update_successfully');
+            }else{
+                $status = 500;
+                $boolen = false;
+                $message = trans('common.error_msg');
+            }
         }
         $data = array(
             "success" => $boolen,
@@ -246,7 +251,7 @@ class UserController extends Controller
     public function destroy($id)
     {
         $table = $this->db_table::where('id', $id)->update([
-            "is_delete" => 1
+            "status" => 4
         ]);
         if($table){
             $status = 200;
@@ -266,7 +271,7 @@ class UserController extends Controller
 
     public function dataForm($input){
         $arr = $input;
-        $push_array = array_merge(array(["created_by" => Auth::user()->id]));
+        $push_array = array_merge(array(["created_by" => Auth::user()->id], ["modified_by" => Auth::user()->id]));
         $arraySingle = array_merge($arr, $push_array);
         $result = call_user_func_array('array_merge', $arraySingle);
         $dataFields = $result;

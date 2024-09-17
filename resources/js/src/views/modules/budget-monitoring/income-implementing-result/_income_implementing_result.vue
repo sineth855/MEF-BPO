@@ -30,7 +30,7 @@ export default {
     data() {
         return {
             title: "income_implementing_result",
-            api: apiConfig._apiObjective,
+            api: apiConfig._apiUnit,
             dataAttributes: {
                 tableStyle: 8,
                 page_number: 1,

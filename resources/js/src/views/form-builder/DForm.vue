@@ -1,7 +1,18 @@
 <template>
     <div>
+        <vs-popup style="z-index: 5200000;" classContent="popup-example" :title="$t('ទម្រង់បង្កើត')"
+        :active.sync="showModalForm">
+            <d-form-attribute 
+                :data="data" 
+                :formAttributes="formAttributeData" 
+                :rowDisplay="rowDisplay"
+                :api="newAPi"
+                :dataInfo="dataInfo"
+                :parentDataInfo="parentDataInfo"
+                @clickForm="initTableData">
+            </d-form-attribute>
+        </vs-popup>
         <div class="vx-row">
-            <!-- {{dataInfo | json}} -->
             <template v-for="(formAttribute, i) in formAttributes">
                 <!-- Form Input Text -->
                 <div v-if="formAttribute.type == 'text'" :class="styleClass" dclass="mt-4">
@@ -17,18 +28,29 @@
                         v-model="form.attribute[formAttribute.name]" :name="formAttribute.name" class="mt-1 w-full" />
                 </div>
 
+                <!-- Form Input Number -->
+                <div v-if="formAttribute.type == 'hidden' && formAttribute.required" :class="styleClass" dclass="mt-4">
+                    <label>{{ $t(formAttribute.name) }} -- {{data[formAttribute.name]}}</label>
+                    <vs-input type="number" :placeholder="$t(formAttribute.name)" 
+                        v-model="form.attribute[formAttribute.name]" 
+                        :value="data[formAttribute.name]" 
+                        :name="formAttribute.name" 
+                        size="small"
+                        class="mt-2 w-full" />
+                </div>
+
                 <!-- Form Input Text -->
-                <div v-if="formAttribute.type == 'hidden'" :class="styleClass" dclass="mt-4">
+                <div v-if="formAttribute.type == 'password'" :class="styleClass" dclass="mt-4">
                     <label class="mb-2">{{ $t(formAttribute.name) }}</label>
                     <span v-if="formAttribute.required">
-                        <vs-input type="text" v-validate="'required'" size="small"
+                        <vs-input type="password" v-validate="'required'" size="small"
                             v-model="form.attribute[formAttribute.name]" :placeholder="$t(formAttribute.name)"
                             :name="formAttribute.name" class="mt-1 w-full" />
                         <span class="text-danger text-sm" size="small" v-show="errors.has(formAttribute.name)">{{
                             $t("required_" + formAttribute.name)
                         }}</span>
                     </span>
-                    <vs-input type="text" v-else v-validate="''" :placeholder="$t(formAttribute.name)" size="small"
+                    <vs-input type="password" v-else v-validate="''" :placeholder="$t(formAttribute.name)" size="small"
                         v-model="form.attribute[formAttribute.name]" :name="formAttribute.name" class="mt-1 w-full" />
                 </div>
 
@@ -50,6 +72,9 @@
 
                 <div v-if="formAttribute.type == 'select'" :class="styleClass" dclass="mt-4">
                     <label class="mb-2">{{ $t(formAttribute.name) }} <span v-if="formAttribute.required">*</span></label>
+                    <button v-if="formAttribute.name !='year' && formAttribute.name !='gender'" type="button" @click.stop="initNewForm(formAttribute.name)">
+                        <feather-icon v-if="formAttribute.name !='year' && formAttribute.name !='gender'" type="button" @click.stop="initNewForm(formAttribute.name)" icon="PlusIcon" svgClasses="h-4 w-4" />
+                    </button>
                     <span v-if="formAttribute.required">
                         <!-- <vs-select :name="formAttribute.name" v-model="form.attribute[formAttribute.name]"
                             :dir="$vs.rtl ? 'rtl' : 'ltr'" v-validate="'required'" class="mt-1 w-full">
@@ -314,289 +339,383 @@
 </template>
 
 <script>
-import axios from "@/axios.js"
-import DFormInput from '@/views/form-builder/form-control/DFormInput.vue'
-import vSelect from 'vue-select'
-import flatPickr from 'vue-flatpickr-component';
-import 'flatpickr/dist/flatpickr.css';
-export default {
-    props: {
-        formAttributes: {
-            required: true
-        },
-        data: {
-            required: true
-        },
-        rowDisplay: {
-            required: true
-        },
-        api: {
-            type: String
-        },
-        dataInfo: {
-            required: true
-        },
-        parentDataInfo: {
-            required: true
-        },
-    },
-    data() {
-        return {
-            styleClass: "",
-            formAttribute: "",
-            dataFields: [],
-
-            form: {
-                attribute: {
-
-                }
-                // {
-                //     // order_level: 1,
-                //     // title: "",
-                // }
+    import apiConfig from "@/apiConfig.js"
+    import axios from "@/axios.js";
+    // import formAttr from "@/formAttributes.js"
+    // import DFormInput from '@/views/form-builder/form-control/DFormInput.vue';
+    import vSelect from 'vue-select';
+    import flatPickr from 'vue-flatpickr-component';
+    import 'flatpickr/dist/flatpickr.css';
+    // import DModalForm from '@/views/form-builder/DModalForm.vue';
+    import DFormAttribute from '@/views/form-builder/DFormAttribute.vue';
+    // import Unit from '@/views/settings/_Unit.vue';
+    export default {
+        props: {
+            formAttributes: {
+                required: Array
             },
-            form_filter: [],
-            date: null,
-        }
-    },
-    components: {
-        DFormInput,
-        vSelect,
-        flatPickr
-    },
-    computed: {
-        validateForm() {
-            return !this.errors.any()
-        }
-    },
-    methods: {
-        onInitChange($event, _formAttribute, _formName, _apiRequest) {
-            let _data = {
-                type: "autocomplete",
-                param: this.form.attribute[_formName]
-            };
-            this.form.attribute[_formAttribute] = null;
-            this.data[_formAttribute] = [];
-            // this.data[_formAttribute].push([
-            //     {
-            //         "label": "sdf",
-            //         "value": "1"
-            //     }
-            // ]);
-            return new Promise((resolve, reject) => {
-                axios.post(_apiRequest, _data)
-                    .then((response) => {
-                        this.$vs.notify({
-                            title: 'Message',
-                            text: "Loading...",
-                            iconPack: 'feather',
-                            icon: 'icon-check-circle',
-                            color: 'primary',
-                            position: 'top-right'
-                        });
-                        console.log(response["data"]["data"]);
-                        for (let i = 0; i < response["data"]["data"].length; i++) {
-                            // let _d = {
-                            //     "label": response["data"]["data"][i]["label"],
-                            //     "value": response["data"]["data"][i]["value"],
-                            // }
-                            // this.data[_formAttribute].push(_d);
-                            this.data[_formAttribute].push(response["data"]["data"][i]);
-                        }
-                    }).catch((error) => {
-                        reject(error)
-                        this.$vs.notify({
-                            title: 'Message',
-                            text: "មិនអាចដំណើរកាបានទេ,​ សូមត្រួតពិនិត្យពត៌មានឡើងវិញ។",
-                            iconPack: 'feather',
-                            icon: 'icon-check-circle',
-                            color: 'danger',
-                            position: 'top-right'
-                        })
-                        this.$vs.loading.close();
-                    })
-            })
-
+            data: {
+                required: true
+            },
+            rowDisplay: {
+                required: true
+            },
+            api: {
+                type: String
+            },
+            dataInfo: {
+                required: true
+            },
+            parentDataInfo: {
+                required: true
+            },
         },
-        emitValue(e) {
-            let value = e.target.value
-            if (this.modelModifiers.capitalize) {
-                value = value.charAt(0).toUpperCase() + value.slice(1)
+        data() {
+            return {
+                newAPi: null,
+                formAttributeData: [],
+                dataTables: [],
+                dataAttributes: "",
+                title: "",
+                // initTableData: "",
+                styleClass: "",
+                formAttribute: "",
+                dataFields: [],
+                showModalForm: false,
+                form: {
+                    attribute: {
+                    }
+                },
+                form_filter: [],
+                date: null,
             }
-            this.$emit('update:modelValue', value)
         },
-        // Just test to create dynamic data table on form
-        onChangeElement(e, form_name) {
-            // alert("t");
-            // this.form.attribute[form_name] = ;
-            this.$emit('clicked', e)
-            // this.$refs.refInitPushDataTable.initPushDataTable(form_name);
+        components: {
+            // DFormInput,
+            vSelect,
+            flatPickr,
+            // DModalForm,
+            DFormAttribute,
+            // formAttr
+            // Unit
         },
-        showNewForm() {
-            // console.log("check data", this.dataInfo);
-            this.form.attribute = [];
-            this.formAttributes.forEach(_formAttribute => {
-                if (_formAttribute["hasDefault"]) {
-                    this.form.attribute[_formAttribute["name"]] = _formAttribute["defaultOptions"]["value"];
-                }
-            });
+        computed: {
+            validateForm() {
+                return !this.errors.any()
+            }
         },
-        showNewFormByParent(obj) {
-            this.form.attribute = [];
-            this.formAttributes.forEach(_formAttribute => {
-                this.form.attribute[_formAttribute["name"]] = "";
-                if (_formAttribute["type"] == "select") {
-                    this.form.attribute[_formAttribute["name"]] = obj[_formAttribute["name"]];
-                    // this.form.attribute[_formAttribute["name"]] = "";
+        methods: {
+            initTableData(data){
+                var _flag = 1; // mean to enable close modal form
+                this.showModalForm = false;
+                this.$emit('clickForm', _flag);
+            },
+            initNewForm(param){
+                switch (param) {
+                    case "role_id":
+                        this.newAPi = apiConfig._apiAccountTypeGroup;
+                        this.formAttributeData = formAttr.formAttributeUnit;
+                        break;
+                    case "entity_id":
+                        this.newAPi = apiConfig._apiEntity;
+                        this.formAttributeData = formAttr.formAttributeEntity;
+                        break;
+                    case "title":
+                        this.newAPi = apiConfig._apiTitle;
+                        this.formAttributeData = formAttr.formAttributeTitle;
+                        break;
+                    case "position":
+                        this.newAPi = apiConfig._apiPosition;
+                        this.formAttributeData = formAttr.formAttributeTitle;
+                        break;
+                    case "account_type_group_id":
+                        this.newAPi = apiConfig._apiAccountTypeGroup;
+                        this.formAttributeData = formAttr.formAttributeTitle;
+                        break;
+                    case "account_type_id":
+                        this.newAPi = apiConfig._apiAccountType;
+                        this.formAttributeData = formAttr.formAttributeTitle;
+                        break;
+                    case "account_id":
+                        this.newAPi = apiConfig._apiAccount;
+                        this.formAttributeData = formAttr.formAttributeSubAccount;
+                        break;
+                    case "sub_account_id":
+                        this.newAPi = "";
+                        this.formAttributeData = formAttr.formAttributeSubAccount;
+                        break;
+                    case "category_id":
+                        this.newAPi = apiConfig._apiItemCategory;
+                        this.formAttributeData = formAttr.formAttributeTitle;
+                        break;
+                    case "entity_member_id":
+                        this.newAPi = apiConfig._apiEntityMember;
+                        this.formAttributeData = formAttr.formAttributeTitle;
+                        break;
+                    case "objective_id":
+                        this.newAPi = apiConfig._apiObjective;
+                        this.formAttributeData = formAttr.formAttributeTitle;
+                        break;
+                    case "entity_member_id":
+                        this.newAPi = apiConfig._apiEntityMember;
+                        this.formAttributeData = formAttr.formAttributeTitle;
+                        break;
+                    case "program_id":
+                        this.newAPi = apiConfig._apiProgram;
+                        this.formAttributeData = formAttr.formAttributeTitle;
+                        break;
+                    case "cluster_activity_id":
+                        this.newAPi = apiConfig._apiClusterActivity;
+                        this.formAttributeData = formAttr.formAttributeTitle;
+                        break;
+                    case "activity_id":
+                        this.newAPi = apiConfig._apiActivity;
+                        this.formAttributeData = formAttr.formAttributeTitle;
+                        break;
+                    default:
+                        this.formAttributeData = null;
+                        break;
                 }
-                if (_formAttribute["name"] == obj.field) {
-                    this.form.attribute[_formAttribute["name"]] = obj[_formAttribute["name"]];
-                }
-
-                // if (_formAttribute["type"] == "select") {
-                //     this.form.attribute[_formAttribute["name"]] = "";
-                // }
-                // if (_formAttribute["name"] == obj.field) {
-                //     this.form.attribute[obj.field] = obj.id;
-                // }
-            });
-        },
-        showDataForm(data) {
-            console.log("form Data", data);
-            // let _formAttribute = this.formAttributes;
-            // for (let i = 0; i < _formAttribute.length; i++) {
-            //     this.form.attribute[_formAttribute[i]["name"]] = data[_formAttribute[i]["name"]];// "I got all";
-            // }
-            this.formAttributes.forEach(_formAttribute => {
-                if (_formAttribute["type"] == "select") {
-                    this.form.attribute[_formAttribute["name"]] = data[_formAttribute["name"]];
-                } else {
-                    this.form.attribute[_formAttribute["name"]] = data[_formAttribute["name"]];
-                }
-                this.$validator.validateAll().then(result => {
+                this.$emit('clickOpenNewPop', param);
+                // this.$ref.refModalOpenNewPop.initOpenNewPop();
+                this.showModalForm = true;
+            },
+            onInitChange($event, _formAttribute, _formName, _apiRequest) {
+                let _data = {
+                    type: "autocomplete",
+                    param: this.form.attribute[_formName]
+                };
+                this.form.attribute[_formAttribute] = null;
+                this.data[_formAttribute] = [];
+                // this.data[_formAttribute].push([
+                //     {
+                //         "label": "sdf",
+                //         "value": "1"
+                //     }
+                // ]);
+                return new Promise((resolve, reject) => {
+                    axios.post(_apiRequest, _data)
+                        .then((response) => {
+                            this.$vs.notify({
+                                title: 'Message',
+                                text: "Loading...",
+                                iconPack: 'feather',
+                                icon: 'icon-check-circle',
+                                color: 'primary',
+                                position: 'top-right'
+                            });
+                            console.log(response["data"]["data"]);
+                            for (let i = 0; i < response["data"]["data"].length; i++) {
+                                // let _d = {
+                                //     "label": response["data"]["data"][i]["label"],
+                                //     "value": response["data"]["data"][i]["value"],
+                                // }
+                                // this.data[_formAttribute].push(_d);
+                                this.data[_formAttribute].push(response["data"]["data"][i]);
+                            }
+                        }).catch((error) => {
+                            reject(error)
+                            this.$vs.notify({
+                                title: 'Message',
+                                text: "មិនអាចដំណើរកាបានទេ,​ សូមត្រួតពិនិត្យពត៌មានឡើងវិញ។",
+                                iconPack: 'feather',
+                                icon: 'icon-check-circle',
+                                color: 'danger',
+                                position: 'top-right'
+                            })
+                            this.$vs.loading.close();
+                        })
                 })
-            });
-        },
-        onChange(e) {
-            this.$validator.validateAll().then(result => {
-            });
-        },
-        submitForm() {
-            // this.dataInfo;
-            // return false;
-            let _d;
-            this.dataFields = [];
-            let _formAttribute = this.formAttributes;
-            this.formAttributes.forEach(_formAttribute => {
-                if (_formAttribute["type"] == "select") {
-                    // alert(this.form.attribute[_formAttribute["name"]]);
-                    if (typeof this.form.attribute[_formAttribute["name"]] !== 'undefined') {
-                        _d = {
-                            [_formAttribute["name"]]: this.form.attribute[_formAttribute["name"]].value
+
+            },
+            emitValue(e) {
+                let value = e.target.value
+                if (this.modelModifiers.capitalize) {
+                    value = value.charAt(0).toUpperCase() + value.slice(1)
+                }
+                this.$emit('update:modelValue', value)
+            },
+            // Just test to create dynamic data table on form
+            onChangeElement(e, form_name) {
+                // this.form.attribute[form_name] = "";
+                this.$emit('clicked', e)
+                // this.$refs.refInitPushDataTable.initPushDataTable(form_name);
+            },
+            showNewForm(data) {
+                this.form.attribute = [];
+                this.formAttributes.forEach(_formAttribute => {
+                    if (_formAttribute["hasDefault"]) {
+                        this.form.attribute[_formAttribute["name"]] = _formAttribute["defaultOptions"]["value"];
+                    }else if(_formAttribute["type"] == "hidden"){
+                        this.form.attribute[_formAttribute["name"]] = data["id"];
+                    }
+                });
+            },
+            showNewFormByParent(obj) {
+                this.form.attribute = [];
+                this.formAttributes.forEach(_formAttribute => {
+                    this.form.attribute[_formAttribute["name"]] = "";
+                    if (_formAttribute["type"] == "select") {
+                        this.form.attribute[_formAttribute["name"]] = obj[_formAttribute["name"]];
+                        // this.form.attribute[_formAttribute["name"]] = "";
+                    }
+                    if (_formAttribute["name"] == obj.field) {
+                        this.form.attribute[_formAttribute["name"]] = obj[_formAttribute["name"]];
+                    }
+                    // if (_formAttribute["type"] == "select") {
+                    //     this.form.attribute[_formAttribute["name"]] = "";
+                    // }
+                    // if (_formAttribute["name"] == obj.field) {
+                    //     this.form.attribute[obj.field] = obj.id;
+                    // }
+                });
+            },
+            showDataForm(data) {
+                // this.form.attribute["budget_template_id"] = 111;
+                //// let _formAttribute = this.formAttributes;
+                //// for (let i = 0; i < _formAttribute.length; i++) {
+                ////     this.form.attribute[_formAttribute[i]["name"]] = data[_formAttribute[i]["name"]];// "I got all";
+                //// }
+                this.formAttributes.forEach(_formAttribute => {
+                    if (_formAttribute["type"] == "select") {
+                        this.form.attribute[_formAttribute["name"]] = data[_formAttribute["name"]];
+                    } else if(_formAttribute["type"] == "hidden"){
+                        this.form.attribute[_formAttribute["name"]] = data[_formAttribute["name"]];
+                    }else {
+                        this.form.attribute[_formAttribute["name"]] = data[_formAttribute["name"]];
+                    }
+                    this.$validator.validateAll().then(result => {
+                    })
+                });
+            },
+            onChange(e) {
+                this.$validator.validateAll().then(result => {
+                });
+            },
+            submitForm() {
+                let _d;
+                this.dataFields = [];
+                let _formAttribute = this.formAttributes;
+                this.formAttributes.forEach(_formAttribute => {
+                    if (_formAttribute["type"] == "select") {
+                        if (typeof this.form.attribute[_formAttribute["name"]] !== 'undefined') {
+                            _d = {
+                                [_formAttribute["name"]]: this.form.attribute[_formAttribute["name"]].value
+                            }
+                        } else {
+                            _d = {
+                                [_formAttribute["name"]]: this.form.attribute[_formAttribute["name"]]
+                            }
                         }
                     } else {
                         _d = {
                             [_formAttribute["name"]]: this.form.attribute[_formAttribute["name"]]
                         }
                     }
-                } else {
-                    _d = {
-                        [_formAttribute["name"]]: this.form.attribute[_formAttribute["name"]]
+                    this.dataFields.push(_d);
+                });
+                this.$validator.validateAll().then(result => {
+                    if (result) {
+                        let _data = this.dataFields;
+                        // this.$vs.loading();
+                        if (this.dataInfo.id) {
+                            let _id = this.dataInfo.id;
+                            // this.$vs.loading.close();
+                            return new Promise((resolve, reject) => {
+                                axios.put(this.api + '/' + _id, _data)
+                                    .then((response) => {
+                                        if(response.data.success == false){
+                                            this.$vs.notify({
+                                                title: 'Message',
+                                                text: response.data.message,
+                                                iconPack: 'feather',
+                                                icon: 'icon-check-circle',
+                                                color: 'danger',
+                                                position: 'top-right'
+                                            })
+                                        }else{
+                                            this.$vs.notify({
+                                                title: 'Message',
+                                                text: response.data.message,
+                                                iconPack: 'feather',
+                                                icon: 'icon-check-circle',
+                                                color: 'primary',
+                                                position: 'top-right'
+                                            })
+                                            this.$emit('clickForm','');
+                                        }
+                                        // this.$router.push('/account/expense').catch(() => { })
+                                    }).catch((error) => {
+                                        reject(error)
+                                        this.$vs.notify({
+                                            title: 'Message',
+                                            text: "មិនអាចដំណើរកាបានទេ,​ សូមត្រួតពិនិត្យពត៌មានឡើងវិញ។",
+                                            iconPack: 'feather',
+                                            icon: 'icon-check-circle',
+                                            color: 'danger',
+                                            position: 'top-right'
+                                        })
+                                        this.$vs.loading.close();
+                                    })
+                            })
+                        } else {
+                            return new Promise((resolve, reject) => {
+                                axios.post(this.api, _data)
+                                    .then((response) => {
+                                        this.$vs.notify({
+                                            title: 'Message',
+                                            text: response.data.message,
+                                            iconPack: 'feather',
+                                            icon: 'icon-check-circle',
+                                            color: 'primary',
+                                            position: 'top-right'
+                                        })
+
+                                        this.$emit('clickForm', '');
+                                        // this.$router.push('/account/expense').catch(() => { })
+                                    }).catch((error) => {
+                                        reject(error)
+                                        this.$vs.notify({
+                                            title: 'Message',
+                                            text: "មិនអាចដំណើរកាបានទេ,​ សូមត្រួតពិនិត្យពត៌មានឡើងវិញ។",
+                                            iconPack: 'feather',
+                                            icon: 'icon-check-circle',
+                                            color: 'danger',
+                                            position: 'top-right'
+                                        })
+                                        this.$vs.loading.close();
+                                    })
+                            })
+                        }
+
                     }
-                }
-                this.dataFields.push(_d);
-            });
-            this.$validator.validateAll().then(result => {
-                if (result) {
-                    let _data = this.dataFields;
-                    // this.$vs.loading();
-                    if (this.dataInfo.id) {
-                        // alert("Edit");
-                        let _id = this.dataInfo.id;
-                        // this.$vs.loading.close();
-                        return new Promise((resolve, reject) => {
-                            axios.put(this.api + '/' + _id, _data)
-                                .then((response) => {
-                                    this.$vs.notify({
-                                        title: 'Message',
-                                        text: response.data.message,
-                                        iconPack: 'feather',
-                                        icon: 'icon-check-circle',
-                                        color: 'primary',
-                                        position: 'top-right'
-                                    })
-                                    this.$emit('clickForm');
-                                    // this.$router.push('/account/expense').catch(() => { })
-                                }).catch((error) => {
-                                    reject(error)
-                                    this.$vs.notify({
-                                        title: 'Message',
-                                        text: "មិនអាចដំណើរកាបានទេ,​ សូមត្រួតពិនិត្យពត៌មានឡើងវិញ។",
-                                        iconPack: 'feather',
-                                        icon: 'icon-check-circle',
-                                        color: 'danger',
-                                        position: 'top-right'
-                                    })
-                                    this.$vs.loading.close();
-                                })
-                        })
-                    } else {
-                        return new Promise((resolve, reject) => {
-                            axios.post(this.api, _data)
-                                .then((response) => {
-                                    this.$vs.notify({
-                                        title: 'Message',
-                                        text: response.data.message,
-                                        iconPack: 'feather',
-                                        icon: 'icon-check-circle',
-                                        color: 'primary',
-                                        position: 'top-right'
-                                    })
+                    this.$vs.loading.close();
+                })
+            }
+        },
+        mounted() {
 
-                                    this.$emit('clickForm');
-                                    // this.$router.push('/account/expense').catch(() => { })
-                                }).catch((error) => {
-                                    reject(error)
-                                    this.$vs.notify({
-                                        title: 'Message',
-                                        text: "មិនអាចដំណើរកាបានទេ,​ សូមត្រួតពិនិត្យពត៌មានឡើងវិញ។",
-                                        iconPack: 'feather',
-                                        icon: 'icon-check-circle',
-                                        color: 'danger',
-                                        position: 'top-right'
-                                    })
-                                    this.$vs.loading.close();
-                                })
-                        })
-                    }
+        },
+        created() {
+            // this.form.attribute["budget_template_id"] = 11;
+            if (this.rowDisplay == "1grid") {
+                this.styleClass = "vx-col lg:w-1/1 w-full mt-4";
+            }
+            if (this.rowDisplay == "2grid") {
+                this.styleClass = "vx-col lg:w-1/2 w-full mt-4";
+            }
+            if (this.rowDisplay == "3grid") {
+                this.styleClass = "vx-col lg:w-1/3 w-full mt-4";
+            }
+            if (this.rowDisplay == "4grid") {
+                this.styleClass = "vx-col lg:w-1/4 w-full mt-4";
+            }
+            if (this.rowDisplay == "full-grid") {
+                this.styleClass = "vx-col lg:w-1/1 w-full";
+            }
+        },
+        watch: {
 
-                }
-                this.$vs.loading.close();
-            })
         }
-    },
-    mounted() {
-
-    },
-    created() {
-        if (this.rowDisplay == "1grid") {
-            this.styleClass = "vx-col lg:w-1/1 w-full mt-4";
-        }
-        if (this.rowDisplay == "2grid") {
-            this.styleClass = "vx-col lg:w-1/2 w-full mt-4";
-        }
-        if (this.rowDisplay == "3grid") {
-            this.styleClass = "vx-col lg:w-1/3 w-full mt-4";
-        }
-        if (this.rowDisplay == "4grid") {
-            this.styleClass = "vx-col lg:w-1/4 w-full mt-4";
-        }
-        if (this.rowDisplay == "full-grid") {
-            this.styleClass = "vx-col lg:w-1/1 w-full";
-        }
-    },
-    watch: {
-
     }
-}
 </script>

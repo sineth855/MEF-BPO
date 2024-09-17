@@ -704,7 +704,7 @@ class IncentiveController extends Controller
             ]
         );
 
-        DB::table("incentive_to_bank")->Where("incentive_id", $id)->delete();
+        DB::table("incentive_to_bank")->Where("incentive_id", $id)->update(["status" => 4]);
         $i2Banks = $input["bank"];
         for($i = 0; $i < sizeof($i2Banks); $i++){
             DB::table("incentive_to_bank")->insert(
@@ -715,7 +715,7 @@ class IncentiveController extends Controller
             );
         }
 
-        DB::table("incentive_to_entity")->Where("incentive_id", $id)->delete();
+        DB::table("incentive_to_entity")->Where("incentive_id", $id)->update(["status" => 4]);
         $i2Entities = $input["entity"];
         for($j = 0; $j < sizeof($i2Entities); $j++){
             DB::table("incentive_to_entity")->insert(
@@ -726,7 +726,7 @@ class IncentiveController extends Controller
             );
         }
 
-        DB::table("incentive_to_officer")->Where("incentive_id", $id)->delete();
+        DB::table("incentive_to_officer")->Where("incentive_id", $id)->update(["status" => 4]);
         // $i2Officers = $input["officerEntities"];
         for($j = 0; $j < sizeof($i2Officers); $j++){
             $officers = $i2Officers[$j]["officers"];
@@ -812,10 +812,10 @@ class IncentiveController extends Controller
      */
     public function destroy($id)
     {
-        $table = Incentive::where('id', $id)->delete();
-        DB::table("incentive_to_bank")->Where("incentive_id", $id)->delete();
-        DB::table("incentive_to_entity")->Where("incentive_id", $id)->delete();
-        DB::table("incentive_to_officer")->Where("incentive_id", $id)->delete();
+        $table = Incentive::where('id', $id)->update(["status" => 4]);
+        DB::table("incentive_to_bank")->Where("incentive_id", $id)->update(["status" => 4]);
+        DB::table("incentive_to_entity")->Where("incentive_id", $id)->update(["status" => 4]);
+        DB::table("incentive_to_officer")->Where("incentive_id", $id)->update(["status" => 4]);
 
         if($table){
             $status = 200;

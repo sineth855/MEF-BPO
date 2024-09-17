@@ -15,7 +15,7 @@ export default {
     data() {
         return {
             title: "setting_cost_list",
-            api: apiConfig._apiObjective,
+            api: apiConfig._apiItem,
             dataAttributes: {
                 tableStyle: 1,
                 page_number: 1,

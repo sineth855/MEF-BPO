@@ -11,24 +11,75 @@ class Position extends Model
     protected $fillable = [
                             "name_en",
                             "name_kh",
-                            'modified_by'
+                            "status",
+                            "created_by",
+                            "modified_by"
                           ];
-    public $timestamps = true;
+    public $timestamps = false;
 
-    public static function gePositionValues(){
+    public static function getPositionOpts(){
+      $data = array();
+      $query = Position::where("is_active", 1);
+      $whereClause = $query;
+      $whereClause->orderBy("order_level");
+      $queryResult = collect($whereClause->get());
+      foreach($queryResult as $row){
+        $data[] = array(
+          "label" => $row->name_kh,
+          "value" => $row->id,
+        );
+      }
+      
+      return $data;
+  }
+
+  public static function getPositions($filter){
     $data = array();
-    $query = Position::where("is_active", 1);
+    $query = Position::orderBy($filter["sort"], $filter["order"]);
     $whereClause = $query;
-    $whereClause->orderBy("order_level");
-    $queryResult = collect($whereClause->get());
-    foreach($queryResult as $row){
+    $whereClause->whereNotIn("status", [4])->orWhereNull("status");
+    $whereClause->offset(($filter["page_number"] - 1) * $filter["limit"]);       
+    $whereClause->limit($filter["limit"]);
+
+    if($filter["search_field"]){
+      $arraySingle = call_user_func_array('array_merge', $filter["search_field"]);
+      $dataFields = $arraySingle;
+      if (array_key_exists("name_kh", $dataFields)) {
+        $whereClause->Where("name_kh", $dataFields["name_kh"]);
+      }
+      if (array_key_exists("name_en", $dataFields)) {
+        $whereClause->Where("name_en", $dataFields["name_en"]);
+      }
+    }
+    $results = collect($whereClause->get());
+    foreach($results as $row){
       $data[] = array(
-        "label" => $row->name_kh,
-        "value" => $row->id,
+        "id" => $row->id,
+        "name_en" => $row->name_en,
+        "name_kh" => $row->name_kh,
+        "status" => $row->status,
+        "created_by" => $row->created_by,
+        "modified_by" => $row->created_by,
       );
     }
-    
     return $data;
   }
 
+  public static function getCount($filter){
+    $query = Position::orderBy($filter["sort"], $filter["order"]);
+    $whereClause = $query;
+    $whereClause->whereNotIn("status", [4])->orWhereNull("status");
+    if($filter["search_field"]){
+      $arraySingle = call_user_func_array('array_merge', $filter["search_field"]);
+      $dataFields = $arraySingle;
+      if (array_key_exists("name_kh", $dataFields)) {
+        $whereClause->Where("name_kh", $dataFields["name_kh"]);
+      }
+      if (array_key_exists("name_en", $dataFields)) {
+        $whereClause->Where("name_en", $dataFields["name_en"]);
+      }
+    }
+    $total = collect($whereClause->count());
+    return $total;
+  }
 }

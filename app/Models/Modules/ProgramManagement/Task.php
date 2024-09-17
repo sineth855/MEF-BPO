@@ -25,16 +25,14 @@ class Task extends Model
                           "start_date",
                           "end_date",
                           "order_level",
-                          "is_delete",
                           "assign_to",
-                          "status_id",
+                          "status",
                           "remark",
                           "attachment",
-                          "is_delete",
                           "assign_to",
                           "is_routine",
                           "created_by",
-                          "updated_by",
+                          "modified_by",
                         ];
   public $timestamps = true;
 
@@ -85,7 +83,7 @@ class Task extends Model
       $cdata = array(); //cdata = children data
       $queryAct = Task::orderBy("order_level");
       $whereClauseAct = $queryAct;
-      $whereClauseAct->whereNull("is_delete");
+      $whereClauseAct->whereNull("status");
       $whereClauseAct->where("activity_id", $activityId);
 
       if($filter["search_field"]){
@@ -186,8 +184,8 @@ class Task extends Model
     // $query = Task::where("id", $dataInfo["data_info"]["id"])->get();
     $query = DB::table("mef_costing_to_entity")
                 ->where("id", $taskId)
-                ->where("is_delete", 0)
-                ->orWhere("is_delete", NULL)
+                ->where("status", 0)
+                ->orWhere("status", NULL)
                 ->orderBy("order_level")
                 ->get();
     foreach($query as $row){
@@ -224,7 +222,7 @@ class Task extends Model
           'currency' => $rowCosting->currency,
           'exchange_rate' => $rowCosting->exchange_rate,
           'remark' => $rowCosting->remark,
-          'is_delete' => $rowCosting->is_delete,
+          'status' => $rowCosting->status,
           'created_by' => $rowCosting->created_by,
           'modified_by' => $rowCosting->modified_by,
         );
@@ -242,12 +240,11 @@ class Task extends Model
         // "start_date" => $row->start_date,
         // "end_date" => $row->end_date,
         "order_level" => $row->order_level,
-        "is_delete" => $row->is_delete,
+        "status" => $row->status,
         // "assign_to" => $row->assign_to,
         // "status_id" => $row->status_id,
         // "remark" => $row->remark,
         // "attachment" => $row->attachment,
-        "is_delete" => $row->is_delete,
         // "assign_to" => $row->assign_to,
         // "is_routine" => $row->is_routine,
         "children" => $costingArr,

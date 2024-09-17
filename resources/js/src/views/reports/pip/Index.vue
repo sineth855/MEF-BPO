@@ -7,33 +7,36 @@
                 <center>
                     <span class="font-mef2">
                         ព្រះរាជាណាចក្រកម្ពុជា
-                        <br/>
+                        <br />
                         ជាតិ សាសនា ព្រះមហាក្សត្រ
-                        <br/><center>***</center>
+                        <br />
+                        <center>***</center>
                     </span>
                 </center>
                 <div class="font-mef2" style="float: left;">
-                <!-- <img width="120px" src="../../../../assets/images/logo/logo.png"/> -->
-                ក្រសួងសេដ្ឋកិច្ច និងហិរញ្ញវត្ថុ<br/>
-                អគ្គលេខាធិការដ្ឋានក្រសួងសេដ្ឋកិច្ចនិងហិរញ្ញវត្ថុ<br/>
-                នាយកដា្ឋនរដ្ឋបាលនិងហិរញ្ញវត្ថុ<br/>
-                ការិយាល័យផែនការថវិកា
-                </div><br/><br/>
+                    <!-- <img width="120px" src="../../../../assets/images/logo/logo.png"/> -->
+                    ក្រសួងសេដ្ឋកិច្ច និងហិរញ្ញវត្ថុ<br />
+                    អគ្គលេខាធិការដ្ឋានក្រសួងសេដ្ឋកិច្ចនិងហិរញ្ញវត្ថុ<br />
+                    នាយកដា្ឋនរដ្ឋបាលនិងហិរញ្ញវត្ថុ<br />
+                    ការិយាល័យផែនការថវិកា
+                </div><br /><br />
                 <div class="clearfix"></div>
-                <center>    
+                <center>
                     <!-- <span class="font-mef2" style="color: #0d72a2; font-size: 12pt">
                         បញ្ជីសរុប<br/>
                     </span> -->
-                    <br/>
+                    <br />
                     <span class="font-mef2" style="color: #0d72a2; font-size: 12pt">
                         របាយការណ៍គម្រោងវិនិយោគ(PIP)
                     </span>
                     <div class="clearfix"></div>
-                    <br/>
+                    <br />
                 </center>
             </div>
             <div class="clearfix"></div>
-            <vs-table :data="[]">
+            <!-- PIP Include -->
+            <!-- <pip></pip> -->
+            <!-- <vs-table :data="[]">
 
             <template slot="thead">
                 <vs-th>ឈ្មោះគោលបំណងគោលនយោបាយ</vs-th>
@@ -73,122 +76,121 @@
                 <vs-td>លេខាធិការដ្ឋាន</vs-td>
                 </vs-tr>
             </template>
-            </vs-table>
+            </vs-table> -->
         </div>
-    <!-- ###################### -->
+        <!-- ###################### -->
     </div>
 </template>
 
 
 <script>
-    import { FormWizard, TabContent } from 'vue-form-wizard'
-    import 'vue-form-wizard/dist/vue-form-wizard.min.css'
-
-    // For custom error message
-    import { Validator } from 'vee-validate';
-    const dict = {
-        custom: {
-            first_name: {
-                required: 'First name is required',
-                alpha: "First name may only contain alphabetic characters"
-            },
-            last_name: {
-                required: 'Last name is required',
-                alpha: "Last name may only contain alphabetic characters"
-            },
-            email: {
-                required: 'Email is required',
-                email: "Please enter valid email"
-            },
-            job_title: {
-                required: 'Job title name is required',
-                alpha: "Job title may only contain alphabetic characters"
-            },
-            proposal_title: {
-                required: 'Proposal title name is required',
-                alpha: "Proposal title may only contain alphabetic characters"
-            },
-            event_name: {
-                required: 'Event name is required',
-                alpha: "Event name may only contain alphabetic characters"
-            },
-        }
-    };
-
-    // register custom messages
-    Validator.localize('en', dict);
-
-    export default {
-        data() {
-            return {
-                firstName: "",
-                lastName: "",
-                email: "",
-                city: "new-york",
-                proposalTitle: "",
-                jobTitle: "",
-                textarea: "",
-                eventName: "",
-                eventLocation: "san-francisco",
-                status: "plannning",
-                cityOptions: [
-                    { text: "New York", value: "new-york" },
-                    { text: "Chicago", value: "chicago" },
-                    { text: "San Francisco", value: "san-francisco" },
-                    { text: "Boston", value: "boston" },
-                ],
-                statusOptions: [
-                    { text: "Plannning", value: "plannning" },
-                    { text: "In Progress", value: "in progress" },
-                    { text: "Finished", value: "finished" },
-                ],
-                LocationOptions: [
-                    { text: "New York", value: "new-york" },
-                    { text: "Chicago", value: "chicago" },
-                    { text: "San Francisco", value: "san-francisco" },
-                    { text: "Boston", value: "boston" },
-                ],
-            }
+import { FormWizard, TabContent } from 'vue-form-wizard'
+import 'vue-form-wizard/dist/vue-form-wizard.min.css'
+// For custom error message
+import { Validator } from 'vee-validate';
+const dict = {
+    custom: {
+        first_name: {
+            required: 'First name is required',
+            alpha: "First name may only contain alphabetic characters"
         },
-        methods: {
-            validateStep1() {
-                return new Promise((resolve, reject) => {
-                    this.$validator.validateAll('step-1').then(result => {
-                        if (result) {
-                            resolve(true)
-                        } else {
-                            reject("correct all values");
-                        }
-                    })
-                })
-            },
-            validateStep2() {
-                return new Promise((resolve, reject) => {
-                    this.$validator.validateAll("step-2").then(result => {
-                        if (result) {
-                            resolve(true)
-                        } else {
-                            reject("correct all values");
-                        }
-                    })
-                })
-            },
-            validateStep3() {
-                return new Promise((resolve, reject) => {
-                    this.$validator.validateAll("step-3").then(result => {
-                        if (result) {
-                            alert("Form submitted!");
-                            resolve(true)
-                        } else {
-                            reject("correct all values");
-                        }
-                    })
-                })
-            }
+        last_name: {
+            required: 'Last name is required',
+            alpha: "Last name may only contain alphabetic characters"
         },
-        components: {
-            FormWizard,
-            TabContent
-        }
+        email: {
+            required: 'Email is required',
+            email: "Please enter valid email"
+        },
+        job_title: {
+            required: 'Job title name is required',
+            alpha: "Job title may only contain alphabetic characters"
+        },
+        proposal_title: {
+            required: 'Proposal title name is required',
+            alpha: "Proposal title may only contain alphabetic characters"
+        },
+        event_name: {
+            required: 'Event name is required',
+            alpha: "Event name may only contain alphabetic characters"
+        },
     }
+};
+
+// register custom messages
+Validator.localize('en', dict);
+
+export default {
+    data() {
+        return {
+            firstName: "",
+            lastName: "",
+            email: "",
+            city: "new-york",
+            proposalTitle: "",
+            jobTitle: "",
+            textarea: "",
+            eventName: "",
+            eventLocation: "san-francisco",
+            status: "plannning",
+            cityOptions: [
+                { text: "New York", value: "new-york" },
+                { text: "Chicago", value: "chicago" },
+                { text: "San Francisco", value: "san-francisco" },
+                { text: "Boston", value: "boston" },
+            ],
+            statusOptions: [
+                { text: "Plannning", value: "plannning" },
+                { text: "In Progress", value: "in progress" },
+                { text: "Finished", value: "finished" },
+            ],
+            LocationOptions: [
+                { text: "New York", value: "new-york" },
+                { text: "Chicago", value: "chicago" },
+                { text: "San Francisco", value: "san-francisco" },
+                { text: "Boston", value: "boston" },
+            ],
+        }
+    },
+    methods: {
+        validateStep1() {
+            return new Promise((resolve, reject) => {
+                this.$validator.validateAll('step-1').then(result => {
+                    if (result) {
+                        resolve(true)
+                    } else {
+                        reject("correct all values");
+                    }
+                })
+            })
+        },
+        validateStep2() {
+            return new Promise((resolve, reject) => {
+                this.$validator.validateAll("step-2").then(result => {
+                    if (result) {
+                        resolve(true)
+                    } else {
+                        reject("correct all values");
+                    }
+                })
+            })
+        },
+        validateStep3() {
+            return new Promise((resolve, reject) => {
+                this.$validator.validateAll("step-3").then(result => {
+                    if (result) {
+                        alert("Form submitted!");
+                        resolve(true)
+                    } else {
+                        reject("correct all values");
+                    }
+                })
+            })
+        }
+    },
+    components: {
+        FormWizard,
+        TabContent
+    }
+}
 </script>

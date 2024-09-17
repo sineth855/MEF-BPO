@@ -4,7 +4,8 @@
             :dataInfo="dataInfo"></form-indicator>
         <d-table-list @clicked="initTableData" :api="api" ref="refInitPage" :allowDel="true" :title="title"
             :dataInfo="dataInfo" :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data"
-            :formAttributes="formAttributes" :rowDisplay="rowDisplay" @clickPrivateForm="initOpenForm"></d-table-list>
+            :formAttributes="formAttributes" :rowDisplay="rowDisplay" @clickPrivateForm="initOpenForm"
+            @initDownload="initDownload"></d-table-list>
     </div>
 </template>
 
@@ -29,6 +30,7 @@ export default {
                 offset: 0,
                 dataGrid: "row",
                 enableToggleForm: false,
+                enableDownload: true,
                 // hideFormData: true,
                 // hasIndicatorSubPro: true,
                 allowDel: true,
@@ -117,7 +119,7 @@ export default {
                         ]
                     }
                 ],
-                program_id: [
+                objective_id: [
                     {
                         "label": "កម្មវិធីទី១",
                         "value": 1,
@@ -152,7 +154,7 @@ export default {
             },
             formAttributes: [
                 {
-                    name: "program_id",
+                    name: "objective_id",
                     type: "select",
                     required: true,
                     hasDefault: false,
@@ -235,6 +237,10 @@ export default {
         DTableList,
     },
     methods: {
+        initDownload() {
+            const _base_url = window.location.origin;
+            window.location = _base_url + '/download/Program/Program.xlsx';
+        },
         getDataTable(_search_criteria) {
             let _params = {};
             if (_search_criteria.search_field) {

@@ -42,6 +42,7 @@ class User extends Authenticatable
         'is_default',
         'is_delete',
         'is_active',
+        'status',
     ];
 
     public function Entity(){
@@ -66,6 +67,7 @@ class User extends Authenticatable
         $query = User::orderBy($filter["sort"], $filter["order"]);
         $whereClause = $query;
         $whereClause->where("is_active", 1);
+        $whereClause->whereNotIn("status", [4])->orWhereNull("status");
         $whereClause->where("is_default", 0);
         if(Auth::user()->entity_id !=0 || Auth::user()->entity_id !=null){
             $whereClause->where("entity_id", Auth::user()->entity_id);

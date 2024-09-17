@@ -7,6 +7,7 @@ use App\Models\Settings\FinanceResource;
 use Illuminate\Http\Request;
 use Auth;
 use DB;
+use CommonService;
 
 class FinanceResourceController extends Controller
 {
@@ -41,32 +42,12 @@ class FinanceResourceController extends Controller
     {
         $input = $request->all();
         $dataFields = $this->dataFields();
-        $filter = array(
-            // "offset" => isset($input["offset"]) ? $input["offset"] : config_offset,
-            "limit" => isset($input["limit"]) ? $input["limit"] : config_limit,
-            "sort" => isset($input["sort"]) ? $input["sort"] : config_sort,
-            "order" => isset($input["order"]) ? $input["order"] : config_order
-        );
-        $query = $this->db_table::orderBy($filter["sort"], $filter["order"]);
-        $whereClause = $query;
-        $whereClause->offset(($input["page_number"] - 1) * $filter["limit"]);       
-        $whereClause->limit($filter["limit"]);
-
-        if(isset($input["search_field"])){
-            for($i=0 ; $i < count($input["search_field"]); $i++){
-                $field = array_key_first($input["search_field"][$i]); //array('key1', 'key2', 'key3');
-                if (in_array($field, $dataFields)) {
-                    $whereClause->orWhere($field, "Like","%".$input["search_field"][$i][$field]."%");
-                }
-            }
-        }
-        
-        $table = collect($whereClause->get());
+        $filter = CommonService::getFilter($input);
         $data = array(
             "data_fields" => $this->dataFields(),
-            "data" => $table,
-            "limit" => $filter["limit"],
-            "total" => $this->db_table->count()
+            "data" => $this->db_table::getFinanceResources($filter),
+            "limit" => config_limit,
+            "total" => $this->db_table::getCount($filter)
         );
         return response()->json($data);
     }
@@ -117,7 +98,7 @@ class FinanceResourceController extends Controller
      */
     public function show($id)
     {
-        $table = $this->db_table::find($id);
+        $table = $table=$this->db_table::find($id);
         $data = array(
             "data" => $table
         );
@@ -146,7 +127,8 @@ class FinanceResourceController extends Controller
     {
         $input = $request->all();
         $dataFields = $this->dataForm($input);
-        $table = $this->db_table::where('id', $id)->update($dataFields);
+        $table = $table=$this->db_table::find($id);
+        $table->update($dataFields);
         if($table){
             $status = 200;
             $boolen = true;
@@ -181,7 +163,8 @@ class FinanceResourceController extends Controller
      */
     public function destroy($id)
     {
-        $table = $this->db_table::where('id', $id)->update(["is_delete" => 1]);
+        $table=$this->db_table::find($id);
+$table->update(["status" => 4]);
         if($table){
             $status = 200;
             $boolen = true;

@@ -16,5 +16,5 @@ class Duty extends Model
                             'created_by',
                             'modified_by'
                           ];
-    public $timestamps = true;
+    public $timestamps = false;
 }

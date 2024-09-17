@@ -42,7 +42,6 @@ export default {
                     {
                         // department: "លេខាធិការដ្ឋាន",
                         // parent_id: "លេខាធិការដ្ឋាន",
-                        code: "",
                         name_en: "នាយកដ្ឋានគោលនយោ​បាយ​ម៉ាក្រូសេដ្ឋកិច្ចនិងសារពើពន្ធ",
                         name_kh: "នាយកដ្ឋានគោលនយោ​បាយ​ម៉ាក្រូសេដ្ឋកិច្ចនិងសារពើពន្ធ",
                         abbreviation: "",
@@ -55,11 +54,6 @@ export default {
                 total: 3,
             },
             formAttributes: [
-                {
-                    name: "code",
-                    type: "text",
-                    required: true
-                },
                 {
                     name: "name_en",
                     type: "text",

@@ -356,7 +356,7 @@ class ReportController extends Controller
             "totalRemainDollar" => number_format(($totalIncomeDollar - $totalExpenseDollar), 2),
             "incomeThisYear" => $getThisYearIncomes,
             "incomeLastyear" => $getLastYearIncomes,
-            "khmer_date" => config_khmerdate,
+            "khmer_date" => "config_khmerdate",
             "currentDay" => $this->convertToKhmerDate(date("D")),
             "currentDate" => $this->convertToKhmerNumber(date("d")),
             "currentMonth" => $this->convertKhMonth(date("m")),

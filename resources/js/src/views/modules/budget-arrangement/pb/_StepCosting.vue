@@ -15,7 +15,7 @@ export default {
     data() {
         return {
             title: "pb_heading_costing",
-            api: apiConfig._apiObjective,
+            api: apiConfig._apiUnit,
             dataAttributes: {
                 tableStyle: 11,
                 page_number: 1,

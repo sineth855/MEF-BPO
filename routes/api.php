@@ -19,12 +19,10 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-
 Route::get("/users", function() {
     $users = factory(User::class, 100)->make();
     return $users;
 });
-
 
 Route::group([
     'prefix' => 'auth'
@@ -127,6 +125,11 @@ Route::group([
         Route::resource('setting/expenditure_group', 'Settings\ExpenditureGroupController');
         Route::resource('setting/expenditure_type', 'Settings\ExpenditureTypeController');
 
+        Route::post('setting/budget_template_item_cost/get_item_cost', 'Settings\BudgetTemplateItemCostController@index');
+        Route::resource('setting/budget_template_item_cost', 'Settings\BudgetTemplateItemCostController');
+        Route::post('setting/budget_template/search', 'Settings\BudgetTemplateController@index');
+        Route::resource('setting/budget_template', 'Settings\BudgetTemplateController');
+
         Route::post('setting/account_type_group/search', 'Settings\AccountTypeGroupController@index');
         Route::resource('setting/account_type_group', 'Settings\AccountTypeGroupController');
         
@@ -136,6 +139,8 @@ Route::group([
         Route::post('setting/account_group/search', 'Settings\AccountGroupController@index');
         Route::resource('setting/account_group', 'Settings\AccountGroupController');
 
+        Route::post('setting/account/get_account_by_group', 'Settings\AccountController@getAccountByGroup');
+        Route::post('setting/account/get_sub_account', 'Settings\AccountController@getSubAccount');
         Route::post('setting/account/search', 'Settings\AccountController@index');
         Route::resource('setting/account', 'Settings\AccountController');
 

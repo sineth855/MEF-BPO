@@ -138,7 +138,7 @@ class BankAccountController extends Controller
      */
     public function destroy($id)
     {
-        $table = BankAccount::where('id', $id)->delete();
+        $table = BankAccount::where('id', $id)->update(["status" => 4]);
         if($table){
             $status = 200;
             $boolen = true;

@@ -47,7 +47,7 @@ class SubProgramController extends Controller
         $dataFields = $this->dataFields();
         $filter = CommonService::getFilter($input);
         $programs = Program::getPrograms("");
-        $entities = Entity::getEntities();
+        $entities = Entity::getEntityOpts();
         $entity_members = [];
         
         $data = array(
@@ -192,7 +192,7 @@ class SubProgramController extends Controller
      */
     public function destroy($id)
     {
-        $table = $this->db_table::where('id', $id)->delete();
+        $table = $this->db_table::where('id', $id)->update(["status" => 4]);
         if($table){
             $status = 200;
             $boolen = true;

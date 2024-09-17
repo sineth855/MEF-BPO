@@ -161,25 +161,59 @@ export default {
             },
             formAttributes: [
                 {
+                    name: "program_id",
+                    type: "select",
+                    required: true,
+                    hasFilter: true,
+                    filterObj: "sub_program_id",
+                    api: apiConfig._apiSubProgramByPro
+                },
+                {
+                    name: "sub_program_id",
+                    type: "select",
+                    required: true,
+                    hasFilter: true,
+                    filterObj: "cluster_activity_id",
+                    api: apiConfig._apiEntityBySubPro
+                },
+                {
                     name: "cluster_activity_id",
                     type: "select",
                     required: true,
-                    options: [],
+                    hasFilter: false,
                 },
                 {
                     name: "entity_id",
                     type: "select",
-                    required: true,
                     hasFilter: true,
                     filterObj: "entity_member_id",
                     api: apiConfig._apiMemberByEntity,
-                    options: [],
+                    required: true,
+                    options: [
+                        {
+                            "label": "អង្គភាពទី១",
+                            "value": 1,
+                        },
+                        {
+                            "label": "អង្គភាពទី២",
+                            "value": 2,
+                        }
+                    ],
                 },
                 {
                     name: "entity_member_id",
                     type: "select",
                     required: true,
-                    options: [],
+                    options: [
+                        {
+                            "label": "បុគ្គលទិ១",
+                            "value": 1,
+                        },
+                        {
+                            "label": "បុគ្គលទិ២",
+                            "value": 2,
+                        }
+                    ],
                 },
                 {
                     name: "name_en",

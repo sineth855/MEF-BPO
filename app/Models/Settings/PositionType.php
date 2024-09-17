@@ -12,7 +12,9 @@ class PositionType extends Model
                             'parent_id',
                             "name_en",
                             "name_kh",
-                            'order_level'
+                            'order_level',
+                            'created_by',
+                            'modified_by'
                           ];
     public $timestamps = false;
 }

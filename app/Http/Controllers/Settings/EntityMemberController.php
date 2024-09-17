@@ -6,9 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Settings\Entity;
 use App\Models\Settings\EntityMember;
 use Illuminate\Http\Request;
-use CommonService;
 use Auth;
 use DB;
+use CommonService;
 
 class EntityMemberController extends Controller
 {
@@ -50,13 +50,13 @@ class EntityMemberController extends Controller
         $input = $request->all();
         $dataFields = $this->dataFields();
         $filter = CommonService::getFilter($input);
-        $entities = Entity::getEntities();
+        $entities = Entity::getEntityOpts();
 
         $data = array(
             "data_fields" => $this->dataFields(),
             "data" => $this->db_table::getMemberByEntity($filter),
             "entity_id" => $entities,
-            "limit" => $filter["limit"],
+            "limit" => config_limit,
             "total" => $this->db_table::getCount($filter)
         );
         return response()->json($data);
@@ -117,7 +117,7 @@ class EntityMemberController extends Controller
      */
     public function show($id)
     {
-        $table = $this->db_table::find($id);
+        $table = $table=$this->db_table::find($id);
         $data = array(
             "data" => $table
         );
@@ -146,7 +146,8 @@ class EntityMemberController extends Controller
     {
         $input = $request->all();
         $dataFields = $this->dataForm($input);
-        $table = $this->db_table::where('id', $id)->update($dataFields);
+        $table = $table=$this->db_table::find($id);
+        $table->update($dataFields);
         if($table){
             $status = 200;
             $boolen = true;
@@ -181,7 +182,8 @@ class EntityMemberController extends Controller
      */
     public function destroy($id)
     {
-        $table = $this->db_table::where('id', $id)->update(["is_delete" => 1]);
+        $table=$this->db_table::find($id);
+$table->update(["status" => 4]);
         if($table){
             $status = 200;
             $boolen = true;

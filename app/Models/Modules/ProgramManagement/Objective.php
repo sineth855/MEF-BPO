@@ -135,72 +135,72 @@ class Objective extends Model
                 }
                 // Task
                 $taskArr = array();
-                $queryTask = DB::table("mef_task")
-                                        ->where("activity_id", $act->id)
-                                        ->orderBy("order_level")
-                                        ->whereNull("is_delete")
-                                        ->orWhere("is_delete", 0)
-                                        ->get();
-                foreach($queryTask as $task){
-                  // Costing
-                  $costingArr = array();
-                  $queryCostings = DB::table("mef_costing_to_entity")
-                                        ->where("activity_id", $act->id)
-                                        ->orderBy("order_level")
-                                        ->whereNull("is_delete")
-                                        ->orWhere("is_delete", 0)
-                                        ->where("planning_id", config_planning_year)
-                                        ->get();
-                  // Costing Detail
-                  foreach($queryCostings as $costing){
-                    $queryCostingDetails = DB::table("mef_costing_detail_to_entity")
-                                        ->where("costing_id", $costing->id)
-                                        ->orderBy("order_level")
-                                        ->whereNull("is_delete")
-                                        ->orWhere("is_delete", 0)
-                                        ->get();
-                    $costingDetailArr = array();
-                    // foreach($queryCostingDetails as $cdetail){
-                    //   $costingDetailArr[] = array(
-                    //     "id" => $cdetail->id,
-                    //     "name" => (config_language == "en")?$cdetail->line_no.'-'.$cdetail->name_en:$cdetail->line_no.'-'.$cdetail->name_kh,
-                    //     "code" => $cdetail->line_no,
-                    //     "group_chapter" => "",
-                    //     "no" => "",
-                    //     "line_no" => $cdetail->line_no,
-                    //     "code_cluster_activity" => "",
-                    //     "code_activity" => "",
-                    //     "sub_account" => "",
-                    //     "is_reg_exp" => "",
-                    //     "unit" => "",
-                    //     "quantity" => "",
-                    //     "currency" => "",
-                    //     "unit_price" => "",
-                    //     "total_amount" => "",
-                    //     "time_year" => "",
-                    //     "annual_amount" => "",
-                    //     "month" => "",
-                    //     "expense_type" => "",
-                    //     "remark" => "",
-                    //   );
-                    // }
+                // $queryTask = DB::table("mef_task")
+                //                         ->where("activity_id", $act->id)
+                //                         ->orderBy("order_level")
+                //                         ->whereNull("status")
+                //                         ->orWhere("status", 0)
+                //                         ->get();
+                // foreach($queryTask as $task){
+                //   // Costing
+                //   $costingArr = array();
+                //   $queryCostings = DB::table("mef_costing_to_entity")
+                //                         ->where("activity_id", $act->id)
+                //                         ->orderBy("order_level")
+                //                         ->whereNull("status")
+                //                         ->orWhere("status", 0)
+                //                         ->where("planning_id", config_planning_year)
+                //                         ->get();
+                //   // Costing Detail
+                //   foreach($queryCostings as $costing){
+                //     $queryCostingDetails = DB::table("mef_costing_detail_to_entity")
+                //                         ->where("costing_id", $costing->id)
+                //                         ->orderBy("order_level")
+                //                         ->whereNull("status")
+                //                         ->orWhere("status", 0)
+                //                         ->get();
+                //     $costingDetailArr = array();
+                //     // foreach($queryCostingDetails as $cdetail){
+                //     //   $costingDetailArr[] = array(
+                //     //     "id" => $cdetail->id,
+                //     //     "name" => (config_language == "en")?$cdetail->line_no.'-'.$cdetail->name_en:$cdetail->line_no.'-'.$cdetail->name_kh,
+                //     //     "code" => $cdetail->line_no,
+                //     //     "group_chapter" => "",
+                //     //     "no" => "",
+                //     //     "line_no" => $cdetail->line_no,
+                //     //     "code_cluster_activity" => "",
+                //     //     "code_activity" => "",
+                //     //     "sub_account" => "",
+                //     //     "is_reg_exp" => "",
+                //     //     "unit" => "",
+                //     //     "quantity" => "",
+                //     //     "currency" => "",
+                //     //     "unit_price" => "",
+                //     //     "total_amount" => "",
+                //     //     "time_year" => "",
+                //     //     "annual_amount" => "",
+                //     //     "month" => "",
+                //     //     "expense_type" => "",
+                //     //     "remark" => "",
+                //     //   );
+                //     // }
 
-                    $costingArr[] = array(
-                      "id" => $costing->id,
-                      "name_kh" => $costing->name_kh,
-                      "name_en" => $costing->name_en,
-                      "children" => $costingDetailArr
-                    );
-                  }
+                //     $costingArr[] = array(
+                //       "id" => $costing->id,
+                //       "name_kh" => $costing->name_kh,
+                //       "name_en" => $costing->name_en,
+                //       "children" => $costingDetailArr
+                //     );
+                //   }
 
-                  $taskArr[] = array(
-                    "id" => $task->id,
-                    "code" => $task->code,
-                    "name" => $task->code.": ".$task->name_kh,
-                    "order_level" => $task->order_level,
-                    "children" => $costingArr
-                  );
-                }
+                //   $taskArr[] = array(
+                //     "id" => $task->id,
+                //     "code" => $task->code,
+                //     "name" => $task->code.": ".$task->name_kh,
+                //     "order_level" => $task->order_level,
+                //     "children" => $costingArr
+                //   );
+                // }
                 
                 $actArr[] = array(
                   "id" => $act->id,

@@ -16,7 +16,7 @@ class RevProgram extends Model
                           "currency",
                           "currency_id",
                           "exchange_rate",
-                          "is_delete",
+                          "status",
                           "created_by",
                           "modified_by"
                         ];

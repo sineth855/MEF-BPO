@@ -217,9 +217,9 @@ class PIPInvestmentController extends Controller
             "program_id" => Program::getPrograms(""),
             "sub_program_id" => [],//SubProgram::getSubProgramsByPro(),
             "entity_id" => [],//Entity::getBySubProgEntities($filter),
-            "project_type_id" => ProjectType::getProjectTypes(),
-            "project_status_id" => ProjectStatus::getProjectStatus(),
-            "finance_resource_id" => FinanceResource::getFinanceResource(),
+            "project_type_id" => ProjectType::getProjectTypeOpts(),
+            "project_status_id" => ProjectStatus::getProjectStatusOpt(),
+            "finance_resource_id" => FinanceResource::getFinanceResourceOpts(),
             "limit" => config_limit,
             "total" => $this->db_table::count()
         );
@@ -342,7 +342,7 @@ class PIPInvestmentController extends Controller
      */
     public function destroy($id)
     {
-        $table = $this->db_table::where('id', $id)->delete();
+        $table = $this->db_table::where('id', $id)->update(["status" => 4]);
         if($table){
             $status = 200;
             $boolen = true;

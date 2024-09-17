@@ -1,33 +1,56 @@
 <template>
-    <d-table-list @clicked="initTableData" :api="api" ref="refInitPage" :allowDel="true" :title="title" :dataInfo="dataInfo"
-        :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data" :formAttributes="formAttributes"
-        :rowDisplay="rowDisplay"></d-table-list>
+    <div>
+        <table-budget-template ref="refOpenPrivatePopupForm" :childrenAttributes="childrenAttributes"
+            :dataInfo="dataInfo"></table-budget-template>
+        <d-table-list @clicked="initTableData" :api="api" ref="refInitPage" :allowDel="true" :title="title"
+            :dataInfo="dataInfo" :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data"
+            :formAttributes="formAttributes" :rowDisplay="rowDisplay" @clickPrivateForm="initOpenForm"></d-table-list>
+    </div>
 </template>
 
 <script>
 import axios from "@/axios.js"
 import apiConfig from "@/apiConfig.js"
 import { ref } from 'vue';
-
+import TableBudgetTemplate from '@/views/settings/include_budget_template/_TableBudgetTemplate.vue';
 import DTableList from '@/views/form-builder/DTableList.vue'
 
 export default {
     data() {
         return {
             title: "setting_budget_template",
-            api: apiConfig._apiObjective,
+            api: apiConfig._apiBudgetTemplate,
             dataAttributes: {
                 tableStyle: 1,
                 page_number: 1,
                 offset: 0,
                 dataGrid: "row",
+                popupFullscreen: true,
                 actionButton: [
+                    {
+                        icon: "ListIcon",
+                        path: "#",
+                        method: "PrivateForm",
+                        allow: true
+                    },
                     // {
                     //     icon: "DollarSignIcon",
                     //     path: "/module/budget-arrangement/budget-ceiling/list",
                     //     method: "View"
                     // }
-                ]
+                ],
+            },
+            childrenAttributes: {
+                title: "តារាងទិន្នន័យពុម្ភថវិកា",
+                api: apiConfig._apiBudgetTemplateItemCost,
+                dataAttributes: {
+                    tableStyle: 1,
+                    page_number: 1,
+                    offset: 0,
+                    dataGrid: "row",
+                    popupFullscreen: true,
+                    hideSearchBar: false
+                },
             },
             dataHeaders: {
                 header1: "name_en",
@@ -77,11 +100,6 @@ export default {
             },
             formAttributes: [
                 {
-                    name: "code",
-                    type: "text",
-                    required: true
-                },
-                {
                     name: "name_en",
                     type: "text",
                     required: true
@@ -104,10 +122,11 @@ export default {
             ],
             rowDisplay: "2grid", //1grid, 2grid, 3grid, 4grid
             dataFields: [],
-            dataInfo: {}
+            dataInfo: {},
         }
     },
     components: {
+        TableBudgetTemplate,
         DTableList,
     },
     methods: {
@@ -120,9 +139,6 @@ export default {
                     if (_search_criteria.search_field[_formAttribute["name"]]) {
                         let _d = {
                             [_formAttribute["name"]]: _search_criteria.search_field[_formAttribute["name"]]
-                        }
-                        if (this.form.attribute["name"]) {
-
                         }
                         this.dataFields.push(_d);
                     }
@@ -145,8 +161,12 @@ export default {
             return new Promise((resolve, reject) => {
                 axios.post(this.api + "/search", _params)
                     .then((response) => {
-                        // this.data = response.data;
-                        this.data = this.data;
+                        if (response.data) {
+                            this.data = response.data;
+                        } else {
+                            this.data = this.data;
+                        }
+                        // this.data = this.data;
                         this.$vs.loading.close();
                     }).catch((error) => {
                         // reject(error)
@@ -172,8 +192,10 @@ export default {
             }
             this.getDataTable(_search_criteria);
             return false;
+        },
+        initOpenForm(data) {
+            this.$refs.refOpenPrivatePopupForm.showForm(data);
         }
-
     },
     created() {
         this.$vs.loading();

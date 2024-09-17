@@ -134,7 +134,7 @@ class LetterTypeController extends Controller
      */
     public function destroy($id)
     {
-        $table = LetterType::where('id', $id)->delete();
+        $table = LetterType::where('id', $id)->update(["status" => 4]);
         if($table){
             $status = 200;
             $boolen = true;

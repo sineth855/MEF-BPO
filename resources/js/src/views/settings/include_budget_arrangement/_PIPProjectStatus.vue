@@ -56,11 +56,6 @@ export default {
             },
             formAttributes: [
                 {
-                    name: "code",
-                    type: "text",
-                    required: true
-                },
-                {
                     name: "name_en",
                     type: "text",
                     required: true

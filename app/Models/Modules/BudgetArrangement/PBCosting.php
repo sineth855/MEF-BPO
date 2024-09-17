@@ -20,7 +20,7 @@ class PBCosting extends Model
                           "name_kh",
                           'order_level',
                           'is_active',
-                          'is_delete',
+                          'status',
                           'created_by',
                           'modified_by',
                           'created_at',
@@ -104,7 +104,7 @@ class PBCosting extends Model
                     // $whereCostingClause = $queryCosting;
                     // // $whereCostingClause->where("activity_id");
                     // $whereCostingClause->where("is_active", 1);
-                    // $whereCostingClause->whereNotIn("is_delete", [1]);
+                    // $whereCostingClause->whereNotIn("status", [1]);
                     // // $whereCostingClause->offset(($filter["page_number"] - 1) * $filter["limit"]);       
                     // // $whereCostingClause->limit($filter["limit"]);
                     // if($filter["search_field"]){

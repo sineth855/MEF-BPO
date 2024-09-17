@@ -100,6 +100,12 @@ export default {
                     required: true
                 },
                 {
+                    name: "account_id",
+                    type: "select",
+                    options:[],
+                    required: false
+                },
+                {
                     name: "name_en",
                     type: "text",
                     required: true

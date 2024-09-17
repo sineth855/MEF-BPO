@@ -192,7 +192,7 @@ class CompositionRequestController extends Controller
             ]    
             );
 
-        DB::table("incentive_composition_officer")->where("incentive_composition_request_id", $id)->delete();
+        DB::table("incentive_composition_officer")->where("incentive_composition_request_id", $id)->update(["status" => 4]);
         for($i = 0; $i < sizeof($input["officerRequest"]); $i++){
             // IncentiveOfficer::where("id", $input["officerRequest"][$i]["from_officer"]["id"])->update(["status" => 0]);
             // IncentiveOfficer::where("id", $input["officerRequest"][$i]["to_officer"]["id"])->update(["status" => 1]);
@@ -229,8 +229,8 @@ class CompositionRequestController extends Controller
      */
     public function destroy($id)
     {
-        $table = CompositionRequest::where('id', $id)->delete();
-        DB::table("incentive_composition_officer")->where("incentive_composition_request_id", $id)->delete();
+        $table = CompositionRequest::where('id', $id)->update(["status" => 4]);
+        DB::table("incentive_composition_officer")->where("incentive_composition_request_id", $id)->update(["status" => 4]);
         if($table){
             $status = 200;
             $boolen = true;

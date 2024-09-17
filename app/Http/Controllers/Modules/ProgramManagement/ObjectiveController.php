@@ -48,7 +48,7 @@ class ObjectiveController extends Controller
         $filter = CommonService::getFilter($input);
         $objectives = Objective::getObjectives();
         $programs = Program::getPrograms("");
-        $entities = Entity::getEntities();
+        $entities = Entity::getEntityOpts();
         $data = array(
             "data_fields" => $this->dataFields(),
             "data" => $this->db_table::getAllClusterPrograms($filter),
@@ -229,7 +229,7 @@ class ObjectiveController extends Controller
      */
     public function destroy($id)
     {
-        $table = $this->db_table::where('id', $id)->delete();
+        $table = $this->db_table::where('id', $id)->update(["status" => 4]);
         if($table){
             $status = 200;
             $boolen = true;

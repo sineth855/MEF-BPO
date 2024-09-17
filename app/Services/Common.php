@@ -393,6 +393,7 @@
 
 		public static function getFilter($obj){
 			$filter = array(
+				"data" => $obj,
 				// "offset" => isset($obj["offset"]) ? $obj["offset"] : config_offset,
 				"limit" => isset($obj["limit"]) ? $obj["limit"] : config_limit,
 				"sort" => isset($obj["sort"]) ? $obj["sort"] : config_sort,

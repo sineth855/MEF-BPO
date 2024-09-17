@@ -134,7 +134,7 @@ class DocumentTypeController extends Controller
      */
     public function destroy($id)
     {
-        $table = DocumentType::where('id', $id)->delete();
+        $table = DocumentType::where('id', $id)->update(["status" => 4]);
         if($table){
             $status = 200;
             $boolen = true;

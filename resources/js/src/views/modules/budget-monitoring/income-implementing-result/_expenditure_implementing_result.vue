@@ -17,7 +17,7 @@ export default {
     data() {
         return {
             title: "expense_implementing_result",
-            api: apiConfig._apiObjective,
+            api: apiConfig._apiUnit,
             dataAttributes: {
                 tableStyle: 6,
                 page_number: 1,

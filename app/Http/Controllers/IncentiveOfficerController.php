@@ -170,7 +170,7 @@ class IncentiveOfficerController extends Controller
      */
     public function destroy($id)
     {
-        $table = IncentiveOfficer::where('id', $id)->delete();
+        $table = IncentiveOfficer::where('id', $id)->update(["status" => 4]);
         if($table){
             $status = 200;
             $boolen = true;

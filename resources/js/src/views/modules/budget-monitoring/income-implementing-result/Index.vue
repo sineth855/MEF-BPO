@@ -15,10 +15,10 @@
                 </template> -->
             </vx-input-group>
             <div class="flex items-center">
-                <vs-button class="mb-base mr-3" type="border" icon-pack="feather"
-                    icon="icon icon-download">{{ $t('Download') }}</vs-button>
-                <vs-button class="mb-base mr-3" icon-pack="feather" icon="icon icon-file"
-                    @click="printInvoice">{{ $t("Print") }}</vs-button>
+                <vs-button class="mb-base mr-3" type="border" icon-pack="feather" icon="icon icon-download">{{
+                    $t('Download') }}</vs-button>
+                <vs-button class="mb-base mr-3" icon-pack="feather" icon="icon icon-file" @click="printInvoice">{{
+                    $t("Print") }}</vs-button>
             </div>
         </div>
 
@@ -42,7 +42,7 @@
                 <vx-card title="" title-color="#fff" card-background="#3fccca" content-color="#fff" code-toggler
                     @click="initProPlan(1)" color="primary">
                     <center>
-                        <h5 class="pb-4" style="line-height: 30px;"><b>{{$t('income_implementing_result')}}</b></h5>
+                        <h5 class="pb-4" style="line-height: 30px;"><b>{{ $t('income_implementing_result') }}</b></h5>
                     </center>
                 </vx-card>
             </div>
@@ -67,7 +67,7 @@ export default {
     data() {
         return {
             title: "income_expense_implementing_result",
-            popupActive: true,
+            popupActive: false,
             mailTo: "",
             proPlan: 1,
         }

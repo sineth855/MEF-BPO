@@ -32,6 +32,7 @@ export default {
             },
             dataHeaders: {
                 header1: "entity",
+                header22: "role",
                 header2: "name",
                 header3: "email",
                 header4: "position",
@@ -88,12 +89,12 @@ export default {
                 },
                 {
                     name: "password",
-                    type: "hidden",
+                    type: "password",
                     required: true
                 },
                 {
                     name: "confirm_password",
-                    type: "hidden",
+                    type: "password",
                     required: true
                 },
 

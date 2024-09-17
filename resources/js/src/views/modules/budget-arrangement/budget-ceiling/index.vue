@@ -1,19 +1,20 @@
 <template>
     <div>
-        <form-ceiling ref="refOpenPrivatePopupForm" :api="dataAttributes.api" :dataAttributes="dataAttributes"
-            :dataInfo="dataInfo"></form-ceiling>
-        <d-table-list @clicked="initTableData" :api="api" ref="refInitPage" :allowDel="true" :title="title"
-            :dataInfo="dataInfo" :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data"
-            :formAttributes="formAttributes" :rowDisplay="rowDisplay" @clickPrivateForm="initOpenForm"></d-table-list>
+        <form-ceiling-entity ref="refOpenPrivatePopupForm" :api="dataAttributes.api" :dataAttributes="dataAttributes"
+        :dataInfo="dataInfo" />
+        <DTableList @clicked="initTableData" :api="api" ref="refInitPage" :allowDel="true" :title="title" 
+        :dataInfo="dataInfo" :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data" 
+        :formAttributes="formAttributes" :rowDisplay="rowDisplay" @clickPrivateForm="initOpenForm" @initDownload="initDownload"/>
     </div>
 </template>
 
 <script>
-import axios from "@/axios.js";
-import apiConfig from "@/apiConfig.js";
+import axios from "@/axios.js"
+import apiConfig from "@/apiConfig.js"
 import { ref } from 'vue';
-import FormCeiling from '@/views/modules/budget-arrangement/budget-ceiling/_FormCeilingEntity.vue';
 import DTableList from '@/views/form-builder/DTableList.vue'
+import DForm from '@/views/form-builder/DForm.vue'
+import FormCeilingEntity from '@/views/modules/budget-arrangement/budget-ceiling/_FormCeilingEntity.vue';
 
 export default {
     data() {
@@ -21,6 +22,8 @@ export default {
             title: "CeilingBudget",
             api: apiConfig._apiCeilingRule,
             dataAttributes: {
+                popupFullscreen: true,
+                enableDownload: true,
                 api: apiConfig._apiCeilingEntity,
                 tableStyle: 1,
                 page_number: 1,
@@ -33,21 +36,6 @@ export default {
                         method: "PrivateForm",
                         allow: true
                     },
-                    // {
-                    //     icon: "DollarSignIcon",
-                    //     path: "/module/budget-arrangement/budget-ceiling/list",
-                    //     method: "View"
-                    // },
-                    // {
-                    //     icon: "EditIcon",
-                    //     path: "#",
-                    //     method: "Edit"
-                    // },
-                    // {
-                    //     icon: "TrashIcon",
-                    //     path: "#",
-                    //     method: "Edit"
-                    // },
                 ]
             },
             dataHeaders: {
@@ -66,7 +54,6 @@ export default {
                         issue_date: "2022",
                         status: "បានអនុម័ត",
                     },
-
                 ],
                 status: [
                     {
@@ -116,14 +103,19 @@ export default {
             ],
             rowDisplay: "2grid", //1grid, 2grid, 3grid, 4grid
             dataFields: [],
-            dataInfo: {}
+            dataInfo: []
         }
     },
     components: {
-        FormCeiling,
         DTableList,
+        DForm,
+        FormCeilingEntity,
     },
     methods: {
+        initDownload() {
+            const _base_url = window.location.origin;
+            window.location = _base_url + '/download/Ceiling/2023/BSP2023-2025-PB2023-Ceilings-data.xlsx';
+        },
         getDataTable(_search_criteria) {
             let _params = {};
             if (_search_criteria.search_field) {

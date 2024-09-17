@@ -150,7 +150,7 @@ class KPIProgramController extends Controller
 
     public function dataForm($input){
         $arr = $input;
-        $push_array = array_merge(array(["planning_id" => config_planning_year, "modified_by" => Auth::user()->id]));
+        $push_array = array_merge(array(["modified_by" => Auth::user()->id, "planning_id" => config_planning_year]));
         $arraySingle = array_merge($arr, $push_array);
         $result = call_user_func_array('array_merge', $arraySingle);
         $dataFields = $result;

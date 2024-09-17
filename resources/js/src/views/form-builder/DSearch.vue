@@ -18,6 +18,15 @@
                         class="mt-2 w-full" />
                 </div>
 
+                <!-- Form Input Number -->
+                <div v-if="formAttribute.type == 'hidden' && formAttribute.required" :class="styleClass" dclass="mt-4">
+                    <label>{{ $t(formAttribute.name) }} -- {{data[formAttribute.name]}} - {{form.attribute[formAttribute.name]}}</label>
+                    <vs-input type="number" :placeholder="$t(formAttribute.name)"
+                        v-model="form.attribute[formAttribute.name]" 
+                        :name="formAttribute.name" size="small"
+                        class="mt-2 w-full" />
+                </div>
+
                 <!-- Form Select -->
                 <div v-if="formAttribute.type == 'select' && formAttribute.required" :class="styleClass" dclass="mt-4">
                     <label class="mb-2">{{ $t(formAttribute.name) }} <span v-if="formAttribute.required">*</span></label>
@@ -159,15 +168,12 @@ export default {
     },
     methods: {
         onInitChange($event, _formAttribute, _formName, _apiRequest) {
-            // if (!this.validateForm) return
-            // alert(_apiRequest);
             let _data = {
                 autocomplete: true,
                 param: this.form.attribute[_formName]
             };
             this.form.attribute[_formAttribute] = null;
             this.data[_formAttribute] = [];
-            // alert(this.form.attribute[_formName]);
             return new Promise((resolve, reject) => {
                 axios.post(_apiRequest, _data)
                     .then((response) => {
@@ -238,7 +244,14 @@ export default {
         }
     },
     mounted() {
-
+        // this.formAttributes.forEach((formAttribute, i) => {
+        //     if(formAttribute.type == 'hidden'){
+        //     }
+        //     this.form.attribute[formAttribute.name] = this.data[formAttribute.name];
+        //     // arr.push(value);
+        //     // console.log(value);
+        //     // console.log(index);
+        // });
     },
     created() {
         if (this.rowDisplay == "1grid") {

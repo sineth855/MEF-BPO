@@ -2,7 +2,7 @@
   <div id="table-demo">
     <d-table-list @clicked="initTableData" :api="api" ref="refInitPage" :allowDel="true" :title="title"
       :dataInfo="dataInfo" :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data"
-      :formAttributes="formAttributes" :rowDisplay="rowDisplay"></d-table-list>
+      :formAttributes="formAttributes" :rowDisplay="rowDisplay" @initDownload="initDownload"></d-table-list>
   </div>
 </template>
 
@@ -24,6 +24,7 @@ export default {
         page_number: 1,
         offset: 0,
         dataGrid: "row",
+        enableDownload: true,
         actionButton: [
           {
             icon: "ViewIcon",
@@ -479,6 +480,10 @@ export default {
     DTableList,
   },
   methods: {
+    initDownload() {
+      const _base_url = window.location.origin;
+      window.location = _base_url + '/download/PIP/2023/2.4-MEF-PIP Status 2023-2025.xlsx';
+    },
     getDataTable(_search_criteria) {
       let _params = {};
       if (_search_criteria.search_field) {

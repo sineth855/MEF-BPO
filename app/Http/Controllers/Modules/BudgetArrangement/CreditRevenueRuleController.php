@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Modules\BudgetArrangement;
 
 use App\Http\Controllers\Controller;
 use App\Models\Modules\BudgetArrangement\CreditRevenueRule;
+use App\Models\Settings\AccountGroup;
+use App\Models\Settings\AccountType;
+use App\Models\Settings\Account;
 use Illuminate\Http\Request;
 use Auth;
 use DB;
@@ -65,7 +68,7 @@ class CreditRevenueRuleController extends Controller
         //     "data_fields" => $this->dataFields(),
         //     "data" => $table,
         //     "limit" => config_limit,
-        //     "total" => $this->db_table->count()
+        //     "total" =>collect($whereClause->count())
         // );
         $status = array(
             [
@@ -85,6 +88,9 @@ class CreditRevenueRuleController extends Controller
         
         $data = array(
             "data_fields" => $this->dataFields(),
+            "account_group_id" => AccountGroup::getAccGroups(),
+            "account_type_id" => AccountGroup::getAccTypes(),
+            "account_id" => AccountGroup::getAcc(),
             "data" => $table,
             "status" => $status,
             "limit" => config_limit,
@@ -205,7 +211,7 @@ class CreditRevenueRuleController extends Controller
      */
     public function destroy($id)
     {
-        $table = $this->db_table::where('id', $id)->delete();
+        $table = $this->db_table::where('id', $id)->update(["status" => 4]);
         if($table){
             $status = 200;
             $boolen = true;

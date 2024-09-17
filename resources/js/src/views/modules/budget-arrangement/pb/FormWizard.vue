@@ -6,31 +6,31 @@
             :subtitle="null" finishButtonText="Submit">
 
             <!-- Tab 1 -->
-            <tab-content :title="$t('pb_heading_costing')" class="mb-5" icon="feather icon-home"
+            <tab-content :title="$t('pb_heading_costing')" class="mb-5" icon="feather icon-dollar-sign"
                 :before-change="validateStep2">
                 <step-costing></step-costing>
             </tab-content>
 
             <!-- Tab 2 -->
-            <tab-content :title="$t('pb_heading_pb_revenue')" class="mb-5" icon="feather icon-home"
+            <tab-content :title="$t('pb_heading_pb_revenue')" class="mb-5" icon="feather icon-activity"
                 :before-change="validateStep3">
                 <step-revenue ref="refInitCalRequestRev"></step-revenue>
             </tab-content>
 
             <!-- Tab 3 -->
-            <tab-content :title="$t('pb_heading_pb_expense')" class="mb-5" icon="feather icon-home"
+            <tab-content :title="$t('pb_heading_pb_expense')" class="mb-5" icon="feather icon-clipboard"
                 :before-change="validateStep4">
                 <step-expense ref="refInitCalRequestExp"></step-expense>
             </tab-content>
 
             <!-- Tab 4 -->
-            <tab-content :title="$t('pb_heading_staff_expense')" class="mb-5" icon="feather icon-home"
+            <tab-content :title="$t('pb_heading_staff_expense')" class="mb-5" icon="feather icon-users"
                 :before-change="validateStep5">
                 <step-staff-costing ref="refInitCalRequestStaffCosting"></step-staff-costing>
             </tab-content>
 
             <!-- Tab 5 -->
-            <tab-content :title="$t('pb_heading_target_indicator')" class="mb-5" icon="feather icon-home">
+            <tab-content :title="$t('pb_heading_target_indicator')" class="mb-5" icon="feather icon-codepen">
                 <step-indicator ref="refInitCalRequestIndicator"></step-indicator>
             </tab-content>
 

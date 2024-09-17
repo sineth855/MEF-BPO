@@ -14,7 +14,8 @@ class Circular extends Model
                             'color',
                             'order_level',
                             'remark',
+                            'created_by',
                             'modified_by'
                             ];
-    public $timestamps = true;
+    public $timestamps = false;
 }

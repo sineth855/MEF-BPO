@@ -29,7 +29,7 @@ export default {
     data() {
         return {
             title: "budget_monitor_income_program",
-            api: apiConfig._apiObjective,
+            api: apiConfig._apiUnit,
             dataAttributes: {
                 tableStyle: 8,
                 page_number: 1,

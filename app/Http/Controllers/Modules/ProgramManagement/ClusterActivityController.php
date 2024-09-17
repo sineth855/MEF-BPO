@@ -48,7 +48,7 @@ class ClusterActivityController extends Controller
         $filter = CommonService::getFilter($input);
         
         $subPrograms = SubProgram::getSubPrograms();
-        $entities = Entity::getEntities();
+        $entities = Entity::getEntityOpts();
         $entity_members = [];
         
         $data = array(
@@ -183,7 +183,7 @@ class ClusterActivityController extends Controller
      */
     public function destroy($id)
     {
-        $table = $this->db_table::where('id', $id)->delete();
+        $table = $this->db_table::where('id', $id)->update(["status" => 4]);
         if($table){
             $status = 200;
             $boolen = true;

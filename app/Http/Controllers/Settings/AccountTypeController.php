@@ -45,7 +45,7 @@ class AccountTypeController extends Controller
         $dataFields = $this->dataFields();
         $filter = CommonService::getFilter($input);
         
-        $accountTypeGroups = AccountTypeGroup::getAccountTypeGroups();
+        $accountTypeGroups = AccountTypeGroup::getAccountTypeGroupOptions($filter);
         
         $data = array(
             "data_fields" => $this->dataFields(),
@@ -76,15 +76,16 @@ class AccountTypeController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
-        $table = $this->db_table::create($input);
+        $dataFields = $this->dataForm($input);
+        $table = $this->db_table::create($dataFields);
         if($table){
             $status = 200;
             $boolen = true;
-            $message = trans('account_group.message_success');
+            $message = trans('common.msg_save_successfully');
         }else{
             $status = 500;
             $boolen = false;
-            $message = trans('account_group.message_error');
+            $message = trans('common.error_msg');
         }
         $data = array(
             "success" => $boolen,
@@ -102,7 +103,7 @@ class AccountTypeController extends Controller
      */
     public function show($id)
     {
-        $table = $this->db_table::find($id);
+        $table = $table=$this->db_table::find($id);
         $data = array(
             "data" => $table
         );
@@ -130,15 +131,17 @@ class AccountTypeController extends Controller
     public function update(Request $request, $id)
     {
         $input = $request->all();
-        $table = $this->db_table::where('id', $id)->update($input);
+        $dataFields = $this->dataForm($input);
+        $table = $table=$this->db_table::find($id);
+        $table->update($dataFields);
         if($table){
             $status = 200;
             $boolen = true;
-            $message = trans('account_group.message_update');
+            $message = trans('common.msg_update_successfully');
         }else{
             $status = 500;
             $boolen = false;
-            $message = trans('account_group.message_error');
+            $message = trans('common.error_msg');
         }
         $data = array(
             "success" => $boolen,
@@ -152,7 +155,7 @@ class AccountTypeController extends Controller
         $arr = $input;
         $push_array = array_merge(array(["created_by" => Auth::user()->id]));
         $arraySingle = array_merge($arr, $push_array);
-        $result = call_user_func_array('array_merge', $arraySingle);
+        $result = call_user_func_array("array_merge",$arraySingle);
         $dataFields = $result;
         return $dataFields;
     }
@@ -165,7 +168,8 @@ class AccountTypeController extends Controller
      */
     public function destroy($id)
     {
-        $table = $this->db_table::where('id', $id)->update(["is_delete" => 1]);
+        $table=$this->db_table::find($id);
+$table->update(["status" => 4]);
         if($table){
             $status = 200;
             $boolen = true;

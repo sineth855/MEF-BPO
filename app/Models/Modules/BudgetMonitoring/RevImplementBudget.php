@@ -13,9 +13,9 @@ class RevImplementBudget extends Model
     protected $fillable = [
                             "planning_id",
                             "entity_id",
-                            "is_delete",
+                            "status",
                             "created_by",
-                            "updated_by"
+                            "modified_by"
                         ];
                         
     public $timestamps = true;

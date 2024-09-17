@@ -387,8 +387,6 @@ export default {
                 this.$vs.loading.close();
             })
         },
-
-
         getDataTable(_search_criteria) {
             let _params = {};
             if (_search_criteria.search_field) {

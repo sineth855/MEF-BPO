@@ -2,7 +2,8 @@
     <div class="flex items-center">
         <d-table-list @clicked="initTableData" :api="api" ref="refInitPage" :allowDel="true" :title="title"
             :dataInfo="dataInfo" :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data"
-            :formAttributes="formAttributes" :rowDisplay="rowDisplay" @emitDataForm="initDataForm"></d-table-list>
+            :formAttributes="formAttributes" :rowDisplay="rowDisplay" @emitDataForm="initDataForm"
+            @initDownload="initDownload"></d-table-list>
     </div>
 </template>
 
@@ -19,6 +20,7 @@ export default {
             title: "bsp_heading_subpro_res_entity",
             api: apiConfig._apiObjective,
             dataAttributes: {
+                enableDownload: true,
                 tableStyle: 4,
                 page_number: 1,
                 offset: 0,
@@ -310,6 +312,10 @@ export default {
         DTableList,
     },
     methods: {
+        initDownload() {
+            const _base_url = window.location.origin;
+            window.location = _base_url + '/download/Program/Program.xlsx';
+        },
         initDataForm() {
             // alert("testing");
         },

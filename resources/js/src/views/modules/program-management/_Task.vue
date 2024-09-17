@@ -4,7 +4,8 @@
             :dataInfo="dataInfo"></form-task>
         <d-table-list @clicked="initTableData" :api="api" ref="refInitPage" :allowDel="true" :title="title"
             :dataInfo="dataInfo" :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data"
-            :formAttributes="formAttributes" :rowDisplay="rowDisplay" @clickPrivateForm="initOpenForm"></d-table-list>
+            :formAttributes="formAttributes" :rowDisplay="rowDisplay" @clickPrivateForm="initOpenForm"
+            @initDownload="initDownload"></d-table-list>
     </div>
 </template>
 
@@ -22,6 +23,7 @@ export default {
             title: "task",
             api: apiConfig._apiActivity,
             dataAttributes: {
+                enableDownload: true,
                 api: apiConfig._apiGetTaskDetail,
                 tableStyle: 12,
                 page_number: 1,
@@ -545,20 +547,26 @@ export default {
                 //     api: apiConfig._apiMemberByEntity,
                 // },
                 {
+                    name: "program_id",
+                    type: "select",
+                    required: true,
+                    hasFilter: true,
+                    filterObj: "sub_program_id",
+                    api: apiConfig._apiSubProgramByPro
+                },
+                {
                     name: "sub_program_id",
                     type: "select",
                     required: true,
                     hasFilter: true,
                     filterObj: "cluster_activity_id",
-                    api: apiConfig._apiGetClusterActivity,
+                    api: apiConfig._apiEntityBySubPro
                 },
                 {
                     name: "cluster_activity_id",
                     type: "select",
                     required: true,
-                    hasFilter: true,
-                    filterObj: "activity_id",
-                    api: apiConfig._apiGetActivity,
+                    hasFilter: false,
                 },
                 {
                     name: "activity_id",
@@ -654,6 +662,10 @@ export default {
         DTableList
     },
     methods: {
+        initDownload() {
+            const _base_url = window.location.origin;
+            window.location = _base_url + '/download/PB/2023/Costings.xlsx';
+        },
         getDataTable(_search_criteria) {
             let _params = {};
             if (_search_criteria.search_field) {

@@ -12,6 +12,8 @@ class Location extends Model
                             "name_kh",
                             'remark',
                             'order_level',
+                            'created_by',
+                            'modified_by'
                           ];
-    public $timestamps = true;
+    public $timestamps = false;
 }

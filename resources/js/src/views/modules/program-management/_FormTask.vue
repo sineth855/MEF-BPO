@@ -104,6 +104,17 @@ export default {
                 popupFullscreen: true,
                 hideSearchBar: false
             },
+            dataInfo: {
+                entity: "entity",
+                entity_member: "entity_member",
+                cluster_activity_id: "cluster_activity_id",
+                activity_id: "activity_id",
+                name_en: "name_en",
+                name_kh: "name_kh",
+                start_date: "start_date",
+                end_date: "end_date",
+                assign_to: ""
+            },
             dataHeaders: {
                 header1: "account_code",//"ប្រភេទ​តារាងតម្លៃ",
                 header2: "sub_account_code",//"តារាង​តម្លៃ",
@@ -120,17 +131,6 @@ export default {
                 header11: "month",//"ខែ",
                 header12: "expense_type",//"មុខសញ្ញា",
                 // header13: "remark",//"ផ្សេងៗ",
-            },
-            dataInfo: {
-                entity: "entity",
-                entity_member: "entity_member",
-                cluster_activity_id: "cluster_activity_id",
-                activity_id: "activity_id",
-                name_en: "name_en",
-                name_kh: "name_kh",
-                start_date: "start_date",
-                end_date: "end_date",
-                assign_to: ""
             },
             data: {},
             formAttributes: [

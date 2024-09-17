@@ -14,11 +14,11 @@ import DTableList from '@/views/form-builder/DTableList.vue';
 export default {
   data() {
     return {
-      title: "income_implementing_result",
+      title: "តារាងបញ្ជីចលនាឥណទាន",
       api: apiConfig._apiActivity,
       dataAttributes: {
         backgroundColor: "warning",
-        tableStyle: 2,
+        tableStyle: 1,
         page_number: 1,
         offset: 0,
         dataGrid: "row",
@@ -38,51 +38,51 @@ export default {
       },
       data: {
         data: [
-          {
-            // id: 1,
-            // code: "",
-            // name_en: "#120 - ចង្កោមសកម្មភាព",
-            // name_kh: "#120 - ចង្កោមសកម្មភាព",
-            // children: [
-            //     {
-            //         id: 1,
-            //         credit_movement_type: 1,
-            //         code: "001",
-            //         name_en: "#001 - សកម្មភាពទី ១",
-            //         name_kh: "#001 - សកម្មភាពទី ១",
-            //         entity_id: 1,
-            //         entity_member_id: 2,
-            //         order_level: 1,
-            //         indicator: {
-            //             data: [
-            //                 {
-            //                     id: 1,
-            //                     code: "#1.3.10-1",
-            //                     kpi_name_en: "ឈ្មោះសូចនាករ",
-            //                     kpi_name_kh: "ឈ្មោះសូចនាករ",
-            //                     order_level: 1,
-            //                     status: "Active"
-            //                 }, {
-            //                     id: 2,
-            //                     code: "#1.3.10-2",
-            //                     kpi_name_en: "ឈ្មោះសូចនាករ",
-            //                     kpi_name_kh: "ឈ្មោះសូចនាករ",
-            //                     order_level: 1,
-            //                     status: "Active"
-            //                 }, {
-            //                     id: 3,
-            //                     code: "#1.3.10-3",
-            //                     kpi_name_en: "ឈ្មោះសូចនាករជាភាសាអង់គ្លេស",
-            //                     kpi_name_kh: "ឈ្មោះសូចនាករជាភាសាអង់គ្លេស",
-            //                     order_level: 1,
-            //                     status: "InActive"
-            //                 }
-            //             ]
-            //         },
-            //     }
+          // {
+          //   // id: 1,
+          //   // code: "",
+          //   // name_en: "#120 - ចង្កោមសកម្មភាព",
+          //   // name_kh: "#120 - ចង្កោមសកម្មភាព",
+          //   // children: [
+          //   //     {
+          //   //         id: 1,
+          //   //         credit_movement_type: 1,
+          //   //         code: "001",
+          //   //         name_en: "#001 - សកម្មភាពទី ១",
+          //   //         name_kh: "#001 - សកម្មភាពទី ១",
+          //   //         entity_id: 1,
+          //   //         entity_member_id: 2,
+          //   //         order_level: 1,
+          //   //         indicator: {
+          //   //             data: [
+          //   //                 {
+          //   //                     id: 1,
+          //   //                     code: "#1.3.10-1",
+          //   //                     kpi_name_en: "ឈ្មោះសូចនាករ",
+          //   //                     kpi_name_kh: "ឈ្មោះសូចនាករ",
+          //   //                     order_level: 1,
+          //   //                     status: "Active"
+          //   //                 }, {
+          //   //                     id: 2,
+          //   //                     code: "#1.3.10-2",
+          //   //                     kpi_name_en: "ឈ្មោះសូចនាករ",
+          //   //                     kpi_name_kh: "ឈ្មោះសូចនាករ",
+          //   //                     order_level: 1,
+          //   //                     status: "Active"
+          //   //                 }, {
+          //   //                     id: 3,
+          //   //                     code: "#1.3.10-3",
+          //   //                     kpi_name_en: "ឈ្មោះសូចនាករជាភាសាអង់គ្លេស",
+          //   //                     kpi_name_kh: "ឈ្មោះសូចនាករជាភាសាអង់គ្លេស",
+          //   //                     order_level: 1,
+          //   //                     status: "InActive"
+          //   //                 }
+          //   //             ]
+          //   //         },
+          //   //     }
 
-            // ]
-          }
+          //   // ]
+          // }
         ],
         cluster_activity: [
           {
@@ -211,15 +211,16 @@ export default {
           options: [],
         },
         {
-          name: "cluster_activity",
+          name: "sub_program_id",
           type: "select",
           required: true,
           options: [],
         },
         {
-          name: "sub_program",
-          type: "text",
-          required: true
+          name: "cluster_activity_id",
+          type: "select",
+          required: true,
+          options: [],
         },
         {
           name: "year",

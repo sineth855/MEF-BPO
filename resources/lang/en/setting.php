@@ -11,4 +11,5 @@
         'entry_expenditure_group' => "ក្រុមចំណាយ",
         'entry_expenditure_type' => "ប្រភេទចំណាយ",
         'entry_auditrail_title' => "ប្រវត្តចូលប្រើប្រាស់ប្រព័ន្ធ",
+        'entry_price_chart_title' => "តារាងតម្លៃ",
     ];

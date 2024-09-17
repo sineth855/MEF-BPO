@@ -49,7 +49,7 @@ class ProgramController extends Controller
         $filter = CommonService::getFilter($input);
 
         $objectives = Objective::getObjectives();
-        $entities = Entity::getEntities();
+        $entities = Entity::getEntityOpts();
         $entity_members = EntityMember::getMembers();
         $programs = Program::getPrograms("");
 
@@ -222,7 +222,7 @@ class ProgramController extends Controller
      */
     public function destroy($id)
     {
-        $table = $this->db_table::where('id', $id)->delete();
+        $table = $this->db_table::where('id', $id)->update(["status" => 4]);
         if($table){
             $status = 200;
             $boolen = true;
