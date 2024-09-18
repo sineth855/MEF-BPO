@@ -267,7 +267,7 @@
                             <template v-for="  row3   in   row.dataDetails  ">
                                 <vs-tr style="background-color: #fffde5">
                                     <td>{{ row3.name }}</td>
-                                    <td :key="index4" v-for="(  row, index4  ) in   row.values  ">{{ row }}</td>
+                                    <td :key="index4" v-for="(  row, index4  ) in   row3.values  ">{{ row }}</td>
                                     <td>
                                         <template v-if="dataAttributes.hasPrivateButton">
                                             <feather-icon style="cursor: pointer;" icon="EditIcon"
@@ -298,7 +298,6 @@
                     </tbody>
                 </template>
             </vs-table>
-
 
             <vs-table v-if="dataTables.data && dataAttributes.tableStyle == 4" :max-items="dataTables.limit"
                 :data="dataTables.data" style="overflow: scroll">
@@ -612,6 +611,7 @@
             <vs-table v-if="dataTables.data && dataAttributes.tableStyle == 7" :max-items="dataTables.limit"
                 :data="dataTables.data" style="overflow: scroll">
                 <template slot-scope="{data}">
+
                     <vs-tr>
                         <vs-td :style="style(header)" :key="i" v-for="(  header, i  ) in   dataHeaders  "
                             :colspan="colspan(header)" :rowspan="rowspan(header)">
@@ -636,43 +636,42 @@
                             :rowspan="rowspan(header)"><small>{{ header.label }}</small></vs-td>
                     </vs-tr>
 
-                    <tbody>
-                        <template v-for="  ptr   in   data  ">
-                            <vs-tr :key="cindex" v-for="(  cusField, cindex  ) in   dataTables.group_fields  "
-                                style="color: #f00;">
-                                <td :key="scindex" v-for="(  scfield, scindex  ) in   ptr[cusField]  ">
-                                    <center>{{ scfield }}</center>
-                                </td>
-                            </vs-tr>
-                        </template>
+                    <tbody :key="pindextr" v-for="(  ptr, pindextr  ) in   data  ">
 
-                        <template v-for="  ptr   in   data  ">
-                            <vs-tr>
+                        <!-- <vs-tr :key="cindex" v-for="(  cusField, cindex  ) in   dataTables.group_fields  "
+                            style="background-color: rgb(240 240 240);">
+                            <td :key="scindex" v-for="(  scfield, scindex  ) in   ptr[cusField]  ">
+                                <center>{{ scfield }}</center>
+                            </td>
+                        </vs-tr> -->
+                        <vs-tr :key="pindextr" style="background-color: rgb(240 240 240);">
+                            <td colspan="6">{{ptr.entity.name}}</td>
+                        </vs-tr>
+                        <template v-for="  parent   in   ptr.children  ">
+                            <vs-tr style="background-color: rgb(178, 255, 217);">
                                 <vs-td :key="sindex" v-for="(  dataField, sindex  ) in   dataTables.dataFillables  ">
-                                    <center>{{ ptr[dataField] }} </center>
+                                    {{ parent[dataField] }}
                                 </vs-td>
                             </vs-tr>
 
-                            <vs-tr :key="sindex" v-for="(  schild, sindex  ) in   ptr.children  ">
-                                <vs-td :key="sindex" v-for="(  dataField, sindex  ) in   dataTables.dataFillables  ">{{
-                                    schild[dataField] }}</vs-td>
-                            </vs-tr>
-
-                            <template v-for="  sdata   in   ptr.data  ">
-                                <vs-tr>
-                                    <vs-td :key="sindex" v-for="(  dataField, sindex  ) in   dataTables.dataFillables  ">{{
-                                        sdata[dataField] }}</vs-td>
+                            <template v-for="  child   in   parent.children  ">
+                                <vs-tr style="background-color: rgb(255, 253, 229);">
+                                    <vs-td :key="sindex" v-for="(  dataField, sindex  ) in   dataTables.dataFillables  ">
+                                        {{ child[dataField] }}
+                                    </vs-td>
                                 </vs-tr>
-                                <vs-tr :key="sindex" v-for="(  schild, sindex  ) in   sdata.children  ">
-                                    <vs-td :key="sindex" v-for="(  dataField, sindex  ) in   dataTables.dataFillables  ">{{
-                                        schild[dataField] }}</vs-td>
+
+                                <vs-tr :key="sindex" v-for="(  schild, sindex  ) in   child.children  ">
+                                    <vs-td :key="sindex" v-for="(  dataField, sindex  ) in   dataTables.dataFillables  ">
+                                        {{ schild[dataField] }}
+                                    </vs-td>
                                 </vs-tr>
                             </template>
                         </template>
                     </tbody>
                 </template>
             </vs-table>
-
+            
             <!-- Income Form -->
             <vs-table v-if="dataTables.data && dataAttributes.tableStyle == 8" :max-items="dataTables.limit"
                 :data="dataTables.data" style="overflow: scroll">
@@ -712,53 +711,54 @@
                         </vs-tr>
 
                         <!-- <template v-for="ctr in ptr"> -->
-                        <vs-tr style="background: #28C76F">
-                            <vs-td colspan="4">{{ ptr.department }}</vs-td>
-                            <vs-td>{{ ptr.total_finance_rule }}</vs-td>
+                        <vs-tr style="background: #b2ffd9">
+                            <vs-td colspan="3"></vs-td>
+                            <vs-td>{{ ptr.entity }}</vs-td>
+                            <vs-td>{{ ptr.finance_law }}</vs-td>
                             <vs-td>{{ ptr.total_amount }}</vs-td>
                             <vs-td>{{ ptr.total_percentage_implementing_rule }}</vs-td>
 
                             <!-- Semester 1 -->
-                            <vs-td>{{ ptr.costing_plan_semester1.year_planning.total_amount }}</vs-td>
-                            <vs-td>{{ ptr.costing_plan_semester1.year_planning.amount_plan_month_1 }}</vs-td>
-                            <vs-td>{{ ptr.costing_plan_semester1.year_planning.amount_plan_month_2 }}</vs-td>
-                            <vs-td>{{ ptr.costing_plan_semester1.year_planning.amount_plan_month_3 }}</vs-td>
+                            <vs-td>{{ ptr.costing_plan_semester1.year_planning.s1_total_bp }}</vs-td>
+                            <vs-td>{{ ptr.costing_plan_semester1.year_planning.s1_bp_jan }}</vs-td>
+                            <vs-td>{{ ptr.costing_plan_semester1.year_planning.s1_bp_feb }}</vs-td>
+                            <vs-td>{{ ptr.costing_plan_semester1.year_planning.s1_bp_mar }}</vs-td>
 
-                            <vs-td>{{ ptr.costing_plan_semester1.impl_est.impl_est_amount }}</vs-td>
-                            <vs-td>{{ ptr.costing_plan_semester1.impl_est.imple_amount_plan_month_1 }}</vs-td>
-                            <vs-td>{{ ptr.costing_plan_semester1.impl_est.imple_amount_plan_month_2 }}</vs-td>
-                            <vs-td>{{ ptr.costing_plan_semester1.impl_est.imple_amount_plan_month_3 }}</vs-td>
+                            <vs-td>{{ ptr.costing_plan_semester1.impl_est.s1_total_est_imp }}</vs-td>
+                            <vs-td>{{ ptr.costing_plan_semester1.impl_est.s1_est_imp_jan }}</vs-td>
+                            <vs-td>{{ ptr.costing_plan_semester1.impl_est.s1_est_imp_feb }}</vs-td>
+                            <vs-td>{{ ptr.costing_plan_semester1.impl_est.s1_est_imp_mar }}</vs-td>
 
                             <!-- Semester 2 -->
-                            <vs-td>{{ ptr.costing_plan_semester2.year_planning.total_amount }}</vs-td>
-                            <vs-td>{{ ptr.costing_plan_semester2.year_planning.amount_plan_month_4 }}</vs-td>
-                            <vs-td>{{ ptr.costing_plan_semester2.year_planning.amount_plan_month_5 }}</vs-td>
-                            <vs-td>{{ ptr.costing_plan_semester2.year_planning.amount_plan_month_6 }}</vs-td>
+                            <vs-td>{{ ptr.costing_plan_semester2.year_planning.s2_total_bp }}</vs-td>
+                            <vs-td>{{ ptr.costing_plan_semester2.year_planning.s2_bp_apr }}</vs-td>
+                            <vs-td>{{ ptr.costing_plan_semester2.year_planning.s2_bp_may }}</vs-td>
+                            <vs-td>{{ ptr.costing_plan_semester2.year_planning.s2_bp_jun }}</vs-td>
 
-                            <vs-td>{{ ptr.costing_plan_semester2.impl_est.impl_est_amount }}</vs-td>
-                            <vs-td>{{ ptr.costing_plan_semester2.impl_est.imple_amount_plan_month_4 }}</vs-td>
-                            <vs-td>{{ ptr.costing_plan_semester2.impl_est.imple_amount_plan_month_5 }}</vs-td>
-                            <vs-td>{{ ptr.costing_plan_semester2.impl_est.imple_amount_plan_month_6 }}</vs-td>
+                            <vs-td>{{ ptr.costing_plan_semester2.impl_est.s2_total_est_imp }}</vs-td>
+                            <vs-td>{{ ptr.costing_plan_semester2.impl_est.s2_est_imp_apr }}</vs-td>
+                            <vs-td>{{ ptr.costing_plan_semester2.impl_est.s2_est_imp_may }}</vs-td>
+                            <vs-td>{{ ptr.costing_plan_semester2.impl_est.s1_est_imp_jun }}</vs-td>
                             <!-- Semester 3 -->
-                            <vs-td>{{ ptr.costing_plan_semester3.year_planning.total_amount }}</vs-td>
-                            <vs-td>{{ ptr.costing_plan_semester3.year_planning.amount_plan_month_7 }}</vs-td>
-                            <vs-td>{{ ptr.costing_plan_semester3.year_planning.amount_plan_month_8 }}</vs-td>
-                            <vs-td>{{ ptr.costing_plan_semester3.year_planning.amount_plan_month_9 }}</vs-td>
+                            <vs-td>{{ ptr.costing_plan_semester3.year_planning.s3_total_pb }}</vs-td>
+                            <vs-td>{{ ptr.costing_plan_semester3.year_planning.s3_bp_jul }}</vs-td>
+                            <vs-td>{{ ptr.costing_plan_semester3.year_planning.s3_bp_aug }}</vs-td>
+                            <vs-td>{{ ptr.costing_plan_semester3.year_planning.s3_bp_sep }}</vs-td>
 
-                            <vs-td>{{ ptr.costing_plan_semester3.impl_est.impl_est_amount }}</vs-td>
-                            <vs-td>{{ ptr.costing_plan_semester3.impl_est.imple_amount_plan_month_7 }}</vs-td>
-                            <vs-td>{{ ptr.costing_plan_semester3.impl_est.imple_amount_plan_month_8 }}</vs-td>
-                            <vs-td>{{ ptr.costing_plan_semester3.impl_est.imple_amount_plan_month_9 }}</vs-td>
+                            <vs-td>{{ ptr.costing_plan_semester3.impl_est.s3_total_est_imp }}</vs-td>
+                            <vs-td>{{ ptr.costing_plan_semester3.impl_est.s3_est_imp_jul }}</vs-td>
+                            <vs-td>{{ ptr.costing_plan_semester3.impl_est.s3_est_imp_aug }}</vs-td>
+                            <vs-td>{{ ptr.costing_plan_semester3.impl_est.s3_est_imp_sep }}</vs-td>
                             <!-- Semester 4 -->
-                            <vs-td>{{ ptr.costing_plan_semester4.year_planning.total_amount }}</vs-td>
-                            <vs-td>{{ ptr.costing_plan_semester4.year_planning.amount_plan_month_10 }}</vs-td>
-                            <vs-td>{{ ptr.costing_plan_semester4.year_planning.amount_plan_month_11 }}</vs-td>
-                            <vs-td>{{ ptr.costing_plan_semester4.year_planning.amount_plan_month_12 }}</vs-td>
+                            <vs-td>{{ ptr.costing_plan_semester4.year_planning.s4_total_bp }}</vs-td>
+                            <vs-td>{{ ptr.costing_plan_semester4.year_planning.s4_bp_oct }}</vs-td>
+                            <vs-td>{{ ptr.costing_plan_semester4.year_planning.s4_bp_nov }}</vs-td>
+                            <vs-td>{{ ptr.costing_plan_semester4.year_planning.s4_bp_dec }}</vs-td>
 
-                            <vs-td>{{ ptr.costing_plan_semester4.impl_est.impl_est_amount }}</vs-td>
-                            <vs-td>{{ ptr.costing_plan_semester4.impl_est.imple_amount_plan_month_10 }}</vs-td>
-                            <vs-td>{{ ptr.costing_plan_semester4.impl_est.imple_amount_plan_month_11 }}</vs-td>
-                            <vs-td>{{ ptr.costing_plan_semester4.impl_est.imple_amount_plan_month_12 }}</vs-td>
+                            <vs-td>{{ ptr.costing_plan_semester4.impl_est.s4_total_est_imp }}</vs-td>
+                            <vs-td>{{ ptr.costing_plan_semester4.impl_est.s4_est_imp_oct }}</vs-td>
+                            <vs-td>{{ ptr.costing_plan_semester4.impl_est.s4_est_imp_nov }}</vs-td>
+                            <vs-td>{{ ptr.costing_plan_semester4.impl_est.s4_est_imp_dec }}</vs-td>
 
                             <!-- ផ្សេងៗ -->
                             <vs-td>{{ ptr.remark }}</vs-td>
@@ -769,53 +769,53 @@
                                     <center>{{ parent[dataField] }} </center>
                                 </vs-td>
                             </vs-tr> -->
-                            <vs-tr style="background: #b2ffd9">
+                            <vs-tr style="background: #b2ffd9; display: none;">
                                 <vs-td colspan="4">{{ ctr.department }}</vs-td>
-                                <vs-td>{{ ctr.total_finance_rule }}</vs-td>
+                                <vs-td>{{ ctr.finance_law }}</vs-td>
                                 <vs-td>{{ ctr.total_amount }}</vs-td>
                                 <vs-td>{{ ctr.total_percentage_implementing_rule }}</vs-td>
 
                                 <!-- Semester 1 -->
-                                <vs-td>{{ ctr.costing_plan_semester1.year_planning.total_amount }}</vs-td>
-                                <vs-td>{{ ctr.costing_plan_semester1.year_planning.amount_plan_month_1 }}</vs-td>
-                                <vs-td>{{ ctr.costing_plan_semester1.year_planning.amount_plan_month_2 }}</vs-td>
-                                <vs-td>{{ ctr.costing_plan_semester1.year_planning.amount_plan_month_3 }}</vs-td>
+                                <vs-td>{{ ctr.costing_plan_semester1.year_planning.s1_total_bp }}</vs-td>
+                                <vs-td>{{ ctr.costing_plan_semester1.year_planning.s1_bp_jan }}</vs-td>
+                                <vs-td>{{ ctr.costing_plan_semester1.year_planning.s1_bp_feb }}</vs-td>
+                                <vs-td>{{ ctr.costing_plan_semester1.year_planning.s1_bp_mar }}</vs-td>
 
-                                <vs-td>{{ ctr.costing_plan_semester1.impl_est.impl_est_amount }}</vs-td>
-                                <vs-td>{{ ctr.costing_plan_semester1.impl_est.imple_amount_plan_month_1 }}</vs-td>
-                                <vs-td>{{ ctr.costing_plan_semester1.impl_est.imple_amount_plan_month_2 }}</vs-td>
-                                <vs-td>{{ ctr.costing_plan_semester1.impl_est.imple_amount_plan_month_3 }}</vs-td>
+                                <vs-td>{{ ctr.costing_plan_semester1.impl_est.s1_total_est_imp }}</vs-td>
+                                <vs-td>{{ ctr.costing_plan_semester1.impl_est.s1_est_imp_jan }}</vs-td>
+                                <vs-td>{{ ctr.costing_plan_semester1.impl_est.s1_est_imp_feb }}</vs-td>
+                                <vs-td>{{ ctr.costing_plan_semester1.impl_est.s1_est_imp_mar }}</vs-td>
 
                                 <!-- Semester 2 -->
-                                <vs-td>{{ ctr.costing_plan_semester2.year_planning.total_amount }}</vs-td>
-                                <vs-td>{{ ctr.costing_plan_semester2.year_planning.amount_plan_month_4 }}</vs-td>
-                                <vs-td>{{ ctr.costing_plan_semester2.year_planning.amount_plan_month_5 }}</vs-td>
-                                <vs-td>{{ ctr.costing_plan_semester2.year_planning.amount_plan_month_6 }}</vs-td>
+                                <vs-td>{{ ctr.costing_plan_semester2.year_planning.s2_total_bp }}</vs-td>
+                                <vs-td>{{ ctr.costing_plan_semester2.year_planning.s2_bp_apr }}</vs-td>
+                                <vs-td>{{ ctr.costing_plan_semester2.year_planning.s2_bp_may }}</vs-td>
+                                <vs-td>{{ ctr.costing_plan_semester2.year_planning.s2_bp_jun }}</vs-td>
 
-                                <vs-td>{{ ctr.costing_plan_semester2.impl_est.impl_est_amount }}</vs-td>
-                                <vs-td>{{ ctr.costing_plan_semester2.impl_est.imple_amount_plan_month_4 }}</vs-td>
-                                <vs-td>{{ ctr.costing_plan_semester2.impl_est.imple_amount_plan_month_5 }}</vs-td>
-                                <vs-td>{{ ctr.costing_plan_semester2.impl_est.imple_amount_plan_month_6 }}</vs-td>
+                                <vs-td>{{ ctr.costing_plan_semester2.impl_est.s2_total_est_imp }}</vs-td>
+                                <vs-td>{{ ctr.costing_plan_semester2.impl_est.s2_est_imp_apr }}</vs-td>
+                                <vs-td>{{ ctr.costing_plan_semester2.impl_est.s2_est_imp_may }}</vs-td>
+                                <vs-td>{{ ctr.costing_plan_semester2.impl_est.s1_est_imp_jun }}</vs-td>
                                 <!-- Semester 3 -->
-                                <vs-td>{{ ctr.costing_plan_semester3.year_planning.total_amount }}</vs-td>
-                                <vs-td>{{ ctr.costing_plan_semester3.year_planning.amount_plan_month_7 }}</vs-td>
-                                <vs-td>{{ ctr.costing_plan_semester3.year_planning.amount_plan_month_8 }}</vs-td>
-                                <vs-td>{{ ctr.costing_plan_semester3.year_planning.amount_plan_month_9 }}</vs-td>
+                                <vs-td>{{ ctr.costing_plan_semester3.year_planning.s3_total_pb }}</vs-td>
+                                <vs-td>{{ ctr.costing_plan_semester3.year_planning.s3_bp_jul }}</vs-td>
+                                <vs-td>{{ ctr.costing_plan_semester3.year_planning.s3_bp_aug }}</vs-td>
+                                <vs-td>{{ ctr.costing_plan_semester3.year_planning.s3_bp_sep }}</vs-td>
 
-                                <vs-td>{{ ctr.costing_plan_semester3.impl_est.impl_est_amount }}</vs-td>
-                                <vs-td>{{ ctr.costing_plan_semester3.impl_est.imple_amount_plan_month_7 }}</vs-td>
-                                <vs-td>{{ ctr.costing_plan_semester3.impl_est.imple_amount_plan_month_8 }}</vs-td>
-                                <vs-td>{{ ctr.costing_plan_semester3.impl_est.imple_amount_plan_month_9 }}</vs-td>
+                                <vs-td>{{ ctr.costing_plan_semester3.impl_est.s3_total_est_imp }}</vs-td>
+                                <vs-td>{{ ctr.costing_plan_semester3.impl_est.s3_est_imp_jul }}</vs-td>
+                                <vs-td>{{ ctr.costing_plan_semester3.impl_est.s3_est_imp_aug }}</vs-td>
+                                <vs-td>{{ ctr.costing_plan_semester3.impl_est.s3_est_imp_sep }}</vs-td>
                                 <!-- Semester 4 -->
-                                <vs-td>{{ ctr.costing_plan_semester4.year_planning.total_amount }}</vs-td>
-                                <vs-td>{{ ctr.costing_plan_semester4.year_planning.amount_plan_month_10 }}</vs-td>
-                                <vs-td>{{ ctr.costing_plan_semester4.year_planning.amount_plan_month_11 }}</vs-td>
-                                <vs-td>{{ ctr.costing_plan_semester4.year_planning.amount_plan_month_12 }}</vs-td>
+                                <vs-td>{{ ctr.costing_plan_semester4.year_planning.s4_total_bp }}</vs-td>
+                                <vs-td>{{ ctr.costing_plan_semester4.year_planning.s4_bp_oct }}</vs-td>
+                                <vs-td>{{ ctr.costing_plan_semester4.year_planning.s4_bp_nov }}</vs-td>
+                                <vs-td>{{ ctr.costing_plan_semester4.year_planning.s4_bp_dec }}</vs-td>
 
-                                <vs-td>{{ ctr.costing_plan_semester4.impl_est.impl_est_amount }}</vs-td>
-                                <vs-td>{{ ctr.costing_plan_semester4.impl_est.imple_amount_plan_month_10 }}</vs-td>
-                                <vs-td>{{ ctr.costing_plan_semester4.impl_est.imple_amount_plan_month_11 }}</vs-td>
-                                <vs-td>{{ ctr.costing_plan_semester4.impl_est.imple_amount_plan_month_12 }}</vs-td>
+                                <vs-td>{{ ctr.costing_plan_semester4.impl_est.s4_total_est_imp }}</vs-td>
+                                <vs-td>{{ ctr.costing_plan_semester4.impl_est.s4_est_imp_oct }}</vs-td>
+                                <vs-td>{{ ctr.costing_plan_semester4.impl_est.s4_est_imp_nov }}</vs-td>
+                                <vs-td>{{ ctr.costing_plan_semester4.impl_est.s4_est_imp_dec }}</vs-td>
 
                                 <!-- ផ្សេងៗ -->
                                 <vs-td>{{ ctr.remark }}</vs-td>
@@ -824,55 +824,56 @@
                             <!--/*** cctr children in loop children table row data  */ -->
                             <template v-for="  cctr   in   ctr.children  ">
                                 <vs-tr>
-                                    <vs-td>{{ cctr.account_group.code + '-' + cctr.account_group.name }}</vs-td>
-                                    <vs-td>{{ cctr.account.code + "-" + cctr.account.name }}</vs-td>
-                                    <vs-td>{{ cctr.sub_account.code + "-" + cctr.sub_account.name }}</vs-td>
-                                    <vs-td>{{ ctr.department }}</vs-td>
-                                    <vs-td>{{ cctr.total_finance_rule }}</vs-td>
+                                    <vs-td>{{ cctr.account_group.code }}</vs-td>
+                                    <vs-td>{{ cctr.account.code }}</vs-td>
+                                    <vs-td>{{ cctr.sub_account.code }}</vs-td>
+                                    <vs-td>{{ cctr.sub_account.name }}</vs-td>
+                                    <vs-td>{{ cctr.finance_law }}</vs-td>
                                     <vs-td>{{ cctr.total_amount }}</vs-td>
                                     <vs-td>{{ cctr.total_percentage_implementing_rule }}</vs-td>
 
                                     <!-- Semester 1 -->
-                                    <vs-td>{{ cctr.costing_plan_semester1.year_planning.total_amount }}</vs-td>
-                                    <vs-td>{{ cctr.costing_plan_semester1.year_planning.amount_plan_month_1 }}</vs-td>
-                                    <vs-td>{{ cctr.costing_plan_semester1.year_planning.amount_plan_month_2 }}</vs-td>
-                                    <vs-td>{{ cctr.costing_plan_semester1.year_planning.amount_plan_month_3 }}</vs-td>
+                                    <vs-td>{{ cctr.costing_plan_semester1.year_planning.s1_total_bp }}</vs-td>
+                                    <vs-td>{{ cctr.costing_plan_semester1.year_planning.s1_bp_jan }}</vs-td>
+                                    <vs-td>{{ cctr.costing_plan_semester1.year_planning.s1_bp_feb }}</vs-td>
+                                    <vs-td>{{ cctr.costing_plan_semester1.year_planning.s1_bp_mar }}</vs-td>
 
-                                    <vs-td>{{ cctr.costing_plan_semester1.impl_est.impl_est_amount }}</vs-td>
-                                    <vs-td>{{ cctr.costing_plan_semester1.impl_est.imple_amount_plan_month_1 }}</vs-td>
-                                    <vs-td>{{ cctr.costing_plan_semester1.impl_est.imple_amount_plan_month_2 }}</vs-td>
-                                    <vs-td>{{ cctr.costing_plan_semester1.impl_est.imple_amount_plan_month_3 }}</vs-td>
+                                    <vs-td>{{ cctr.costing_plan_semester1.impl_est.s1_total_est_imp }}</vs-td>
+                                    <vs-td>{{ cctr.costing_plan_semester1.impl_est.s1_est_imp_jan }}</vs-td>
+                                    <vs-td>{{ cctr.costing_plan_semester1.impl_est.s1_est_imp_feb }}</vs-td>
+                                    <vs-td>{{ cctr.costing_plan_semester1.impl_est.s1_est_imp_mar }}</vs-td>
 
                                     <!-- Semester 2 -->
-                                    <vs-td>{{ cctr.costing_plan_semester2.year_planning.total_amount }}</vs-td>
-                                    <vs-td>{{ cctr.costing_plan_semester2.year_planning.amount_plan_month_4 }}</vs-td>
-                                    <vs-td>{{ cctr.costing_plan_semester2.year_planning.amount_plan_month_5 }}</vs-td>
-                                    <vs-td>{{ cctr.costing_plan_semester2.year_planning.amount_plan_month_6 }}</vs-td>
+                                    <vs-td>{{ cctr.costing_plan_semester2.year_planning.s2_total_bp }}</vs-td>
+                                    <vs-td>{{ cctr.costing_plan_semester2.year_planning.s2_bp_apr }}</vs-td>
+                                    <vs-td>{{ cctr.costing_plan_semester2.year_planning.s2_bp_may }}</vs-td>
+                                    <vs-td>{{ cctr.costing_plan_semester2.year_planning.s2_bp_jun }}</vs-td>
 
-                                    <vs-td>{{ cctr.costing_plan_semester2.impl_est.impl_est_amount }}</vs-td>
-                                    <vs-td>{{ cctr.costing_plan_semester2.impl_est.imple_amount_plan_month_4 }}</vs-td>
-                                    <vs-td>{{ cctr.costing_plan_semester2.impl_est.imple_amount_plan_month_5 }}</vs-td>
-                                    <vs-td>{{ cctr.costing_plan_semester2.impl_est.imple_amount_plan_month_6 }}</vs-td>
+                                    <vs-td>{{ cctr.costing_plan_semester2.impl_est.s2_total_est_imp }}</vs-td>
+                                    <vs-td>{{ cctr.costing_plan_semester2.impl_est.s2_est_imp_apr }}</vs-td>
+                                    <vs-td>{{ cctr.costing_plan_semester2.impl_est.s2_est_imp_may }}</vs-td>
+                                    <vs-td>{{ cctr.costing_plan_semester2.impl_est.s1_est_imp_jun }}</vs-td>
                                     <!-- Semester 3 -->
-                                    <vs-td>{{ cctr.costing_plan_semester3.year_planning.total_amount }}</vs-td>
-                                    <vs-td>{{ cctr.costing_plan_semester3.year_planning.amount_plan_month_7 }}</vs-td>
-                                    <vs-td>{{ cctr.costing_plan_semester3.year_planning.amount_plan_month_8 }}</vs-td>
-                                    <vs-td>{{ cctr.costing_plan_semester3.year_planning.amount_plan_month_9 }}</vs-td>
+                                    <vs-td>{{ cctr.costing_plan_semester3.year_planning.s3_total_pb }}</vs-td>
+                                    <vs-td>{{ cctr.costing_plan_semester3.year_planning.s3_bp_jul }}</vs-td>
+                                    <vs-td>{{ cctr.costing_plan_semester3.year_planning.s3_bp_aug }}</vs-td>
+                                    <vs-td>{{ cctr.costing_plan_semester3.year_planning.s3_bp_sep }}</vs-td>
 
-                                    <vs-td>{{ cctr.costing_plan_semester3.impl_est.impl_est_amount }}</vs-td>
-                                    <vs-td>{{ cctr.costing_plan_semester3.impl_est.imple_amount_plan_month_7 }}</vs-td>
-                                    <vs-td>{{ cctr.costing_plan_semester3.impl_est.imple_amount_plan_month_8 }}</vs-td>
-                                    <vs-td>{{ cctr.costing_plan_semester3.impl_est.imple_amount_plan_month_9 }}</vs-td>
+                                    <vs-td>{{ cctr.costing_plan_semester3.impl_est.s3_total_est_imp }}</vs-td>
+                                    <vs-td>{{ cctr.costing_plan_semester3.impl_est.s3_est_imp_jul }}</vs-td>
+                                    <vs-td>{{ cctr.costing_plan_semester3.impl_est.s3_est_imp_aug }}</vs-td>
+                                    <vs-td>{{ cctr.costing_plan_semester3.impl_est.s3_est_imp_sep }}</vs-td>
                                     <!-- Semester 4 -->
-                                    <vs-td>{{ cctr.costing_plan_semester4.year_planning.total_amount }}</vs-td>
-                                    <vs-td>{{ cctr.costing_plan_semester4.year_planning.amount_plan_month_10 }}</vs-td>
-                                    <vs-td>{{ cctr.costing_plan_semester4.year_planning.amount_plan_month_11 }}</vs-td>
-                                    <vs-td>{{ cctr.costing_plan_semester4.year_planning.amount_plan_month_12 }}</vs-td>
+                                    <vs-td>{{ cctr.costing_plan_semester4.year_planning.s4_total_bp }}</vs-td>
+                                    <vs-td>{{ cctr.costing_plan_semester4.year_planning.s4_bp_oct }}</vs-td>
+                                    <vs-td>{{ cctr.costing_plan_semester4.year_planning.s4_bp_nov }}</vs-td>
+                                    <vs-td>{{ cctr.costing_plan_semester4.year_planning.s4_bp_dec }}</vs-td>
 
-                                    <vs-td>{{ cctr.costing_plan_semester4.impl_est.impl_est_amount }}</vs-td>
-                                    <vs-td>{{ cctr.costing_plan_semester4.impl_est.imple_amount_plan_month_10 }}</vs-td>
-                                    <vs-td>{{ cctr.costing_plan_semester4.impl_est.imple_amount_plan_month_11 }}</vs-td>
-                                    <vs-td>{{ cctr.costing_plan_semester4.impl_est.imple_amount_plan_month_12 }}</vs-td>
+                                    <vs-td>{{ cctr.costing_plan_semester4.impl_est.s4_total_est_imp }}</vs-td>
+                                    <vs-td>{{ cctr.costing_plan_semester4.impl_est.s4_est_imp_oct }}</vs-td>
+                                    <vs-td>{{ cctr.costing_plan_semester4.impl_est.s4_est_imp_nov }}</vs-td>
+                                    <vs-td>{{ cctr.costing_plan_semester4.impl_est.s4_est_imp_dec }}</vs-td>
+
 
                                     <!-- ផ្សេងៗ -->
                                     <vs-td>{{ cctr.remark }}</vs-td>
@@ -939,8 +940,8 @@
 
                         <!-- <template v-for="ctr in ptr"> -->
                         <vs-tr style="background: #28C76F">
-                            <vs-td colspan="4">{{ ptr.department }}</vs-td>
-                            <vs-td>{{ ptr.total_finance_rule }}</vs-td>
+                            <vs-td colspan="4">{{ ptr.entity }}</vs-td>
+                            <vs-td>{{ ptr.finance_law }}</vs-td>
                             <vs-td>{{ ptr.total_amount }}</vs-td>
                             <vs-td>{{ ptr.total_percentage_implementing_rule }}</vs-td>
 
@@ -950,22 +951,41 @@
                             <vs-td>{{ ptr.costing_plan_semester1.year_planning.amount_plan_month_2 }}</vs-td>
                             <vs-td>{{ ptr.costing_plan_semester1.year_planning.amount_plan_month_3 }}</vs-td>
 
+                            <vs-td>{{ ptr.costing_plan_semester1.impl_est.impl_est_amount }}</vs-td>
+                            <vs-td>{{ ptr.costing_plan_semester1.impl_est.imple_amount_plan_month_1 }}</vs-td>
+                            <vs-td>{{ ptr.costing_plan_semester1.impl_est.imple_amount_plan_month_2 }}</vs-td>
+                            <vs-td>{{ ptr.costing_plan_semester1.impl_est.imple_amount_plan_month_3 }}</vs-td>
+
                             <!-- Semester 2 -->
                             <vs-td>{{ ptr.costing_plan_semester2.year_planning.total_amount }}</vs-td>
                             <vs-td>{{ ptr.costing_plan_semester2.year_planning.amount_plan_month_4 }}</vs-td>
                             <vs-td>{{ ptr.costing_plan_semester2.year_planning.amount_plan_month_5 }}</vs-td>
                             <vs-td>{{ ptr.costing_plan_semester2.year_planning.amount_plan_month_6 }}</vs-td>
 
+                            <vs-td>{{ ptr.costing_plan_semester2.impl_est.impl_est_amount }}</vs-td>
+                            <vs-td>{{ ptr.costing_plan_semester2.impl_est.imple_amount_plan_month_4 }}</vs-td>
+                            <vs-td>{{ ptr.costing_plan_semester2.impl_est.imple_amount_plan_month_5 }}</vs-td>
+                            <vs-td>{{ ptr.costing_plan_semester2.impl_est.imple_amount_plan_month_6 }}</vs-td>
                             <!-- Semester 3 -->
                             <vs-td>{{ ptr.costing_plan_semester3.year_planning.total_amount }}</vs-td>
                             <vs-td>{{ ptr.costing_plan_semester3.year_planning.amount_plan_month_7 }}</vs-td>
                             <vs-td>{{ ptr.costing_plan_semester3.year_planning.amount_plan_month_8 }}</vs-td>
                             <vs-td>{{ ptr.costing_plan_semester3.year_planning.amount_plan_month_9 }}</vs-td>
+
+                            <vs-td>{{ ptr.costing_plan_semester3.impl_est.impl_est_amount }}</vs-td>
+                            <vs-td>{{ ptr.costing_plan_semester3.impl_est.imple_amount_plan_month_7 }}</vs-td>
+                            <vs-td>{{ ptr.costing_plan_semester3.impl_est.imple_amount_plan_month_8 }}</vs-td>
+                            <vs-td>{{ ptr.costing_plan_semester3.impl_est.imple_amount_plan_month_9 }}</vs-td>
                             <!-- Semester 4 -->
                             <vs-td>{{ ptr.costing_plan_semester4.year_planning.total_amount }}</vs-td>
                             <vs-td>{{ ptr.costing_plan_semester4.year_planning.amount_plan_month_10 }}</vs-td>
                             <vs-td>{{ ptr.costing_plan_semester4.year_planning.amount_plan_month_11 }}</vs-td>
                             <vs-td>{{ ptr.costing_plan_semester4.year_planning.amount_plan_month_12 }}</vs-td>
+
+                            <vs-td>{{ ptr.costing_plan_semester4.impl_est.impl_est_amount }}</vs-td>
+                            <vs-td>{{ ptr.costing_plan_semester4.impl_est.imple_amount_plan_month_10 }}</vs-td>
+                            <vs-td>{{ ptr.costing_plan_semester4.impl_est.imple_amount_plan_month_11 }}</vs-td>
+                            <vs-td>{{ ptr.costing_plan_semester4.impl_est.imple_amount_plan_month_12 }}</vs-td>
 
                             <!-- ផ្សេងៗ -->
                             <vs-td>{{ ptr.remark }}</vs-td>
@@ -978,32 +998,51 @@
                             </vs-tr> -->
                             <vs-tr style="background: #b2ffd9">
                                 <vs-td colspan="4">{{ ctr.department }}</vs-td>
-                                <vs-td>{{ ctr.total_finance_rule }}</vs-td>
+                                <vs-td>{{ ctr.finance_law }}</vs-td>
                                 <vs-td>{{ ctr.total_amount }}</vs-td>
                                 <vs-td>{{ ctr.total_percentage_implementing_rule }}</vs-td>
 
                                 <!-- Semester 1 -->
-                                <vs-td>{{ ctr.costing_plan_semester1.year_planning.total_amount }}</vs-td>
-                                <vs-td>{{ ctr.costing_plan_semester1.year_planning.amount_plan_month_1 }}</vs-td>
-                                <vs-td>{{ ctr.costing_plan_semester1.year_planning.amount_plan_month_2 }}</vs-td>
-                                <vs-td>{{ ctr.costing_plan_semester1.year_planning.amount_plan_month_3 }}</vs-td>
+                                <vs-td>{{ cctr.costing_plan_semester1.year_planning.total_amount }}</vs-td>
+                                <vs-td>{{ cctr.costing_plan_semester1.year_planning.amount_plan_month_1 }}</vs-td>
+                                <vs-td>{{ cctr.costing_plan_semester1.year_planning.amount_plan_month_2 }}</vs-td>
+                                <vs-td>{{ cctr.costing_plan_semester1.year_planning.amount_plan_month_3 }}</vs-td>
+
+                                <vs-td>{{ cctr.costing_plan_semester1.impl_est.impl_est_amount }}</vs-td>
+                                <vs-td>{{ cctr.costing_plan_semester1.impl_est.imple_amount_plan_month_1 }}</vs-td>
+                                <vs-td>{{ cctr.costing_plan_semester1.impl_est.imple_amount_plan_month_2 }}</vs-td>
+                                <vs-td>{{ cctr.costing_plan_semester1.impl_est.imple_amount_plan_month_3 }}</vs-td>
 
                                 <!-- Semester 2 -->
-                                <vs-td>{{ ctr.costing_plan_semester2.year_planning.total_amount }}</vs-td>
-                                <vs-td>{{ ctr.costing_plan_semester2.year_planning.amount_plan_month_4 }}</vs-td>
-                                <vs-td>{{ ctr.costing_plan_semester2.year_planning.amount_plan_month_5 }}</vs-td>
-                                <vs-td>{{ ctr.costing_plan_semester2.year_planning.amount_plan_month_6 }}</vs-td>
-                                <!-- Semester 3 -->
-                                <vs-td>{{ ctr.costing_plan_semester3.year_planning.total_amount }}</vs-td>
-                                <vs-td>{{ ctr.costing_plan_semester3.year_planning.amount_plan_month_7 }}</vs-td>
-                                <vs-td>{{ ctr.costing_plan_semester3.year_planning.amount_plan_month_8 }}</vs-td>
-                                <vs-td>{{ ctr.costing_plan_semester3.year_planning.amount_plan_month_9 }}</vs-td>
+                                <vs-td>{{ cctr.costing_plan_semester2.year_planning.total_amount }}</vs-td>
+                                <vs-td>{{ cctr.costing_plan_semester2.year_planning.amount_plan_month_4 }}</vs-td>
+                                <vs-td>{{ cctr.costing_plan_semester2.year_planning.amount_plan_month_5 }}</vs-td>
+                                <vs-td>{{ cctr.costing_plan_semester2.year_planning.amount_plan_month_6 }}</vs-td>
 
+                                <vs-td>{{ cctr.costing_plan_semester2.impl_est.impl_est_amount }}</vs-td>
+                                <vs-td>{{ cctr.costing_plan_semester2.impl_est.imple_amount_plan_month_4 }}</vs-td>
+                                <vs-td>{{ cctr.costing_plan_semester2.impl_est.imple_amount_plan_month_5 }}</vs-td>
+                                <vs-td>{{ cctr.costing_plan_semester2.impl_est.imple_amount_plan_month_6 }}</vs-td>
+                                <!-- Semester 3 -->
+                                <vs-td>{{ cctr.costing_plan_semester3.year_planning.total_amount }}</vs-td>
+                                <vs-td>{{ cctr.costing_plan_semester3.year_planning.amount_plan_month_7 }}</vs-td>
+                                <vs-td>{{ cctr.costing_plan_semester3.year_planning.amount_plan_month_8 }}</vs-td>
+                                <vs-td>{{ cctr.costing_plan_semester3.year_planning.amount_plan_month_9 }}</vs-td>
+
+                                <vs-td>{{ cctr.costing_plan_semester3.impl_est.impl_est_amount }}</vs-td>
+                                <vs-td>{{ cctr.costing_plan_semester3.impl_est.imple_amount_plan_month_7 }}</vs-td>
+                                <vs-td>{{ cctr.costing_plan_semester3.impl_est.imple_amount_plan_month_8 }}</vs-td>
+                                <vs-td>{{ cctr.costing_plan_semester3.impl_est.imple_amount_plan_month_9 }}</vs-td>
                                 <!-- Semester 4 -->
-                                <vs-td>{{ ctr.costing_plan_semester4.year_planning.total_amount }}</vs-td>
-                                <vs-td>{{ ctr.costing_plan_semester4.year_planning.amount_plan_month_10 }}</vs-td>
-                                <vs-td>{{ ctr.costing_plan_semester4.year_planning.amount_plan_month_11 }}</vs-td>
-                                <vs-td>{{ ctr.costing_plan_semester4.year_planning.amount_plan_month_12 }}</vs-td>
+                                <vs-td>{{ cctr.costing_plan_semester4.year_planning.total_amount }}</vs-td>
+                                <vs-td>{{ cctr.costing_plan_semester4.year_planning.amount_plan_month_10 }}</vs-td>
+                                <vs-td>{{ cctr.costing_plan_semester4.year_planning.amount_plan_month_11 }}</vs-td>
+                                <vs-td>{{ cctr.costing_plan_semester4.year_planning.amount_plan_month_12 }}</vs-td>
+
+                                <vs-td>{{ cctr.costing_plan_semester4.impl_est.impl_est_amount }}</vs-td>
+                                <vs-td>{{ cctr.costing_plan_semester4.impl_est.imple_amount_plan_month_10 }}</vs-td>
+                                <vs-td>{{ cctr.costing_plan_semester4.impl_est.imple_amount_plan_month_11 }}</vs-td>
+                                <vs-td>{{ cctr.costing_plan_semester4.impl_est.imple_amount_plan_month_12 }}</vs-td>
 
                                 <!-- ផ្សេងៗ -->
                                 <vs-td>{{ ctr.remark }}</vs-td>
@@ -1016,7 +1055,7 @@
                                     <vs-td>{{ cctr.account.code + "-" + cctr.account.name }}</vs-td>
                                     <vs-td>{{ cctr.sub_account.code + "-" + cctr.sub_account.name }}</vs-td>
                                     <vs-td>{{ ctr.department }}</vs-td>
-                                    <vs-td>{{ cctr.total_finance_rule }}</vs-td>
+                                    <vs-td>{{ cctr.finance_law }}</vs-td>
                                     <vs-td>{{ cctr.total_amount }}</vs-td>
                                     <vs-td>{{ cctr.total_percentage_implementing_rule }}</vs-td>
 
@@ -1026,22 +1065,41 @@
                                     <vs-td>{{ cctr.costing_plan_semester1.year_planning.amount_plan_month_2 }}</vs-td>
                                     <vs-td>{{ cctr.costing_plan_semester1.year_planning.amount_plan_month_3 }}</vs-td>
 
+                                    <vs-td>{{ cctr.costing_plan_semester1.impl_est.impl_est_amount }}</vs-td>
+                                    <vs-td>{{ cctr.costing_plan_semester1.impl_est.imple_amount_plan_month_1 }}</vs-td>
+                                    <vs-td>{{ cctr.costing_plan_semester1.impl_est.imple_amount_plan_month_2 }}</vs-td>
+                                    <vs-td>{{ cctr.costing_plan_semester1.impl_est.imple_amount_plan_month_3 }}</vs-td>
 
                                     <!-- Semester 2 -->
                                     <vs-td>{{ cctr.costing_plan_semester2.year_planning.total_amount }}</vs-td>
                                     <vs-td>{{ cctr.costing_plan_semester2.year_planning.amount_plan_month_4 }}</vs-td>
                                     <vs-td>{{ cctr.costing_plan_semester2.year_planning.amount_plan_month_5 }}</vs-td>
                                     <vs-td>{{ cctr.costing_plan_semester2.year_planning.amount_plan_month_6 }}</vs-td>
+
+                                    <vs-td>{{ cctr.costing_plan_semester2.impl_est.impl_est_amount }}</vs-td>
+                                    <vs-td>{{ cctr.costing_plan_semester2.impl_est.imple_amount_plan_month_4 }}</vs-td>
+                                    <vs-td>{{ cctr.costing_plan_semester2.impl_est.imple_amount_plan_month_5 }}</vs-td>
+                                    <vs-td>{{ cctr.costing_plan_semester2.impl_est.imple_amount_plan_month_6 }}</vs-td>
                                     <!-- Semester 3 -->
                                     <vs-td>{{ cctr.costing_plan_semester3.year_planning.total_amount }}</vs-td>
                                     <vs-td>{{ cctr.costing_plan_semester3.year_planning.amount_plan_month_7 }}</vs-td>
                                     <vs-td>{{ cctr.costing_plan_semester3.year_planning.amount_plan_month_8 }}</vs-td>
                                     <vs-td>{{ cctr.costing_plan_semester3.year_planning.amount_plan_month_9 }}</vs-td>
+
+                                    <vs-td>{{ cctr.costing_plan_semester3.impl_est.impl_est_amount }}</vs-td>
+                                    <vs-td>{{ cctr.costing_plan_semester3.impl_est.imple_amount_plan_month_7 }}</vs-td>
+                                    <vs-td>{{ cctr.costing_plan_semester3.impl_est.imple_amount_plan_month_8 }}</vs-td>
+                                    <vs-td>{{ cctr.costing_plan_semester3.impl_est.imple_amount_plan_month_9 }}</vs-td>
                                     <!-- Semester 4 -->
                                     <vs-td>{{ cctr.costing_plan_semester4.year_planning.total_amount }}</vs-td>
                                     <vs-td>{{ cctr.costing_plan_semester4.year_planning.amount_plan_month_10 }}</vs-td>
                                     <vs-td>{{ cctr.costing_plan_semester4.year_planning.amount_plan_month_11 }}</vs-td>
                                     <vs-td>{{ cctr.costing_plan_semester4.year_planning.amount_plan_month_12 }}</vs-td>
+
+                                    <vs-td>{{ cctr.costing_plan_semester4.impl_est.impl_est_amount }}</vs-td>
+                                    <vs-td>{{ cctr.costing_plan_semester4.impl_est.imple_amount_plan_month_10 }}</vs-td>
+                                    <vs-td>{{ cctr.costing_plan_semester4.impl_est.imple_amount_plan_month_11 }}</vs-td>
+                                    <vs-td>{{ cctr.costing_plan_semester4.impl_est.imple_amount_plan_month_12 }}</vs-td>
 
                                     <!-- ផ្សេងៗ -->
                                     <vs-td>{{ cctr.remark }}</vs-td>
@@ -1171,7 +1229,6 @@
                     </tbody>
                 </template>
             </vs-table>
-
 
             <vs-table v-if="dataTables.data && dataAttributes.tableStyle == 11" :max-items="dataTables.limit"
                 :data="dataTables.data" style="overflow: scroll">
@@ -1506,7 +1563,7 @@ export default {
         },
         style(obj) {
             if (obj.width) {
-                return "background-color: #28C76F; color: #ffffff; font-weight: bold;min-width:" + obj.width + "px";
+                return "background-color: #28C76F; color: #ffffff; font-weight: bold;width:" + obj.width + "px";"min-width:" + obj.width + "px";
             } else {
                 return "background-color: #28C76F; color: #ffffff; font-weight: bold;";
             }

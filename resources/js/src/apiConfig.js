@@ -16,6 +16,9 @@ export default {
     _apiActivity: "/api/v1/module/program_management/activity",
     _apiTask: "/api/v1/module/program_management/task",
     _apiGetTaskDetail: "/api/v1/module/program_management/get_task_detail",
+    // Budget Monitoring
+    _apiGetIncomeArrangement: "/api/v1/module/budget_monitoring/income_arrangement",
+    _apiGetIncomeImpleResult: "/api/v1/module/budget_monitoring/income_imple_result",
     // Indicator
     _apiIndicatorSubPro: "/api/v1/module/program_management/kpi_sub_program",
     // Setting

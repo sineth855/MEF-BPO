@@ -88,7 +88,7 @@ class CreditRevenueRuleController extends Controller
         
         $data = array(
             "data_fields" => $this->dataFields(),
-            "account_group_id" => AccountGroup::getAccGroups(),
+            "account_group_id" => AccountGroup::getAccGroupOpts($filter),
             "account_type_id" => AccountGroup::getAccTypes(),
             "account_id" => AccountGroup::getAcc(),
             "data" => $table,

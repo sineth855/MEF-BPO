@@ -38,7 +38,7 @@
                 form: {
                     attribute: {}
                 },
-                showModalForm: true,
+                showModalForm: false,
                 // Data
                 title: "ពិដានតាមអង្គភាព",
                 // api: apiConfig._apiCeilingEntity,
@@ -58,7 +58,7 @@
                         colspan: 0,
                     },
                     header2: {
-                        label: "ច្បាប់ឆ្នាំ២០២២",
+                        label: "ច្បាប់ក្នុងឆ្នាំ",
                         rowspan: 2,
                         colspan: 0,
                     },
@@ -72,16 +72,16 @@
                         rowspan: 2,
                         colspan: 0,
                     },
-                    header5: {
-                        label: "ពិដានចំណាយចរន្ត",
-                        rowspan: 0,
-                        colspan: 3,
-                    },
-                    header6: {
-                        label: "អាត្រាកំណើនប្រចាំឆ្នាំ",
-                        rowspan: 0,
-                        colspan: 3,
-                    },
+                    // header5: {
+                    //     label: "ពិដានចំណាយចរន្ត",
+                    //     rowspan: 0,
+                    //     colspan: 3,
+                    // },
+                    // header6: {
+                    //     label: "អាត្រាកំណើនប្រចាំឆ្នាំ",
+                    //     rowspan: 0,
+                    //     colspan: 3,
+                    // },
                     header7: {
                         label: "សម្គាល់",
                         rowspan: 2,
@@ -95,36 +95,36 @@
                 },
                 data: {
                     dataHeaders: {
-                        header1: {
-                            label: "២០២៣",
-                            rowspan: 0,
-                            colspan: 0,
-                        },
-                        header2: {
-                            label: "២០២៤",
-                            rowspan: 0,
-                            colspan: 0,
-                        },
-                        header3: {
-                            label: "២០២៥",
-                            rowspan: 0,
-                            colspan: 0,
-                        },
-                        header4: {
-                            label: "២០២៣",
-                            rowspan: 0,
-                            colspan: 0,
-                        },
-                        header5: {
-                            label: "២០២៤",
-                            rowspan: 0,
-                            colspan: 0,
-                        },
-                        header6: {
-                            label: "២០២៥",
-                            rowspan: 0,
-                            colspan: 0,
-                        },
+                        // header1: {
+                        //     label: "២០២៣",
+                        //     rowspan: 0,
+                        //     colspan: 0,
+                        // },
+                        // header2: {
+                        //     label: "២០២៤",
+                        //     rowspan: 0,
+                        //     colspan: 0,
+                        // },
+                        // header3: {
+                        //     label: "២០២៥",
+                        //     rowspan: 0,
+                        //     colspan: 0,
+                        // },
+                        // header4: {
+                        //     label: "២០២៣",
+                        //     rowspan: 0,
+                        //     colspan: 0,
+                        // },
+                        // header5: {
+                        //     label: "២០២៤",
+                        //     rowspan: 0,
+                        //     colspan: 0,
+                        // },
+                        // header6: {
+                        //     label: "២០២៥",
+                        //     rowspan: 0,
+                        //     colspan: 0,
+                        // },
                         // header7: {
                         //     label: "",
                         //     rowspan: 0,
@@ -152,36 +152,36 @@
                             rowspan: 0,
                             colspan: 0,
                         },
-                        header5: {
-                            label: "5",
-                            rowspan: 0,
-                            colspan: 0,
-                        },
-                        header6: {
-                            label: "6",
-                            rowspan: 0,
-                            colspan: 0,
-                        },
-                        header7: {
-                            label: "7=(4-1)/1",
-                            rowspan: 0,
-                            colspan: 0,
-                        },
-                        header8: {
-                            label: "8=(5-4)/4",
-                            rowspan: 0,
-                            colspan: 0,
-                        },
-                        header9: {
-                            label: "9=(6-5)/5",
-                            rowspan: 0,
-                            colspan: 0,
-                        },
-                        header10: {
-                            label: "10",
-                            rowspan: 0,
-                            colspan: 0,
-                        },
+                        // header5: {
+                        //     label: "5",
+                        //     rowspan: 0,
+                        //     colspan: 0,
+                        // },
+                        // header6: {
+                        //     label: "6",
+                        //     rowspan: 0,
+                        //     colspan: 0,
+                        // },
+                        // header7: {
+                        //     label: "7=(4-1)/1",
+                        //     rowspan: 0,
+                        //     colspan: 0,
+                        // },
+                        // header8: {
+                        //     label: "8=(5-4)/4",
+                        //     rowspan: 0,
+                        //     colspan: 0,
+                        // },
+                        // header9: {
+                        //     label: "9=(6-5)/5",
+                        //     rowspan: 0,
+                        //     colspan: 0,
+                        // },
+                        // header10: {
+                        //     label: "10",
+                        //     rowspan: 0,
+                        //     colspan: 0,
+                        // },
                         // header11: {
                         //     label: "",
                         //     rowspan: 0,
@@ -411,21 +411,25 @@
                         options: [],
                     },
                     {
-                        name: "ceiling_rule", //ច្បាប់ពិដាន
-                        type: "number",
-                        required: true,
-                    },
-                    {
-                        name: "non_reg_expense", // ចំណាយមិនប្រចាំ
-                        type: "number",
+                        name: "remark", // អត្រាកំណើនប្រចាំឆ្នាំ
+                        type: "textarea",
                         required: false
                     },
-                    {
-                        name: "reg_expense", // ចំណាយប្រចាំ
-                        type: "number",
-                        required: false,
-                    },
-
+                    // {
+                    //     name: "ceiling_rule", //ច្បាប់ពិដាន
+                    //     type: "number",
+                    //     required: true,
+                    // },
+                    // {
+                    //     name: "reg_expense", // ចំណាយប្រចាំ
+                    //     type: "number",
+                    //     required: false,
+                    // },
+                    // {
+                    //     name: "non_reg_expense", // ចំណាយមិនប្រចាំ
+                    //     type: "number",
+                    //     required: false
+                    // },
                     // {
                     //     name: "ceiling_tran_year_0", // ពិដានចំណាយចរន្ត
                     //     type: "number",
@@ -462,7 +466,46 @@
                     //     type: "number",
                     //     required: false
                     // },
-
+                    {
+                        name: "បន្ទុកបុគ្គលិក", // អត្រាកំណើនប្រចាំឆ្នាំ
+                        type: "grid",
+                        required: false
+                    },
+                    {
+                        name: "staff_exp_ceiling_rule", //ច្បាប់ពិដាន
+                        type: "number",
+                        required: true,
+                    },
+                    {
+                        name: "staff_exp_reg_expense", // ចំណាយប្រចាំ
+                        type: "number",
+                        required: false,
+                    },
+                    {
+                        name: "staff_exp_non_reg_expense", // ចំណាយមិនប្រចាំ
+                        type: "number",
+                        required: false
+                    },
+                    {
+                        name: "ក្រៅបន្ទុកបុគ្គលិក", // អត្រាកំណើនប្រចាំឆ្នាំ
+                        type: "grid",
+                        required: false
+                    },
+                    {
+                        name: "out_staff_exp_ceiling_rule", //ច្បាប់ពិដាន
+                        type: "number",
+                        required: true,
+                    },
+                    {
+                        name: "out_staff_exp_reg_expense", // ចំណាយប្រចាំ
+                        type: "number",
+                        required: false,
+                    },
+                    {
+                        name: "out_staff_exp_non_reg_expense", // ចំណាយមិនប្រចាំ
+                        type: "number",
+                        required: false
+                    },
                     {
                         name: "ព័ត៌មានបន្ថែម", // អត្រាកំណើនប្រចាំឆ្នាំ
                         type: "grid",

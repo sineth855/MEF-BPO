@@ -91,6 +91,9 @@ Route::group([
         Route::resource('module/program_management/cluster_activity', 'Modules\ProgramManagement\ClusterActivityController');
         Route::resource('module/program_management/activity', 'Modules\ProgramManagement\ActivityController');
         Route::resource('module/program_management/task', 'Modules\ProgramManagement\TaskController');
+        // Module Budget Monitoring
+        Route::post('module/budget_monitoring/income_arrangement/search', 'Modules\BudgetMonitoring\RevProgramController@index');
+        Route::post('module/budget_monitoring/income_imple_result/search', 'Modules\BudgetMonitoring\RevImplementBudgetController@index');
         // KPI
         Route::post('module/program_management/kpi_cluster_activity/get_kpi', 'Modules\ProgramManagement\KPIClusterActivityController@index');
         Route::resource('module/program_management/kpi_cluster_activity', 'Modules\ProgramManagement\KPIClusterActivityController');

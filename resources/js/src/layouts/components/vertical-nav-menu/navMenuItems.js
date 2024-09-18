@@ -137,18 +137,32 @@ export default [
     i18n: "BudgetMonitoring",
     submenu: [
       {
-        url: '/module/budget-monitoring/income-expense-arrangement',
+        url: '/module/budget-monitoring/income-arrangement',
         slug: 'income-expense-arrangement',
         name: "IncomeExpenseArrangement",
         icon: "UserIcon",
-        i18n: "IncomeOutcomeProgram",
+        i18n: "IncomeProgram",
+      },
+      {
+        url: '/module/budget-monitoring/expense-arrangement',
+        slug: 'expense-arrangement',
+        name: "ExpenseArrangement",
+        icon: "UserIcon",
+        i18n: "ExpenseProgram",
       },
       {
         url: '/module/budget-monitoring/income-implementing-result',
         slug: 'income-implementing-result',
-        name: "IncomeExpenseResult",
+        name: "IncomeResult",
         icon: "UserIcon",
-        i18n: "IncomeOutcomeResult",
+        i18n: "IncomeResult",
+      },
+      {
+        url: '/module/budget-monitoring/expense-implementing-result',
+        slug: 'expense-implementing-result',
+        name: "ExpenseResult",
+        icon: "UserIcon",
+        i18n: "ExpenseResult",
       },
       {
         url: '/module/budget-monitoring/expenditure-certificate',

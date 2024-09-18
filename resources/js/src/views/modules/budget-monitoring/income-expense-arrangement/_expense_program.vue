@@ -1,17 +1,18 @@
 <template>
     <div id="table-demo">
         <!-- <table-state></table-state> -->
-        <div v-if="dataAttributes.enableToggleForm" class="items-center data-list-btn-container">
-            <div class="p-3 mr-4">
-                <vs-button @click="openToggleForm" color="primary" type="filled">{{ $t("បន្ថែមគំរូប្រភេទចំណាត់ថ្នាក់")
-                }}</vs-button>
-            </div>
+        <div v-if="enableToggleForm" class="items-center data-list-btn-container">
             <div class="p-3 mb-4" style="overflow: scroll;">
                 <d-form @clicked="initPushDataTable" @clickForm="initTableData" :data="data" :dataInfo="dataInfo"
-                    :formAttributes="formAttributes" :api="api" :rowDisplay="rowDisplay"></d-form>
-                <form-expense-program></form-expense-program>
+                :formAttributes="formAttributes" :api="api" :rowDisplay="rowDisplay"></d-form>
+                <form-income-program></form-income-program>
             </div>
         </div>
+        <div class="p-3 mr-4">
+            <vs-button @click="enableToggleForm = !enableToggleForm" color="primary" type="filled">{{ $t("បន្ថែមគំរូប្រភេទចំណាត់ថ្នាក់")
+            }}</vs-button>
+        </div>
+        
         <d-table-list @clicked="initTableData" :api="api" ref="refInitPage" :allowDel="true" :title="title"
             :dataInfo="dataInfo" :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data"
             :formAttributes="formAttributes" :rowDisplay="rowDisplay"></d-table-list>
@@ -24,26 +25,27 @@ import apiConfig from "@/apiConfig.js"
 import { ref } from 'vue';
 import DForm from '@/views/form-builder/DForm.vue'
 import DTableList from '@/views/form-builder/DTableList.vue'
-import FormExpenseProgram from './_form_expense_program.vue'
+import FormIncomeProgram from './_form_income_program.vue'
 export default {
     data() {
         return {
             title: "budget_monitor_expense_program",
-            api: apiConfig._apiUnit,
+            enableToggleForm: false,
+            api: apiConfig._apiGetIncomeArrangement,
             dataAttributes: {
-                tableStyle: 9,
+                tableStyle: 8,
                 page_number: 1,
                 offset: 0,
                 dataGrid: "row",
                 hasHeadingReport: false,
                 headingReport: "",
                 popupFullscreen: true,
-                hideSearchBar: true,
+                hideSearchBar: false,
                 enableToggleForm: true // if allow to show form by toggling but no popup
             },
             dataHeaders: {
                 header1: {
-                    width: 150,
+                    // width: 150,
                     label: "account_group_id",
                     rowspan: 3,
                     colspan: 0,
@@ -72,29 +74,29 @@ export default {
                 },
                 header6: {
                     width: 150,
-                    label: "new_credit",
+                    label: "total_annual_program_project",
                     rowspan: 2,
                     colspan: 2,
                 },
                 header7: {
                     label: "semester1",
                     rowspan: 0,
-                    colspan: 4,
+                    colspan: 8,
                 },
                 header8: {
                     label: "semester2",
                     rowspan: 0,
-                    colspan: 4,
+                    colspan: 8,
                 },
                 header9: {
                     label: "semester3",
                     rowspan: 0,
-                    colspan: 4,
+                    colspan: 8,
                 },
                 header10: {
                     label: "semester4",
                     rowspan: 0,
-                    colspan: 4,
+                    colspan: 8,
                 },
                 header11: {
                     label: "other",
@@ -109,8 +111,18 @@ export default {
                         rowspan: 0,
                         colspan: 4,
                     },
+                    header2: {
+                        label: "ប៉ាន់ស្មានអនុវត្ត",
+                        rowspan: 0,
+                        colspan: 4,
+                    },
                     header3: {
                         label: "គ្រោងដើមឆ្នាំ",
+                        rowspan: 0,
+                        colspan: 4,
+                    },
+                    header4: {
+                        label: "ប៉ាន់ស្មានអនុវត្ត",
                         rowspan: 0,
                         colspan: 4,
                     },
@@ -119,8 +131,18 @@ export default {
                         rowspan: 0,
                         colspan: 4,
                     },
+                    header6: {
+                        label: "ប៉ាន់ស្មានអនុវត្ត",
+                        rowspan: 0,
+                        colspan: 4,
+                    },
                     header7: {
                         label: "គ្រោងដើមឆ្នាំ",
+                        rowspan: 0,
+                        colspan: 4,
+                    },
+                    header8: {
+                        label: "ប៉ាន់ស្មានអនុវត្ត",
                         rowspan: 0,
                         colspan: 4,
                     }
@@ -156,6 +178,26 @@ export default {
                         rowspan: 0,
                         colspan: 0,
                     },
+                    header7: {
+                        label: "សរុប",
+                        rowspan: 0,
+                        colspan: 0,
+                    },
+                    header8: {
+                        label: "អនុ.ខែទី១",
+                        rowspan: 0,
+                        colspan: 0,
+                    },
+                    header9: {
+                        label: "អនុ.ខែទី២",
+                        rowspan: 0,
+                        colspan: 0,
+                    },
+                    header10: {
+                        label: "អនុ.ខែទី៣",
+                        rowspan: 0,
+                        colspan: 0,
+                    },
                     header11: {
                         label: "សរុប",
                         rowspan: 0,
@@ -173,6 +215,26 @@ export default {
                     },
                     header14: {
                         label: "ខែទី៦",
+                        rowspan: 0,
+                        colspan: 0,
+                    },
+                    header15: {
+                        label: "សរុប",
+                        rowspan: 0,
+                        colspan: 0,
+                    },
+                    header16: {
+                        label: "អនុ.ខែទី៤",
+                        rowspan: 0,
+                        colspan: 0,
+                    },
+                    header17: {
+                        label: "អនុ.ខែទី៥",
+                        rowspan: 0,
+                        colspan: 0,
+                    },
+                    header18: {
+                        label: "អនុ.ខែទី៦",
                         rowspan: 0,
                         colspan: 0,
                     },
@@ -196,6 +258,26 @@ export default {
                         rowspan: 0,
                         colspan: 0,
                     },
+                    header23: {
+                        label: "សរុប",
+                        rowspan: 0,
+                        colspan: 0,
+                    },
+                    header24: {
+                        label: "អនុ.ខែទី៧",
+                        rowspan: 0,
+                        colspan: 0,
+                    },
+                    header25: {
+                        label: "អនុ.ខែទី៨",
+                        rowspan: 0,
+                        colspan: 0,
+                    },
+                    header26: {
+                        label: "អនុ.ខែទី៩",
+                        rowspan: 0,
+                        colspan: 0,
+                    },
                     header27: {
                         label: "សរុប",
                         rowspan: 0,
@@ -213,6 +295,26 @@ export default {
                     },
                     header30: {
                         label: "ខែទី១២",
+                        rowspan: 0,
+                        colspan: 0,
+                    },
+                    header31: {
+                        label: "សរុប",
+                        rowspan: 0,
+                        colspan: 0,
+                    },
+                    header32: {
+                        label: "អនុ.ខែទី១០",
+                        rowspan: 0,
+                        colspan: 0,
+                    },
+                    header33: {
+                        label: "អនុ.ខែទី១១",
+                        rowspan: 0,
+                        colspan: 0,
+                    },
+                    header34: {
+                        label: "អនុ.ខែទី១២",
                         rowspan: 0,
                         colspan: 0,
                     }
@@ -249,156 +351,228 @@ export default {
                 // },
                 // group_fields: { field1: "summary_costing", field2: "rev_type" },
                 summary: [],
-                data: [
-                    {
-                        id: 1,
-                        account_group: "",
-                        account: "",
-                        sub_account: "",
-                        department: "អង្គភាពថវិកាថ្នាក់កណ្តាល/មន្ទីរ",
-                        total_finance_rule: "12",
-                        total_amount: "12",
-                        total_percentage_implementing_rule: "12",
-                        costing_plan_semester1: {
-                            // គ្រោងដើមឆ្នាំ
-                            year_planning: {
-                                total_amount: "555",
-                                amount_plan_month_1: "1",
-                                amount_plan_month_2: "2",
-                                amount_plan_month_3: "3",
-                            }
-                        },
-                        costing_plan_semester2: {
-                            // គ្រោងដើមឆ្នាំ
-                            year_planning: {
-                                total_amount: "2222",
-                                amount_plan_month_4: "1",
-                                amount_plan_month_5: "2",
-                                amount_plan_month_6: "3",
-                            }
-                        },
-                        costing_plan_semester3: {
-                            // គ្រោងដើមឆ្នាំ
-                            year_planning: {
-                                total_amount: "555",
-                                amount_plan_month_7: "1",
-                                amount_plan_month_8: "2",
-                                amount_plan_month_9: "3",
-                            }
-                        },
-                        costing_plan_semester4: {
-                            // គ្រោងដើមឆ្នាំ
-                            year_planning: {
-                                total_amount: "555",
-                                amount_plan_month_10: "1",
-                                amount_plan_month_11: "2",
-                                amount_plan_month_12: "3",
-                            }
-                        },
-                        remark: "កំណត់ត្រា",
-                        order_level: 1,
-                        children: [
-                            {
-                                id: 2,
-                                account_group: "",
-                                account: "",
-                                sub_account: "",
-                                department: "ប្រតិបត្ដិការមិនឆ្លងកាត់អគ្គនាយកដ្ឋានរតនាគារជាតិ",
-                                total_finance_rule: "12",
-                                total_amount: "12",
-                                total_percentage_implementing_rule: "12",
-                                order_level: 2,
-                                costing_plan_semester1: {
-                                    // គ្រោងដើមឆ្នាំ
-                                    year_planning: {
-                                        total_amount: "555",
-                                        amount_plan_month_1: "1",
-                                        amount_plan_month_2: "2",
-                                        amount_plan_month_3: "3",
-                                    }
-                                },
-                                costing_plan_semester2: {
-                                    // គ្រោងដើមឆ្នាំ
-                                    year_planning: {
-                                        total_amount: "2222",
-                                        amount_plan_month_4: "1",
-                                        amount_plan_month_5: "2",
-                                        amount_plan_month_6: "3",
-                                    }
-                                },
-                                costing_plan_semester3: {
-                                    // គ្រោងដើមឆ្នាំ
-                                    year_planning: {
-                                        total_amount: "555",
-                                        amount_plan_month_7: "1",
-                                        amount_plan_month_8: "2",
-                                        amount_plan_month_9: "3",
-                                    }
-                                },
-                                costing_plan_semester4: {
-                                    // គ្រោងដើមឆ្នាំ
-                                    year_planning: {
-                                        total_amount: "555",
-                                        amount_plan_month_10: "1",
-                                        amount_plan_month_11: "2",
-                                        amount_plan_month_12: "3",
-                                    }
-                                },
-                                remark: "កំណត់ត្រា",
-                                children: [
-                                    {
-                                        id: 1,
-                                        account_group: { id: 1, code: "001", name: "Account Group" },
-                                        account: { id: 1, code: "001", name: "Account" },
-                                        sub_account: { id: 1, code: "001", name: "sub_Account" },
-                                        department: { id: 1, name: "អគ្គនាយកដ្ឋាន" },
-                                        total_finance_rule: "12",
-                                        total_amount: "12",
-                                        total_percentage_implementing_rule: "12",
-                                        costing_plan_semester1: {
-                                            // គ្រោងដើមឆ្នាំ
-                                            year_planning: {
-                                                total_amount: "555",
-                                                amount_plan_month_1: "1",
-                                                amount_plan_month_2: "2",
-                                                amount_plan_month_3: "3",
-                                            }
-                                        },
-                                        costing_plan_semester2: {
-                                            // គ្រោងដើមឆ្នាំ
-                                            year_planning: {
-                                                total_amount: "2222",
-                                                amount_plan_month_4: "1",
-                                                amount_plan_month_5: "2",
-                                                amount_plan_month_6: "3",
-                                            }
-                                        },
-                                        costing_plan_semester3: {
-                                            // គ្រោងដើមឆ្នាំ
-                                            year_planning: {
-                                                total_amount: "555",
-                                                amount_plan_month_7: "1",
-                                                amount_plan_month_8: "2",
-                                                amount_plan_month_9: "3",
-                                            }
-                                        },
-                                        costing_plan_semester4: {
-                                            // គ្រោងដើមឆ្នាំ
-                                            year_planning: {
-                                                total_amount: "555",
-                                                amount_plan_month_10: "1",
-                                                amount_plan_month_11: "2",
-                                                amount_plan_month_12: "3",
-                                            }
-                                        },
-                                        remark: "កំណត់ត្រា",
-                                    }
-                                ]
-                            }
-                        ],
-
-                    },
-                ],
+                data: [],
+                // data: [
+                //     {
+                //         id: 1,
+                //         account_group: "",
+                //         account: "",
+                //         sub_account: "",
+                //         department: "អគ្គនាយកដ្ឋានគយ និងរដ្ឋាករកម្ពុជា",
+                //         total_finance_rule: "12",
+                //         total_amount: "12",
+                //         total_percentage_implementing_rule: "12",
+                //         costing_plan_semester1: {
+                //             // គ្រោងដើមឆ្នាំ
+                //             year_planning: {
+                //                 total_amount: "555",
+                //                 amount_plan_month_1: "1",
+                //                 amount_plan_month_2: "2",
+                //                 amount_plan_month_3: "3",
+                //             },
+                //             impl_est: {
+                //                 impl_est_amount: "5554",
+                //                 imple_amount_plan_month_1: "1", // imple = implementing_amount ប៉ាន់ស្មានអនុវត្តខែ១
+                //                 imple_amount_plan_month_2: "2", // imple = implementing_amount ប៉ាន់ស្មានអនុវត្តខែ២
+                //                 imple_amount_plan_month_3: "3", // imple = implementing_amount ប៉ាន់ស្មានអនុវត្តខែ៣
+                //             }
+                //         },
+                //         costing_plan_semester2: {
+                //             // គ្រោងដើមឆ្នាំ
+                //             year_planning: {
+                //                 total_amount: "2222",
+                //                 amount_plan_month_4: "1",
+                //                 amount_plan_month_5: "2",
+                //                 amount_plan_month_6: "3",
+                //             },
+                //             impl_est: {
+                //                 impl_est_amount: "3333",
+                //                 imple_amount_plan_month_4: "1", // imple = implementing_amount ប៉ាន់ស្មានអនុវត្តខែ១
+                //                 imple_amount_plan_month_5: "2", // imple = implementing_amount ប៉ាន់ស្មានអនុវត្តខែ២
+                //                 imple_amount_plan_month_6: "3", // imple = implementing_amount ប៉ាន់ស្មានអនុវត្តខែ៣
+                //             }
+                //         },
+                //         costing_plan_semester3: {
+                //             // គ្រោងដើមឆ្នាំ
+                //             year_planning: {
+                //                 total_amount: "555",
+                //                 amount_plan_month_7: "1",
+                //                 amount_plan_month_8: "2",
+                //                 amount_plan_month_9: "3",
+                //             },
+                //             impl_est: {
+                //                 impl_est_amount: "5554",
+                //                 imple_amount_plan_month_7: "1", // imple = implementing_amount ប៉ាន់ស្មានអនុវត្តខែ១
+                //                 imple_amount_plan_month_8: "2", // imple = implementing_amount ប៉ាន់ស្មានអនុវត្តខែ២
+                //                 imple_amount_plan_month_9: "3", // imple = implementing_amount ប៉ាន់ស្មានអនុវត្តខែ៣
+                //             }
+                //         },
+                //         costing_plan_semester4: {
+                //             // គ្រោងដើមឆ្នាំ
+                //             year_planning: {
+                //                 total_amount: "555",
+                //                 amount_plan_month_10: "1",
+                //                 amount_plan_month_11: "2",
+                //                 amount_plan_month_12: "3",
+                //             },
+                //             impl_est: {
+                //                 impl_est_amount: "5554",
+                //                 imple_amount_plan_month_10: "1", // imple = implementing_amount ប៉ាន់ស្មានអនុវត្តខែ១
+                //                 imple_amount_plan_month_11: "2", // imple = implementing_amount ប៉ាន់ស្មានអនុវត្តខែ២
+                //                 imple_amount_plan_month_12: "3", // imple = implementing_amount ប៉ាន់ស្មានអនុវត្តខែ៣
+                //             }
+                //         },
+                //         remark: "កំណត់ត្រា",
+                //         order_level: 1,
+                //         children: [
+                //             {
+                //                 id: 2,
+                //                 account_group: "",
+                //                 account: "",
+                //                 sub_account: "",
+                //                 department: "ប្រតិបត្ដិការមិនឆ្លងកាត់អគ្គនាយកដ្ឋានរតនាគារជាតិ",
+                //                 total_finance_rule: "12",
+                //                 total_amount: "12",
+                //                 total_percentage_implementing_rule: "12",
+                //                 order_level: 2,
+                //                 costing_plan_semester1: {
+                //                     // គ្រោងដើមឆ្នាំ
+                //                     year_planning: {
+                //                         total_amount: "555",
+                //                         amount_plan_month_1: "1",
+                //                         amount_plan_month_2: "2",
+                //                         amount_plan_month_3: "3",
+                //                     },
+                //                     impl_est: {
+                //                         impl_est_amount: "5554",
+                //                         imple_amount_plan_month_1: "1", // imple = implementing_amount ប៉ាន់ស្មានអនុវត្តខែ១
+                //                         imple_amount_plan_month_2: "2", // imple = implementing_amount ប៉ាន់ស្មានអនុវត្តខែ២
+                //                         imple_amount_plan_month_3: "3", // imple = implementing_amount ប៉ាន់ស្មានអនុវត្តខែ៣
+                //                     }
+                //                 },
+                //                 costing_plan_semester2: {
+                //                     // គ្រោងដើមឆ្នាំ
+                //                     year_planning: {
+                //                         total_amount: "2222",
+                //                         amount_plan_month_4: "1",
+                //                         amount_plan_month_5: "2",
+                //                         amount_plan_month_6: "3",
+                //                     },
+                //                     impl_est: {
+                //                         impl_est_amount: "3333",
+                //                         imple_amount_plan_month_4: "1", // imple = implementing_amount ប៉ាន់ស្មានអនុវត្តខែ១
+                //                         imple_amount_plan_month_5: "2", // imple = implementing_amount ប៉ាន់ស្មានអនុវត្តខែ២
+                //                         imple_amount_plan_month_6: "3", // imple = implementing_amount ប៉ាន់ស្មានអនុវត្តខែ៣
+                //                     }
+                //                 },
+                //                 costing_plan_semester3: {
+                //                     // គ្រោងដើមឆ្នាំ
+                //                     year_planning: {
+                //                         total_amount: "555",
+                //                         amount_plan_month_7: "1",
+                //                         amount_plan_month_8: "2",
+                //                         amount_plan_month_9: "3",
+                //                     },
+                //                     impl_est: {
+                //                         impl_est_amount: "5554",
+                //                         imple_amount_plan_month_7: "1", // imple = implementing_amount ប៉ាន់ស្មានអនុវត្តខែ១
+                //                         imple_amount_plan_month_8: "2", // imple = implementing_amount ប៉ាន់ស្មានអនុវត្តខែ២
+                //                         imple_amount_plan_month_9: "3", // imple = implementing_amount ប៉ាន់ស្មានអនុវត្តខែ៣
+                //                     }
+                //                 },
+                //                 costing_plan_semester4: {
+                //                     // គ្រោងដើមឆ្នាំ
+                //                     year_planning: {
+                //                         total_amount: "555",
+                //                         amount_plan_month_10: "1",
+                //                         amount_plan_month_11: "2",
+                //                         amount_plan_month_12: "3",
+                //                     },
+                //                     impl_est: {
+                //                         impl_est_amount: "5554",
+                //                         imple_amount_plan_month_10: "1", // imple = implementing_amount ប៉ាន់ស្មានអនុវត្តខែ១
+                //                         imple_amount_plan_month_11: "2", // imple = implementing_amount ប៉ាន់ស្មានអនុវត្តខែ២
+                //                         imple_amount_plan_month_12: "3", // imple = implementing_amount ប៉ាន់ស្មានអនុវត្តខែ៣
+                //                     }
+                //                 },
+                //                 remark: "កំណត់ត្រា",
+                //                 children: [
+                //                     {
+                //                         id: 1,
+                //                         account_group: { id: 1, code: "001", name: "Account Group" },
+                //                         account: { id: 1, code: "001", name: "Account" },
+                //                         sub_account: { id: 1, code: "001", name: "sub_Account" },
+                //                         department: { id: 1, name: "អគ្គនាយកដ្ឋាន" },
+                //                         total_finance_rule: "12",
+                //                         total_amount: "12",
+                //                         total_percentage_implementing_rule: "12",
+                //                         costing_plan_semester1: {
+                //                             // គ្រោងដើមឆ្នាំ
+                //                             year_planning: {
+                //                                 total_amount: "555",
+                //                                 amount_plan_month_1: "1",
+                //                                 amount_plan_month_2: "2",
+                //                                 amount_plan_month_3: "3",
+                //                             },
+                //                             impl_est: {
+                //                                 impl_est_amount: "5554",
+                //                                 imple_amount_plan_month_1: "1", // imple = implementing_amount ប៉ាន់ស្មានអនុវត្តខែ១
+                //                                 imple_amount_plan_month_2: "2", // imple = implementing_amount ប៉ាន់ស្មានអនុវត្តខែ២
+                //                                 imple_amount_plan_month_3: "3", // imple = implementing_amount ប៉ាន់ស្មានអនុវត្តខែ៣
+                //                             }
+                //                         },
+                //                         costing_plan_semester2: {
+                //                             // គ្រោងដើមឆ្នាំ
+                //                             year_planning: {
+                //                                 total_amount: "2222",
+                //                                 amount_plan_month_4: "1",
+                //                                 amount_plan_month_5: "2",
+                //                                 amount_plan_month_6: "3",
+                //                             },
+                //                             impl_est: {
+                //                                 impl_est_amount: "3333",
+                //                                 imple_amount_plan_month_4: "1", // imple = implementing_amount ប៉ាន់ស្មានអនុវត្តខែ១
+                //                                 imple_amount_plan_month_5: "2", // imple = implementing_amount ប៉ាន់ស្មានអនុវត្តខែ២
+                //                                 imple_amount_plan_month_6: "3", // imple = implementing_amount ប៉ាន់ស្មានអនុវត្តខែ៣
+                //                             }
+                //                         },
+                //                         costing_plan_semester3: {
+                //                             // គ្រោងដើមឆ្នាំ
+                //                             year_planning: {
+                //                                 total_amount: "555",
+                //                                 amount_plan_month_7: "1",
+                //                                 amount_plan_month_8: "2",
+                //                                 amount_plan_month_9: "3",
+                //                             },
+                //                             impl_est: {
+                //                                 impl_est_amount: "5554",
+                //                                 imple_amount_plan_month_7: "1", // imple = implementing_amount ប៉ាន់ស្មានអនុវត្តខែ១
+                //                                 imple_amount_plan_month_8: "2", // imple = implementing_amount ប៉ាន់ស្មានអនុវត្តខែ២
+                //                                 imple_amount_plan_month_9: "3", // imple = implementing_amount ប៉ាន់ស្មានអនុវត្តខែ៣
+                //                             }
+                //                         },
+                //                         costing_plan_semester4: {
+                //                             // គ្រោងដើមឆ្នាំ
+                //                             year_planning: {
+                //                                 total_amount: "555",
+                //                                 amount_plan_month_10: "1",
+                //                                 amount_plan_month_11: "2",
+                //                                 amount_plan_month_12: "3",
+                //                             },
+                //                             impl_est: {
+                //                                 impl_est_amount: "5554",
+                //                                 imple_amount_plan_month_10: "1", // imple = implementing_amount ប៉ាន់ស្មានអនុវត្តខែ១
+                //                                 imple_amount_plan_month_11: "2", // imple = implementing_amount ប៉ាន់ស្មានអនុវត្តខែ២
+                //                                 imple_amount_plan_month_12: "3", // imple = implementing_amount ប៉ាន់ស្មានអនុវត្តខែ៣
+                //                             }
+                //                         },
+                //                         remark: "កំណត់ត្រា",
+                //                     }
+                //                 ]
+                //             }
+                //         ],
+                //     },
+                // ],
                 account_group_id: [
                     {
                         value: 1,
@@ -420,7 +594,7 @@ export default {
                         label: "73023"
                     },
                 ],
-                department_id: [
+                entity_id: [
                     {
                         value: 2,
                         label: "ក្រសួង-ស្ថាប័ន"
@@ -440,13 +614,19 @@ export default {
                     name: "account_group_id",
                     type: "select",
                     options: [],
-                    required: true
+                    required: true,
+                    hasFilter: true,
+                    filterObj: "account_id",
+                    api: apiConfig._apiGetAccountByGroup
                 },
                 {
                     name: "account_id",
                     type: "select",
                     options: [],
-                    required: true
+                    required: true,
+                    hasFilter: true,
+                    filterObj: "sub_account_id",
+                    api: apiConfig._apiGetSubAccount
                 },
                 {
                     name: "sub_account_id",
@@ -455,7 +635,7 @@ export default {
                     required: true
                 },
                 {
-                    name: "department_id",
+                    name: "entity_id",
                     type: "select",
                     options: [],
                     required: true
@@ -475,7 +655,7 @@ export default {
     },
     components: {
         DTableList,
-        FormExpenseProgram,
+        FormIncomeProgram,
         DForm
     },
     methods: {
@@ -491,6 +671,7 @@ export default {
                         }
                         this.dataFields.push(_d);
                     }
+
                 });
                 _params = {
                     sort: _search_criteria.sort,
@@ -509,8 +690,11 @@ export default {
             return new Promise((resolve, reject) => {
                 axios.post(this.api + "/search", _params)
                     .then((response) => {
-                        // this.data = response.data;
-                        this.data = this.data;
+                        if (response.data) {
+                            this.data = response.data;
+                        } else {
+                            this.data = this.data;
+                        }
                         this.$vs.loading.close();
                     }).catch((error) => {
                         // reject(error)

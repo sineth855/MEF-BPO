@@ -63,36 +63,36 @@ class CeilingEntityController extends Controller
         // );
 
         $dataHeaders = array(
-            "header1" => array(
-                "label" => "២០២៣",
-                "rowspan" => 0,
-                "colspan" => 0,
-            ),
-            "header2" => array(
-                "label" => "២០២៤",
-                "rowspan" => 0,
-                "colspan" => 0,
-            ),
-            "header3" => array(
-                "label" => "២០២៥",
-                "rowspan" => 0,
-                "colspan" => 0,
-            ),
-            "header4" => array(
-                "label" => "២០២៣",
-                "rowspan" => 0,
-                "colspan" => 0,
-            ),
-            "header5" => array(
-                "label" => "២០២៤",
-                "rowspan" => 0,
-                "colspan" => 0,
-            ),
-            "header6" => array(
-                "label" => "២០២៥",
-                "rowspan" => 0,
-                "colspan" => 0,
-            )
+            // "header1" => array(
+            //     "label" => "២០២៣",
+            //     "rowspan" => 0,
+            //     "colspan" => 0,
+            // ),
+            // "header2" => array(
+            //     "label" => "២០២៤",
+            //     "rowspan" => 0,
+            //     "colspan" => 0,
+            // ),
+            // "header3" => array(
+            //     "label" => "២០២៥",
+            //     "rowspan" => 0,
+            //     "colspan" => 0,
+            // ),
+            // "header4" => array(
+            //     "label" => "២០២៣",
+            //     "rowspan" => 0,
+            //     "colspan" => 0,
+            // ),
+            // "header5" => array(
+            //     "label" => "២០២៤",
+            //     "rowspan" => 0,
+            //     "colspan" => 0,
+            // ),
+            // "header6" => array(
+            //     "label" => "២០២៥",
+            //     "rowspan" => 0,
+            //     "colspan" => 0,
+            // )
             // header7: {
             //     label: "",
             //     rowspan: 0,
@@ -120,36 +120,36 @@ class CeilingEntityController extends Controller
                 "rowspan" => 0,
                 "colspan" => 0,
             ),
-            "header5" => array(
-                "label" => "5",
-                "rowspan" => 0,
-                "colspan" => 0,
-            ),
-            "header6" => array(
-                "label" => "6",
-                "rowspan" => 0,
-                "colspan" => 0,
-            ),
-            "header7" => array(
-                "label" => "7=(4-1)/1",
-                "rowspan" => 0,
-                "colspan" => 0,
-            ),
-            "header8" => array(
-                "label" => "8=(5-4)/4",
-                "rowspan" => 0,
-                "colspan" => 0,
-            ),
-            "header9" => array(
-                "label" => "9=(6-5)/5",
-                "rowspan" => 0,
-                "colspan" => 0,
-            ),
-            "header10" => array(
-                "label" => "10",
-                "rowspan" => 0,
-                "colspan" => 0,
-            ),
+            // "header5" => array(
+            //     "label" => "5",
+            //     "rowspan" => 0,
+            //     "colspan" => 0,
+            // ),
+            // "header6" => array(
+            //     "label" => "6",
+            //     "rowspan" => 0,
+            //     "colspan" => 0,
+            // ),
+            // "header7" => array(
+            //     "label" => "7=(4-1)/1",
+            //     "rowspan" => 0,
+            //     "colspan" => 0,
+            // ),
+            // "header8" => array(
+            //     "label" => "8=(5-4)/4",
+            //     "rowspan" => 0,
+            //     "colspan" => 0,
+            // ),
+            // "header9" => array(
+            //     "label" => "9=(6-5)/5",
+            //     "rowspan" => 0,
+            //     "colspan" => 0,
+            // ),
+            // "header10" => array(
+            //     "label" => "10",
+            //     "rowspan" => 0,
+            //     "colspan" => 0,
+            // ),
         );
             // header11: {
             //     label: "",
@@ -157,8 +157,8 @@ class CeilingEntityController extends Controller
             //     colspan: 0,
             // },
         $data = array(
-            "data_fields" => $this->dataFields(),
             "data" => CeilingEntity::getCeilingEntities($filter),
+            "data_fields" => $this->dataFields(),
             "dataHeaders" => $dataHeaders,
             "dataSubHeaders" => $dataSubHeaders,
             "program_id" => $programs,
@@ -170,7 +170,7 @@ class CeilingEntityController extends Controller
             "irregular_expense" => [],
             "target_type_id" => [],
             "limit" => config_limit,
-            "total" => 0//$this->db_table::count()
+            "total" => $this->db_table::count()
         );
         return response()->json($data);
     }

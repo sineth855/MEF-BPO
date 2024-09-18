@@ -60,7 +60,7 @@ class BudgetTemplateItemCostController extends Controller
         $data = array(
             "data" => $this->db_table::getBudgetTemplateItemCosts($filter),
             "data_fields" => $this->dataFields(),
-            "account_group_id" => AccountGroup::getAccGroups($filter),
+            "account_group_id" => AccountGroup::getAccGroupOpts($filter),
             "account_id" => [],
             "sub_account_id" => [],
             "budget_template_id" => $filter["data"]["data_info"]["id"],

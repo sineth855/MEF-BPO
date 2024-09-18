@@ -386,15 +386,29 @@ const router = new Router({
                 // Budget Implementing Monitoring
                 // =============================================================================
                 {           
-                    path: 'module/budget-monitoring/income-expense-arrangement',
-                    name: 'IncomeExpenseArrangement',
-                    component: () => import('@/views/modules/budget-monitoring/income-expense-arrangement/Index.vue'),
+                    path: 'module/budget-monitoring/income-arrangement',
+                    name: 'IncomeArrangement',
+                    component: () => import('@/views/modules/budget-monitoring/income-expense-arrangement/_income_program.vue'),
                     meta: {
-                        pageTitle: 'រៀបចំកម្មវិធីចំណូល/ចំណាយត្រីមាស',
+                        pageTitle: 'រៀបចំកម្មវិធីចំណូល',
                         breadcrumb: [
                             { title: 'ផ្ទាំងគ្រប់គ្រង', url: '/' },
                             { title: 'តាមដានអនុវត្តថវិកា', url: '/' },
-                            { title: 'រៀបចំកម្មវិធីចំណូល/ចំណាយត្រីមាស', active: true },
+                            { title: 'រៀបចំកម្មវិធីចំណូល', active: true },
+                        ],
+                        rule: 'editor'
+                    }
+                },
+                {           
+                    path: 'module/budget-monitoring/expense-arrangement',
+                    name: 'ExpenseArrangement',
+                    component: () => import('@/views/modules/budget-monitoring/income-expense-arrangement/_expense_program.vue'),
+                    meta: {
+                        pageTitle: 'រៀបចំកម្មវិធីចំណាយត្រីមាស',
+                        breadcrumb: [
+                            { title: 'ផ្ទាំងគ្រប់គ្រង', url: '/' },
+                            { title: 'តាមដានអនុវត្តថវិកា', url: '/' },
+                            { title: 'រៀបចំកម្មវិធីចំណាយត្រីមាស', active: true },
                         ],
                         rule: 'editor'
                     }
@@ -402,13 +416,27 @@ const router = new Router({
                 {           
                     path: 'module/budget-monitoring/income-implementing-result',
                     name: 'IncomeExpenseResult',
-                    component: () => import('@/views/modules/budget-monitoring/income-implementing-result/Index.vue'),
+                    component: () => import('@/views/modules/budget-monitoring/income-implementing-result/_income_implementing_result.vue'),
                     meta: {
                         pageTitle: 'ចុះលទ្ធផលអនុវត្តចំណូល',
                         breadcrumb: [
                             { title: 'ផ្ទាំងគ្រប់គ្រង', url: '/' },
                             { title: 'តាមដានអនុវត្តថវិកា', url: '/' },
                             { title: 'ចុះលទ្ធផលអនុវត្តចំណូល', active: true },
+                        ],
+                        rule: 'editor'
+                    }
+                },
+                {
+                    path: 'module/budget-monitoring/expense-implementing-result',
+                    name: 'IncomeExpenseResult',
+                    component: () => import('@/views/modules/budget-monitoring/income-implementing-result/_expenditure_implementing_result.vue'),
+                    meta: {
+                        pageTitle: 'ចុះលទ្ធផលអនុវត្តចំណាយ',
+                        breadcrumb: [
+                            { title: 'ផ្ទាំងគ្រប់គ្រង', url: '/' },
+                            { title: 'តាមដានអនុវត្តថវិកា', url: '/' },
+                            { title: 'ចុះលទ្ធផលអនុវត្តចំណាយ', active: true },
                         ],
                         rule: 'editor'
                     }

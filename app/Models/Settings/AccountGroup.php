@@ -24,7 +24,7 @@ class AccountGroup extends Model
     public function AccountTypeGroup(){
       return $this->belongsTo(AccountTypeGroup::class,'group');
     }
-    public static function getAccGroups(){
+    public static function getAccGroupOpts($filter){
       $query = AccountGroup::orderBy("order_level")->get();
       $data = array();
       foreach($query as $row){
