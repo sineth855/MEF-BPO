@@ -1,7 +1,7 @@
 <template>
-    <d-table-list @clicked="initTableData" :api="api" ref="refInitPage" :allowDel="true" :title="title"
-        :dataInfo="dataInfo" :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data"
-        :formAttributes="formAttributes" :rowDisplay="rowDisplay"></d-table-list>
+    <d-table-list @clicked="initTableData" :api="api" ref="refInitPage" :allowDel="true" :title="title" :dataInfo="dataInfo"
+        :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data" :formAttributes="formAttributes"
+        :rowDisplay="rowDisplay"></d-table-list>
 </template>
 
 <script>
@@ -14,8 +14,8 @@ import DTableList from '@/views/form-builder/DTableList.vue'
 export default {
     data() {
         return {
-            title: "setting_entity",
-            api: apiConfig._apiEntity,
+            title: "setting_credit_movement_type",
+            api: apiConfig._apiCreditMovementType,
             dataAttributes: {
                 tableStyle: 1,
                 page_number: 1,
@@ -30,25 +30,15 @@ export default {
                 ]
             },
             dataHeaders: {
-                // header1: "department",
-                // header2: "parent_id",
-                header3: "code",
-                header4: "name_en",
-                header5: "name_kh",
-                header6: "abbreviation",
-                header7: "order_level",
+                header1: "name_en",
+                header2: "name_kh",
+                header3: "status",
+                header4: "order_level",
             },
             data: {
                 data: [
                     {
-                        // department: "លេខាធិការដ្ឋាន",
-                        // parent_id: "លេខាធិការដ្ឋាន",
-                        code: "",
-                        name_en: "នាយកដ្ឋានគោលនយោ​បាយ​ម៉ាក្រូសេដ្ឋកិច្ចនិងសារពើពន្ធ",
-                        name_kh: "នាយកដ្ឋានគោលនយោ​បាយ​ម៉ាក្រូសេដ្ឋកិច្ចនិងសារពើពន្ធ",
-                        abbreviation: "",
-                        order_level: 1,
-                        is_active: 1
+
                     },
                 ],
 
@@ -56,17 +46,6 @@ export default {
                 total: 3,
             },
             formAttributes: [
-                {
-                    name: "code",
-                    type: "text",
-                    required: true
-                },
-                {
-                    name: "parent_id",
-                    type: "select",
-                    required: false,
-                    options: []
-                },
                 {
                     name: "name_en",
                     type: "text",
@@ -81,12 +60,7 @@ export default {
                     name: "order_level",
                     type: "number",
                     required: false
-                },
-                {
-                    name: "description",
-                    type: "textarea",
-                    required: false
-                },
+                }
             ],
             rowDisplay: "2grid", //1grid, 2grid, 3grid, 4grid
             dataFields: [],
@@ -106,9 +80,6 @@ export default {
                     if (_search_criteria.search_field[_formAttribute["name"]]) {
                         let _d = {
                             [_formAttribute["name"]]: _search_criteria.search_field[_formAttribute["name"]]
-                        }
-                        if (this.form.attribute["name"]) {
-
                         }
                         this.dataFields.push(_d);
                     }

@@ -46,8 +46,8 @@ class EntityMember extends Model
     $data = array();
     $query = EntityMember::orderBy($filter["sort"], $filter["order"]);
     $whereClause = $query;
+    $whereClause->whereNotIn("status", [4])->orWhereNull("status");
     $whereClause->orderBy("order_level")->get();
-    $whereClause->where("is_active", 1);
     if(Auth::user()->entity_id !=0 || Auth::user()->entity_id !=null){
       $whereClause->where("entity_id", Auth::user()->entity_id);
     }
@@ -83,7 +83,7 @@ class EntityMember extends Model
   }
   
   public static function getMembers(){
-    $query = EntityMember::where("is_active", 1)->orderBy("order_level")->get();
+    $query = EntityMember::whereNotIn("status", [4])->orWhereNull("status")->orderBy("order_level")->get();
     $data = array();
     foreach($query as $row){
       $data[] = array(
@@ -95,7 +95,7 @@ class EntityMember extends Model
   }
 
   public static function getMemberByEntityID($param){
-    $query = EntityMember::where("is_active", 1)->orderBy("order_level")->where("entity_id", $param["param"]["value"])->get();
+    $query = EntityMember::whereNotIn("status", [4])->orWhereNull("status")->orderBy("order_level")->where("entity_id", $param["param"]["value"])->get();
     $data = array();
     foreach($query as $row){
       $data[] = array(

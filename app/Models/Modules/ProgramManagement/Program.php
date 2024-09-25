@@ -92,7 +92,7 @@ class Program extends Model
     // $queryObj = Objective::orderBy($filter["sort"], $filter["order"]);
     $queryObj = Objective::orderBy("order_level");
     $whereClause = $queryObj;
-    $whereClause->where("is_active", 1);
+    $whereClause->whereNotIn("status", [4])->orWhere("status", null);
     $whereClause->offset(($filter["page_number"] - 1) * $filter["limit"]);       
     $whereClause->limit($filter["limit"]);
 
@@ -229,7 +229,7 @@ class Program extends Model
   public static function getCount($filter){
     $query = Program::orderBy($filter["sort"], $filter["order"]);
     $whereClause = $query;
-    $whereClause->where("is_active", 1);
+    $whereClause->whereNotIn("status", [4])->orWhere("status", null);
     if($filter["search_field"]){
         $arraySingle = call_user_func_array('array_merge', $filter["search_field"]);
         $dataFields = $arraySingle;

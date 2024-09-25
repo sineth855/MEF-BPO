@@ -1,17 +1,16 @@
 <template>
   <vs-tabs position="top" class="tabs-shadow-none" id="profile-tabs" :key="isSmallerScreen">
-
+    <!-- 1 -->
+    <vs-tab icon-pack="feather" icon="icon-edit" :label="!isSmallerScreen ? 'ពត៌មានទូទៅ' : ''">
+      <div class="tab-general md:ml-4 md:mt-0 mt-4 ml-0">
+        <setting-general />
+      </div>
+    </vs-tab>
+    
     <!-- 4 -->
     <vs-tab icon-pack="feather" icon="icon-settings" :label="!isSmallerScreen ? 'គណនេយ្យ និងរដ្ឋបាល' : ''">
       <div class="tab-text md:ml-4 md:mt-0 mt-4 ml-0">
         <setting-account-admin />
-      </div>
-    </vs-tab>
-
-    <!-- 3 -->
-    <vs-tab icon-pack="feather" icon="icon-lock" :label="!isSmallerScreen ? 'សិទ្ធ និងអ្នកប្រើប្រាស់' : ''">
-      <div class="tab-text md:ml-4 md:mt-0 mt-4 ml-0">
-        <setting-role />
       </div>
     </vs-tab>
 
@@ -22,7 +21,6 @@
       </div>
     </vs-tab>
 
-
     <!-- 6 -->
     <vs-tab icon-pack="feather" icon="icon-user" :label="!isSmallerScreen ? 'អង្គភាព' : ''">
       <div class="tab-text md:ml-4 md:mt-0 mt-4 ml-0">
@@ -32,19 +30,19 @@
       </div>
     </vs-tab>
 
-    <!-- 1 -->
-    <vs-tab icon-pack="feather" icon="icon-edit" :label="!isSmallerScreen ? 'ពត៌មានទូទៅ' : ''">
-      <div class="tab-general md:ml-4 md:mt-0 mt-4 ml-0">
-        <setting-general />
+    <!-- 3 -->
+    <vs-tab icon-pack="feather" icon="icon-lock" :label="!isSmallerScreen ? 'សិទ្ធ និងអ្នកប្រើប្រាស់' : ''">
+      <div class="tab-text md:ml-4 md:mt-0 mt-4 ml-0">
+        <setting-role />
       </div>
     </vs-tab>
 
     <!-- 2 -->
-    <vs-tab icon-pack="feather" icon="icon-users" :label="!isSmallerScreen ? 'រចនាសម្ព័ន្ធ' : ''">
-      <div class="tab-text md:ml-4 md:mt-0 mt-4 ml-0">
-        <setting-structure />
-      </div>
-    </vs-tab>
+      <!-- <vs-tab icon-pack="feather" icon="icon-users" :label="!isSmallerScreen ? 'រចនាសម្ព័ន្ធ' : ''">
+        <div class="tab-text md:ml-4 md:mt-0 mt-4 ml-0">
+          <setting-structure />
+        </div>
+      </vs-tab> -->
 
     <!-- 6 -->
     <vs-tab icon-pack="feather" icon="icon-calendar" :label="!isSmallerScreen ? 'រក្សាទុកទិន្នន័យ' : ''">
@@ -61,11 +59,11 @@
     </vs-tab>
 
     <!-- 8 -->
-    <vs-tab icon-pack="feather" icon="icon-lock" :label="!isSmallerScreen ? 'ប្តូរលេខសម្ងាត់' : ''">
+    <!-- <vs-tab icon-pack="feather" icon="icon-lock" :label="!isSmallerScreen ? 'ប្តូរលេខសម្ងាត់' : ''">
       <div class="tab-change-pwd md:ml-4 md:mt-0 mt-4 ml-0">
         <setting-change-password />
       </div>
-    </vs-tab>
+    </vs-tab> -->
 
     <!-- <vs-tab icon-pack="feather" icon="icon-info" :label="!isSmallerScreen ? 'ពត៌មានបន្ថែម' : ''">
       <div class="tab-info md:ml-4 md:mt-0 mt-4 ml-0">

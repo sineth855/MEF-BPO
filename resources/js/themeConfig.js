@@ -22,8 +22,8 @@ const themeConfig = {
   disableThemeTour  : false,        // options[Boolean] : true, false(default)
   footerType        : "static",    // options[String]  : static(default) / sticky / hidden
   hideScrollToTop   : false,       // options[Boolean] : true, false(default)
-  mainLayoutType    : "vertical",//"horizontal",  // options[String]  : vertical(default) / horizontal
-  navbarColor       : "rgb(41 137 158)",//"#f00",      // options[String]  : HEX color / rgb / rgba / Valid HTML Color name - (default: #fff)
+  mainLayoutType    : "vertical",  // options[String]  : vertical(default) / horizontal
+  navbarColor       : "rgb(40, 199, 111)",//"#f00",      // options[String]  : HEX color / rgb / rgba / Valid HTML Color name - (default: #fff)
   navbarType        : "floating",  // options[String]  : floating(default) / static / sticky / hidden
   routerTransition  : "zoom-fade", // options[String]  : zoom-fade / slide-fade / fade-bottom / fade / zoom-out / none(default)
   rtl               : false,       // options[Boolean] : true, false(default)

@@ -3,17 +3,17 @@
 
     <div class="vx-row">
       <div class="vx-col md:w-1/2 w-full mt-5">
-        <vs-input aria-disabled="true" label="អ្នកប្រើប្រាស់" autocomplete="off" name="username" v-model="username" class="w-full" v-validate="'required'"/>
+        <vs-input aria-disabled="true" label="អ្នកប្រើប្រាស់" disabled="disabled" autocomplete="off" name="username" v-model="username" class="w-full" v-validate="'required'"/>
         <span class="text-danger">{{ errors.first('username') }}</span>
       </div>
 
       <div class="vx-col md:w-1/2 w-full mt-5">
-        <vs-input type="password" label="លេខសម្ងាត់" autocomplete="off" name="password" v-model="password" class="w-full" v-validate="'required'"/>
+        <vs-input type="password" label="លេខសម្ងាត់" :autocomplete="password" name="password" v-model="password" class="w-full" v-validate="'required'"/>
         <span class="text-danger">{{ errors.first('password') }}</span>
       </div>
 
       <div class="vx-col md:w-1/2 w-full mt-5">
-        <vs-input type="password" label="បញ្ជាក់លេខសម្ងាត់" autocomplete="off" name="confirm_password" v-model="confirm_password" class="w-full" v-validate="'required'"/>
+        <vs-input type="password" label="បញ្ជាក់លេខសម្ងាត់" :autocomplete="confirm_password" name="confirm_password" v-model="confirm_password" class="w-full" v-validate="'required'"/>
         <span class="text-danger">{{ errors.first('confirm_password') }}</span>
       </div>
     </div>
@@ -66,8 +66,10 @@ export default {
       return new Promise((resolve, reject) => {
         axios.get("/api/v1/user/" + _id)
             .then((response) => {
-            let _data = response.data
-            this.username = _data.data.username
+            let _data = response.data;
+            this.username = _data.data.username;
+            this.password = "";
+            this.confirm_password = "";
         }).catch((error) => { 
           reject(error)
           this.$vs.notify({
@@ -89,12 +91,22 @@ export default {
           let _data = {
             id: _id,
             username: this.username,
-            password: this.password
+            password: this.password,
+            confirm_password: this.confirm_password
           }
           if(this.$route.params.userId){
             return new Promise((resolve, reject) => {
                 axios.put("/api/v1/user/" + _id, _data)
                     .then((response) => {
+                  if(response.data.success == false){
+                    this.$vs.notify({
+                      title: 'Message',
+                      text: response.data.message,
+                      iconPack: 'feather',
+                      icon: 'icon-check-circle',
+                      color: 'danger'
+                    })
+                  }else{
                     this.$vs.notify({
                       title: 'Message',
                       text: response.data.message,
@@ -102,7 +114,8 @@ export default {
                       icon: 'icon-check-circle',
                       color: 'primary'
                     })
-                    this.$router.push('/user/list').catch(() => {})
+                  }
+                  // this.$router.push('/user/list').catch(() => {})
                 }).catch((error) => { 
                   reject(error)
                   this.$vs.notify({

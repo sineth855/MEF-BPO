@@ -40,12 +40,6 @@ export default {
                     type: "text",
                     required: true
                 },
-                // {
-                //     name: "select",
-                //     type: "select",
-                //     required: false,
-                //     options: [],//this.data.titles
-                // },
                 {
                     name: "order_level",
                     type: "number",

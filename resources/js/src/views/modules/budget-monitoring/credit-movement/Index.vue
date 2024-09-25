@@ -15,7 +15,7 @@ export default {
   data() {
     return {
       title: "តារាងបញ្ជីចលនាឥណទាន",
-      api: apiConfig._apiActivity,
+      api: apiConfig._apiGetCreditMovement,
       dataAttributes: {
         backgroundColor: "warning",
         tableStyle: 1,
@@ -84,24 +84,7 @@ export default {
           //   // ]
           // }
         ],
-        cluster_activity: [
-          {
-            "label": "ផ្ទេរឥណទានពី៦៩",
-            "value": 1,
-          },
-          {
-            "label": "បំពេញបន្ថែម",
-            "value": 2,
-          },
-          {
-            "label": "និយ័តភាព",
-            "value": 3,
-          },
-          {
-            "label": "កែឧបសម្ព័ន្ធរជ្ជទេយ្យបុរេប្រទាន",
-            "value": 4,
-          },
-        ],
+        cluster_activity: [],
         credit_movement_type: [
           {
             "label": "ផ្ទេរឥណទានពី៦៩",
@@ -205,22 +188,32 @@ export default {
           options: [],
         },
         {
-          name: "account_group",
+          name: "account_group_id",
           type: "select",
           required: true,
           options: [],
+        },
+        {
+          name: "program_id",
+          type: "select",
+          required: true,
+          hasFilter: true,
+          filterObj: "sub_program_id",
+          api: apiConfig._apiSubProgramByPro
         },
         {
           name: "sub_program_id",
           type: "select",
           required: true,
-          options: [],
+          hasFilter: true,
+          filterObj: "cluster_activity_id",
+          api: apiConfig._apiEntityBySubPro
         },
         {
           name: "cluster_activity_id",
           type: "select",
           required: true,
-          options: [],
+          hasFilter: false,
         },
         {
           name: "year",
@@ -239,7 +232,7 @@ export default {
         },
         {
           name: "date",
-          type: "credit_movement_type",
+          type: "date",
           required: true
         },
         {
@@ -299,11 +292,11 @@ export default {
       return new Promise((resolve, reject) => {
         axios.post(this.api + "/search", _params)
           .then((response) => {
-            // if (response.data) {
-            //   this.data = response.data;
-            // } else {
-            this.data = this.data;
-            // }
+            if (response.data) {
+              this.data = response.data;
+            } else {
+              this.data = this.data;
+            }
             this.$vs.loading.close();
           }).catch((error) => {
             // reject(error)

@@ -1,16 +1,9 @@
 <template>
     <div>
-        <vs-popup style="z-index: 5200000;" classContent="popup-example" :title="$t('ទម្រង់បង្កើត')"
-        :active.sync="showModalForm">
-            <d-form-attribute 
-                :data="data" 
-                :formAttributes="formAttributeData" 
-                :rowDisplay="rowDisplay"
-                :api="newAPi"
-                :dataInfo="dataInfo"
-                :parentDataInfo="parentDataInfo"
-                @clickForm="initTableData">
-            </d-form-attribute>
+        <vs-popup style="z-index: 5200000;" classContent="popup-example" :title="$t(title)"
+            :active.sync="showModalForm">
+            <DFormAttribute :data="data" :formAttributes="formAttributeData" :rowDisplay="rowDisplay" :api="newAPi"
+                :dataInfo="dataInfo" :parentDataInfo="parentDataInfo" @clickForm="initTableData" />
         </vs-popup>
         <div class="vx-row">
             <template v-for="(formAttribute, i) in formAttributes">
@@ -22,7 +15,7 @@
                             :placeholder="$t(formAttribute.name)" :name="formAttribute.name" class="mt-1 w-full" />
                         <span class="text-danger text-sm" size="small" v-show="errors.has(formAttribute.name)">{{
                             $t("required_" + formAttribute.name)
-                        }}</span>
+                            }}</span>
                     </span>
                     <vs-input v-else v-validate="''" :placeholder="$t(formAttribute.name)" size="small"
                         v-model="form.attribute[formAttribute.name]" :name="formAttribute.name" class="mt-1 w-full" />
@@ -30,13 +23,10 @@
 
                 <!-- Form Input Number -->
                 <div v-if="formAttribute.type == 'hidden' && formAttribute.required" :class="styleClass" dclass="mt-4">
-                    <label>{{ $t(formAttribute.name) }} -- {{data[formAttribute.name]}}</label>
-                    <vs-input type="number" :placeholder="$t(formAttribute.name)" 
-                        v-model="form.attribute[formAttribute.name]" 
-                        :value="data[formAttribute.name]" 
-                        :name="formAttribute.name" 
-                        size="small"
-                        class="mt-2 w-full" />
+                    <label>{{ $t(formAttribute.name) }} -- {{ data[formAttribute.name] }}</label>
+                    <vs-input type="number" :placeholder="$t(formAttribute.name)"
+                        v-model="form.attribute[formAttribute.name]" :value="data[formAttribute.name]"
+                        :name="formAttribute.name" size="small" class="mt-2 w-full" />
                 </div>
 
                 <!-- Form Input Text -->
@@ -48,7 +38,7 @@
                             :name="formAttribute.name" class="mt-1 w-full" />
                         <span class="text-danger text-sm" size="small" v-show="errors.has(formAttribute.name)">{{
                             $t("required_" + formAttribute.name)
-                        }}</span>
+                            }}</span>
                     </span>
                     <vs-input type="password" v-else v-validate="''" :placeholder="$t(formAttribute.name)" size="small"
                         v-model="form.attribute[formAttribute.name]" :name="formAttribute.name" class="mt-1 w-full" />
@@ -71,9 +61,13 @@
                 </div>
 
                 <div v-if="formAttribute.type == 'select'" :class="styleClass" dclass="mt-4">
-                    <label class="mb-2">{{ $t(formAttribute.name) }} <span v-if="formAttribute.required">*</span></label>
-                    <button v-if="formAttribute.name !='year' && formAttribute.name !='gender'" type="button" @click.stop="initNewForm(formAttribute.name)">
-                        <feather-icon v-if="formAttribute.name !='year' && formAttribute.name !='gender'" type="button" @click.stop="initNewForm(formAttribute.name)" icon="PlusIcon" svgClasses="h-4 w-4" />
+                    <label class="mb-2">{{ $t(formAttribute.name) }} <span
+                            v-if="formAttribute.required">*</span></label>
+                    <button v-if="formAttribute.name != 'year' && formAttribute.name != 'gender'" type="button"
+                        @click.stop="initNewForm(formAttribute.name)">
+                        <feather-icon v-if="formAttribute.name != 'year' && formAttribute.name != 'gender'"
+                            type="button" @click.stop="initNewForm(formAttribute.name)" icon="PlusIcon"
+                            svgClasses="h-4 w-4" />
                     </button>
                     <span v-if="formAttribute.required">
                         <!-- <vs-select :name="formAttribute.name" v-model="form.attribute[formAttribute.name]"
@@ -97,7 +91,7 @@
                                 :dir="$vs.rtl ? 'rtl' : 'ltr'" class="mt-2 w-full" />
                             <span class="text-danger text-sm" v-show="errors.has(formAttribute.name)">{{
                                 $t("required_" + formAttribute.name)
-                            }}</span>
+                                }}</span>
                             <!-- <v-select v-model="form.attribute[formAttribute.name]" :clearable="false"
                                 :options="data[formAttribute.name]" v-validate="'required'" :name="formAttribute.name"
                                 :dir="$vs.rtl ? 'rtl' : 'ltr'" />
@@ -110,7 +104,7 @@
                                 :dir="$vs.rtl ? 'rtl' : 'ltr'" class="mt-1 w-full" />
                             <span class="text-danger text-sm" v-show="errors.has(formAttribute.name)">{{
                                 $t("required_" + formAttribute.name)
-                            }}</span>
+                                }}</span>
                         </template>
                     </span>
                     <span v-else>
@@ -122,7 +116,8 @@
                             <v-select size="small" v-validate="''"
                                 v-on:input="onInitChange($event, formAttribute.filterObj, formAttribute.name, formAttribute.api)"
                                 v-model="form.attribute[formAttribute.name]" :name="formAttribute.name"
-                                :options="data[formAttribute.name]" :dir="$vs.rtl ? 'rtl' : 'ltr'" class="mt-2 w-full" />
+                                :options="data[formAttribute.name]" :dir="$vs.rtl ? 'rtl' : 'ltr'"
+                                class="mt-2 w-full" />
                         </template>
                         <template v-else>
                             <v-select size="small" v-validate="''" :name="formAttribute.name"
@@ -148,7 +143,7 @@
                         </vs-select>
                         <span class="text-danger text-sm" v-show="errors.has(formAttribute.name)">{{ $t("required_" +
                             formAttribute.name)
-                        }}</span>
+                            }}</span>
                     </span>
                     <span v-else>
                         <vs-select :name="formAttribute.name" @change="onChangeElement($event, formAttribute.name)"
@@ -184,7 +179,7 @@
                             v-model="form.attribute[formAttribute.name]" />
                         <span class="text-danger text-sm" v-show="errors.has(formAttribute.name)">{{ $t("required_" +
                             formAttribute.name)
-                        }}</span>
+                            }}</span>
                     </span>
                     <span v-else>
                         <vs-textarea v-validate="''" class="mt-1 w-full" v-model="form.attribute[formAttribute.name]" />
@@ -199,7 +194,7 @@
                             v-model="form.attribute[formAttribute.name]" class="mt-1 w-full" />
                         <span class="text-danger text-sm" v-show="errors.has(formAttribute.name)">{{ $t("required_" +
                             formAttribute.name)
-                        }}</span>
+                            }}</span>
                     </span>
                     <span v-else>
                         <flat-pickr v-validate="''" v-model="form.attribute[formAttribute.name]" class="mt-1 w-full" />
@@ -223,8 +218,9 @@
                                         :placeholder="$t(childformAttribute.name)" :name="childformAttribute.name"
                                         class="mt-1 w-full" />
                                     <span class="text-danger text-sm" size="small"
-                                        v-show="errors.has(childformAttribute.name)">{{ $t("required_" +
-                                            childformAttribute.name)
+                                        v-show="errors.has(childformAttribute.name)">{{
+                                            $t("required_" +
+                                                childformAttribute.name)
                                         }}</span>
                                 </span>
                                 <vs-input v-else :placeholder="$t(childformAttribute.name)" size="small"
@@ -241,7 +237,7 @@
                                         icon-dec="expand_more" class="mt-1 w-full" />
                                     <span class="text-danger text-sm" v-show="errors.has(childformAttribute.name)">{{
                                         $t("required_" + childformAttribute.name)
-                                    }}</span>
+                                        }}</span>
                                 </span>
                                 <vs-input-number v-else :name="childformAttribute.name"
                                     v-model="form.attribute[childformAttribute.name]" icon-inc="expand_less"
@@ -259,7 +255,7 @@
                                     </vs-select>
                                     <span class="text-danger text-sm" v-show="errors.has(childformAttribute.name)">{{
                                         $t("required_" + childformAttribute.name)
-                                    }}</span>
+                                        }}</span>
                                 </span>
                                 <span v-else>
                                     <vs-select :name="childformAttribute.name"
@@ -294,10 +290,11 @@
                                         v-model="form.attribute[childformAttribute.name]" />
                                     <span class="text-danger text-sm" v-show="errors.has(childformAttribute.name)">{{
                                         $t("required_" + childformAttribute.name)
-                                    }}</span>
+                                        }}</span>
                                 </span>
                                 <span v-else>
-                                    <vs-textarea class="mt-1 w-full" v-model="form.attribute[childformAttribute.name]" />
+                                    <vs-textarea class="mt-1 w-full"
+                                        v-model="form.attribute[childformAttribute.name]" />
                                 </span>
                             </div>
 
@@ -309,7 +306,7 @@
                                         v-model="form.attribute[childformAttribute.name]" class="mt-1 w-full" />
                                     <span class="text-danger text-sm" v-show="errors.has(childformAttribute.name)">{{
                                         $t("required_" + childformAttribute.name)
-                                    }}</span>
+                                        }}</span>
                                 </span>
                                 <span v-else>
                                     <flat-pickr v-model="form.attribute[childformAttribute.name]" class="mt-1 w-full" />
@@ -325,7 +322,7 @@
                 <div v-if="formAttribute.type == 'grid'" class="mt-4 vx-col lg:w-1/1 w-full">
                     <!-- <vs-alert icon="warning" active="true" color="primary" class="mt-5"> -->
                     <div style="background-color:#253358; color: #ffffff; padding: 5px;"><span>{{ $t(formAttribute.name)
-                    }}</span></div>
+                            }}</span></div>
                     <!-- </vs-alert> -->
                 </div>
 
@@ -339,329 +336,354 @@
 </template>
 
 <script>
-    import apiConfig from "@/apiConfig.js"
-    import axios from "@/axios.js";
-    // import formAttr from "@/formAttributes.js"
-    // import DFormInput from '@/views/form-builder/form-control/DFormInput.vue';
-    import vSelect from 'vue-select';
-    import flatPickr from 'vue-flatpickr-component';
-    import 'flatpickr/dist/flatpickr.css';
-    // import DModalForm from '@/views/form-builder/DModalForm.vue';
-    import DFormAttribute from '@/views/form-builder/DFormAttribute.vue';
-    // import Unit from '@/views/settings/_Unit.vue';
-    export default {
-        props: {
-            formAttributes: {
-                required: Array
-            },
-            data: {
-                required: true
-            },
-            rowDisplay: {
-                required: true
-            },
-            api: {
-                type: String
-            },
-            dataInfo: {
-                required: true
-            },
-            parentDataInfo: {
-                required: true
-            },
+import apiConfig from "@/apiConfig.js"
+import axios from "@/axios.js";
+import formAttr from "@/formAttributes.js"
+// import DFormInput from '@/views/form-builder/form-control/DFormInput.vue';
+import vSelect from 'vue-select';
+import flatPickr from 'vue-flatpickr-component';
+import 'flatpickr/dist/flatpickr.css';
+// import DModalForm from '@/views/form-builder/DModalForm.vue';
+import DFormAttribute from '@/views/form-builder/DFormAttribute.vue';
+// import Unit from '@/views/settings/_Unit.vue';
+export default {
+    props: {
+        formAttributes: {
+            required: Array
         },
-        data() {
-            return {
-                newAPi: null,
-                formAttributeData: [],
-                dataTables: [],
-                dataAttributes: "",
-                title: "",
-                // initTableData: "",
-                styleClass: "",
-                formAttribute: "",
-                dataFields: [],
-                showModalForm: false,
-                form: {
-                    attribute: {
-                    }
-                },
-                form_filter: [],
-                date: null,
-            }
+        data: {
+            required: true
         },
-        components: {
-            // DFormInput,
-            vSelect,
-            flatPickr,
-            // DModalForm,
-            DFormAttribute,
-            // formAttr
-            // Unit
+        rowDisplay: {
+            required: true
         },
-        computed: {
-            validateForm() {
-                return !this.errors.any()
-            }
+        api: {
+            type: String
         },
-        methods: {
-            initTableData(data){
-                var _flag = 1; // mean to enable close modal form
-                this.showModalForm = false;
-                this.$emit('clickForm', _flag);
-            },
-            initNewForm(param){
-                switch (param) {
-                    case "role_id":
-                        this.newAPi = apiConfig._apiAccountTypeGroup;
-                        this.formAttributeData = formAttr.formAttributeUnit;
-                        break;
-                    case "entity_id":
-                        this.newAPi = apiConfig._apiEntity;
-                        this.formAttributeData = formAttr.formAttributeEntity;
-                        break;
-                    case "title":
-                        this.newAPi = apiConfig._apiTitle;
-                        this.formAttributeData = formAttr.formAttributeTitle;
-                        break;
-                    case "position":
-                        this.newAPi = apiConfig._apiPosition;
-                        this.formAttributeData = formAttr.formAttributeTitle;
-                        break;
-                    case "account_type_group_id":
-                        this.newAPi = apiConfig._apiAccountTypeGroup;
-                        this.formAttributeData = formAttr.formAttributeTitle;
-                        break;
-                    case "account_type_id":
-                        this.newAPi = apiConfig._apiAccountType;
-                        this.formAttributeData = formAttr.formAttributeTitle;
-                        break;
-                    case "account_id":
-                        this.newAPi = apiConfig._apiAccount;
-                        this.formAttributeData = formAttr.formAttributeSubAccount;
-                        break;
-                    case "sub_account_id":
-                        this.newAPi = "";
-                        this.formAttributeData = formAttr.formAttributeSubAccount;
-                        break;
-                    case "category_id":
-                        this.newAPi = apiConfig._apiItemCategory;
-                        this.formAttributeData = formAttr.formAttributeTitle;
-                        break;
-                    case "entity_member_id":
-                        this.newAPi = apiConfig._apiEntityMember;
-                        this.formAttributeData = formAttr.formAttributeTitle;
-                        break;
-                    case "objective_id":
-                        this.newAPi = apiConfig._apiObjective;
-                        this.formAttributeData = formAttr.formAttributeTitle;
-                        break;
-                    case "entity_member_id":
-                        this.newAPi = apiConfig._apiEntityMember;
-                        this.formAttributeData = formAttr.formAttributeTitle;
-                        break;
-                    case "program_id":
-                        this.newAPi = apiConfig._apiProgram;
-                        this.formAttributeData = formAttr.formAttributeTitle;
-                        break;
-                    case "cluster_activity_id":
-                        this.newAPi = apiConfig._apiClusterActivity;
-                        this.formAttributeData = formAttr.formAttributeTitle;
-                        break;
-                    case "activity_id":
-                        this.newAPi = apiConfig._apiActivity;
-                        this.formAttributeData = formAttr.formAttributeTitle;
-                        break;
-                    default:
-                        this.formAttributeData = null;
-                        break;
+        dataInfo: {
+            required: true
+        },
+        parentDataInfo: {
+            required: true
+        },
+    },
+    data() {
+        return {
+            newAPi: null,
+            formAttributeData: [],
+            dataTables: [],
+            dataAttributes: "",
+            title: "ទម្រង់បង្កើត",
+            // initTableData: "",
+            styleClass: "",
+            formAttribute: "",
+            dataFields: [],
+            showModalForm: false,
+            form: {
+                attribute: {
                 }
-                this.$emit('clickOpenNewPop', param);
-                // this.$ref.refModalOpenNewPop.initOpenNewPop();
-                this.showModalForm = true;
             },
-            onInitChange($event, _formAttribute, _formName, _apiRequest) {
-                let _data = {
-                    type: "autocomplete",
-                    param: this.form.attribute[_formName]
-                };
-                this.form.attribute[_formAttribute] = null;
-                this.data[_formAttribute] = [];
-                // this.data[_formAttribute].push([
-                //     {
-                //         "label": "sdf",
-                //         "value": "1"
-                //     }
-                // ]);
-                return new Promise((resolve, reject) => {
-                    axios.post(_apiRequest, _data)
-                        .then((response) => {
-                            this.$vs.notify({
-                                title: 'Message',
-                                text: "Loading...",
-                                iconPack: 'feather',
-                                icon: 'icon-check-circle',
-                                color: 'primary',
-                                position: 'top-right'
-                            });
-                            console.log(response["data"]["data"]);
-                            for (let i = 0; i < response["data"]["data"].length; i++) {
-                                // let _d = {
-                                //     "label": response["data"]["data"][i]["label"],
-                                //     "value": response["data"]["data"][i]["value"],
-                                // }
-                                // this.data[_formAttribute].push(_d);
-                                this.data[_formAttribute].push(response["data"]["data"][i]);
-                            }
-                        }).catch((error) => {
-                            reject(error)
-                            this.$vs.notify({
-                                title: 'Message',
-                                text: "មិនអាចដំណើរកាបានទេ,​ សូមត្រួតពិនិត្យពត៌មានឡើងវិញ។",
-                                iconPack: 'feather',
-                                icon: 'icon-check-circle',
-                                color: 'danger',
-                                position: 'top-right'
-                            })
-                            this.$vs.loading.close();
-                        })
-                })
+            form_filter: [],
+            date: null,
+        }
+    },
+    components: {
+        // DFormInput,
+        vSelect,
+        flatPickr,
+        // DModalForm,
+        DFormAttribute,
+        formAttr
+        // Unit
+    },
+    computed: {
+        validateForm() {
+            return !this.errors.any()
+        }
+    },
+    methods: {
+        initTableData(data) {
+            var _flag = 1; // mean to enable close modal form
+            this.showModalForm = false;
+            this.$emit('clickForm', _flag);
+        },
+        initNewForm(param) {
+            switch (param) {
+                case "account_group_id":
+                    this.title = "account_group_id";
+                    this.newAPi = apiConfig._apiAccountGroup;
+                    this.formAttributeData = formAttr.formAttributeAccountGroup;
+                    break;
 
-            },
-            emitValue(e) {
-                let value = e.target.value
-                if (this.modelModifiers.capitalize) {
-                    value = value.charAt(0).toUpperCase() + value.slice(1)
-                }
-                this.$emit('update:modelValue', value)
-            },
-            // Just test to create dynamic data table on form
-            onChangeElement(e, form_name) {
-                // this.form.attribute[form_name] = "";
-                this.$emit('clicked', e)
-                // this.$refs.refInitPushDataTable.initPushDataTable(form_name);
-            },
-            showNewForm(data) {
-                this.form.attribute = [];
-                this.formAttributes.forEach(_formAttribute => {
-                    if (_formAttribute["hasDefault"]) {
-                        this.form.attribute[_formAttribute["name"]] = _formAttribute["defaultOptions"]["value"];
-                    }else if(_formAttribute["type"] == "hidden"){
-                        this.form.attribute[_formAttribute["name"]] = data["id"];
-                    }
-                });
-            },
-            showNewFormByParent(obj) {
-                this.form.attribute = [];
-                this.formAttributes.forEach(_formAttribute => {
-                    this.form.attribute[_formAttribute["name"]] = "";
-                    if (_formAttribute["type"] == "select") {
-                        this.form.attribute[_formAttribute["name"]] = obj[_formAttribute["name"]];
-                        // this.form.attribute[_formAttribute["name"]] = "";
-                    }
-                    if (_formAttribute["name"] == obj.field) {
-                        this.form.attribute[_formAttribute["name"]] = obj[_formAttribute["name"]];
-                    }
-                    // if (_formAttribute["type"] == "select") {
-                    //     this.form.attribute[_formAttribute["name"]] = "";
-                    // }
-                    // if (_formAttribute["name"] == obj.field) {
-                    //     this.form.attribute[obj.field] = obj.id;
-                    // }
-                });
-            },
-            showDataForm(data) {
-                // this.form.attribute["budget_template_id"] = 111;
-                //// let _formAttribute = this.formAttributes;
-                //// for (let i = 0; i < _formAttribute.length; i++) {
-                ////     this.form.attribute[_formAttribute[i]["name"]] = data[_formAttribute[i]["name"]];// "I got all";
-                //// }
-                this.formAttributes.forEach(_formAttribute => {
-                    if (_formAttribute["type"] == "select") {
-                        this.form.attribute[_formAttribute["name"]] = data[_formAttribute["name"]];
-                    } else if(_formAttribute["type"] == "hidden"){
-                        this.form.attribute[_formAttribute["name"]] = data[_formAttribute["name"]];
-                    }else {
-                        this.form.attribute[_formAttribute["name"]] = data[_formAttribute["name"]];
-                    }
-                    this.$validator.validateAll().then(result => {
+                case "account_type_group_id":
+                    this.title = "account_group_id";
+                    this.newAPi = apiConfig._apiAccountTypeGroup;
+                    this.formAttributeData = formAttr.formAttributeAccountTypeGroup;
+                    break;
+                case "account_type_id":
+                    this.title = "account_type_id";
+                    this.newAPi = apiConfig._apiAccountType;
+                    this.formAttributeData = formAttr.formAttributeAccountType;
+                    break;
+                case "account_id":
+                    this.title = "account_id";
+                    this.newAPi = apiConfig._apiAccount;
+                    this.formAttributeData = formAttr.formAttributeAccount;
+                    break;
+                case "sub_account_id":
+                    this.title = "sub_account_id";
+                    this.newAPi = "";
+                    this.formAttributeData = formAttr.formAttributeAccount;
+                    break;
+                case "category_id":
+                    this.title = "category_id";
+                    this.newAPi = apiConfig._apiItemCategory;
+                    this.formAttributeData = formAttr.formAttributeItemCategory;
+                    break;
+                case "item_id":
+                    this.title = "item_id";
+                    this.newAPi = apiConfig._apiItem;
+                    this.formAttributeData = formAttr.formAttributeItem;
+                    break;
+                case "role_id":
+                    this.title = "role_id";
+                    this.newAPi = apiConfig._apiRole;
+                    this.formAttributeData = formAttr.formAttributeRole;
+                    break;
+                case "unit_id":
+                    this.title = "unit_id";
+                    this.newAPi = apiConfig._apiUnit;
+                    this.formAttributeData = formAttr.formAttributeUnit;
+                    break;
+                case "user_id":
+                    this.title = "user_id";
+                    this.newAPi = apiConfig._apiUser;
+                    this.formAttributeData = formAttr.formAttributeUser;
+                    break;
+                case "title":
+                    this.title = "title";
+                    this.newAPi = apiConfig._apiTitle;
+                    this.formAttributeData = formAttr.formAttributeTitle;
+                    break;
+                case "department":
+                    this.title = "department";
+                    this.newAPi = apiConfig._apiDepartment;
+                    this.formAttributeData = formAttr.formAttributeDepartment;
+                    break;
+                case "entity_id":
+                    this.title = "entity_id";
+                    this.newAPi = apiConfig._apiEntity;
+                    this.formAttributeData = formAttr.formAttributeEntity;
+                    break;
+                case "entity_member_id":
+                    this.title = "entity_member_id";
+                    this.newAPi = apiConfig._apiEntityMember;
+                    this.formAttributeData = formAttr.formAttributeEntityMember;
+                    break;
+                case "position":
+                    this.title = "position";
+                    this.newAPi = apiConfig._apiPosition;
+                    this.formAttributeData = formAttr.formAttributePosition;
+                    break;
+                case "ceiling_group_id":
+                    this.title = "ceiling_group_id";
+                    this.newAPi = apiConfig._apiCeilingGroup;
+                    this.formAttributeData = formAttr.formAttributeCeilingGroup;
+                    break;
+                case "ceiling_type_id":
+                    this.title = "ceiling_type_id";
+                    this.newAPi = apiConfig._apiCeilingType;
+                    this.formAttributeData = formAttr.formAttributeCeilingType;
+                    break;
+                case "objective_id":
+                    this.title = "objective_id";
+                    this.newAPi = apiConfig._apiObjective;
+                    this.formAttributeData = formAttr.formAttributeObjective;
+                    break;
+
+                case "program_id":
+                    this.title = "program_id";
+                    this.newAPi = apiConfig._apiProgram;
+                    this.formAttributeData = formAttr.formAttributeProgram;
+                    break;
+                case "sub_program_id":
+                    this.title = "sub_program_id";
+                    this.newAPi = apiConfig._apiSubProgram;
+                    this.formAttributeData = formAttr.formAttributeSubProgram;
+                    break;
+                case "cluster_activity_id":
+                    this.title = "cluster_activity_id";
+                    this.newAPi = apiConfig._apiClusterActivity;
+                    this.formAttributeData = formAttr.formAttributeClusterActivity;
+                    break;
+                case "activity_id":
+                    this.title = "activity_id";
+                    this.newAPi = apiConfig._apiActivity;
+                    this.formAttributeData = formAttr.formAttributeActivity;
+                    break;
+                default:
+                    this.formAttributeData = null;
+                    break;
+            }
+            this.$emit('clickOpenNewPop', param);
+            // this.$ref.refModalOpenNewPop.initOpenNewPop();
+            this.showModalForm = true;
+        },
+        onInitChange($event, _formAttribute, _formName, _apiRequest) {
+            let _data = {
+                type: "autocomplete",
+                param: this.form.attribute[_formName]
+            };
+            this.form.attribute[_formAttribute] = null;
+            this.data[_formAttribute] = [];
+            // this.data[_formAttribute].push([
+            //     {
+            //         "label": "sdf",
+            //         "value": "1"
+            //     }
+            // ]);
+            return new Promise((resolve, reject) => {
+                axios.post(_apiRequest, _data)
+                    .then((response) => {
+                        this.$vs.notify({
+                            title: 'Message',
+                            text: "Loading...",
+                            iconPack: 'feather',
+                            icon: 'icon-check-circle',
+                            color: 'primary',
+                            position: 'top-right'
+                        });
+                        console.log(response["data"]["data"]);
+                        for (let i = 0; i < response["data"]["data"].length; i++) {
+                            // let _d = {
+                            //     "label": response["data"]["data"][i]["label"],
+                            //     "value": response["data"]["data"][i]["value"],
+                            // }
+                            // this.data[_formAttribute].push(_d);
+                            this.data[_formAttribute].push(response["data"]["data"][i]);
+                        }
+                    }).catch((error) => {
+                        reject(error)
+                        this.$vs.notify({
+                            title: 'Message',
+                            text: "មិនអាចដំណើរកាបានទេ,​ សូមត្រួតពិនិត្យពត៌មានឡើងវិញ។",
+                            iconPack: 'feather',
+                            icon: 'icon-check-circle',
+                            color: 'danger',
+                            position: 'top-right'
+                        })
+                        this.$vs.loading.close();
                     })
-                });
-            },
-            onChange(e) {
+            })
+
+        },
+        emitValue(e) {
+            let value = e.target.value
+            if (this.modelModifiers.capitalize) {
+                value = value.charAt(0).toUpperCase() + value.slice(1)
+            }
+            this.$emit('update:modelValue', value)
+        },
+        // Just test to create dynamic data table on form
+        onChangeElement(e, form_name) {
+            // this.form.attribute[form_name] = "";
+            this.$emit('clicked', e)
+            // this.$refs.refInitPushDataTable.initPushDataTable(form_name);
+        },
+        showNewForm(data) {
+            this.form.attribute = [];
+            this.formAttributes.forEach(_formAttribute => {
+                if (_formAttribute["hasDefault"]) {
+                    this.form.attribute[_formAttribute["name"]] = _formAttribute["defaultOptions"]["value"];
+                } else if (_formAttribute["type"] == "hidden") {
+                    this.form.attribute[_formAttribute["name"]] = data["id"];
+                }
+            });
+        },
+        showNewFormByParent(obj) {
+            console.log("data objec", obj);
+            this.form.attribute = [];
+            this.formAttributes.forEach(_formAttribute => {
+                this.form.attribute[_formAttribute["name"]] = "";
+                if (_formAttribute["type"] == "select") {
+                    this.form.attribute[_formAttribute["name"]] = obj[_formAttribute["name"]];
+                    // this.form.attribute[_formAttribute["name"]] = "";
+                }
+                if (_formAttribute["name"] == obj.field) {
+                    this.form.attribute[_formAttribute["name"]] = obj[_formAttribute["name"]];
+                }
+                // if (_formAttribute["type"] == "select") {
+                //     this.form.attribute[_formAttribute["name"]] = "";
+                // }
+                // if (_formAttribute["name"] == obj.field) {
+                //     this.form.attribute[obj.field] = obj.id;
+                // }
+            });
+        },
+        showDataForm(data) {
+            // this.form.attribute["budget_template_id"] = 111;
+            //// let _formAttribute = this.formAttributes;
+            //// for (let i = 0; i < _formAttribute.length; i++) {
+            ////     this.form.attribute[_formAttribute[i]["name"]] = data[_formAttribute[i]["name"]];// "I got all";
+            //// }
+            this.formAttributes.forEach(_formAttribute => {
+                if (_formAttribute["type"] == "select") {
+                    this.form.attribute[_formAttribute["name"]] = data[_formAttribute["name"]];
+                } else if (_formAttribute["type"] == "hidden") {
+                    this.form.attribute[_formAttribute["name"]] = data[_formAttribute["name"]];
+                } else {
+                    this.form.attribute[_formAttribute["name"]] = data[_formAttribute["name"]];
+                }
                 this.$validator.validateAll().then(result => {
-                });
-            },
-            submitForm() {
-                let _d;
-                this.dataFields = [];
-                let _formAttribute = this.formAttributes;
-                this.formAttributes.forEach(_formAttribute => {
-                    if (_formAttribute["type"] == "select") {
-                        if (typeof this.form.attribute[_formAttribute["name"]] !== 'undefined') {
-                            _d = {
-                                [_formAttribute["name"]]: this.form.attribute[_formAttribute["name"]].value
-                            }
-                        } else {
-                            _d = {
-                                [_formAttribute["name"]]: this.form.attribute[_formAttribute["name"]]
-                            }
+                })
+            });
+        },
+        onChange(e) {
+            this.$validator.validateAll().then(result => {
+            });
+        },
+        submitForm() {
+            let _d;
+            this.dataFields = [];
+            let _formAttribute = this.formAttributes;
+            this.formAttributes.forEach(_formAttribute => {
+                if (_formAttribute["type"] == "select") {
+                    if (typeof this.form.attribute[_formAttribute["name"]] !== 'undefined') {
+                        _d = {
+                            [_formAttribute["name"]]: this.form.attribute[_formAttribute["name"]].value
                         }
                     } else {
                         _d = {
                             [_formAttribute["name"]]: this.form.attribute[_formAttribute["name"]]
                         }
                     }
-                    this.dataFields.push(_d);
-                });
-                this.$validator.validateAll().then(result => {
-                    if (result) {
-                        let _data = this.dataFields;
-                        // this.$vs.loading();
-                        if (this.dataInfo.id) {
-                            let _id = this.dataInfo.id;
-                            // this.$vs.loading.close();
-                            return new Promise((resolve, reject) => {
-                                axios.put(this.api + '/' + _id, _data)
-                                    .then((response) => {
-                                        if(response.data.success == false){
-                                            this.$vs.notify({
-                                                title: 'Message',
-                                                text: response.data.message,
-                                                iconPack: 'feather',
-                                                icon: 'icon-check-circle',
-                                                color: 'danger',
-                                                position: 'top-right'
-                                            })
-                                        }else{
-                                            this.$vs.notify({
-                                                title: 'Message',
-                                                text: response.data.message,
-                                                iconPack: 'feather',
-                                                icon: 'icon-check-circle',
-                                                color: 'primary',
-                                                position: 'top-right'
-                                            })
-                                            this.$emit('clickForm','');
-                                        }
-                                        // this.$router.push('/account/expense').catch(() => { })
-                                    }).catch((error) => {
-                                        reject(error)
+                } else {
+                    _d = {
+                        [_formAttribute["name"]]: this.form.attribute[_formAttribute["name"]]
+                    }
+                }
+                this.dataFields.push(_d);
+            });
+            this.$validator.validateAll().then(result => {
+                if (result) {
+                    let _data = this.dataFields;
+                    // this.$vs.loading();
+                    if (this.dataInfo.id) {
+                        let _id = this.dataInfo.id;
+                        // this.$vs.loading.close();
+                        return new Promise((resolve, reject) => {
+                            axios.put(this.api + '/' + _id, _data)
+                                .then((response) => {
+                                    if (response.data.success == false) {
                                         this.$vs.notify({
                                             title: 'Message',
-                                            text: "មិនអាចដំណើរកាបានទេ,​ សូមត្រួតពិនិត្យពត៌មានឡើងវិញ។",
+                                            text: response.data.message,
                                             iconPack: 'feather',
                                             icon: 'icon-check-circle',
                                             color: 'danger',
                                             position: 'top-right'
                                         })
-                                        this.$vs.loading.close();
-                                    })
-                            })
-                        } else {
-                            return new Promise((resolve, reject) => {
-                                axios.post(this.api, _data)
-                                    .then((response) => {
+                                    } else {
                                         this.$vs.notify({
                                             title: 'Message',
                                             text: response.data.message,
@@ -670,52 +692,92 @@
                                             color: 'primary',
                                             position: 'top-right'
                                         })
-
                                         this.$emit('clickForm', '');
-                                        // this.$router.push('/account/expense').catch(() => { })
-                                    }).catch((error) => {
-                                        reject(error)
+                                    }
+                                    // this.$router.push('/account/expense').catch(() => { })
+                                }).catch((error) => {
+                                    reject(error)
+                                    this.$vs.notify({
+                                        title: 'Message',
+                                        text: "មិនអាចដំណើរកាបានទេ,​ សូមត្រួតពិនិត្យពត៌មានឡើងវិញ។",
+                                        iconPack: 'feather',
+                                        icon: 'icon-check-circle',
+                                        color: 'danger',
+                                        position: 'top-right'
+                                    })
+                                    this.$vs.loading.close();
+                                })
+                        })
+                    } else {
+                        return new Promise((resolve, reject) => {
+                            axios.post(this.api, _data)
+                                .then((response) => {
+                                    if (response.data.message) {
                                         this.$vs.notify({
                                             title: 'Message',
-                                            text: "មិនអាចដំណើរកាបានទេ,​ សូមត្រួតពិនិត្យពត៌មានឡើងវិញ។",
+                                            text: response.data.message,
+                                            iconPack: 'feather',
+                                            icon: 'icon-check-circle',
+                                            color: 'primary',
+                                            position: 'top-right'
+                                        })
+                                    } else {
+                                        this.$vs.notify({
+                                            title: 'Message',
+                                            text: response.data.message,
                                             iconPack: 'feather',
                                             icon: 'icon-check-circle',
                                             color: 'danger',
                                             position: 'top-right'
                                         })
                                         this.$vs.loading.close();
+                                    }
+
+                                    this.$emit('clickForm', '');
+                                    // this.$router.push('/account/expense').catch(() => { })
+                                }).catch((error) => {
+                                    reject(error)
+                                    this.$vs.notify({
+                                        title: 'Message',
+                                        text: "មិនអាចដំណើរកាបានទេ,​ សូមត្រួតពិនិត្យពត៌មានឡើងវិញ។",
+                                        iconPack: 'feather',
+                                        icon: 'icon-check-circle',
+                                        color: 'danger',
+                                        position: 'top-right'
                                     })
-                            })
-                        }
-
+                                    this.$vs.loading.close();
+                                })
+                        })
                     }
-                    this.$vs.loading.close();
-                })
-            }
-        },
-        mounted() {
 
-        },
-        created() {
-            // this.form.attribute["budget_template_id"] = 11;
-            if (this.rowDisplay == "1grid") {
-                this.styleClass = "vx-col lg:w-1/1 w-full mt-4";
-            }
-            if (this.rowDisplay == "2grid") {
-                this.styleClass = "vx-col lg:w-1/2 w-full mt-4";
-            }
-            if (this.rowDisplay == "3grid") {
-                this.styleClass = "vx-col lg:w-1/3 w-full mt-4";
-            }
-            if (this.rowDisplay == "4grid") {
-                this.styleClass = "vx-col lg:w-1/4 w-full mt-4";
-            }
-            if (this.rowDisplay == "full-grid") {
-                this.styleClass = "vx-col lg:w-1/1 w-full";
-            }
-        },
-        watch: {
-
+                }
+                this.$vs.loading.close();
+            })
         }
+    },
+    mounted() {
+
+    },
+    created() {
+        // this.form.attribute["budget_template_id"] = 11;
+        if (this.rowDisplay == "1grid") {
+            this.styleClass = "vx-col lg:w-1/1 w-full mt-4";
+        }
+        if (this.rowDisplay == "2grid") {
+            this.styleClass = "vx-col lg:w-1/2 w-full mt-4";
+        }
+        if (this.rowDisplay == "3grid") {
+            this.styleClass = "vx-col lg:w-1/3 w-full mt-4";
+        }
+        if (this.rowDisplay == "4grid") {
+            this.styleClass = "vx-col lg:w-1/4 w-full mt-4";
+        }
+        if (this.rowDisplay == "full-grid") {
+            this.styleClass = "vx-col lg:w-1/1 w-full";
+        }
+    },
+    watch: {
+
     }
+}
 </script>

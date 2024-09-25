@@ -21,7 +21,7 @@ export default {
     data() {
         return {
             title: "task",
-            api: apiConfig._apiActivity,
+            api: apiConfig._apiTask,
             dataAttributes: {
                 enableDownload: true,
                 api: apiConfig._apiGetTaskDetail,
@@ -560,13 +560,15 @@ export default {
                     required: true,
                     hasFilter: true,
                     filterObj: "cluster_activity_id",
-                    api: apiConfig._apiEntityBySubPro
+                    api: apiConfig._apiClusActBySprog
                 },
                 {
                     name: "cluster_activity_id",
                     type: "select",
                     required: true,
-                    hasFilter: false,
+                    hasFilter: true,
+                    filterObj: "activity_id",
+                    api: apiConfig._apiGetActivity
                 },
                 {
                     name: "activity_id",
@@ -575,13 +577,13 @@ export default {
                     hasFilter: false,
                     // filterObj: "",
                 },
-                {
-                    name: "task_id",
-                    type: "select",
-                    required: true,
-                    hasFilter: false,
-                    // filterObj: "",
-                },
+                // {
+                //     name: "task_id",
+                //     type: "select",
+                //     required: true,
+                //     hasFilter: false,
+                //     // filterObj: "",
+                // },
                 // {
                 //     name: "group_chapter",
                 //     type: "select",
@@ -601,6 +603,12 @@ export default {
                 //     data: [],
                 // },
                 {
+                    name: "code",
+                    type: "text",
+                    required: true,
+                    data: [],
+                },
+                {
                     name: "name_en",
                     type: "text",
                     required: true,
@@ -612,42 +620,23 @@ export default {
                     required: true,
                     data: [],
                 },
-                // {
-                //     name: "lbl_detail",
-                //     type: "grid",
-                //     flag: "y_n_minus_1",
-                //     required: false,
-                // },
-                // {
-                //     name: "unit",
-                //     type: "select",
-                //     required: false,
-                // },
-                // {
-                //     name: "quantity",
-                //     type: "number",
-                //     required: false,
-                // },
-                // {
-                //     name: "unit_price",
-                //     type: "text",
-                //     required: false,
-                // },
-                // {
-                //     name: "time_annual",
-                //     type: "number",
-                //     required: false,
-                // },
-                // {
-                //     name: "is_reg_exp",
-                //     type: "select",
-                //     required: false,
-                // },
-                // {
-                //     name: "misc",
-                //     type: "textarea",
-                //     required: false,
-                // }
+                {
+                    name: "start_date",
+                    type: "date",
+                    required: true,
+                    data: [],
+                },
+                {
+                    name: "end_date",
+                    type: "date",
+                    required: true,
+                    data: [],
+                },
+                {
+                    name: "remark",
+                    type: "textarea",
+                    required: false,
+                }
             ],
             dataTables: [],
             rowDisplay: "3grid", //1grid, 2grid, 3grid, 4grid

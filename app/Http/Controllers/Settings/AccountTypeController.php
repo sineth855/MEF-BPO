@@ -169,7 +169,7 @@ class AccountTypeController extends Controller
     public function destroy($id)
     {
         $table=$this->db_table::find($id);
-$table->update(["status" => 4]);
+        $table->update(["status" => 4]);
         if($table){
             $status = 200;
             $boolen = true;

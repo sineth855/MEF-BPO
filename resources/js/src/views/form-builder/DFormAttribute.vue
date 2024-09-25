@@ -10,7 +10,7 @@
                             :placeholder="$t(formAttribute.name)" :name="formAttribute.name" class="mt-1 w-full" />
                         <span class="text-danger text-sm" size="small" v-show="errors.has(formAttribute.name)">{{
                             $t("required_" + formAttribute.name)
-                        }}</span>
+                            }}</span>
                     </span>
                     <vs-input v-else v-validate="''" :placeholder="$t(formAttribute.name)" size="small"
                         v-model="form.attribute[formAttribute.name]" :name="formAttribute.name" class="mt-1 w-full" />
@@ -25,7 +25,7 @@
                             :name="formAttribute.name" class="mt-1 w-full" />
                         <span class="text-danger text-sm" size="small" v-show="errors.has(formAttribute.name)">{{
                             $t("required_" + formAttribute.name)
-                        }}</span>
+                            }}</span>
                     </span>
                     <vs-input type="password" v-else v-validate="''" :placeholder="$t(formAttribute.name)" size="small"
                         v-model="form.attribute[formAttribute.name]" :name="formAttribute.name" class="mt-1 w-full" />
@@ -48,7 +48,8 @@
                 </div>
 
                 <div v-if="formAttribute.type == 'select'" :class="styleClass" dclass="mt-4">
-                    <label class="mb-2">{{ $t(formAttribute.name) }} <span v-if="formAttribute.required">*</span></label>
+                    <label class="mb-2">{{ $t(formAttribute.name) }} <span
+                            v-if="formAttribute.required">*</span></label>
                     <span v-if="formAttribute.required">
                         <!-- <vs-select :name="formAttribute.name" v-model="form.attribute[formAttribute.name]"
                             :dir="$vs.rtl ? 'rtl' : 'ltr'" v-validate="'required'" class="mt-1 w-full">
@@ -71,7 +72,7 @@
                                 :dir="$vs.rtl ? 'rtl' : 'ltr'" class="mt-2 w-full" />
                             <span class="text-danger text-sm" v-show="errors.has(formAttribute.name)">{{
                                 $t("required_" + formAttribute.name)
-                            }}</span>
+                                }}</span>
                             <!-- <v-select v-model="form.attribute[formAttribute.name]" :clearable="false"
                                 :options="data[formAttribute.name]" v-validate="'required'" :name="formAttribute.name"
                                 :dir="$vs.rtl ? 'rtl' : 'ltr'" />
@@ -84,7 +85,7 @@
                                 :dir="$vs.rtl ? 'rtl' : 'ltr'" class="mt-1 w-full" />
                             <span class="text-danger text-sm" v-show="errors.has(formAttribute.name)">{{
                                 $t("required_" + formAttribute.name)
-                            }}</span>
+                                }}</span>
                         </template>
                     </span>
                     <span v-else>
@@ -96,7 +97,8 @@
                             <v-select size="small" v-validate="''"
                                 v-on:input="onInitChange($event, formAttribute.filterObj, formAttribute.name, formAttribute.api)"
                                 v-model="form.attribute[formAttribute.name]" :name="formAttribute.name"
-                                :options="data[formAttribute.name]" :dir="$vs.rtl ? 'rtl' : 'ltr'" class="mt-2 w-full" />
+                                :options="data[formAttribute.name]" :dir="$vs.rtl ? 'rtl' : 'ltr'"
+                                class="mt-2 w-full" />
                         </template>
                         <template v-else>
                             <v-select size="small" v-validate="''" :name="formAttribute.name"
@@ -122,7 +124,7 @@
                         </vs-select>
                         <span class="text-danger text-sm" v-show="errors.has(formAttribute.name)">{{ $t("required_" +
                             formAttribute.name)
-                        }}</span>
+                            }}</span>
                     </span>
                     <span v-else>
                         <vs-select :name="formAttribute.name" @change="onChangeElement($event, formAttribute.name)"
@@ -158,7 +160,7 @@
                             v-model="form.attribute[formAttribute.name]" />
                         <span class="text-danger text-sm" v-show="errors.has(formAttribute.name)">{{ $t("required_" +
                             formAttribute.name)
-                        }}</span>
+                            }}</span>
                     </span>
                     <span v-else>
                         <vs-textarea v-validate="''" class="mt-1 w-full" v-model="form.attribute[formAttribute.name]" />
@@ -173,7 +175,7 @@
                             v-model="form.attribute[formAttribute.name]" class="mt-1 w-full" />
                         <span class="text-danger text-sm" v-show="errors.has(formAttribute.name)">{{ $t("required_" +
                             formAttribute.name)
-                        }}</span>
+                            }}</span>
                     </span>
                     <span v-else>
                         <flat-pickr v-validate="''" v-model="form.attribute[formAttribute.name]" class="mt-1 w-full" />
@@ -197,8 +199,9 @@
                                         :placeholder="$t(childformAttribute.name)" :name="childformAttribute.name"
                                         class="mt-1 w-full" />
                                     <span class="text-danger text-sm" size="small"
-                                        v-show="errors.has(childformAttribute.name)">{{ $t("required_" +
-                                            childformAttribute.name)
+                                        v-show="errors.has(childformAttribute.name)">{{
+                                            $t("required_" +
+                                                childformAttribute.name)
                                         }}</span>
                                 </span>
                                 <vs-input v-else :placeholder="$t(childformAttribute.name)" size="small"
@@ -215,7 +218,7 @@
                                         icon-dec="expand_more" class="mt-1 w-full" />
                                     <span class="text-danger text-sm" v-show="errors.has(childformAttribute.name)">{{
                                         $t("required_" + childformAttribute.name)
-                                    }}</span>
+                                        }}</span>
                                 </span>
                                 <vs-input-number v-else :name="childformAttribute.name"
                                     v-model="form.attribute[childformAttribute.name]" icon-inc="expand_less"
@@ -233,7 +236,7 @@
                                     </vs-select>
                                     <span class="text-danger text-sm" v-show="errors.has(childformAttribute.name)">{{
                                         $t("required_" + childformAttribute.name)
-                                    }}</span>
+                                        }}</span>
                                 </span>
                                 <span v-else>
                                     <vs-select :name="childformAttribute.name"
@@ -268,10 +271,11 @@
                                         v-model="form.attribute[childformAttribute.name]" />
                                     <span class="text-danger text-sm" v-show="errors.has(childformAttribute.name)">{{
                                         $t("required_" + childformAttribute.name)
-                                    }}</span>
+                                        }}</span>
                                 </span>
                                 <span v-else>
-                                    <vs-textarea class="mt-1 w-full" v-model="form.attribute[childformAttribute.name]" />
+                                    <vs-textarea class="mt-1 w-full"
+                                        v-model="form.attribute[childformAttribute.name]" />
                                 </span>
                             </div>
 
@@ -283,7 +287,7 @@
                                         v-model="form.attribute[childformAttribute.name]" class="mt-1 w-full" />
                                     <span class="text-danger text-sm" v-show="errors.has(childformAttribute.name)">{{
                                         $t("required_" + childformAttribute.name)
-                                    }}</span>
+                                        }}</span>
                                 </span>
                                 <span v-else>
                                     <flat-pickr v-model="form.attribute[childformAttribute.name]" class="mt-1 w-full" />
@@ -299,7 +303,7 @@
                 <div v-if="formAttribute.type == 'grid'" class="mt-4 vx-col lg:w-1/1 w-full">
                     <!-- <vs-alert icon="warning" active="true" color="primary" class="mt-5"> -->
                     <div style="background-color:#253358; color: #ffffff; padding: 5px;"><span>{{ $t(formAttribute.name)
-                    }}</span></div>
+                            }}</span></div>
                     <!-- </vs-alert> -->
                 </div>
 
@@ -518,7 +522,7 @@ export default {
                         return new Promise((resolve, reject) => {
                             axios.put(this.api + '/' + _id, _data)
                                 .then((response) => {
-                                    if(response.data.success == false){
+                                    if (response.data.success == false) {
                                         this.$vs.notify({
                                             title: 'Message',
                                             text: response.data.message,
@@ -527,7 +531,8 @@ export default {
                                             color: 'danger',
                                             position: 'top-right'
                                         })
-                                    }else{
+                                    } else {
+                                        this.form.attribute["entity_member_id"].push({ label: "test12222", value: "test12222" });
                                         this.$vs.notify({
                                             title: 'Message',
                                             text: response.data.message,

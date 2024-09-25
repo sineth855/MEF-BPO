@@ -1,39 +1,29 @@
 <?php
 
-namespace App\Http\Controllers\Settings;
-
+namespace App\Http\Controllers\Modules\BudgetMonitoring;
+use App\Models\Settings\Entity;
 use App\Http\Controllers\Controller;
-use App\Models\Settings\BudgetTemplateItemCost;
-use App\Models\Settings\Account;
+use App\Models\Modules\BudgetMonitoring\CreditMovement;
+use App\Models\Settings\CreditMovementType;
 use App\Models\Settings\AccountGroup;
-use App\Models\Settings\AccountType;
-use App\Models\Settings\AccountTypeGroup;
-use App\Models\Settings\Unit;
-
-use App\Models\Settings\Item;
+use App\Models\Modules\ProgramManagement\Program;
 use Illuminate\Http\Request;
 use Auth;
 use DB;
 use CommonService;
 
-class BudgetTemplateItemCostController extends Controller
+class CreditMovementController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     protected $db_table;
-    public $path = "admin/setting";
+    public $path = "admin/modules/entry_credit_movement";
 
     public function __construct()
     {
         $this->middleware('auth');
         $this->view_title = $this->path.'.entry_title';
-        $this->db_table = new BudgetTemplateItemCost;
+        $this->db_table = new CreditMovement;
         $this->lang_path = $this->path;
     }
-
     /**
      * Display a listing of the resource.
      *
@@ -54,27 +44,26 @@ class BudgetTemplateItemCostController extends Controller
     public function index(Request $request)
     {
         $input = $request->all();
-        // dd($input);
         $dataFields = $this->dataFields();
         $filter = CommonService::getFilter($input);
+        $entities = Entity::getEntityOpts();
+
         $data = array(
-            "data" => $this->db_table::getBudgetTemplateItemCosts($filter),
             "data_fields" => $this->dataFields(),
+            "data" => $this->db_table::getCredMovement($filter),
             "account_group_id" => AccountGroup::getAccGroupOpts($filter),
             "account_id" => [],
             "sub_account_id" => [],
-            "budget_template_id" => $filter["data"]["data_info"]["id"],
-            "unit_id" => CommonService::optVals(Unit::class, $filter, $flag = 2),
-            "is_reg_exp" => array([
-                "label" => "Regular",
-                "value" => "Regular",
-            ],
-            [
-                "label" => "Irregular",
-                "value" => "Irregular",
-            ]),
+            "entity_id" => $entities,
+            "credit_movement_type" => CreditMovementType::getCreditMovementTypeOpts($filter),
+            "program_id" => Program::getPrograms(""),
+            "sub_program_id" => [],
+            "cluster_activity_id" => [],
+            "dataHeaders" => "",
+            "dataSubHeaders" => "",
+            "dataFillables" => "",
             "limit" => config_limit,
-            "total" => $this->db_table::getCount($filter)
+            "total" => $this->db_table::count()
         );
         return response()->json($data);
     }
@@ -98,7 +87,9 @@ class BudgetTemplateItemCostController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
+
         $dataFields = $this->dataForm($input);
+
         $table = $this->db_table::create($dataFields);
         if($table){
             $status = 200;
@@ -125,7 +116,7 @@ class BudgetTemplateItemCostController extends Controller
      */
     public function show($id)
     {
-        $table = $table=$this->db_table::find($id);
+        $table = $this->db_table::find($id);
         $data = array(
             "data" => $table
         );
@@ -154,8 +145,7 @@ class BudgetTemplateItemCostController extends Controller
     {
         $input = $request->all();
         $dataFields = $this->dataForm($input);
-        $table = $table=$this->db_table::find($id);
-        $table->update($dataFields);
+        $table = $this->db_table::where('id', $id)->update($dataFields);
         if($table){
             $status = 200;
             $boolen = true;
@@ -190,8 +180,7 @@ class BudgetTemplateItemCostController extends Controller
      */
     public function destroy($id)
     {
-        $table=$this->db_table::find($id);
-        $table->update(["status" => 4]);
+        $table = $this->db_table::where('id', $id)->update(["status" => 4]);
         if($table){
             $status = 200;
             $boolen = true;

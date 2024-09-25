@@ -1,5 +1,5 @@
 <template>
-    <d-table-list @clicked="initTableData" :api="api" ref="refInitPage" :allowDel="true" :title="title" :dataInfo="dataInfo"
+    <d-table-list @clicked="initTableData" :api="api" ref="refInitPage" :allowDel="false" :title="title" :dataInfo="dataInfo"
         :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data" :formAttributes="formAttributes"
         :rowDisplay="rowDisplay"></d-table-list>
 </template>

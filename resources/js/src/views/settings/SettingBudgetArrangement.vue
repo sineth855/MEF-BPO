@@ -1,7 +1,7 @@
 <template>
     <div class="mt-5">
         <vs-tabs position="top" alignment="center" class="mt-8">
-
+            
             <vs-tab :label="$t('setting_finance_resource')">
                 <!-- គម្រោងវិនិយោគសាធារណៈ Finance Resource-->
                 <PIP-finance-resource></PIP-finance-resource>
@@ -33,6 +33,10 @@
                 <ceiling-type></ceiling-type>
             </vs-tab>
 
+            <vs-tab :label="$t('setting_credit_movement_type')">
+                <CreditMovementType/>
+            </vs-tab>
+
         </vs-tabs>
     </div>
 </template>
@@ -45,6 +49,7 @@ import PIPProjectStatus from '@/views/settings/include_budget_arrangement/_PIPPr
 import PIPProjectType from '@/views/settings/include_budget_arrangement/_PIPProjectType.vue';
 import ExpenditureGroup from '@/views/settings/include_budget_arrangement/_ExpenditureGroup.vue';
 import ExpenditureType from '@/views/settings/include_budget_arrangement/_ExpenditureType.vue';
+import CreditMovementType from '@/views/settings/include_budget_arrangement/_CreditMovementType.vue';
 // Ceiling
 import CeilingGroup from '@/views/settings/ceiling/_CeilingGroup.vue';
 import CeilingType from '@/views/settings/ceiling/_CeilingType.vue';
@@ -57,7 +62,8 @@ export default {
         ExpenditureGroup,
         ExpenditureType,
         CeilingGroup,
-        CeilingType
+        CeilingType,
+        CreditMovementType
     },
     data() {
         return {

@@ -210,11 +210,6 @@ export default {
                     type: "textarea",
                     required: false
                 },
-                // {
-                //     name: "is_active",
-                //     type: "checkbox",
-                //     required: false
-                // },
                 {
                     name: "is_active",
                     type: "checkbox",

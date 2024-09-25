@@ -63,6 +63,15 @@ class ClusterActivityController extends Controller
         return response()->json($data);
     }
 
+    public function getClusActBySprog(Request $request){
+        $input = $request->all();
+        $filter = CommonService::getFilter($input);
+        $data = array(
+            "data" => $this->db_table::getClusActBySprog($filter, $input),
+        );
+        return response()->json($data);
+    }
+
     public function getClusterAct(Request $request){
         $params = $request->all();
         $data = array(

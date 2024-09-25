@@ -2,9 +2,6 @@
     <vx-card :title="$t('setting_account_administration')" code-toggler>
         <div class="mt-5">
             <vs-tabs alignment="center">
-                <vs-tab :label="$t('setting_budget_template')">
-                    <budget-template></budget-template>
-                </vs-tab>
                 
                 <vs-tab :label="$t('setting_planning')">
                     <planning></planning>
@@ -36,6 +33,10 @@
 
                 <vs-tab :label="$t('setting_product_service')">
                     <item></item>
+                </vs-tab>
+
+                <vs-tab :label="$t('setting_budget_template')">
+                    <budget-template></budget-template>
                 </vs-tab>
 
                 <!-- <vs-tab :label="$t('setting_cost_list')">

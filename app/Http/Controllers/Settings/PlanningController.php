@@ -67,6 +67,14 @@ class PlanningController extends Controller
             [
                 "label" => "2025",
                 "value" => "2025"
+            ],
+            [
+                "label" => "2026",
+                "value" => "2026"
+            ],
+            [
+                "label" => "2027",
+                "value" => "2027"
             ]
         );
         $data = array(
@@ -210,24 +218,31 @@ class PlanningController extends Controller
     public function update(Request $request, $id)
     {
         $input = $request->all();
-        $dataFields = $this->dataForm($input);
-        $table = $table=$this->db_table::find($id);
-        $table->update($dataFields);
-        if($table){
-            $status = 200;
-            $boolen = true;
-            $message = trans('common.msg_update_successfully');
-        }else{
-            $status = 500;
-            $boolen = false;
-            $message = trans('common.error_msg');
+        $checkActivePlan = $this->db_table::where("is_default", 1)->first();
+        $query = $this->db_table::query()->update([
+            'is_default' => 0,
+        ]);
+        if($query){
+            $dataFields = $this->dataForm($input);
+            $table = $this->db_table::find($id);
+            $table->update($dataFields);
+
+            if($table){
+                $status = 200;
+                $boolen = true;
+                $message = trans('common.msg_update_successfully');
+            }else{
+                $status = 500;
+                $boolen = false;
+                $message = trans('common.error_msg');
+            }
+            $data = array(
+                "success" => $boolen,
+                "message" => $message,
+                "data" => $this->db_table::findOrFail($id)
+            );
+            return response()->json($data, $status);
         }
-        $data = array(
-            "success" => $boolen,
-            "message" => $message,
-            "data" => $this->db_table::findOrFail($id)
-        );
-        return response()->json($data, $status);
     }
 
     public function dataForm($input){

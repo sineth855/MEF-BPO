@@ -1,7 +1,7 @@
 <template>
-    <d-table-list @clicked="initTableData" :api="api" ref="refInitPage" :allowDel="true" :title="title" :dataInfo="dataInfo"
-        :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data" :formAttributes="formAttributes"
-        :rowDisplay="rowDisplay"></d-table-list>
+    <d-table-list @clicked="initTableData" :api="api" ref="refInitPage" :allowDel="true" :title="title"
+        :dataInfo="dataInfo" :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data"
+        :formAttributes="formAttributes" :rowDisplay="rowDisplay"></d-table-list>
 </template>
 
 <script>
@@ -174,7 +174,7 @@ export default {
                     required: true,
                     hasFilter: true,
                     filterObj: "cluster_activity_id",
-                    api: apiConfig._apiEntityBySubPro
+                    api: apiConfig._apiClusActBySprog
                 },
                 {
                     name: "cluster_activity_id",

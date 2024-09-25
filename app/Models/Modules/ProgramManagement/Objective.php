@@ -34,14 +34,11 @@ class Objective extends Model
   }
 
   public static function getAllClusterPrograms($filter){
-    // $query = Objective::where("is_active", 1)->orderBy("order_level")->get();
-    // $data = array();
     $data = array();
     $queryObj = Objective::orderBy("order_level");
     $whereClause = $queryObj;
-    $whereClause->where("is_active", 1);
+    $whereClause->whereNotIn("status", [4])->orWhere("status", null);
     $whereClause->offset(($filter["page_number"] - 1) * $filter["limit"]);       
-    // $whereClause->limit(1);
     $whereClause->limit($filter["limit"]);
 
     if($filter["search_field"]){
@@ -212,27 +209,24 @@ class Objective extends Model
             }
             $cluActArr[] = array(
               "id" => $clusAct->id,
-              "name" => $clusAct->code.": ".$clusAct->name_kh,
-
+              "name" => (config_language == "en")?$clusAct->code.": ".$clusAct->name_en:$clusAct->code.": ".$clusAct->name_kh,
               'objective_id' => array(
-                "label" => $row->code.'-'.$row->name_kh,
+                "label" => (config_language == "en")?$row->code.'-'.$row->name_en:$row->code.'-'.$row->name_kh,
                 "value" => $row->id
               ),
               'program_id' => array(
-                "label" => $pro->code.'-'.$pro->name_kh,
+                "label" => (config_language == "en")?$pro->code.'-'.$pro->name_en:$pro->code.'-'.$pro->name_kh,
                 "value" => $pro->id
               ),
               'sub_program_id' => array(
-                "label" => $subPro->code.'-'.$subPro->name_kh,
+                "label" => (config_language == "en")?$subPro->code.'-'.$subPro->name_en:$subPro->code.'-'.$subPro->name_kh,
                 "value" => $subPro->id
               ),
-
               'cluster_activity_id' => array(
-                "label" => $clusAct->name_kh,
+                "label" => (config_language == "en")?$clusAct->code.":".$clusAct->name_en:$clusAct->code.":".$clusAct->name_kh,
                 "value" => $clusAct->id,
               ),
-
-              'entity' => isset($clusAct->Entity)?$clusAct->Entity->name_kh:"",
+              'entity' => isset($clusAct->Entity)?$clusAct->Entity->code."-".$clusAct->Entity->name_kh:"",
               'entity_id' => array(
                 "label" => isset($clusAct->Entity)?$clusAct->Entity->code."-".$clusAct->Entity->name_kh:"",
                 "value" => isset($clusAct->Entity)?$clusAct->Entity->id:"",
@@ -303,7 +297,7 @@ class Objective extends Model
   public static function getCount($filter){
     $queryObj = Objective::orderBy($filter["sort"], $filter["order"]);
     $whereClause = $queryObj;
-    $whereClause->where("is_active", 1);
+    $whereClause->whereNotIn("status", [4])->orWhere("status", null);
     $total = collect($whereClause->count());
     return $total;
   }

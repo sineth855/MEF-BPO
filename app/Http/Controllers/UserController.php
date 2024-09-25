@@ -196,13 +196,21 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $input = $request->all();
+        // dd($input);
         $dataFields = $this->dataForm($input);
-        if($dataFields["password"] != $dataFields["confirm_password"]){
+        // dd($dataFields);
+        if(isset($dataFields["password"]) && isset($dataFields["confirm_password"]) && $dataFields["password"] !== $dataFields["confirm_password"]){
             $status = 200;
             $boolen = false;
-            $message = "សូមបំពេញលេខសម្ងាត់បញ្ជាក់ឲ្យបានត្រឹមត្រូវ!";
+            $message = "លេខសម្ងាត់បញ្ជាក់ពុំផ្ទៀងផ្ទាត់គ្នា!";
         }else{
-            $table = $this->db_table::where('id', $id)->update($dataFields);
+            if(isset($dataFields["password"])){
+                $dataFields["password"] = bcrypt($dataFields["password"]);
+            }
+            // $table = $this->db_table::where('id', $id)->update($dataFields);
+            // $table=$this->db_table::find($id);
+            $table = $this->db_table::find($id);
+            $table->update($dataFields);
             if($table){
                 $status = 200;
                 $boolen = true;
@@ -273,8 +281,13 @@ class UserController extends Controller
         $arr = $input;
         $push_array = array_merge(array(["created_by" => Auth::user()->id], ["modified_by" => Auth::user()->id]));
         $arraySingle = array_merge($arr, $push_array);
-        $result = call_user_func_array('array_merge', $arraySingle);
-        $dataFields = $result;
+        try{
+            error_clear_last();
+            $result = call_user_func_array('array_merge', $arraySingle);
+            $dataFields = $result;
+        }catch(\Exception $e){
+            $dataFields = $arraySingle;
+        }
         return $dataFields;
     }
 }

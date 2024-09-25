@@ -18,7 +18,7 @@ class Title extends Model
     public $timestamps = true;
 
     public static function getTitleOpts(){
-      $query = Title::orderBy("order_level")->get();
+      $query = Title::orderBy("order_level")->whereNotIn("status", [4])->orWhereNull("status")->get();
       $data = array();
       foreach($query as $row){
         $data[] = array(

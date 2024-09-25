@@ -410,7 +410,9 @@ class ActivityController extends Controller
     {
         $input = $request->all();
         $dataFields = $this->dataForm($input);
-        $table = $this->db_table::where('id', $id)->update($dataFields);
+        // dd($dataFields);
+        $table = $this->db_table::find($id);
+        $table->update($dataFields);
         if($table){
             $status = 200;
             $boolen = true;
@@ -430,9 +432,9 @@ class ActivityController extends Controller
 
     public function dataForm($input){
         $arr = $input;
-        $push_array = array("created_by" => Auth::user()->id);
+        $push_array = array_merge(array(["created_by" => Auth::user()->id]));
         $arraySingle = array_merge($arr, $push_array);
-        $result = call_user_func_array('array_merge', $arraySingle);
+        $result = call_user_func_array("array_merge",$arraySingle);
         $dataFields = $result;
         return $dataFields;
     }

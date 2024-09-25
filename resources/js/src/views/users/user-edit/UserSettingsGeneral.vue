@@ -30,8 +30,8 @@
     <!-- tab 1 content -->
     <div class="vx-row">
       <div class="vx-col md:w-1/2 w-full mt-5">
-        <vs-input label="នាមត្រកូល និង នាមខ្លួន" autocomplete="off" name="name" v-model="name" class="w-full" v-validate="'required'"/>
-        <span class="text-danger">{{ errors.first('name') }}</span>
+        <vs-input label="នាមត្រកូល និង នាមខ្លួន" autocomplete="off" name="fullname" v-model="fullname" class="w-full" v-validate="'required'"/>
+        <span class="text-danger">{{ errors.first('fullname') }}</span>
       </div>
       <div class="vx-col md:w-1/2 w-full mt-5">
         <vs-input label="ឈ្មោះជាអក្សរឡាតាំង" autocomplete="off" name="latin" v-model="latin" class="w-full" v-validate="'required'"/>
@@ -77,10 +77,10 @@
         <vs-input type="email" label="អ៊ីម៉ែល" name="email"  v-model="email" class="w-full"/>
       </div>
       
-      <div class="vx-col md:w-1/2 w-full mt-5">
+      <!-- <div class="vx-col md:w-1/2 w-full mt-5">
         <vs-input label="ឈ្មោះអ្នកប្រើប្រាស់ប្រព័ន្ឋ" autocomplete="off" name="username" v-model="username" class="w-full" v-validate="'required'"/>
         <span class="text-danger">{{ errors.first('username') }}</span>
-      </div>
+      </div> -->
     </div>
 
     <div class="vx-row" v-if="!$route.params.userId">
@@ -105,7 +105,8 @@
 <script>
 import vSelect from 'vue-select'
 import { Validator } from 'vee-validate';
-import axios from "@/axios.js"
+import apiConfig from "@/apiConfig.js"
+import axios from "@/axios.js";
 const dict = {
     custom: {
         title: {
@@ -167,18 +168,19 @@ export default {
       username: "",
       telephone_1: "",
       telephone_2: "",
-      name: "",
+      fullname: "",
       email: "",
       company: "",
       password: "",
       confirmPassword: "",
-
       titles: [],
       entities: [],
       departments: [],
       positions: [],
       roles: [],
-      noImage: require("@assets/images/no-account.png")
+      noImage: require("@assets/images/no-account.png"),
+      uri: "?offset=0&limit=10&sort=id&order=desc&page_number=1",
+      
     }
   },
   created(){
@@ -194,7 +196,7 @@ export default {
     if(this.$route.params.userId){
       let _userId = this.$route.params.userId
       return new Promise((resolve, reject) => {
-        axios.get("/api/v1/user/" + _userId)
+        axios.get(apiConfig._apiUser + "/" + _userId)
             .then((response) => {
             let _data = response.data.data
             this.title = _data.title
@@ -207,7 +209,7 @@ export default {
             this.username = _data.username
             this.telephone_1 = _data.telephone_1
             this.telephone_2 = _data.telephone_2
-            this.name = _data.name
+            this.fullname = _data.fullname
             this.email = _data.email
             this.company = _data.company
             this.password = _data.password
@@ -235,13 +237,13 @@ export default {
     },
     getTitle(){
       return new Promise((resolve, reject) => {
-        axios.get("/api/v1/title?offset=0&limit=100&sort=id&order=desc")
+        axios.get(apiConfig._apiTitle + this.uri)
             .then((response) => {
             let titles = response["data"]["data"];
             for(let i = 0; i < titles.length; i++){
                 const _data = {
                     id: titles[i]["id"],
-                    label: titles[i]["name"]
+                    label: titles[i]["name_kh"]
                 };
                 this.titles.push(_data);
             }
@@ -250,13 +252,13 @@ export default {
     },
     getEntity(){
       return new Promise((resolve, reject) => {
-        axios.get("/api/v1/entity?offset=0&limit=100&sort=id&order=desc")
+        axios.get(apiConfig._apiEntity + this.uri)
             .then((response) => {
             let entities = response["data"]["data"];
             for(let i = 0; i < entities.length; i++){
                 const _data = {
                     id: entities[i]["id"],
-                    label: entities[i]["name"]
+                    label: entities[i]["name_en"]
                 };
                 this.entities.push(_data);
             }
@@ -265,13 +267,13 @@ export default {
     },
     getDepartment(){
       return new Promise((resolve, reject) => {
-        axios.get("/api/v1/department?offset=0&limit=100&sort=id&order=desc")
+        axios.get(apiConfig._apiDepartment + this.uri)
             .then((response) => {
             let departments = response["data"]["data"];
             for(let i = 0; i < departments.length; i++){
                 const _data = {
                     id: departments[i]["id"],
-                    label: departments[i]["name"]
+                    label: departments[i]["name_en"]
                 };
                 this.departments.push(_data);
             }
@@ -280,13 +282,13 @@ export default {
     },
     getPosition(){
       return new Promise((resolve, reject) => {
-        axios.get("/api/v1/position?offset=0&limit=100&sort=id&order=desc")
+        axios.get(apiConfig._apiPosition + this.uri)
             .then((response) => {
             let positions = response["data"]["data"];
             for(let i = 0; i < positions.length; i++){
                 const _data = {
                     id: positions[i]["id"],
-                    label: positions[i]["name"]
+                    label: positions[i]["name_en"]
                 };
                 this.positions.push(_data);
             }
@@ -295,7 +297,7 @@ export default {
     },
     getRole(){
       return new Promise((resolve, reject) => {
-        axios.get("/api/v1/role?offset=0&limit=100&sort=id&order=desc")
+        axios.get(apiConfig._apiRole + this.uri)
             .then((response) => {
             let roles = response["data"]["data"];
             for(let i = 0; i < roles.length; i++){
@@ -316,6 +318,7 @@ export default {
             latin: this.latin,
             username: this.username,
             email: this.email,
+            fullname: this.fullname.label ? this.fullname.label : this.fullname,
             title: this.title.label ? this.title.label : this.title,
             position: this.position.label ? this.position.label : this.position,
             role_id: this.role.id ? this.role.id : this.role,
@@ -329,7 +332,7 @@ export default {
           if(this.$route.params.userId){
             let _userId = this.$route.params.userId;
             return new Promise((resolve, reject) => {
-                axios.put("/api/v1/user/" + _userId, _data)
+                axios.put(apiConfig._apiUser + "/" + _userId, _data)
                     .then((response) => {
                     this.$vs.notify({
                       title: 'Message',
@@ -338,7 +341,7 @@ export default {
                       icon: 'icon-check-circle',
                       color: 'primary'
                     })
-                    this.$router.push('/user/list').catch(() => {})
+                    // this.$router.push('/user/list').catch(() => {})
                 }).catch((error) => { 
                   reject(error)
                   this.$vs.notify({
@@ -362,7 +365,7 @@ export default {
                       icon: 'icon-check-circle',
                       color: 'primary'
                     })
-                    this.$router.push('/user/list').catch(() => {})
+                    // this.$router.push('/user/list').catch(() => {})
                 }).catch((error) => { 
                   reject(error)
                   this.$vs.notify({

@@ -36,8 +36,7 @@ export default {
                 header3: "year",
                 header4: "start_date",
                 header5: "end_date",
-                header6: "is_default",
-                header7: "order_level",
+                header6: "is_default"
             },
             data: {
                 data: [
@@ -87,12 +86,7 @@ export default {
                     name: "is_default",
                     type: "checkbox",
                     required: false
-                },
-                {
-                    name: "order_level",
-                    type: "number",
-                    required: false
-                },
+                }
             ],
             rowDisplay: "2grid", //1grid, 2grid, 3grid, 4grid
             dataFields: [],

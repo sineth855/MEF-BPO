@@ -14,8 +14,8 @@ import DTableList from '@/views/form-builder/DTableList.vue';
 export default {
   data() {
     return {
-      title: "សលាកបត្រចំណាយ",
-      api: apiConfig._apiActivity,
+      title: "តារាងសាលាកបត្រចំណាយ",
+      api: apiConfig._apiGetCreditMovement,
       dataAttributes: {
         backgroundColor: "warning",
         tableStyle: 1,
@@ -84,7 +84,8 @@ export default {
           //   // ]
           // }
         ],
-        cluster_activity: [
+        cluster_activity: [],
+        credit_movement_type: [
           {
             "label": "ផ្ទេរឥណទានពី៦៩",
             "value": 1,
@@ -102,24 +103,6 @@ export default {
             "value": 4,
           },
         ],
-        // credit_movement_type: [
-        //   {
-        //     "label": "ផ្ទេរឥណទានពី៦៩",
-        //     "value": 1,
-        //   },
-        //   {
-        //     "label": "បំពេញបន្ថែម",
-        //     "value": 2,
-        //   },
-        //   {
-        //     "label": "និយ័តភាព",
-        //     "value": 3,
-        //   },
-        //   {
-        //     "label": "កែឧបសម្ព័ន្ធរជ្ជទេយ្យបុរេប្រទាន",
-        //     "value": 4,
-        //   },
-        // ],
         account_group: [
           {
             "label": "ការទិញ",
@@ -205,7 +188,7 @@ export default {
           options: [],
         },
         {
-          name: "account_group",
+          name: "account_group_id",
           type: "select",
           required: true,
           options: [],
@@ -249,7 +232,7 @@ export default {
         },
         {
           name: "date",
-          type: "credit_movement_type",
+          type: "date",
           required: true
         },
         {
@@ -309,11 +292,11 @@ export default {
       return new Promise((resolve, reject) => {
         axios.post(this.api + "/search", _params)
           .then((response) => {
-            // if (response.data) {
-            //   this.data = response.data;
-            // } else {
-            this.data = this.data;
-            // }
+            if (response.data) {
+              this.data = response.data;
+            } else {
+              this.data = this.data;
+            }
             this.$vs.loading.close();
           }).catch((error) => {
             // reject(error)

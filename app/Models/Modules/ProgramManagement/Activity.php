@@ -3,7 +3,11 @@
 namespace App\Models\Modules\ProgramManagement;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Modules\ProgramManagement\Program;
+use App\Models\Modules\ProgramManagement\SubProgram;
 use App\Models\Modules\ProgramManagement\ClusterActivity;
+use App\Models\Modules\ProgramManagement\Activity;
+use App\Models\Modules\ProgramManagement\Task;
 use App\Models\Settings\Entity;
 use App\Models\Settings\EntityMember;
 use DB;
@@ -13,6 +17,8 @@ class Activity extends Model
     protected $table = 'mef_activity';
     protected $fillable = [
                             'code',
+                            'program_id',
+                            'sub_program_id',
                             'cluster_activity_id',
                             'entity_id',
                             'entity_member_id',
@@ -26,8 +32,17 @@ class Activity extends Model
                           ];
     public $timestamps = true;
 
+    public function Program(){
+      return $this->belongsTo(Program::class,'program_id');
+    }
+    public function SubProgram(){
+      return $this->belongsTo(SubProgram::class,'sub_program_id');
+    }
     public function ClusterActivity(){
       return $this->belongsTo(ClusterActivity::class,'cluster_activity_id');
+    }
+    public function Activity(){
+      return $this->belongsTo(Activity::class,'activity_id');
     }
     public function Entity(){
       return $this->belongsTo(Entity::class,'entity_id');
@@ -54,12 +69,11 @@ class Activity extends Model
       return $data;
     }
 
-
     public static function getActByCluster($filter){
       $data = array();
       $queryObj = ClusterActivity::orderBy($filter["sort"], $filter["order"]);
       $whereClause = $queryObj;
-      $whereClause->where("is_active", 1);
+      $whereClause->whereNotIn("status", [4])->orWhere("status", null);
       $whereClause->offset(($filter["page_number"] - 1) * $filter["limit"]);       
       $whereClause->limit($filter["limit"]);
 
@@ -80,7 +94,7 @@ class Activity extends Model
         $cdata = array(); //cdata = children data
         $queryAct = Activity::orderBy("order_level");
         $whereClauseAct = $queryAct;
-        $whereClauseAct->where("is_active", 1);
+        $whereClauseAct->whereNotIn("status", [4])->orWhere("status", null);
         $whereClauseAct->where("cluster_activity_id", $parentId);
 
         if($filter["search_field"]){
@@ -117,19 +131,17 @@ class Activity extends Model
             );
             // Task
             $taskArr = array();
-            $queryTask = DB::table("mef_task")
-                                    ->where("activity_id", $crow->id)
-                                    ->orderBy("order_level")
-                                    ->whereNull("status")
-                                    ->orWhere("status", 0)
-                                    ->get();
+            $queryTask = Task::where("activity_id", $crow->id)
+                                ->orderBy("order_level")
+                                ->whereNotIn("status", [4])->orWhere("status", null)
+                                ->get();
             foreach($queryTask as $task){
               // Costing
               $costingArr = array();
               $queryCostings = DB::table("mef_costing_to_entity")
                                     ->where("task_id", $task->id)
                                     ->orderBy("order_level")
-                                    ->where("status", "!=", 1)
+                                    ->whereNotIn("status", [4])->orWhere("status", null)
                                     // ->orWhere("status", 0)
                                     // ->where("planning_id", config_planning_year)
                                     ->get();
@@ -139,8 +151,7 @@ class Activity extends Model
                 $queryCostingDetails = DB::table("mef_costing_detail_to_entity")
                                     ->where("costing_id", $costing->id)
                                     ->orderBy("order_level")
-                                    ->whereNull("status")
-                                    ->orWhere("status", 0)
+                                    ->whereNotIn("status", [4])->orWhere("status", null)
                                     ->get();
 
                 $costingDetailArr = array();
@@ -151,6 +162,8 @@ class Activity extends Model
                       "label" => (config_language == "en")?$task->code.'-'.$task->name_en:$task->code.'-'.$task->name_kh,
                       "value" => $task->id
                     ),
+                    "name_en" => $cdetail->name_en,
+                    "name_kh" => $cdetail->name_kh,
                     "name" => (config_language == "en")?$cdetail->name_en:$cdetail->name_kh,
                     "code" => $cdetail->line_no,
                     "group_chapter" => "",//$cdetail->group_chapter,
@@ -175,9 +188,17 @@ class Activity extends Model
 
                 $costingArr[] = array(
                   "id" => $costing->id,
+                  'program_id' => array(
+                    "label" => $row->Program?(config_language == "en")?$row->Program->code.'-'.$row->Program->name_en:$row->Program->code.'-'.$row->Program->name_kh:"",
+                    "value" => $row->Program?$row->Program->$row->id:""
+                  ),
+                  'sub_program_id' => array(
+                    "label" => $row->SubProgram?$row->SubProgram->code.'-'.(config_language == "en")?$row->SubProgram->name_en:$row->SubProgram->name_kh:"",
+                    "value" => $row->SubProgram?$row->SubProgram->id:""
+                  ),
                   'cluster_activity_id' => array(
-                    "label" => (config_language == "en")?$row->code.'-'.$row->name_en:$row->code.'-'.$row->name_kh,
-                    "value" => $row->id
+                    "label" => $row->ClusterActivity?$row->ClusterActivity->code.'-'.(config_language == "en")?$row->ClusterActivity->name_en:$row->ClusterActivity->name_kh:"",
+                    "value" => $row->ClusterActivity?$row->ClusterActivity->id:""
                   ),
                   'activity_id' => array(
                     "label" => (config_language == "en")?$crow->code.'-'.$crow->name_en:$crow->code.'-'.$crow->name_kh,
@@ -197,16 +218,33 @@ class Activity extends Model
               $taskArr[] = array(
                 "id" => $task->id,
                 "code" => $task->code,
+                'program_id' => array(
+                  "label" => $task->Program?$task->Program->code.'-'.(config_language == "en")?$task->Program->name_en:$task->Program->name_kh:"",
+                  "value" => $task->Program?$task->Program->id:""
+                ),
+                'sub_program_id' => array(
+                  "label" => $task->SubProgram?$task->SubProgram->code.'-'.(config_language == "en")?$task->SubProgram->name_en:$task->SubProgram->name_kh:"",
+                  "value" => $task->SubProgram?$task->SubProgram->id:""
+                ),
                 'cluster_activity_id' => array(
-                    "label" => (config_language == "en")?$row->code.'-'.$row->name_en:$row->code.'-'.$row->name_kh,
-                    "value" => $row->id
-                  ),
-                  'activity_id' => array(
-                    "label" => (config_language == "en")?$crow->code.'-'.$crow->name_en:$crow->code.'-'.$crow->name_kh,
-                    "value" => $crow->id
-                  ),
-                "name" => (config_language == "en")?$task->code.": ".$task->name_en:$task->code.": ".$task->name_kh,
+                  "label" => $task->ClusterActivity?$task->ClusterActivity->code.'-'.(config_language == "en")?$task->ClusterActivity->name_en:$task->ClusterActivity->name_kh:"",
+                  "value" => $task->ClusterActivity?$task->ClusterActivity->id:""
+                ),
+                'activity_id' => array(
+                  "label" => $task->Activity?$task->Activity->code.'-'.(config_language == "en")?$task->Activity->name_en:$task->Activity->name_kh:"",
+                  "value" => $task->Activity?$task->Activity->id:""
+                ),
+                'task_id' => array(
+                  "label" => $task->code.'-'.(config_language == "en")?$task->name_en:$task->name_kh,
+                  "value" => $task->id
+                ),
+                "name" => $task->code.": ".(config_language == "en")?$task->name_en:$task->name_kh,
+                "name_en" => $task->name_en,
+                "name_kh" => $task->name_kh,
                 "order_level" => $task->order_level,
+                "start_date" => $task->start_date,
+                "end_date" => $task->end_date,
+                "remark" => $task->remark,
                 "children" => $costingArr
               );
             }
@@ -215,12 +253,20 @@ class Activity extends Model
               'id' => $crow->id,
               'code' => $crow->code,
               'sub_program_id' => [],
+              'program_id' => array(
+                "label" => $crow->Program?$crow->Program->code.'-'.(config_language == "en")?$crow->Program->name_en:$crow->Program->name_kh:"",
+                "value" => $crow->Program?$crow->Program->id:""
+              ),
+              'sub_program_id' => array(
+                "label" => $crow->SubProgram?$crow->SubProgram->code.'-'.(config_language == "en")?$crow->SubProgram->name_en:$crow->SubProgram->name_kh:"",
+                "value" => $crow->SubProgram?$crow->SubProgram->id:""
+              ),
               'cluster_activity_id' => array(
-                "label" => (config_language == "en")?$row->code.'-'.$row->name_en:$row->code.'-'.$row->name_kh,
-                "value" => $row->id
+                "label" => $crow->ClusterActivity?$crow->ClusterActivity->code.'-'.(config_language == "en")?$crow->ClusterActivity->name_en:$crow->ClusterActivity->name_kh:"",
+                "value" => $crow->ClusterActivity?$crow->ClusterActivity->id:""
               ),
               'activity_id' => array(
-                "label" => (config_language == "en")?$crow->code.'-'.$crow->name_en:$crow->code.'-'.$crow->name_kh,
+                "label" => $crow->code.'-'.(config_language == "en")?$crow->name_en:$crow->name_kh,
                 "value" => $crow->id
               ),
               "name" => (config_language == "en")?$crow->code."-".$crow->name_en:$crow->code."-".$crow->name_kh,
@@ -248,9 +294,16 @@ class Activity extends Model
             'code' => $row->code,
             'group_chapter' => '',
             "name" => (config_language == "en")?$row->name_en:$row->name_kh,
-            "name" => (config_language == "en")?$row->name_en:$row->name_kh,
             "name_en" => $row->name_en,
             "name_kh" => $row->name_kh,
+            'program_id' => array(
+              "label" => $row->Program?$row->Program->code.'-'.(config_language == "en")?$row->Program->name_en:$row->Program->name_kh:"",
+              "value" => $row->Program?$row->Program->id:""
+            ),
+            'sub_program_id' => array(
+              "label" => $row->SubProgram?$row->SubProgram->code.'-'.(config_language == "en")?$row->SubProgram->name_en:$row->SubProgram->name_kh:"",
+              "value" => $row->SubProgram?$row->SubProgram->id:""
+            ),
             'cluster_activity_id' => array(
               "label" => $row->code.'-'.(config_language == "en")?$row->name_en:$row->name_kh,
               "value" => $row->id
@@ -267,7 +320,7 @@ class Activity extends Model
     public static function getCount($filter){
       $query = Activity::orderBy($filter["sort"], $filter["order"]);
       $whereClause = $query;
-      $whereClause->where("is_active", 1);
+      $whereClause->whereNotIn("status", [4])->orWhere("status", null);
       if($filter["search_field"]){
         $arraySingle = call_user_func_array('array_merge', $filter["search_field"]);
         $dataFields = $arraySingle;

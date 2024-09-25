@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Models\Settings\Entity;
 use App\Models\Settings\Role;
+use App\Models\Settings\Status;
 use Laravel\Passport\HasApiTokens;
 use App\User;
 use DB;
@@ -27,6 +28,7 @@ class User extends Authenticatable
         'name',
         'username',
         'email',
+        'fullname',
         'title',
         'latin',
         'department',
@@ -43,6 +45,8 @@ class User extends Authenticatable
         'is_delete',
         'is_active',
         'status',
+        'created_by',
+        'modified_by',
     ];
 
     public function Entity(){
@@ -51,6 +55,10 @@ class User extends Authenticatable
 
     public function Role(){
         return $this->belongsTo(Role::class,'role_id');
+    }
+
+    public function Status(){
+        return $this->belongsTo(Status::class,'status');
     }
 
     public static function getOfficerInfo($userId){
@@ -105,22 +113,35 @@ class User extends Authenticatable
                     "label" => $row->Role?$row->Role->name:null,
                     "value" => $row->Role?$row->Role->id:null
                 ),
-                "entity_id" => $row->Role?$row->Role->entity_id:null,
+                "entity_id" => array(
+                    "label" => $row->Entity?$row->Entity->name_kh:'',
+                    "value" => $row->Entity?$row->Entity->id:''
+                ),
                 "entity" => $row->entity,//$row->Entity->code.'-'.$row->Entity->name_en,
                 "role" => $row->Role?$row->Role->name:null,
                 "name" => $row->name,
+                "fullname" => $row->fullname,
                 "username" => $row->username,
                 "email" => $row->email,
-                "title" => $row->title,
+                "title" => array(
+                    "label" => $row->title,
+                    "value" => $row->title
+                ),
                 "latin" => $row->latin,
                 "department" => $row->department,
                 "duty" => $row->duty,
-                "position" => $row->position,
+                "position_name" => $row->position,
+                "position" => array(
+                    "label" => $row->position,
+                    "value" => $row->position
+                ),
                 "avatar" => $row->avatar,
                 "gender" => $row->gender,
                 "dob" => $row->dob,
                 "telephone_1" => $row->telephone_1,
                 "telephone_2" => $row->telephone_2,
+                "status" => $row->Status?$row->Status->name_kh:"",
+                "is_active" => $row->is_active,
                 // "password" => $row->password,
                 "is_default" => $row->is_default,
             );

@@ -75,12 +75,14 @@ Route::group([
         Route::post('module/program_management/activity/search', 'Modules\ProgramManagement\ActivityController@index');
         
         Route::post('module/program_management/get_task_detail', 'Modules\ProgramManagement\TaskController@getTaskDetail');
+        Route::post('module/program_management/get_task_by_act', 'Modules\ProgramManagement\TaskController@getTaskByAct');
         Route::post('module/program_management/task/search', 'Modules\ProgramManagement\TaskController@index');
 
         Route::post('module/program_management/get_entity_by_activity', 'Modules\ProgramManagement\ActivityController@getEntityByAct');
         Route::post('module/program_management/program_by_obj', 'Modules\ProgramManagement\ProgramController@getProgByObj');
         Route::post('module/program_management/entity_by_subprog', 'Modules\ProgramManagement\SubProgramController@getEntityBySubprog');
         Route::post('module/program_management/sub_program_by_prog', 'Modules\ProgramManagement\SubProgramController@getSubProgByProg');
+        Route::post('module/program_management/get_cluster_act_by_subprog', 'Modules\ProgramManagement\ClusterActivityController@getClusActBySprog');
         Route::post('module/program_management/get_cluster_act', 'Modules\ProgramManagement\ClusterActivityController@getClusterAct');
         Route::post('module/program_management/get_act', 'Modules\ProgramManagement\ActivityController@getActByCluster');
         Route::post('module/program_management/get_activity_by_subprog', 'Modules\ProgramManagement\ActivityController@getActBySubProg');
@@ -94,6 +96,8 @@ Route::group([
         // Module Budget Monitoring
         Route::post('module/budget_monitoring/income_arrangement/search', 'Modules\BudgetMonitoring\RevProgramController@index');
         Route::post('module/budget_monitoring/income_imple_result/search', 'Modules\BudgetMonitoring\RevImplementBudgetController@index');
+        Route::post('module/budget_monitoring/credit_movement/search', 'Modules\BudgetMonitoring\CreditMovementController@index');
+        Route::resource('module/budget_monitoring/credit_movement', 'Modules\BudgetMonitoring\CreditMovementController');
         // KPI
         Route::post('module/program_management/kpi_cluster_activity/get_kpi', 'Modules\ProgramManagement\KPIClusterActivityController@index');
         Route::resource('module/program_management/kpi_cluster_activity', 'Modules\ProgramManagement\KPIClusterActivityController');
@@ -203,6 +207,9 @@ Route::group([
         // Auditrail Log
         Route::post('setting/auditrail_log_index', 'Settings\AuditrailLogController@index');
         Route::resource('setting/auditrail_log', 'Settings\AuditrailLogController');
+
+        Route::post('setting/credit_movement_type/search', 'Settings\CreditMovementTypeController@index');
+        Route::resource('setting/credit_movement_type', 'Settings\CreditMovementTypeController');
 
         // Officer
         Route::post('update_officer_user', 'IncentiveOfficerController@updateIncentiveOfficer');

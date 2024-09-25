@@ -2,8 +2,8 @@
     <vx-card>
         <DModalForm @clicked="initTableData" ref="refModalForm" :data="dataTables" :api="api"
             :formAttributes="formAttributes" :parentDataInfo="dataInfo" :rowDisplay="rowDisplay"
-            :dataAttributes="dataAttributes" :title="$t(title)"/>
-            
+            :dataAttributes="dataAttributes" :title="$t(title)" />
+
         <div class="flex flex-wrap items-center justify-between">
             <div class="mr-3">
                 <h3>{{ $t(title) }}</h3>
@@ -67,6 +67,7 @@
                 :data="dataTables" :api="api" :formAttributes="formAttributes" :rowDisplay="'4grid'"
                 :dataInfo="dataInfo"></d-search>
         </template>
+
         <div class="print-only">
             <!-- & dataTables.data.length -->
             <vs-table v-if="dataTables.data && dataAttributes.tableStyle == 1" :max-items="dataTables.limit"
@@ -75,17 +76,18 @@
                     <!-- 28C76F -->
                     <vs-th style="background-color: #28C76F; color: #ffffff; font-weight: bold;">{{ $t("no") }}</vs-th>
                     <vs-th style="background-color: #28C76F; color: #ffffff; font-weight: bold;" :key="i"
-                        v-for="(  header, i  ) in   dataHeaders  ">{{ $t(header) }}</vs-th>
-                    <vs-th style="background-color: #28C76F; color: #ffffff; font-weight: bold;">{{ $t("Action") }}</vs-th>
+                        v-for="(  header, i  ) in dataHeaders  ">{{ $t(header) }}</vs-th>
+                    <vs-th style="background-color: #28C76F; color: #ffffff; font-weight: bold;">{{ $t("Action")
+                        }}</vs-th>
                 </template>
                 <template slot-scope="{data}">
-                    <tbody :key="indextr" v-for="(  tr, indextr  ) in   data  ">
+                    <tbody :key="indextr" v-for="(  tr, indextr  ) in data  ">
                         <vs-tr :state="dataAttributes.backgroundColor">
                             <vs-td>{{ calPageIncreaseNumber(dataTables.limit, indextr) }}</vs-td>
-                            <vs-td v-for="  header   in   dataHeaders  " :key="header.indextr">{{ tr[header] }}</vs-td>
+                            <vs-td v-for="  header in dataHeaders  " :key="header.indextr">{{ tr[header] }}</vs-td>
                             <vs-td>
                                 <template v-if="dataAttributes.actionButton">
-                                    <template v-for="  rowBtnAction   in   dataAttributes.actionButton  ">
+                                    <template v-for="  rowBtnAction in dataAttributes.actionButton  ">
                                         <feather-icon v-if="rowBtnAction.allow" style="cursor: pointer;"
                                             :icon="rowBtnAction.icon"
                                             svgClasses="mr-2 w-5 h-5 hover:text-primary stroke-current"
@@ -126,31 +128,37 @@
                     <!-- 28C76F -->
                     <vs-th style="background-color: #28C76F; color: #ffffff; font-weight: bold;">{{ $t("no") }}</vs-th>
                     <vs-th style="background-color: #28C76F; color: #ffffff; font-weight: bold;" :key="i"
-                        v-for="(  header, i  ) in   dataHeaders  ">{{ $t(header) }}</vs-th>
-                    <vs-th style="background-color: #28C76F; color: #ffffff; font-weight: bold;">{{ $t("Action") }}</vs-th>
+                        v-for="(  header, i  ) in dataHeaders  ">{{ $t(header) }}</vs-th>
+                    <vs-th style="background-color: #28C76F; color: #ffffff; font-weight: bold;">{{ $t("Action")
+                        }}</vs-th>
                 </template>
 
                 <template slot-scope="{data}">
-                    <tbody :key="pindextr" v-for="(  ptr, pindextr  ) in   data  ">
+                    <tbody :key="pindextr" v-for="(  ptr, pindextr  ) in data  ">
                         <vs-tr :state="dataAttributes.backgroundColor">
                             <!-- <td :colspan="Object.keys(ptr.children[0]).length">{{ ptr.name_kh }}</td> -->
                             <td :colspan="Object.keys(dataHeaders).length + 1">
                                 {{ ptr.code }}-{{ ptr.name_kh }}
+                                <feather-icon style="cursor: pointer;" @click="openPrivateForm(ptr)"
+                                    icon="DollarSignIcon" svgClasses="w-5 h-5 hover:text-primary stroke-current" />
+                                <feather-icon style="cursor: pointer;" @click="openFormByParent(ptr)" icon="PlusIcon"
+                                    svgClasses="w-5 h-5 hover:text-primary stroke-current" />
                                 <vs-progress :percent="75" color="warning"></vs-progress>
                             </td>
                             <td>
                                 <center><feather-icon style="cursor: pointer;" @click="openFormByParent(ptr)"
-                                        icon="PlusIcon" svgClasses="w-5 h-5 hover:text-primary stroke-current" /></center>
+                                        icon="PlusIcon" svgClasses="w-5 h-5 hover:text-primary stroke-current" />
+                                </center>
                             </td>
                         </vs-tr>
 
-                        <vs-tr :key="indextr" v-for="(  tr, indextr  ) in   ptr.children  ">
+                        <vs-tr :key="indextr" v-for="(  tr, indextr  ) in ptr.children  ">
                             <vs-td>{{ calPageIncreaseNumber(dataTables.limit, indextr) }}</vs-td>
-                            <vs-td v-for="(  value, name, index  ) in   dataHeaders  " :key="name.indextr">
+                            <vs-td v-for="(  value, name, index  ) in dataHeaders  " :key="name.indextr">
                                 <template v-if="name == 'indicator'">
                                     <template v-if="tr[name]['data'].length > 0">
                                         <div class="mb-2" :key="indexI"
-                                            v-for="(  dataRow, indexI  ) in   tr[name]['data']  ">
+                                            v-for="(  dataRow, indexI  ) in tr[name]['data']  ">
                                             <vx-card>
                                                 {{ dataRow["code"] }}-{{ dataRow["kpi_name_kh"] }}
                                             </vx-card>
@@ -167,7 +175,7 @@
                             </vs-td>
                             <vs-td>
                                 <template v-if="dataAttributes.actionButton">
-                                    <template v-for="  rowBtnAction   in   dataAttributes.actionButton  ">
+                                    <template v-for="  rowBtnAction in dataAttributes.actionButton  ">
                                         <feather-icon v-if="rowBtnAction.allow" style="cursor: pointer;"
                                             :icon="rowBtnAction.icon"
                                             svgClasses="mr-2 w-5 h-5 hover:text-primary stroke-current"
@@ -196,7 +204,7 @@
                 :data="dataTables.data" style="overflow: scroll">
                 <template slot-scope="{data}">
                     <vs-tr>
-                        <vs-td :style="style(header)" :key="i" v-for="(  header, i  ) in   dataHeaders  "
+                        <vs-td :style="style(header)" :key="i" v-for="(  header, i  ) in dataHeaders  "
                             :colspan="colspan(header)" :rowspan="rowspan(header)">
                             <span v-if="header.label">
                                 <center>{{ $t(header.label) }} </center>
@@ -209,47 +217,48 @@
 
                     <vs-tr v-if="dataTables.dataHeaders"
                         style="background-color: #28C76F; color: #ffffff; font-weight: bold;">
-                        <vs-td :key="j" v-for="(  header, j  ) in   dataTables.dataHeaders  " :colspan="colspan(header)"
+                        <vs-td :key="j" v-for="(  header, j  ) in dataTables.dataHeaders  " :colspan="colspan(header)"
                             :rowspan="rowspan(header)">{{ header.label }} </vs-td>
                     </vs-tr>
 
                     <vs-tr v-if="dataTables.dataSubHeaders"
                         style="background-color: #28C76F; color: #ffffff; font-weight: bold;">
-                        <vs-td :key="k" v-for="(  header, k  ) in   dataTables.dataSubHeaders  " :colspan="colspan(header)"
-                            :rowspan="rowspan(header)"><small>{{ header.label }}</small></vs-td>
+                        <vs-td :key="k" v-for="(  header, k  ) in dataTables.dataSubHeaders  "
+                            :colspan="colspan(header)" :rowspan="rowspan(header)"><small>{{ header.label
+                                }}</small></vs-td>
                     </vs-tr>
 
-                    <tbody :key="pindextr" v-for="(  ptr, pindextr  ) in   data  ">
+                    <tbody :key="pindextr" v-for="(  ptr, pindextr  ) in data  ">
                         <vs-tr :state="'success'">
                             <template v-if="ptr.hasColspan == false">
                                 <td>{{ ptr.name }}</td>
-                                <td :key="index" v-for="(  row, index  ) in   ptr.values  ">{{ row }}</td>
+                                <td :key="index" v-for="(  row, index  ) in ptr.values  ">{{ row }}</td>
                             </template>
                             <td v-else :colspan="ptr.colspan">{{ ptr.name }}</td>
                         </vs-tr>
                         <vs-tr :state="'primary'">
                             <td>{{ ptr.data.summary.name }}</td>
-                            <td :key="index" v-for="(  row, index  ) in   ptr.data.summary.values  ">{{ row }}</td>
+                            <td :key="index" v-for="(  row, index  ) in ptr.data.summary.values  ">{{ row }}</td>
                             <td></td>
                         </vs-tr>
 
-                        <template v-for="  row   in   ptr.data.children  ">
+                        <template v-for="  row in ptr.data.children  ">
                             <vs-tr :state="'warning'">
                                 <td>{{ row.name }}
                                     <template v-if="dataAttributes.hasPrivateButton">
-                                        <feather-icon style="cursor: pointer;" @click="openPrivateForm(row)" icon="PlusIcon"
-                                            svgClasses="w-5 h-5 hover:text-primary stroke-current" />
+                                        <feather-icon style="cursor: pointer;" @click="openPrivateForm(row)"
+                                            icon="PlusIcon" svgClasses="w-5 h-5 hover:text-primary stroke-current" />
                                     </template>
                                     <template v-else>
                                         <feather-icon style="cursor: pointer;" @click="openForm" icon="PlusIcon"
                                             svgClasses="w-5 h-5 hover:text-primary stroke-current" />
                                     </template>
                                 </td>
-                                <td :key="index1" v-for="(  row, index1  ) in   row.values  ">{{ row }} </td>
+                                <td :key="index1" v-for="(  row, index1  ) in row.values  ">{{ row }} </td>
                                 <td>
                                     <template v-if="dataAttributes.hasPrivateButton">
-                                        <feather-icon style="cursor: pointer;" @click="openPrivateForm(row)" icon="PlusIcon"
-                                            svgClasses="w-5 h-5 hover:text-primary stroke-current" />
+                                        <feather-icon style="cursor: pointer;" @click="openPrivateForm(row)"
+                                            icon="PlusIcon" svgClasses="w-5 h-5 hover:text-primary stroke-current" />
 
                                     </template>
                                     <template v-else>
@@ -258,16 +267,16 @@
                                     </template>
                                 </td>
                             </vs-tr>
-                            <vs-tr :key="index" v-for="(  row2, index  ) in   row.data  ">
+                            <vs-tr :key="index" v-for="(  row2, index  ) in row.data  ">
                                 <td>{{ row2.name }}</td>
-                                <td :key="index3" v-for="(  row, index3  ) in   row2.values  ">{{ row }}</td>
+                                <td :key="index3" v-for="(  row, index3  ) in row2.values  ">{{ row }}</td>
                                 <td></td>
                             </vs-tr>
 
-                            <template v-for="  row3   in   row.dataDetails  ">
+                            <template v-for="  row3 in row.dataDetails  ">
                                 <vs-tr style="background-color: #fffde5">
                                     <td>{{ row3.name }}</td>
-                                    <td :key="index4" v-for="(  row, index4  ) in   row3.values  ">{{ row }}</td>
+                                    <td :key="index4" v-for="(  row, index4  ) in row3.values  ">{{ row }}</td>
                                     <td>
                                         <template v-if="dataAttributes.hasPrivateButton">
                                             <feather-icon style="cursor: pointer;" icon="EditIcon"
@@ -287,9 +296,9 @@
                                     </td>
                                 </vs-tr>
 
-                                <vs-tr :key="index" v-for="(  row2, index  ) in   row3.data  ">
+                                <vs-tr :key="index" v-for="(  row2, index  ) in row3.data  ">
                                     <td>{{ row2.name }}</td>
-                                    <td :key="index3" v-for="(  row, index3  ) in   row2.values  ">{{ row }}</td>
+                                    <td :key="index3" v-for="(  row, index3  ) in row2.values  ">{{ row }}</td>
                                     <td></td>
                                 </vs-tr>
                             </template>
@@ -303,7 +312,7 @@
                 :data="dataTables.data" style="overflow: scroll">
                 <template slot-scope="{data}">
                     <vs-tr>
-                        <vs-td :style="style(header)" :key="i" v-for="(  header, i  ) in   dataHeaders  "
+                        <vs-td :style="style(header)" :key="i" v-for="(  header, i  ) in dataHeaders  "
                             :colspan="colspan(header)" :rowspan="rowspan(header)">
                             <span v-if="header.label">
                                 <center>{{ $t(header.label) }}</center>
@@ -316,24 +325,24 @@
 
                     <vs-tr v-if="dataTables.dataHeaders"
                         style="background-color: #28C76F; color: #ffffff; font-weight: bold;">
-                        <vs-td :key="j" v-for="(  sheader, j  ) in   dataTables.dataHeaders  ">{{ sheader }}</vs-td>
+                        <vs-td :key="j" v-for="(  sheader, j  ) in dataTables.dataHeaders  ">{{ sheader }}</vs-td>
                     </vs-tr>
 
                     <vs-tr v-if="dataTables.dataSubHeaders">
-                        <vs-td :key="k" v-for="(  sheader, k  ) in   dataTables.dataSubHeaders  "><small>{{ sheader
-                        }}</small></vs-td>
+                        <vs-td :key="k" v-for="(  sheader, k  ) in dataTables.dataSubHeaders  "><small>{{ sheader
+                                }}</small></vs-td>
                     </vs-tr>
 
-                    <tbody :key="pindextr" v-for="(  ptr, pindextr  ) in   data  ">
+                    <tbody :key="pindextr" v-for="(  ptr, pindextr  ) in data  ">
                         <vs-tr :state="'success'">
                             <template v-if="ptr.hasColspan == false">
                                 <td>{{ ptr.name }}</td>
-                                <td :key="index" v-for="(  row, index  ) in   ptr.values  ">{{ row }}</td>
+                                <td :key="index" v-for="(  row, index  ) in ptr.values  ">{{ row }}</td>
                             </template>
                             <td v-else :colspan="ptr.colspan">{{ ptr.name }}</td>
                         </vs-tr>
 
-                        <template v-if="ptr.children" v-for="(  row, index  ) in   ptr.children  ">
+                        <template v-if="ptr.children" v-for="(  row, index  ) in ptr.children  ">
 
                             <vs-tr style="background: #b2ffd9">
                                 <!-- <td></td> -->
@@ -346,7 +355,7 @@
                                 </td>
                             </vs-tr>
 
-                            <template v-if="row.children" v-for="  row   in   row.children  ">
+                            <template v-if="row.children" v-for="  row in row.children  ">
 
                                 <vs-tr style="background-color: #f3edf5">
                                     <!-- <td></td> -->
@@ -359,23 +368,25 @@
                                     </td>
                                 </vs-tr>
 
-                                <template v-if="row.children" v-for="  row   in   row.children  ">
+                                <template v-if="row.children" v-for="  row in row.children  ">
                                     <vs-tr style="background-color: #fffde5">
                                         <!-- <td></td> -->
                                         <td>
                                             {{ row.name }}
-                                            <center><feather-icon style="cursor: pointer;" @click="openForm" icon="PlusIcon"
+                                            <center><feather-icon style="cursor: pointer;" @click="openForm"
+                                                    icon="PlusIcon"
                                                     svgClasses="w-5 h-5 hover:text-primary stroke-current" /></center>
                                         </td>
                                         <td>{{ row.entity }}</td>
                                         <td>{{ row.entity_member }}</td>
                                         <td>
-                                            <center><feather-icon style="cursor: pointer;" @click="openForm" icon="PlusIcon"
+                                            <center><feather-icon style="cursor: pointer;" @click="openForm"
+                                                    icon="PlusIcon"
                                                     svgClasses="w-5 h-5 hover:text-primary stroke-current" /></center>
                                         </td>
                                     </vs-tr>
 
-                                    <template v-for="  row   in   row.children  ">
+                                    <template v-for="  row in row.children  ">
                                         <vs-tr style="background-color: ">
                                             <!-- <td></td> -->
                                             <td>{{ row.name }}</td>
@@ -405,7 +416,7 @@
                 <template slot-scope="{data}">
 
                     <vs-tr>
-                        <vs-td :style="style(header)" :key="i" v-for="(  header, i  ) in   dataHeaders  "
+                        <vs-td :style="style(header)" :key="i" v-for="(  header, i  ) in dataHeaders  "
                             :colspan="colspan(header)" :rowspan="rowspan(header)">
                             <span v-if="header.label">
                                 <center>{{ $t(header.label) }} </center>
@@ -418,27 +429,28 @@
 
                     <vs-tr v-if="dataTables.dataHeader.dataHeaders"
                         style="background-color: #28C76F; color: #ffffff; font-weight: bold;">
-                        <vs-td :key="j" v-for="(  header, j  ) in   dataTables.dataHeader.dataHeaders  "
+                        <vs-td :key="j" v-for="(  header, j  ) in dataTables.dataHeader.dataHeaders  "
                             :colspan="colspan(header)" :rowspan="rowspan(header)">{{ header.label }} </vs-td>
                     </vs-tr>
 
                     <vs-tr v-if="dataTables.dataHeader.dataSubHeaders"
                         style="background-color: #28C76F; color: #ffffff; font-weight: bold;">
-                        <vs-td :key="k" v-for="(  header, k  ) in   dataTables.dataHeader.dataSubHeaders  "
-                            :colspan="colspan(header)" :rowspan="rowspan(header)"><small>{{ header.label }}</small></vs-td>
+                        <vs-td :key="k" v-for="(  header, k  ) in dataTables.dataHeader.dataSubHeaders  "
+                            :colspan="colspan(header)" :rowspan="rowspan(header)"><small>{{ header.label
+                                }}</small></vs-td>
                     </vs-tr>
 
-                    <tbody :key="pindextr" v-for="(  ptr, pindextr  ) in   data  ">
+                    <tbody :key="pindextr" v-for="(  ptr, pindextr  ) in data  ">
 
                         <vs-tr :state="'success'">
                             <template v-if="dataTables.dataHeader.hasColspan == false">
                                 <td>{{ ptr.name }}</td>
-                                <td :key="index" v-for="(  row, index  ) in   ptr.values  ">{{ row }}</td>
+                                <td :key="index" v-for="(  row, index  ) in ptr.values  ">{{ row }}</td>
                             </template>
                             <td v-else :colspan="dataTables.dataHeader.colspan">{{ ptr.name }}</td>
                         </vs-tr>
                         <!-- Level 1 -->
-                        <template v-if="ptr.children" v-for="(  row, index  ) in   ptr.children  ">
+                        <template v-if="ptr.children" v-for="(  row, index  ) in ptr.children  ">
 
                             <vs-tr :state="'warning'">
                                 <td>{{ row.name }}</td>
@@ -453,7 +465,7 @@
                             </vs-tr>
 
                             <!-- Indicator -->
-                            <template v-for="  indicator_row   in   row.indicator  ">
+                            <template v-for="  indicator_row in row.indicator  ">
                                 <vs-tr>
                                     <td>{{ indicator_row.indicator }}</td>
                                     <td>{{ indicator_row.code }}</td>
@@ -468,7 +480,7 @@
                             </template>
 
                             <!-- Level 2 -->
-                            <template v-if="row.children" v-for="  row   in   row.children  ">
+                            <template v-if="row.children" v-for="  row in row.children  ">
 
                                 <vs-tr :state="'danger'">
                                     <td>{{ row.name }}</td>
@@ -486,7 +498,7 @@
                                 </vs-tr>
 
                                 <!-- Indicator -->
-                                <template v-for="  indicator_row   in   row.indicator  ">
+                                <template v-for="  indicator_row in row.indicator  ">
                                     <vs-tr>
                                         <td>{{ indicator_row.indicator }}</td>
                                         <td>{{ indicator_row.code }}</td>
@@ -503,7 +515,7 @@
                                 </template>
 
                                 <!-- Level 3 -->
-                                <template v-if="row.children" v-for="  row   in   row.children  ">
+                                <template v-if="row.children" v-for="  row in row.children  ">
                                     <vs-tr style="background-color: #fffde5">
                                         <td>{{ row.name }}</td>
                                         <td>{{ }}</td>
@@ -514,13 +526,14 @@
                                         <td>{{ }}</td>
                                         <td>{{ }}</td>
                                         <td>
-                                            <center><feather-icon style="cursor: pointer;" @click="openForm" icon="PlusIcon"
+                                            <center><feather-icon style="cursor: pointer;" @click="openForm"
+                                                    icon="PlusIcon"
                                                     svgClasses="w-5 h-5 hover:text-primary stroke-current" /></center>
                                         </td>
                                     </vs-tr>
 
                                     <!-- Level 4 -->
-                                    <template v-for="  row   in   row.children  ">
+                                    <template v-for="  row in row.children  ">
                                         <vs-tr style="background-color: #fffde5">
                                             <td>{{ row.name }}</td>
                                             <td>{{ }}</td>
@@ -533,7 +546,8 @@
                                             <td>
                                                 <center><feather-icon style="cursor: pointer;" @click="openForm"
                                                         icon="PlusIcon"
-                                                        svgClasses="w-5 h-5 hover:text-primary stroke-current" /></center>
+                                                        svgClasses="w-5 h-5 hover:text-primary stroke-current" />
+                                                </center>
                                             </td>
                                         </vs-tr>
                                     </template>
@@ -551,7 +565,7 @@
                 <template slot-scope="{data}">
 
                     <vs-tr>
-                        <vs-td :style="style(header)" :key="i" v-for="(  header, i  ) in   dataHeaders  "
+                        <vs-td :style="style(header)" :key="i" v-for="(  header, i  ) in dataHeaders  "
                             :colspan="colspan(header)" :rowspan="rowspan(header)">
                             <span v-if="header.label">
                                 <center><span v-html="$t(header.label)"></span></center>
@@ -564,41 +578,42 @@
 
                     <vs-tr v-if="dataTables.dataHeaders"
                         style="background-color: #28C76F; color: #ffffff; font-weight: bold;">
-                        <vs-td :style="style(header)" :key="j" v-for="(  header, j  ) in   dataTables.dataHeaders  "
+                        <vs-td :style="style(header)" :key="j" v-for="(  header, j  ) in dataTables.dataHeaders  "
                             :colspan="colspan(header)" :rowspan="rowspan(header)">{{ header.label }} </vs-td>
                     </vs-tr>
 
                     <vs-tr v-if="dataTables.dataSubHeaders"
                         style="background-color: #28C76F; color: #ffffff; font-weight: bold;">
-                        <vs-td :key="k" v-for="(  header, k  ) in   dataTables.dataSubHeaders  " :colspan="colspan(header)"
-                            :rowspan="rowspan(header)"><small>{{ header.label }}</small></vs-td>
+                        <vs-td :key="k" v-for="(  header, k  ) in dataTables.dataSubHeaders  "
+                            :colspan="colspan(header)" :rowspan="rowspan(header)"><small>{{ header.label
+                                }}</small></vs-td>
                     </vs-tr>
 
-                    <tbody :key="pindextr" v-for="(  ptr, pindextr  ) in   data  ">
+                    <tbody :key="pindextr" v-for="(  ptr, pindextr  ) in data  ">
 
-                        <vs-tr :key="cindex" v-for="(  cusField, cindex  ) in   dataTables.group_fields  "
+                        <vs-tr :key="cindex" v-for="(  cusField, cindex  ) in dataTables.group_fields  "
                             style="background-color: rgb(240 240 240);">
-                            <td :key="scindex" v-for="(  scfield, scindex  ) in   ptr[cusField]  ">
+                            <td :key="scindex" v-for="(  scfield, scindex  ) in ptr[cusField]  ">
                                 <center>{{ scfield }}</center>
                             </td>
                         </vs-tr>
 
-                        <template v-for="  parent   in   ptr.children  ">
+                        <template v-for="  parent in ptr.children  ">
                             <vs-tr style="background-color: rgb(178, 255, 217);">
-                                <vs-td :key="sindex" v-for="(  dataField, sindex  ) in   dataTables.dataFillables  ">
+                                <vs-td :key="sindex" v-for="(  dataField, sindex  ) in dataTables.dataFillables  ">
                                     {{ parent[dataField] }}
                                 </vs-td>
                             </vs-tr>
 
-                            <template v-for="  child   in   parent.children  ">
+                            <template v-for="  child in parent.children  ">
                                 <vs-tr style="background-color: rgb(255, 253, 229);">
-                                    <vs-td :key="sindex" v-for="(  dataField, sindex  ) in   dataTables.dataFillables  ">
+                                    <vs-td :key="sindex" v-for="(  dataField, sindex  ) in dataTables.dataFillables  ">
                                         {{ child[dataField] }}
                                     </vs-td>
                                 </vs-tr>
 
-                                <vs-tr :key="sindex" v-for="(  schild, sindex  ) in   child.children  ">
-                                    <vs-td :key="sindex" v-for="(  dataField, sindex  ) in   dataTables.dataFillables  ">
+                                <vs-tr :key="sindex" v-for="(  schild, sindex  ) in child.children  ">
+                                    <vs-td :key="sindex" v-for="(  dataField, sindex  ) in dataTables.dataFillables  ">
                                         {{ schild[dataField] }}
                                     </vs-td>
                                 </vs-tr>
@@ -613,7 +628,7 @@
                 <template slot-scope="{data}">
 
                     <vs-tr>
-                        <vs-td :style="style(header)" :key="i" v-for="(  header, i  ) in   dataHeaders  "
+                        <vs-td :style="style(header)" :key="i" v-for="(  header, i  ) in dataHeaders  "
                             :colspan="colspan(header)" :rowspan="rowspan(header)">
                             <span v-if="header.label">
                                 <center><span v-html="$t(header.label)"></span></center>
@@ -626,17 +641,18 @@
 
                     <vs-tr v-if="dataTables.dataHeaders"
                         style="background-color: #28C76F; color: #ffffff; font-weight: bold;">
-                        <vs-td :style="style(header)" :key="j" v-for="(  header, j  ) in   dataTables.dataHeaders  "
+                        <vs-td :style="style(header)" :key="j" v-for="(  header, j  ) in dataTables.dataHeaders  "
                             :colspan="colspan(header)" :rowspan="rowspan(header)">{{ header.label }} </vs-td>
                     </vs-tr>
 
                     <vs-tr v-if="dataTables.dataSubHeaders"
                         style="background-color: #28C76F; color: #ffffff; font-weight: bold;">
-                        <vs-td :key="k" v-for="(  header, k  ) in   dataTables.dataSubHeaders  " :colspan="colspan(header)"
-                            :rowspan="rowspan(header)"><small>{{ header.label }}</small></vs-td>
+                        <vs-td :key="k" v-for="(  header, k  ) in dataTables.dataSubHeaders  "
+                            :colspan="colspan(header)" :rowspan="rowspan(header)"><small>{{ header.label
+                                }}</small></vs-td>
                     </vs-tr>
 
-                    <tbody :key="pindextr" v-for="(  ptr, pindextr  ) in   data  ">
+                    <tbody :key="pindextr" v-for="(  ptr, pindextr  ) in data  ">
 
                         <!-- <vs-tr :key="cindex" v-for="(  cusField, cindex  ) in   dataTables.group_fields  "
                             style="background-color: rgb(240 240 240);">
@@ -645,24 +661,24 @@
                             </td>
                         </vs-tr> -->
                         <vs-tr :key="pindextr" style="background-color: rgb(240 240 240);">
-                            <td colspan="6">{{ptr.entity.name}}</td>
+                            <td colspan="6">{{ ptr.entity.name }}</td>
                         </vs-tr>
-                        <template v-for="  parent   in   ptr.children  ">
+                        <template v-for="  parent in ptr.children  ">
                             <vs-tr style="background-color: rgb(178, 255, 217);">
-                                <vs-td :key="sindex" v-for="(  dataField, sindex  ) in   dataTables.dataFillables  ">
+                                <vs-td :key="sindex" v-for="(  dataField, sindex  ) in dataTables.dataFillables  ">
                                     {{ parent[dataField] }}
                                 </vs-td>
                             </vs-tr>
 
-                            <template v-for="  child   in   parent.children  ">
+                            <template v-for="  child in parent.children  ">
                                 <vs-tr style="background-color: rgb(255, 253, 229);">
-                                    <vs-td :key="sindex" v-for="(  dataField, sindex  ) in   dataTables.dataFillables  ">
+                                    <vs-td :key="sindex" v-for="(  dataField, sindex  ) in dataTables.dataFillables  ">
                                         {{ child[dataField] }}
                                     </vs-td>
                                 </vs-tr>
 
-                                <vs-tr :key="sindex" v-for="(  schild, sindex  ) in   child.children  ">
-                                    <vs-td :key="sindex" v-for="(  dataField, sindex  ) in   dataTables.dataFillables  ">
+                                <vs-tr :key="sindex" v-for="(  schild, sindex  ) in child.children  ">
+                                    <vs-td :key="sindex" v-for="(  dataField, sindex  ) in dataTables.dataFillables  ">
                                         {{ schild[dataField] }}
                                     </vs-td>
                                 </vs-tr>
@@ -671,14 +687,14 @@
                     </tbody>
                 </template>
             </vs-table>
-            
+
             <!-- Income Form -->
             <vs-table v-if="dataTables.data && dataAttributes.tableStyle == 8" :max-items="dataTables.limit"
                 :data="dataTables.data" style="overflow: scroll">
                 <template slot-scope="{data}">
 
                     <vs-tr>
-                        <vs-td :style="style(header)" :key="i" v-for="(  header, i  ) in   dataHeaders  "
+                        <vs-td :style="style(header)" :key="i" v-for="(  header, i  ) in dataHeaders  "
                             :colspan="colspan(header)" :rowspan="rowspan(header)">
                             <span v-if="header.label">
                                 <center><span v-html="$t(header.label)"></span></center>
@@ -691,21 +707,22 @@
 
                     <vs-tr v-if="dataTables.dataHeaders"
                         style="background-color: #28C76F; color: #ffffff; font-weight: bold;">
-                        <vs-td :style="style(header)" :key="j" v-for="(  header, j  ) in   dataTables.dataHeaders  "
+                        <vs-td :style="style(header)" :key="j" v-for="(  header, j  ) in dataTables.dataHeaders  "
                             :colspan="colspan(header)" :rowspan="rowspan(header)">{{ header.label }} </vs-td>
                     </vs-tr>
 
                     <vs-tr v-if="dataTables.dataSubHeaders"
                         style="background-color: #28C76F; color: #ffffff; font-weight: bold;">
-                        <vs-td :key="k" v-for="(  header, k  ) in   dataTables.dataSubHeaders  " :colspan="colspan(header)"
-                            :rowspan="rowspan(header)"><small>{{ header.label }}</small></vs-td>
+                        <vs-td :key="k" v-for="(  header, k  ) in dataTables.dataSubHeaders  "
+                            :colspan="colspan(header)" :rowspan="rowspan(header)"><small>{{ header.label
+                                }}</small></vs-td>
                     </vs-tr>
 
-                    <tbody :key="pindextr" v-for="(  ptr, pindextr  ) in   data  ">
+                    <tbody :key="pindextr" v-for="(  ptr, pindextr  ) in data  ">
 
-                        <vs-tr :key="cindex" v-for="(  cusField, cindex  ) in   dataTables.group_fields  "
+                        <vs-tr :key="cindex" v-for="(  cusField, cindex  ) in dataTables.group_fields  "
                             style="color: #f00;">
-                            <td :key="scindex" v-for="(  scfield, scindex  ) in   ptr[cusField]  ">
+                            <td :key="scindex" v-for="(  scfield, scindex  ) in ptr[cusField]  ">
                                 <center>{{ scfield }}</center>
                             </td>
                         </vs-tr>
@@ -763,7 +780,7 @@
                             <!-- ផ្សេងៗ -->
                             <vs-td>{{ ptr.remark }}</vs-td>
                         </vs-tr>
-                        <template v-for="  ctr   in   ptr.children  ">
+                        <template v-for="  ctr in ptr.children  ">
                             <!-- <vs-tr>
                                 <vs-td :key="sindex" v-for="(dataField, sindex) in dataTables.dataFillables">
                                     <center>{{ parent[dataField] }} </center>
@@ -822,7 +839,7 @@
                             </vs-tr>
 
                             <!--/*** cctr children in loop children table row data  */ -->
-                            <template v-for="  cctr   in   ctr.children  ">
+                            <template v-for="  cctr in ctr.children  ">
                                 <vs-tr>
                                     <vs-td>{{ cctr.account_group.code }}</vs-td>
                                     <vs-td>{{ cctr.account.code }}</vs-td>
@@ -904,7 +921,7 @@
                 <template slot-scope="{data}">
 
                     <vs-tr>
-                        <vs-td :style="style(header)" :key="i" v-for="(  header, i  ) in   dataHeaders  "
+                        <vs-td :style="style(header)" :key="i" v-for="(  header, i  ) in dataHeaders  "
                             :colspan="colspan(header)" :rowspan="rowspan(header)">
                             <span v-if="header.label">
                                 <center><span v-html="$t(header.label)"></span></center>
@@ -917,7 +934,7 @@
 
                     <vs-tr v-if="dataTables.dataHeaders"
                         style="background-color: #28C76F; color: #ffffff; font-weight: bold;">
-                        <vs-td :style="style(header)" :key="j" v-for="(  header, j  ) in   dataTables.dataHeaders  "
+                        <vs-td :style="style(header)" :key="j" v-for="(  header, j  ) in dataTables.dataHeaders  "
                             :colspan="colspan(header)" :rowspan="rowspan(header)">
                             <center>{{ header.label }}</center>
                         </vs-td>
@@ -925,15 +942,16 @@
 
                     <vs-tr v-if="dataTables.dataSubHeaders"
                         style="background-color: #28C76F; color: #ffffff; font-weight: bold;">
-                        <vs-td :key="k" v-for="(  header, k  ) in   dataTables.dataSubHeaders  " :colspan="colspan(header)"
-                            :rowspan="rowspan(header)"><small>{{ header.label }}</small></vs-td>
+                        <vs-td :key="k" v-for="(  header, k  ) in dataTables.dataSubHeaders  "
+                            :colspan="colspan(header)" :rowspan="rowspan(header)"><small>{{ header.label
+                                }}</small></vs-td>
                     </vs-tr>
 
-                    <tbody :key="pindextr" v-for="(  ptr, pindextr  ) in   data  ">
+                    <tbody :key="pindextr" v-for="(  ptr, pindextr  ) in data  ">
 
-                        <vs-tr :key="cindex" v-for="(  cusField, cindex  ) in   dataTables.group_fields  "
+                        <vs-tr :key="cindex" v-for="(  cusField, cindex  ) in dataTables.group_fields  "
                             style="color: #f00;">
-                            <td :key="scindex" v-for="(  scfield, scindex  ) in   ptr[cusField]  ">
+                            <td :key="scindex" v-for="(  scfield, scindex  ) in ptr[cusField]  ">
                                 <center>{{ scfield }}</center>
                             </td>
                         </vs-tr>
@@ -990,7 +1008,7 @@
                             <!-- ផ្សេងៗ -->
                             <vs-td>{{ ptr.remark }}</vs-td>
                         </vs-tr>
-                        <template v-for="  ctr   in   ptr.children  ">
+                        <template v-for="  ctr in ptr.children  ">
                             <!-- <vs-tr>
                                 <vs-td :key="sindex" v-for="(dataField, sindex) in dataTables.dataFillables">
                                     <center>{{ parent[dataField] }} </center>
@@ -1049,7 +1067,7 @@
                             </vs-tr>
 
                             <!--/*** cctr children in loop children table row data  */ -->
-                            <template v-for="  cctr   in   ctr.children  ">
+                            <template v-for="  cctr in ctr.children  ">
                                 <vs-tr>
                                     <vs-td>{{ cctr.account_group.code + '-' + cctr.account_group.name }}</vs-td>
                                     <vs-td>{{ cctr.account.code + "-" + cctr.account.name }}</vs-td>
@@ -1128,7 +1146,7 @@
                 :data="dataTables.data" style="overflow: scroll">
                 <template slot-scope="{data}">
                     <vs-tr>
-                        <vs-td :style="style(header)" :key="i" v-for="(  header, i  ) in   dataHeaders  "
+                        <vs-td :style="style(header)" :key="i" v-for="(  header, i  ) in dataHeaders  "
                             :colspan="colspan(header)" :rowspan="rowspan(header)">
                             <span v-if="header.label">
                                 <center>{{ $t(header.label) }} </center>
@@ -1141,60 +1159,61 @@
 
                     <vs-tr v-if="dataTables.dataHeaders"
                         style="background-color: #28C76F; color: #ffffff; font-weight: bold;">
-                        <vs-td :key="j" v-for="(  header, j  ) in   dataTables.dataHeaders  " :colspan="colspan(header)"
+                        <vs-td :key="j" v-for="(  header, j  ) in dataTables.dataHeaders  " :colspan="colspan(header)"
                             :rowspan="rowspan(header)">{{ $t(header.label) }} </vs-td>
                     </vs-tr>
 
                     <vs-tr v-if="dataTables.dataSubHeaders"
                         style="background-color: rgb(158 158 158); color: #ffffff; font-weight: bold;">
-                        <vs-td :key="k" v-for="(  header, k  ) in   dataTables.dataSubHeaders  " :colspan="colspan(header)"
-                            :rowspan="rowspan(header)">
+                        <vs-td :key="k" v-for="(  header, k  ) in dataTables.dataSubHeaders  "
+                            :colspan="colspan(header)" :rowspan="rowspan(header)">
                             <center><small>{{ $t(header.label) }}</small></center>
                         </vs-td>
                     </vs-tr>
 
-                    <tbody :key="pindextr" v-for="(  ptr, pindextr  ) in   data  ">
+                    <tbody :key="pindextr" v-for="(  ptr, pindextr  ) in data  ">
                         <vs-tr :state="'success'">
                             <template v-if="ptr.hasColspan == false">
                                 <td>{{ ptr.name }}</td>
-                                <td :key="index" v-for="(  row, index  ) in   ptr.values  ">{{ row }}</td>
+                                <td :key="index" v-for="(  row, index  ) in ptr.values  ">{{ row }}</td>
                             </template>
                             <td v-else :colspan="ptr.colspan">{{ ptr.name }}</td>
                         </vs-tr>
 
-                        <template v-for="  row   in   ptr.data  ">
+                        <template v-for="  row in ptr.data  ">
                             <vs-tr :state="'primary'">
                                 <td>{{ row.summary.name }}</td>
-                                <td :key="index" v-for="(  row, index  ) in   row.summary.values  ">{{ row }}</td>
+                                <td :key="index" v-for="(  row, index  ) in row.summary.values  ">{{ row }}</td>
                                 <td></td>
                             </vs-tr>
 
-                            <template v-for="  row   in   row.children  ">
+                            <template v-for="  row in row.children  ">
                                 <vs-tr :state="'warning'">
                                     <td>{{ row.name }} <feather-icon style="cursor: pointer;"
                                             @click.stop="initAction(row, 'Edit')" icon="PlusIcon"
                                             svgClasses="w-5 h-5 hover:text-primary stroke-current" />
                                     </td>
-                                    <td :key="index1" v-for="(  row, index1  ) in   row.values  ">{{ row }} </td>
+                                    <td :key="index1" v-for="(  row, index1  ) in row.values  ">{{ row }} </td>
                                     <td>
-                                        <center><feather-icon style="cursor: pointer;" @click.stop="initAction(row, 'Edit')"
-                                                icon="PlusIcon" svgClasses="w-5 h-5 hover:text-primary stroke-current" />
+                                        <center><feather-icon style="cursor: pointer;"
+                                                @click.stop="initAction(row, 'Edit')" icon="PlusIcon"
+                                                svgClasses="w-5 h-5 hover:text-primary stroke-current" />
                                         </center>
                                     </td>
                                 </vs-tr>
-                                <vs-tr :key="index" v-for="(  row2, index  ) in   row.data  ">
+                                <vs-tr :key="index" v-for="(  row2, index  ) in row.data  ">
                                     <td>{{ row2.name }}</td>
-                                    <td :key="index3" v-for="(  row, index3  ) in   row2.values  ">{{ row }}</td>
+                                    <td :key="index3" v-for="(  row, index3  ) in row2.values  ">{{ row }}</td>
                                     <td></td>
                                 </vs-tr>
 
-                                <template v-for="  row3   in   row.dataDetails  ">
+                                <template v-for="  row3 in row.dataDetails  ">
                                     <vs-tr style="background-color: #fffde5">
                                         <td>
                                             {{ row3.name }}
                                             <template v-if="dataAttributes.actionButton">
                                                 <feather-icon style="cursor: pointer;"
-                                                    v-for="  rowBtnAction   in   dataAttributes.actionButton  "
+                                                    v-for="  rowBtnAction in dataAttributes.actionButton  "
                                                     :key="rowBtnAction.indextr" :icon="rowBtnAction.icon"
                                                     svgClasses="mr-2 w-5 h-5 hover:text-primary stroke-current"
                                                     @click.stop="initAction(row3, rowBtnAction.method)" />
@@ -1202,14 +1221,14 @@
                                             <!-- <feather-icon style="cursor: pointer;" icon="EditIcon"
                             svgClasses="w-5 h-5 hover:text-primary stroke-current" @click.stop="initEdit(tr)" /> -->
                                         </td>
-                                        <td :key="index4" v-for="(  row, index4  ) in   row3.values  ">{{ row }}</td>
+                                        <td :key="index4" v-for="(  row, index4  ) in row3.values  ">{{ row }}</td>
                                         <td>
                                             <!-- <center><feather-icon style="cursor: pointer;" icon="EditIcon"
                                                 svgClasses="w-5 h-5 hover:text-primary stroke-current"
                                                 @click.stop="initEdit(row3)" /></center> -->
                                             <template v-if="dataAttributes.actionButton">
                                                 <feather-icon style="cursor: pointer;"
-                                                    v-for="  rowBtnAction   in   dataAttributes.actionButton  "
+                                                    v-for="  rowBtnAction in dataAttributes.actionButton  "
                                                     :key="rowBtnAction.indextr" :icon="rowBtnAction.icon"
                                                     svgClasses="mr-2 w-5 h-5 hover:text-primary stroke-current"
                                                     @click.stop="viewUrl(rowBtnAction)" />
@@ -1217,9 +1236,9 @@
                                         </td>
                                     </vs-tr>
 
-                                    <vs-tr :key="index" v-for="(  row4, index  ) in   row3.data  ">
+                                    <vs-tr :key="index" v-for="(  row4, index  ) in row3.data  ">
                                         <td>{{ row4.name }}</td>
-                                        <td :key="index3" v-for="(  row, index3  ) in   row4.values  ">{{ row }}</td>
+                                        <td :key="index3" v-for="(  row, index3  ) in row4.values  ">{{ row }}</td>
                                         <td></td>
                                     </vs-tr>
                                 </template>
@@ -1235,7 +1254,7 @@
                 <template slot-scope="{data}">
 
                     <vs-tr>
-                        <vs-td :style="style(header)" :key="i" v-for="(  header, i  ) in   dataHeaders  "
+                        <vs-td :style="style(header)" :key="i" v-for="(  header, i  ) in dataHeaders  "
                             :colspan="colspan(header)" :rowspan="rowspan(header)">
                             <span v-if="header.label">
                                 <center><span v-html="$t(header.label)"></span></center>
@@ -1248,28 +1267,29 @@
 
                     <vs-tr v-if="dataTables.dataHeaders"
                         style="background-color: #28C76F; color: #ffffff; font-weight: bold;">
-                        <vs-td :style="style(header)" :key="j" v-for="(  header, j  ) in   dataTables.dataHeaders  "
+                        <vs-td :style="style(header)" :key="j" v-for="(  header, j  ) in dataTables.dataHeaders  "
                             :colspan="colspan(header)" :rowspan="rowspan(header)">{{ header.label }} </vs-td>
                     </vs-tr>
 
                     <vs-tr v-if="dataTables.dataSubHeaders"
                         style="background-color: #28C76F; color: #ffffff; font-weight: bold;">
-                        <vs-td :key="k" v-for="(  header, k  ) in   dataTables.dataSubHeaders  " :colspan="colspan(header)"
-                            :rowspan="rowspan(header)"><small>{{ header.label }}</small></vs-td>
+                        <vs-td :key="k" v-for="(  header, k  ) in dataTables.dataSubHeaders  "
+                            :colspan="colspan(header)" :rowspan="rowspan(header)"><small>{{ header.label
+                                }}</small></vs-td>
                     </vs-tr>
 
-                    <tbody :key="pindextr" v-for="(  ptr, pindextr  ) in   data  ">
+                    <tbody :key="pindextr" v-for="(  ptr, pindextr  ) in data  ">
 
-                        <vs-tr :key="cindex" v-for="(  cusField, cindex  ) in   dataTables.group_fields  "
+                        <vs-tr :key="cindex" v-for="(  cusField, cindex  ) in dataTables.group_fields  "
                             style="background-color: rgb(240 240 240);">
-                            <td :key="scindex" v-for="(  scfield, scindex  ) in   ptr[cusField]  ">
+                            <td :key="scindex" v-for="(  scfield, scindex  ) in ptr[cusField]  ">
                                 <center>{{ scfield }}</center>
                             </td>
                         </vs-tr>
 
-                        <template v-for="  parent   in   ptr.children  ">
+                        <template v-for="  parent in ptr.children  ">
                             <vs-tr style="background-color: rgb(197 232 255);">
-                                <vs-td :key="sindex" v-for="(  dataField, sindex  ) in   dataTables.dataFillables  ">
+                                <vs-td :key="sindex" v-for="(  dataField, sindex  ) in dataTables.dataFillables  ">
                                     {{ parent[dataField] }}
                                     <template v-if="dataField == 'desc'">
                                         <!-- <feather-icon style="cursor: pointer;" :key="sindex" icon="PlusIcon"
@@ -1282,19 +1302,19 @@
                                 </vs-td>
                             </vs-tr>
 
-                            <template v-for="  child   in   parent.children  ">
+                            <template v-for="  child in parent.children  ">
                                 <vs-tr style="background-color: rgb(251 249 188);">
-                                    <vs-td :key="sindex" v-for="(  dataField, sindex  ) in   dataTables.dataFillables  ">
+                                    <vs-td :key="sindex" v-for="(  dataField, sindex  ) in dataTables.dataFillables  ">
                                         <span v-if="child[dataField] == 'desc'">> {{ child[dataField] }}</span>
                                         <span v-else>{{ child[dataField] }}</span>
                                     </vs-td>
                                     <vs-td></vs-td>
                                 </vs-tr>
 
-                                <template v-for="(  schild, sindex  ) in   child.children  ">
+                                <template v-for="(  schild, sindex  ) in child.children  ">
                                     <vs-tr style="background-color: rgb(216 216 216);">
                                         <vs-td :key="sindex"
-                                            v-for="(  dataField, sindex  ) in   dataTables.dataFillables  ">
+                                            v-for="(  dataField, sindex  ) in dataTables.dataFillables  ">
                                             <span v-if="v == 'desc'">> {{ schild[dataField] }}</span>
                                             <span v-else>{{ schild[dataField] }}</span>
                                         </vs-td>
@@ -1303,10 +1323,10 @@
                                         </vs-td>
                                     </vs-tr>
 
-                                    <template v-for="(  schild2, sindex  ) in   schild.children  ">
+                                    <template v-for="(  schild2, sindex  ) in schild.children  ">
                                         <vs-tr style="background-color: rgb(240 240 240);">
                                             <vs-td :key="sindex"
-                                                v-for="(  dataField, sindex  ) in   dataTables.dataFillables  ">
+                                                v-for="(  dataField, sindex  ) in dataTables.dataFillables  ">
                                                 {{ schild2[dataField] }}
                                                 <template v-if="dataField == 'desc'">
                                                     <feather-icon style="cursor: pointer;" :key="sindex"
@@ -1319,7 +1339,8 @@
                                                 </template>
                                             </vs-td>
                                             <vs-td>
-                                                <feather-icon style="cursor: pointer;" :key="sindex" icon="DollarSignIcon"
+                                                <feather-icon style="cursor: pointer;" :key="sindex"
+                                                    icon="DollarSignIcon"
                                                     svgClasses="mr-2 w-5 h-5 hover:text-primary stroke-current"
                                                     @click.stop="initAction(schild2, 'PrivateForm')" />
                                                 <feather-icon style="cursor: pointer;" :key="sindex" icon="PlusIcon"
@@ -1328,16 +1349,16 @@
                                             </vs-td>
                                         </vs-tr>
 
-                                        <template v-for="(  schild3, ssindex  ) in   schild2.children  ">
+                                        <template v-for="(  schild3, ssindex  ) in schild2.children  ">
                                             <vs-tr>
                                                 <vs-td :key="ssindex"
-                                                    v-for="(  dataField, ssindex  ) in   dataTables.dataFillables  ">
+                                                    v-for="(  dataField, ssindex  ) in dataTables.dataFillables  ">
                                                     {{ schild3[dataField] }}
                                                 </vs-td>
                                                 <vs-td>
                                                     <template v-if="dataAttributes.actionButton">
                                                         <feather-icon style="cursor: pointer;"
-                                                            v-for="  rowBtnAction   in   dataAttributes.actionButton  "
+                                                            v-for="  rowBtnAction in dataAttributes.actionButton  "
                                                             :key="rowBtnAction.indextr" :icon="rowBtnAction.icon"
                                                             svgClasses="mr-2 w-5 h-5 hover:text-primary stroke-current"
                                                             @click.stop="initAction(schild3, rowBtnAction.method)" />
@@ -1360,7 +1381,7 @@
                 :data="dataTables.data">
                 <template slot-scope="{data}">
                     <vs-tr>
-                        <vs-td :style="style(header)" :key="i" v-for="(  header, i  ) in   dataHeaders  "
+                        <vs-td :style="style(header)" :key="i" v-for="(  header, i  ) in dataHeaders  "
                             :colspan="colspan(header)" :rowspan="rowspan(header)">
                             <span v-if="header.label">
                                 <center><span v-html="$t(header.label)"></span></center>
@@ -1373,19 +1394,20 @@
 
                     <vs-tr v-if="dataTables.dataHeaders"
                         style="background-color: #28C76F; color: #ffffff; font-weight: bold;">
-                        <vs-td :style="style(header)" :key="j" v-for="(  header, j  ) in   dataTables.dataHeaders  "
+                        <vs-td :style="style(header)" :key="j" v-for="(  header, j  ) in dataTables.dataHeaders  "
                             :colspan="colspan(header)" :rowspan="rowspan(header)">{{ header.label }} </vs-td>
                     </vs-tr>
 
                     <vs-tr v-if="dataTables.dataSubHeaders"
                         style="background-color: #28C76F; color: #ffffff; font-weight: bold;">
-                        <vs-td :key="k" v-for="(  header, k  ) in   dataTables.dataSubHeaders  " :colspan="colspan(header)"
-                            :rowspan="rowspan(header)"><small>{{ header.label }}</small></vs-td>
+                        <vs-td :key="k" v-for="(  header, k  ) in dataTables.dataSubHeaders  "
+                            :colspan="colspan(header)" :rowspan="rowspan(header)"><small>{{ header.label
+                                }}</small></vs-td>
                     </vs-tr>
-                    <tbody :key="pindextr" v-for="(  ptr, pindextr  ) in   data  ">
-                        <vs-tr :key="cindex" v-for="(  cusField, cindex  ) in   dataTables.group_fields  "
+                    <tbody :key="pindextr" v-for="(  ptr, pindextr  ) in data  ">
+                        <vs-tr :key="cindex" v-for="(  cusField, cindex  ) in dataTables.group_fields  "
                             style="background-color: rgb(240 240 240);">
-                            <td :key="scindex" v-for="(  scfield, scindex  ) in   ptr[cusField]  ">
+                            <td :key="scindex" v-for="(  scfield, scindex  ) in ptr[cusField]  ">
                                 <center>{{ scfield }}</center>
                             </td>
                         </vs-tr>
@@ -1397,7 +1419,7 @@
                         </vs-td>
                     </vs-tr> -->
                         <vs-tr style="background-color: rgb(163 232 253);">
-                            <vs-td :key="sindex" v-for="(  dataField, sindex  ) in   dataTables.dataFillables  ">
+                            <vs-td :key="sindex" v-for="(  dataField, sindex  ) in dataTables.dataFillables  ">
                                 {{ ptr[dataField] }}
                                 <template v-if="dataField == 'name'">
 
@@ -1409,9 +1431,9 @@
                             </vs-td>
                         </vs-tr>
 
-                        <template v-for="(  child, sindex  ) in   ptr.children  ">
+                        <template v-for="(  child, sindex  ) in ptr.children  ">
                             <vs-tr style="background-color: rgb(250, 237, 167);">
-                                <vs-td :key="sindex" v-for="(  dataField, sindex  ) in   dataTables.dataFillables  ">
+                                <vs-td :key="sindex" v-for="(  dataField, sindex  ) in dataTables.dataFillables  ">
                                     <template v-if="dataField == 'name'">
                                         {{ child[dataField] }}
                                         <feather-icon style="cursor: pointer;" :key="sindex" icon="PlusIcon"
@@ -1427,15 +1449,27 @@
                                     </template>
                                 </vs-td>
                             </vs-tr>
-                            <template v-for="(  schild2, sindex  ) in   child.children  ">
+                            <template v-for="(  schild2, sindex  ) in child.children  ">
                                 <vs-tr style="background-color: rgb(240 240 240);">
-                                    <vs-td :key="sindex" v-for="(  dataField, sindex  ) in   dataTables.dataFillables  ">
+                                    <vs-td :key="sindex" v-for="(  dataField, sindex  ) in dataTables.dataFillables  ">
                                         {{ schild2[dataField] }}
                                         <template v-if="dataField == 'name'">
+                                            <template v-if="dataAttributes.actionButton">
+                                                <feather-icon style="cursor: pointer;"
+                                                    v-for="  rowBtnAction in dataAttributes.actionButton  "
+                                                    :key="rowBtnAction.indextr" :icon="rowBtnAction.icon"
+                                                    svgClasses="mr-2 w-5 h-5 hover:text-primary stroke-current"
+                                                    @click.stop="initAction(schild2, rowBtnAction.method)" />
+                                            </template>
+                                            <feather-icon style="cursor: pointer;" :key="sindex" icon="DollarSignIcon"
+                                                svgClasses="mr-2 w-5 h-5 hover:text-primary stroke-current"
+                                                @click.stop="initAction(schild2, 'PrivateForm')" />
+                                        </template>
+                                        <!-- <template v-if="dataField == 'name'">
                                             <feather-icon style="cursor: pointer;" :key="sindex" icon="PlusIcon"
                                                 svgClasses="mr-2 w-5 h-5 hover:text-primary stroke-current"
                                                 @click.stop="initAction(child, 'Edit')" />
-                                        </template>
+                                        </template> -->
                                     </vs-td>
                                     <vs-td>
                                         <feather-icon style="cursor: pointer;" :key="sindex" icon="PlusIcon"
@@ -1444,22 +1478,23 @@
                                     </vs-td>
                                 </vs-tr>
 
-                                <template v-for="(  schild3, ssindex  ) in   schild2.children  ">
+                                <template v-for="(  schild3, ssindex  ) in schild2.children  ">
                                     <vs-tr>
                                         <vs-td :key="ssindex"
-                                            v-for="(  dataField, ssindex  ) in   dataTables.dataFillables  ">
+                                            v-for="(  dataField, ssindex  ) in dataTables.dataFillables  ">
                                             {{ schild3[dataField] }}
                                             <template v-if="dataField == 'name'">
                                                 <!-- ###### Level Task ########-->
-                                                <feather-icon style="cursor: pointer;" :key="sindex" icon="DollarSignIcon"
+                                                <!-- <feather-icon style="cursor: pointer;" :key="sindex"
+                                                    icon="DollarSignIcon"
                                                     svgClasses="mr-2 w-5 h-5 hover:text-primary stroke-current"
-                                                    @click.stop="initAction(schild3, 'PrivateForm')" />
+                                                    @click.stop="initAction(schild3, 'PrivateForm')" /> -->
                                             </template>
                                         </vs-td>
                                         <vs-td>
                                             <template v-if="dataAttributes.actionButton">
                                                 <feather-icon style="cursor: pointer;"
-                                                    v-for="  rowBtnAction   in   dataAttributes.actionButton  "
+                                                    v-for="  rowBtnAction in dataAttributes.actionButton  "
                                                     :key="rowBtnAction.indextr" :icon="rowBtnAction.icon"
                                                     svgClasses="mr-2 w-5 h-5 hover:text-primary stroke-current"
                                                     @click.stop="initAction(schild3, rowBtnAction.method)" />
@@ -1541,7 +1576,7 @@ export default {
             // },
             enableToggleForm: true,
             dataElements: [],
-            isHidden: false
+            isHidden: true
 
         }
     },
@@ -1563,7 +1598,7 @@ export default {
         },
         style(obj) {
             if (obj.width) {
-                return "background-color: #28C76F; color: #ffffff; font-weight: bold;width:" + obj.width + "px";"min-width:" + obj.width + "px";
+                return "background-color: #28C76F; color: #ffffff; font-weight: bold;min-width:" + obj.width + "px";
             } else {
                 return "background-color: #28C76F; color: #ffffff; font-weight: bold;";
             }
@@ -1701,6 +1736,7 @@ export default {
         },
         initAction(data, method) {
             this.dataInfo = data;
+            console.log("Here is data form", data);
             if (method == "View") {
                 this.$refs.refModalForm.initForm(data);
             }
@@ -1724,7 +1760,7 @@ export default {
                 this.$refs.refModalForm.initForm(data);
             }
         }
-        
+
     },
     created() {
         // console.log("data table", this.dataTables)

@@ -32,4 +32,9 @@ abstract class HelperController extends BaseController
 		 }
 		 return $newKhmerNumber;
 	}
+
+	public function test(){
+		$data = "testing";
+		return $data;
+	}
 }

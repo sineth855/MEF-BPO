@@ -4,70 +4,90 @@
             <vs-divider />
             <!-- Avatar -->
             <div class="vx-row">
-                <!-- Form -->
                 <!-- <d-form @clickForm="initTableData" ref="refModalForm" :data="data" :dataInfo="dataInfo"
-                    :formAttributes="formAttributes" :api="api" :rowDisplay="rowDisplay"></d-form> -->
-
-                <!-- <div class="vx-col flex-1" id="account-info-col-1">
-                    <table>
-                        <tr>
-                            <td width="200px" class="font-semibold">{{ $t("entity") }} :</td>
-                            <td>{{ dataInfo.entity }} អគ្គនាយកដ្ឋានគោលនយោបាយ</td>
-                        </tr>
-                        <tr>
-                            <td width="200px" class="font-semibold">{{ $t("entity_member") }} : </td>
-                            <td>{{ dataInfo.entity_member }} មន្ត្រីបង្គោល</td>
-                        </tr>
-                        <tr>
-                            <td width="200px" class="font-semibold">{{ $t("cluster_activity_id") }} : </td>
-                            <td>{ dataInfo.cluster_activity_id.label }}</td>
-                        </tr>
-                        <tr>
-                            <td width="200px" class="font-semibold">{{ $t("activity_id") }} : </td>
-                            <td>{ dataInfo.activity_id.label }}</td>
-                        </tr>
-                    </table>
-                </div> -->
-
-                <!-- Information - Col 2 -->
-                <!-- <div class="vx-col flex-1" id="account-info-col-2">
-                    <table>
-                        <tr>
-                            <td width="200px" class="font-semibold">{{ $t("code") }} : </td>
-                            <td>{{ dataInfo.code }}</td>
-                        </tr>
-                        <tr>
-                            <td width="200px" class="font-semibold">{{ $t("name_kh") }} : </td>
-                            <td>{{ dataInfo.name_kh }}</td>
-                        </tr>
-                        <tr>
-                            <td width="200px" class="font-semibold">{{ $t("name_en") }} : </td>
-                            <td>{{ dataInfo.name_en }}</td>
-                        </tr>
-                        <tr>
-                            <td width="200px" class="font-semibold">{{ $t("start_date") }} : </td>
-                            <td>{{ dataInfo.start_date }}</td>
-                        </tr>
-                        <tr>
-                            <td width="200px" class="font-semibold">{{ $t("end_date") }} : </td>
-                            <td>{{ dataInfo.end_date }}</td>
-                        </tr>
-                    </table>
-                </div> -->
-                <!-- /Information - Col 2 -->
-                <!-- <div class="vx-col w-full flex" id="account-manage-buttons">
-                    <vs-button icon-pack="feather" icon="icon-edit" class="mr-4"
-                        :to="{ name: 'app-user-edit', params: { userId: $route.params.userId } }">Edit</vs-button>
-                    <vs-button type="border" color="danger" icon-pack="feather" icon="icon-trash"
-                        @click="confirmDeleteRecord">Delete</vs-button>
-                </div> -->
+                    :parentDataInfo="parentDataInfo" :formAttributes="formAttributes" :api="api"
+                    :rowDisplay="rowDisplay" /> -->
             </div>
         </vx-card>
-        <FormCostingDetail ref="refOpenPrivatePopupForm" :api="dataAttributes.api" :dataAttributes="dataAttributes"
-            :dataInfo="dataInfo" />
-        <d-table-list @clicked="initTableData" :api="api" ref="refInitPage" :allowDel="true" :title="title"
+        <vx-card :title="''" code-toggler>
+            <div class="p-3 mb-4" style="overflow: scroll;">
+                <vs-table style="min-width: 500px;min-width: 200%;">
+                    <template slot="thead" style="background: #28c76f;">
+                        <vs-th>{{ $t("ល.រ") }}</vs-th>
+                        <vs-th>{{ $t("គណនី") }}</vs-th>
+                        <vs-th>{{ $t("អនុគណនី") }}</vs-th>
+                        <vs-th>{{ $t("លេខ") }}</vs-th>
+                        <vs-th>{{ $t("ឈ្មោះ") }}</vs-th>
+                        <vs-th>{{ $t("ប្រចាំ/មិនប្រចាំ") }}</vs-th>
+                        <vs-th>{{ $t("ចំនួន") }}</vs-th>
+                        <vs-th>{{ $t("ឯកតា/រង្វាស់") }}</vs-th>
+                        <vs-th>{{ $t("ចំនួនសរុប") }}</vs-th>
+                        <vs-th>{{ $t("លើក/ឆ្នាំ") }}</vs-th>
+                        <vs-th>{{ $t("សរុបប្រចាំឆ្នាំ") }}</vs-th>
+                        <vs-th>{{ $t("ខែ") }}</vs-th>
+                        <vs-th>{{ $t("ប្រភេទចំណាយតាមមុខសញ្ញា") }}</vs-th>
+                        <vs-th>{{ $t("Action") }}</vs-th>
+                    </template>
+                    <tbody>
+                        <tr v-for="(  ptr, index  ) in attribute">
+                            <td> <b>{{ index + 1 }}</b></td>
+                            <td><vs-input type="number" v-model="attribute[a][index]" v-validate="'required'"
+                                    size="small" class="w-full" />
+                            </td>
+                            <td>
+                                <vs-input type="number" v-model="attribute[a][index]" v-validate="'required'"
+                                    size="small" class="w-full" />
+                            </td>
+                            <td style="width: 200px">
+                                <vs-input type="number" v-model="attribute[a][index]" v-validate="'required'"
+                                    size="small" class="w-full" />
+                            </td>
+                            <td style="width: 200px">
+                                <vs-input type="number" v-model="attribute[a][index]" v-validate="'required'"
+                                    size="small" class="w-full" />
+                            </td>
+                            <td style="width: 200px">
+                                <vs-input type="number" v-model="attribute[a][index]" size="small" class="w-full" />
+                            </td>
+                            <td style="width: 200px">
+                                <vs-input type="number" v-model="attribute[a][index]" size="small" class="w-full" />
+                            </td>
+                            <td style="width: 200px">
+                                <vs-input type="number" v-model="attribute[a][index]" size="small" class="w-full" />
+                            </td>
+                            <td style="width: 200px">
+                                <vs-input type="number" v-model="attribute[a][index]" size="small" class="w-full" />
+                            </td>
+                            <td style="width: 200px">
+                                <vs-input type="number" v-model="attribute[a][index]" size="small" class="w-full" />
+                            </td>
+                            <td style="width: 200px">
+                                <vs-input type="number" v-model="attribute[a][index]" size="small" class="w-full" />
+                            </td>
+                            <td style="width: 200px">
+                                <vs-input type="number" v-model="attribute[a][index]" size="small" class="w-full" />
+                            </td>
+                            <td style="width: 200px">
+                                <vs-input v-validate="'required'" size="small" class="mb-2 pb-2 w-full" />
+                            </td>
+                            <td><button type="button" @click="removeElement(index)">Remove</button></td>
+                        </tr>
+                        <tr>
+                            <td colspan="13"></td>
+                            <td><button type="button" @click="addElement()">Add</button></td>
+                        </tr>
+                    </tbody>
+                </vs-table>
+            </div>
+
+            <div class="my-5">
+                <!-- <vs-pagination :total="calPaginNumber(dataTables.total / dataTables.limit)" v-model="current_page"></vs-pagination> -->
+            </div>
+
+        </vx-card>
+        <!-- <d-table-list @clicked="initTableData" :api="api" ref="refInitPage" :allowDel="true" :title="title"
             :dataInfo="dataInfo" :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data"
-            :formAttributes="formAttributes" :rowDisplay="rowDisplay" @clickPrivateForm="initOpenForm"></d-table-list>
+            :formAttributes="formAttributes" :rowDisplay="rowDisplay" @clickPrivateForm="initOpenForm"></d-table-list> -->
     </vs-popup>
 </template>
 <script>
@@ -79,7 +99,6 @@ import vSelect from 'vue-select'
 import flatPickr from 'vue-flatpickr-component';
 import 'flatpickr/dist/flatpickr.css';
 import DTableList from '@/views/form-builder/DTableList.vue'
-import FormCostingDetail from '@/views/modules/program-management/_FormCostingDetail.vue';
 import { ref } from 'vue';
 
 export default {
@@ -95,7 +114,7 @@ export default {
             form: {
                 attribute: {}
             },
-            showModalForm: false,
+            showModalForm: true,
             // Data
             title: "plan_budget",
             dataAttributes: {
@@ -135,26 +154,23 @@ export default {
                 header12: "expense_type",//"មុខសញ្ញា",
                 // header13: "remark",//"ផ្សេងៗ",
             },
+            attribute: [
+                {
+                    a: "",
+                    b: "",
+                    c: "",
+                    d: "",
+                    e: "",
+                    f: "",
+                    g: "",
+                    h: "",
+                    i: "",
+                    j: "",
+                    k: "",
+                }
+            ],
             data: {},
             formAttributes: [
-                // {
-                //     name: "sub_program_id",
-                //     type: "select",
-                //     required: true,
-                //     data: [],
-                // },
-                // {
-                //     name: "cluster_activity_id",
-                //     type: "select",
-                //     required: true,
-                //     data: [],
-                // },
-                // {
-                //     name: "activity_id",
-                //     type: "select",
-                //     required: true,
-                //     data: [],
-                // },
                 {
                     name: "cluster_activity_id",
                     type: "select",
@@ -207,42 +223,6 @@ export default {
                     required: false,
                     data: [],
                 },
-                // {
-                //     name: "lbl_detail",
-                //     type: "grid",
-                //     flag: "y_n_minus_1",
-                //     required: false,
-                // },
-                // {
-                //     name: "unit_id",
-                //     type: "select",
-                //     required: false,
-                // },
-                // {
-                //     name: "quantity",
-                //     type: "number",
-                //     required: false,
-                // },
-                // {
-                //     name: "unit_price",
-                //     type: "number",
-                //     required: false,
-                // },
-                // {
-                //     name: "time_annual",
-                //     type: "number",
-                //     required: false,
-                // },
-                // {
-                //     name: "is_reg_exp",
-                //     type: "select",
-                //     required: false,
-                // },
-                // {
-                //     name: "misc",
-                //     type: "textarea",
-                //     required: false,
-                // }
             ],
             rowDisplay: "3grid", //1grid, 2grid, 3grid, 4grid
             dataFields: [],
@@ -252,7 +232,7 @@ export default {
     methods: {
         showForm(data) {
             this.dataInfo = data;
-            this.showModalForm = true;
+            this.showModalForm = false;
             let _params = {
                 sort: "",
                 order: "",
@@ -361,6 +341,25 @@ export default {
         },
         initOpenForm(data) {
             this.$refs.refOpenPrivatePopupForm.showForm(data);
+        },
+        addElement() {
+            let _attribute = {
+                a: "",
+                b: "",
+                c: "",
+                d: "",
+                e: "",
+                f: "",
+                g: "",
+                h: "",
+                i: "",
+                j: "",
+                k: "",
+            };
+            this.attribute.push(_attribute);
+        },
+        removeElement(index) {
+            this.attribute.splice(index, 1);
         }
     },
     created() {
@@ -388,7 +387,6 @@ export default {
         }
     },
     components: {
-        FormCostingDetail,
         DForm,
         vSelect,
         DTableList

@@ -241,7 +241,7 @@ export default {
                     required: true,
                     hasFilter: true,
                     filterObj: "cluster_activity_id",
-                    api: apiConfig._apiEntityBySubPro
+                    api: apiConfig._apiClusActBySprog
                 },
                 {
                     name: "cluster_activity_id",

@@ -37,10 +37,9 @@ class Item extends Model
 
   public static function getItems(){
     $data = array();
-    $query = Item::where("is_active", 1);
+    $query = Item::orderBy("order_level");
     $whereClause = $query;
     $whereClause->whereNotIn("status", [4])->orWhere("status", null);
-    $whereClause->orderBy("order_level");
     $queryResult = collect($whereClause->get());
     foreach($queryResult as $row){
       $data[] = array(

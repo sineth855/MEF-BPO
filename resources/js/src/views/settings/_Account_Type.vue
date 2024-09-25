@@ -139,7 +139,6 @@ export default {
             this.getDataTable(_search_criteria);
             return false;
         }
-
     },
     created() {
         this.$vs.loading();

@@ -25,7 +25,7 @@ class AccountType extends Model
     }
 
     public static function getAccTypes(){
-      $query = AccountType::orderBy("order_level")->get();
+      $query = AccountType::orderBy("order_level")->whereNotIn("status", [4])->orWhere("status", null)->get();
       $data = array();
       foreach($query as $row){
         $data[] = array(
@@ -55,8 +55,8 @@ class AccountType extends Model
       foreach($results as $row){
         $data[] = array(
           'id' => $row->id,
-          'account_type_group' => isset($row->AccountTypeGroup)?$row->AccountTypeGroup->name_kh:"",
-          'account_type_group_id' => array(
+          'account_type_group_id' => isset($row->AccountTypeGroup)?$row->AccountTypeGroup->name_kh:"",
+          'account_type_group' => array(
             "label" => $row->AccountTypeGroup?$row->AccountTypeGroup->name_kh:"",
             "value" => $row->AccountTypeGroup?$row->AccountTypeGroup->id:"",
           ),
@@ -73,7 +73,7 @@ class AccountType extends Model
     public static function getCount($filter){
       $query = AccountType::orderBy($filter["sort"], $filter["order"]);
       $whereClause = $query;
-      // $whereClause->where("is_active", 1);
+      $whereClause->whereNotIn("status", [4])->orWhere("status", null);
       if($filter["search_field"]){
         $arraySingle = call_user_func_array('array_merge', $filter["search_field"]);
         $dataFields = $arraySingle;

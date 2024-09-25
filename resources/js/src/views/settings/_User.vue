@@ -1,5 +1,5 @@
 <template>
-    <d-table-list @clicked="initTableData" :api="api" ref="refInitPage" :allowDel="true" :title="title" :dataInfo="dataInfo"
+    <d-table-list @clicked="initTableData" :api="api" ref="refInitPage" :allowDel="false" :title="title" :dataInfo="dataInfo"
         :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data" :formAttributes="formAttributes"
         :rowDisplay="rowDisplay"></d-table-list>
 </template>
@@ -23,19 +23,20 @@ export default {
                 dataGrid: "row",
                 popupFullscreen: true,
                 actionButton: [
-                    // {
-                    //     icon: "LockIcon",
-                    //     path: "/module/budget-arrangement/budget-ceiling/list",
-                    //     method: "View"
-                    // }
+                    {
+                        icon: "LockIcon",
+                        path: "/module/budget-arrangement/budget-ceiling/list",
+                        method: "View"
+                    }
                 ]
             },
             dataHeaders: {
                 header1: "entity",
-                header22: "role",
-                header2: "name",
-                header3: "email",
-                header4: "position",
+                header2: "role",
+                header3: "name",
+                header4: "email",
+                header5: "position_name",
+                header6: "is_active",
             },
             data: {
                 data: [
@@ -90,12 +91,12 @@ export default {
                 {
                     name: "password",
                     type: "password",
-                    required: true
+                    required: false
                 },
                 {
                     name: "confirm_password",
                     type: "password",
-                    required: true
+                    required: false
                 },
 
                 {

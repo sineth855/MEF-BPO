@@ -53,7 +53,7 @@ export default {
             },
             formAttributes: [
                 {
-                    name: "account_type_id",
+                    name: "account_type_group_id",
                     type: "select",
                     required: true,
                     options: []

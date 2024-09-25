@@ -52,6 +52,7 @@ class EntityController extends Controller
         $data = array(
             "data_fields" => $this->dataFields(),
             "data" => $this->db_table::getEntities($filter),
+            "parent_id" => $this->db_table::getEntityOpts(),
             "limit" => config_limit,
             "total" => $this->db_table::getCount($filter)
         );

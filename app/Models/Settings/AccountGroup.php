@@ -63,7 +63,7 @@ class AccountGroup extends Model
         $data[] = array(
           'id' => $row->id,
           'account_type_group' => $row->AccountTypeGroup->name_kh,
-          'group' => array(
+          'account_type_group_id' => array(
             "label" => $row->AccountTypeGroup->name_kh,
             "value" => $row->AccountTypeGroup->id
           ),
@@ -80,7 +80,7 @@ class AccountGroup extends Model
     public static function getCount($filter){
       $query = AccountGroup::orderBy($filter["sort"], $filter["order"]);
       $whereClause = $query;
-      // $whereClause->where("is_active", 1);
+      $whereClause->whereNotIn("status", [4])->orWhere("status", null);
       if($filter["search_field"]){
         $arraySingle = call_user_func_array('array_merge', $filter["search_field"]);
         $dataFields = $arraySingle;

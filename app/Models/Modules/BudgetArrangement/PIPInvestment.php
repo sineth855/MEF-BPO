@@ -68,7 +68,7 @@ class PIPInvestment extends Model
             $data = array();
             $queryPro = Program::orderBy($filter["sort"], $filter["order"]);
             $whereClause = $queryPro;
-            $whereClause->where("is_active", 1);
+            $whereClause->whereNotIn("status", [4])->orWhere("status", null);
             $whereClause->offset(($filter["page_number"] - 1) * $filter["limit"]);       
             $whereClause->limit($filter["limit"]);
 

@@ -37,6 +37,7 @@ class UnitController extends Controller
         // Loop Data Field From Table to put in array for mapping data field to search data table
         $data["tables"] = DB::select('show columns from '.env("DB_PREFIX").($this->db_table)->getTable());
         $str = "";
+
         for($i=0; $i < count($data["tables"]); $i++){
             $str .= $data["tables"][$i]->Field.",";
         }
@@ -45,6 +46,7 @@ class UnitController extends Controller
         $dataFields = $newArr;
         return $dataFields;
     }
+
     public function index(Request $request)
     {
         $input = $request->all();

@@ -35,6 +35,23 @@ class ClusterActivity extends Model
     public function EntityMember(){
       return $this->belongsTo(EntityMember::class,'entity_member_id');
     }
+  
+    public static function getClusActBySprog($filter, $input){
+      $queryData = ClusterActivity::orderBy($filter["sort"], $filter["order"]);
+      $whereClause = $queryData;
+      $whereClause->where("sub_program_id", $input["param"]["value"]);
+      $whereClause->whereNotIn("status", [4])->orWhere("status", null);
+      $whereClause->orderBy("order_level");
+      $query = collect($whereClause->get());
+      $data = array();
+      foreach($query as $row){
+        $data[] = array(
+          "label" => (config_language == "en")?$row->code.'-'.$row->name_en:$row->code.'-'.$row->name_kh,
+          "value" => $row->id,
+        );
+      }
+      return $data;
+    }
 
     public static function getClusterActBySProgram($filter){
       $data = array();
@@ -178,7 +195,7 @@ class ClusterActivity extends Model
     public static function getCount($filter){
       $query = ClusterActivity::orderBy($filter["sort"], $filter["order"]);
       $whereClause = $query;
-      $whereClause->where("is_active", 1);
+      $whereClause->whereNotIn("status", [4])->orWhere("status", null);
       if($filter["search_field"]){
         $arraySingle = call_user_func_array('array_merge', $filter["search_field"]);
         $dataFields = $arraySingle;

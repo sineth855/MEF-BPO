@@ -19,14 +19,14 @@ class Position extends Model
 
     public static function getPositionOpts(){
       $data = array();
-      $query = Position::where("is_active", 1);
+      $query = Position::whereNotIn("status", [4])->orWhereNull("status");
       $whereClause = $query;
       $whereClause->orderBy("order_level");
       $queryResult = collect($whereClause->get());
       foreach($queryResult as $row){
         $data[] = array(
           "label" => $row->name_kh,
-          "value" => $row->id,
+          "value" => $row->name_kh,
         );
       }
       

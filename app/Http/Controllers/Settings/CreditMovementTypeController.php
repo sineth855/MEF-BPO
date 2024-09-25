@@ -3,20 +3,14 @@
 namespace App\Http\Controllers\Settings;
 
 use App\Http\Controllers\Controller;
-use App\Models\Settings\BudgetTemplateItemCost;
-use App\Models\Settings\Account;
-use App\Models\Settings\AccountGroup;
-use App\Models\Settings\AccountType;
-use App\Models\Settings\AccountTypeGroup;
-use App\Models\Settings\Unit;
-
-use App\Models\Settings\Item;
+use App\Models\Settings\CreditMovementType;
 use Illuminate\Http\Request;
 use Auth;
 use DB;
 use CommonService;
+use View, Input, Redirect;
 
-class BudgetTemplateItemCostController extends Controller
+class CreditMovementTypeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -30,7 +24,7 @@ class BudgetTemplateItemCostController extends Controller
     {
         $this->middleware('auth');
         $this->view_title = $this->path.'.entry_title';
-        $this->db_table = new BudgetTemplateItemCost;
+        $this->db_table = new CreditMovementType;
         $this->lang_path = $this->path;
     }
 
@@ -54,25 +48,11 @@ class BudgetTemplateItemCostController extends Controller
     public function index(Request $request)
     {
         $input = $request->all();
-        // dd($input);
         $dataFields = $this->dataFields();
         $filter = CommonService::getFilter($input);
         $data = array(
-            "data" => $this->db_table::getBudgetTemplateItemCosts($filter),
             "data_fields" => $this->dataFields(),
-            "account_group_id" => AccountGroup::getAccGroupOpts($filter),
-            "account_id" => [],
-            "sub_account_id" => [],
-            "budget_template_id" => $filter["data"]["data_info"]["id"],
-            "unit_id" => CommonService::optVals(Unit::class, $filter, $flag = 2),
-            "is_reg_exp" => array([
-                "label" => "Regular",
-                "value" => "Regular",
-            ],
-            [
-                "label" => "Irregular",
-                "value" => "Irregular",
-            ]),
+            "data" => $this->db_table::getCeilingTypes($filter),
             "limit" => config_limit,
             "total" => $this->db_table::getCount($filter)
         );
@@ -154,7 +134,11 @@ class BudgetTemplateItemCostController extends Controller
     {
         $input = $request->all();
         $dataFields = $this->dataForm($input);
-        $table = $table=$this->db_table::find($id);
+        // $ddd = array(
+        //     "name_en" => 11111,
+        //     "name_kh" => 11111
+        // );
+        $table = $this->db_table::find($id);
         $table->update($dataFields);
         if($table){
             $status = 200;
@@ -177,7 +161,7 @@ class BudgetTemplateItemCostController extends Controller
         $arr = $input;
         $push_array = array_merge(array(["created_by" => Auth::user()->id]));
         $arraySingle = array_merge($arr, $push_array);
-        $result = call_user_func_array('array_merge', $arraySingle);
+        $result = call_user_func_array("array_merge",$arraySingle);
         $dataFields = $result;
         return $dataFields;
     }
@@ -190,7 +174,7 @@ class BudgetTemplateItemCostController extends Controller
      */
     public function destroy($id)
     {
-        $table=$this->db_table::find($id);
+        $table = $this->db_table::find($id);
         $table->update(["status" => 4]);
         if($table){
             $status = 200;

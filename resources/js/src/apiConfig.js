@@ -1,4 +1,5 @@
 export default {
+    _apiConfiguration: "/api/v1/configuration",
     // Program Management
     _apiObjective: "/api/v1/module/program_management/objective",
     _apiProgram: "/api/v1/module/program_management/program",
@@ -8,6 +9,7 @@ export default {
     _apiKPISubProgram: "/api/v1/module/program_management/kpi_sub_program",
     _apiKPIClusterActivity: "/api/v1/module/program_management/kpi_cluster_activity",
     _apiSubProgramByPro: "/api/v1/module/program_management/sub_program_by_prog",
+    _apiClusActBySprog: "/api/v1/module/program_management/get_cluster_act_by_subprog",
     _apiEntityBySubPro: "/api/v1/module/program_management/entity_by_subprog",
     _apiEntityByAct: "/api/v1/module/program_management/get_entity_by_activity",
     _apiClusterActivity: "/api/v1/module/program_management/cluster_activity",
@@ -15,10 +17,12 @@ export default {
     _apiGetActivity: "/api/v1/module/program_management/get_act",
     _apiActivity: "/api/v1/module/program_management/activity",
     _apiTask: "/api/v1/module/program_management/task",
+    _apiGetTaskByAct: "/api/v1/module/program_management/get_task_by_act",
     _apiGetTaskDetail: "/api/v1/module/program_management/get_task_detail",
     // Budget Monitoring
     _apiGetIncomeArrangement: "/api/v1/module/budget_monitoring/income_arrangement",
     _apiGetIncomeImpleResult: "/api/v1/module/budget_monitoring/income_imple_result",
+    _apiGetCreditMovement: "/api/v1/module/budget_monitoring/credit_movement",
     // Indicator
     _apiIndicatorSubPro: "/api/v1/module/program_management/kpi_sub_program",
     // Setting
@@ -47,6 +51,7 @@ export default {
     _apiBudgetTemplateItemCost: "/api/v1/setting/budget_template_item_cost",
     _apiExpenditureGroup: "/api/v1/setting/expenditure_group",
     _apiExpenditureType: "/api/v1/setting/expenditure_type",
+    _apiCreditMovementType: "/api/v1/setting/credit_movement_type",
     // PIP
     _apiPIP: "/api/v1/module/budget_arrangement/pip",
     _apiFinanceResource: "/api/v1/setting/finance_resource",
