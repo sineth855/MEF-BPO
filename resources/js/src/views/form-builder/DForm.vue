@@ -15,7 +15,7 @@
                             :placeholder="$t(formAttribute.name)" :name="formAttribute.name" class="mt-1 w-full" />
                         <span class="text-danger text-sm" size="small" v-show="errors.has(formAttribute.name)">{{
                             $t("required_" + formAttribute.name)
-                            }}</span>
+                        }}</span>
                     </span>
                     <vs-input v-else v-validate="''" :placeholder="$t(formAttribute.name)" size="small"
                         v-model="form.attribute[formAttribute.name]" :name="formAttribute.name" class="mt-1 w-full" />
@@ -38,7 +38,7 @@
                             :name="formAttribute.name" class="mt-1 w-full" />
                         <span class="text-danger text-sm" size="small" v-show="errors.has(formAttribute.name)">{{
                             $t("required_" + formAttribute.name)
-                            }}</span>
+                        }}</span>
                     </span>
                     <vs-input type="password" v-else v-validate="''" :placeholder="$t(formAttribute.name)" size="small"
                         v-model="form.attribute[formAttribute.name]" :name="formAttribute.name" class="mt-1 w-full" />
@@ -91,7 +91,7 @@
                                 :dir="$vs.rtl ? 'rtl' : 'ltr'" class="mt-2 w-full" />
                             <span class="text-danger text-sm" v-show="errors.has(formAttribute.name)">{{
                                 $t("required_" + formAttribute.name)
-                                }}</span>
+                            }}</span>
                             <!-- <v-select v-model="form.attribute[formAttribute.name]" :clearable="false"
                                 :options="data[formAttribute.name]" v-validate="'required'" :name="formAttribute.name"
                                 :dir="$vs.rtl ? 'rtl' : 'ltr'" />
@@ -104,7 +104,7 @@
                                 :dir="$vs.rtl ? 'rtl' : 'ltr'" class="mt-1 w-full" />
                             <span class="text-danger text-sm" v-show="errors.has(formAttribute.name)">{{
                                 $t("required_" + formAttribute.name)
-                                }}</span>
+                            }}</span>
                         </template>
                     </span>
                     <span v-else>
@@ -237,7 +237,7 @@
                                         icon-dec="expand_more" class="mt-1 w-full" />
                                     <span class="text-danger text-sm" v-show="errors.has(childformAttribute.name)">{{
                                         $t("required_" + childformAttribute.name)
-                                        }}</span>
+                                    }}</span>
                                 </span>
                                 <vs-input-number v-else :name="childformAttribute.name"
                                     v-model="form.attribute[childformAttribute.name]" icon-inc="expand_less"
@@ -255,7 +255,7 @@
                                     </vs-select>
                                     <span class="text-danger text-sm" v-show="errors.has(childformAttribute.name)">{{
                                         $t("required_" + childformAttribute.name)
-                                        }}</span>
+                                    }}</span>
                                 </span>
                                 <span v-else>
                                     <vs-select :name="childformAttribute.name"
@@ -290,7 +290,7 @@
                                         v-model="form.attribute[childformAttribute.name]" />
                                     <span class="text-danger text-sm" v-show="errors.has(childformAttribute.name)">{{
                                         $t("required_" + childformAttribute.name)
-                                        }}</span>
+                                    }}</span>
                                 </span>
                                 <span v-else>
                                     <vs-textarea class="mt-1 w-full"
@@ -306,7 +306,7 @@
                                         v-model="form.attribute[childformAttribute.name]" class="mt-1 w-full" />
                                     <span class="text-danger text-sm" v-show="errors.has(childformAttribute.name)">{{
                                         $t("required_" + childformAttribute.name)
-                                        }}</span>
+                                    }}</span>
                                 </span>
                                 <span v-else>
                                     <flat-pickr v-model="form.attribute[childformAttribute.name]" class="mt-1 w-full" />
@@ -575,7 +575,6 @@ export default {
                         this.$vs.loading.close();
                     })
             })
-
         },
         emitValue(e) {
             let value = e.target.value

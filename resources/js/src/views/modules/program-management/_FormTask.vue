@@ -95,7 +95,7 @@ export default {
             form: {
                 attribute: {}
             },
-            showModalForm: false,
+            showModalForm: true,
             // Data
             title: "plan_budget",
             dataAttributes: {

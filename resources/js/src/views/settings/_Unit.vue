@@ -1,7 +1,7 @@
 <template>
     <d-table-list @clicked="initTableData" :api="api" ref="refInitPage" :allowDel="true" :title="title" :dataInfo="dataInfo"
         :dataAttributes="dataAttributes" :dataHeaders="dataHeaders" :dataTables="data" :formAttributes="formAttributes"
-        :rowDisplay="rowDisplay"></d-table-list>
+        :rowDisplay="rowDisplay" @initImport="initImport"></d-table-list>
 </template>
 
 <script>
@@ -27,7 +27,9 @@ export default {
                     //     path: "/module/budget-arrangement/budget-ceiling/list",
                     //     method: "View"
                     // }
-                ]
+                ],
+                enableImport: true,
+                enableDownload: true
             },
             dataHeaders: {
                 header1: "name_en",
@@ -134,6 +136,9 @@ export default {
             }
             this.getDataTable(_search_criteria);
             return false;
+        },
+        initImport(params){
+            // alert("testing");
         }
 
     },

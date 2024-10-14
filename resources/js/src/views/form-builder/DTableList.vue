@@ -4,6 +4,16 @@
             :formAttributes="formAttributes" :parentDataInfo="dataInfo" :rowDisplay="rowDisplay"
             :dataAttributes="dataAttributes" :title="$t(title)" />
 
+        <DImport ref="refModelImportForm"/>
+        <vs-prompt title="Export To Excel" class="export-options" @cancle="clearFields" @accept="exportToExcel" accept-text="Export" @close="clearFields" :active.sync="activePrompt">
+            <vs-input v-model="fileName" placeholder="Enter File Name.." class="w-full" />
+            <v-select v-model="selectedFormat" :options="formats" class="my-4" />
+            <div class="flex">
+            <span class="mr-4">Cell Auto Width:</span>
+            <vs-switch v-model="cellAutoWidth">Cell Auto Width</vs-switch>
+            </div>
+        </vs-prompt>
+
         <div class="flex flex-wrap items-center justify-between">
             <div class="mr-3">
                 <h3>{{ $t(title) }}</h3>
@@ -30,9 +40,15 @@
                         <feather-icon icon="PrinterIcon" svgClasses="h-4 w-4" />
                     </div>
 
-                    <div @click="initDownload" v-if="dataAttributes.enableDownload" class="btn-add-new p-3 mr-2 rounded-sm cursor-pointer text-right flex items-center justify-center
+                    <div @click="initDownload; activePrompt=true" v-if="dataAttributes.enableDownload" class="btn-add-new p-3 mr-2 rounded-sm cursor-pointer text-right flex items-center justify-center
                         text-lg font-medium text-base text-dander border border-solid border-default">
                         <feather-icon icon="DownloadIcon" svgClasses="h-4 w-4" />
+                    </div>
+
+                    <div @click="initImport" v-if="dataAttributes.enableImport" class="btn-add-new p-3 mr-2 rounded-sm cursor-pointer text-right flex items-center justify-center
+                        text-lg font-medium text-base text-dander border border-solid border-default">
+                        <feather-icon icon="FolderIcon" svgClasses="h-4 w-4" />
+                         <!-- <input type="file"/> -->
                     </div>
 
                     <!-- If has private button -->
@@ -1523,6 +1539,7 @@
 </template>
 
 <script>
+import vSelect from 'vue-select'
 import Vue from "vue";
 import axios from "@/axios.js";
 import DSearch from '@/views/form-builder/DSearch.vue';
@@ -1531,6 +1548,7 @@ import DModalForm from '@/views/form-builder/DModalForm.vue';
 import DFormElement from '@/views/form-builder/DFormElement.vue'
 import DHeadingWizard from '@/views/form-builder/DHeadingWizard.vue';
 import DChildTable from '@/views/form-builder/DChildTable.vue'
+import DImport from '@/views/form-builder/DImport.vue';
 import { stringify } from 'querystring';
 import { ref } from 'vue';
 // import DModalForm from "./DModalForm.vue";
@@ -1576,7 +1594,87 @@ export default {
             // },
             enableToggleForm: true,
             dataElements: [],
-            isHidden: true
+            isHidden: true,
+            // ###################
+            fileName: "",
+            formats:["xlsx", "csv", "txt"] ,
+            cellAutoWidth: true,
+            selectedFormat: "xlsx",
+            headerTitle: ["Id", "Email", "Username","Name", "Website"],
+            headerVal: ["id", "email", "username","name", "website"],
+            users: [
+                {
+                "id": 1,
+                "name": "Leanne Graham",
+                "username": "Bret",
+                "email": "Sincere@april.biz",
+                "website": "hildegard.org",
+                },
+                {
+                "id": 2,
+                "name": "Ervin Howell",
+                "username": "Antonette",
+                "email": "Shanna@melissa.tv",
+                "website": "anastasia.net",
+                },
+                {
+                "id": 3,
+                "name": "Clementine Bauch",
+                "username": "Samantha",
+                "email": "Nathan@yesenia.net",
+                "website": "ramiro.info",
+                },
+                {
+                "id": 4,
+                "name": "Patricia Lebsack",
+                "username": "Karianne",
+                "email": "Julianne.OConner@kory.org",
+                "website": "kale.biz",
+                },
+                {
+                "id": 5,
+                "name": "Chelsey Dietrich",
+                "username": "Kamren",
+                "email": "Lucio_Hettinger@annie.ca",
+                "website": "demarco.info",
+                },
+                {
+                "id": 6,
+                "name": "Mrs. Dennis Schulist",
+                "username": "Leopoldo_Corkery",
+                "email": "Karley_Dach@jasper.info",
+                "website": "ola.org",
+                },
+                {
+                "id": 7,
+                "name": "Kurtis Weissnat",
+                "username": "Elwyn.Skiles",
+                "email": "Telly.Hoeger@billy.biz",
+                "website": "elvis.io",
+                },
+                {
+                "id": 8,
+                "name": "Nicholas Runolfsdottir V",
+                "username": "Maxime_Nienow",
+                "email": "Sherwood@rosamond.me",
+                "website": "jacynthe.com",
+                },
+                {
+                "id": 9,
+                "name": "Glenna Reichert",
+                "username": "Delphine",
+                "email": "Chaim_McDermott@dana.io",
+                "website": "conrad.com",
+                },
+                {
+                "id": 10,
+                "name": "Clementina DuBuque",
+                "username": "Moriah.Stanton",
+                "email": "Rey.Padberg@karina.biz",
+                "website": "ambrose.net",
+                },
+            ],
+            activePrompt: false,
 
         }
     },
@@ -1586,7 +1684,9 @@ export default {
         DHeadingWizard,
         // DForm,
         DFormElement,
-        DChildTable
+        DChildTable,
+        DImport,
+        vSelect
     },
     methods: {
         transformData(obj) {
@@ -1645,6 +1745,11 @@ export default {
         },
         initDownload() {
             this.$emit("initDownload");
+        },
+        initImport(){
+            this.$refs.refModelImportForm.initImport();
+            // this.$emit("clickOpenImport");
+            // this.$emit("initImport");
         },
         openForm() {
             this.$refs.refModalForm.openNewForm(this.dataInfo);
@@ -1759,7 +1864,39 @@ export default {
             if (method == "Indicator") {
                 this.$refs.refModalForm.initForm(data);
             }
-        }
+        },
+
+        exportToExcel() {
+            import('@/vendor/Export2Excel').then(excel => {
+                const list = this.users
+                const data = this.formatJson(this.headerVal, list)
+                excel.export_json_to_excel({
+                header: this.headerTitle,
+                data,
+                filename: this.fileName,
+                autoWidth: this.cellAutoWidth,
+                bookType: this.selectedFormat
+                })
+                this.clearFields()
+            })
+            },
+            formatJson(filterVal, jsonData) {
+            return jsonData.map(v => filterVal.map(j => {
+                // Add col name which needs to be translated
+                // if (j === 'timestamp') {
+                //   return parseTime(v[j])
+                // } else {
+                //   return v[j]
+                // }
+
+                return v[j]
+            }))
+            },
+            clearFields() {
+            this.filename = "",
+            this.cellAutoWidth = true,
+            this.selectedFormat = "xlsx"
+            }
 
     },
     created() {

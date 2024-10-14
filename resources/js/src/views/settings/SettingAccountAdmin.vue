@@ -2,6 +2,9 @@
     <vx-card :title="$t('setting_account_administration')" code-toggler>
         <div class="mt-5">
             <vs-tabs alignment="center">
+                <vs-tab :label="$t('setting_unit')">
+                    <unit></unit>
+                </vs-tab>
                 
                 <vs-tab :label="$t('setting_planning')">
                     <planning></planning>
@@ -23,9 +26,9 @@
                     <account></account>
                 </vs-tab>
 
-                <vs-tab :label="$t('setting_unit')">
+                <!-- <vs-tab :label="$t('setting_unit')">
                     <unit></unit>
-                </vs-tab>
+                </vs-tab> -->
 
                 <vs-tab :label="$t('setting_category')">
                     <item-category></item-category>
